@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+<h1> MAKE THIS PRIVATE </h1>
+<p>
+  <b>First name:</b>
+  <%= @participant.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @participant.last_name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @participant.email %>
+</p>
+
+<p>
+  <b>Date of birth:</b>
+  <%= @participant.date_of_birth %>
+</p>
+
+<p>
+  <b>Address1:</b>
+  <%= @participant.address1 %>
+</p>
+
+<p>
+  <b>Address2:</b>
+  <%= @participant.address2 %>
+</p>
+
+<p>
+  <b>Zipcode:</b>
+  <%= @participant.zipcode %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @participant.city %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @participant.country_id %>
+</p>
+
+<p>
+  <b>Sex:</b>
+  <%= @participant.sex %>
+</p>
+
+<p>
+  <b>Field of study:</b>
+  <%= @participant.field_of_study %>
+</p>
+
+<p>
+  <b>Workshop:</b>
+  <%= @participant.workshop %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @participant.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_participant_path(@participant) %> |
+<%= link_to 'Back', participants_path %>

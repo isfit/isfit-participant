@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  resources :participants
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:
