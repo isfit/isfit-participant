@@ -53,7 +53,11 @@
           </div>
           <div id="col2">
             <div id="col2_content" class="clearfix">
-              <!-- add your content here -->
+              <h1>Find a participant</h1>
+              <%= form_for  '/search/index' do %>
+              <%= search_field_tag 'query' %>
+              <%= submit_tag "Search" %>
+            <% end %>
             </div>
           </div>
           <div id="col3">
