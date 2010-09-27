@@ -9,7 +9,20 @@
   <b>Content:</b>
   <%= @question.content %>
 </p>
-
-
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
+<p>
+  <b>Answers:</b><br />
+    <%= form_for([@question, @question.answers.build]) do |f| %>
+    <div class="field">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  <% @answers.each do |answer|%> 
+    <p><%=answer.content%>
+  <%end%>
+</p>
