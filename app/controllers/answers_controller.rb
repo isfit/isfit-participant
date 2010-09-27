@@ -1,50 +1,41 @@
-class QuestionsController < ApplicationController
-  # GET /questions
-  # GET /questions.xml
-  def index
-    @questions = Question.all
+class AnswersController < ApplicationController
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @questions }
-    end
-  end
-
-  # GET /questions/1
-  # GET /questions/1.xml
+  # GET /questions/1/answers/1
+  # GET /questions/1/answers/1.xml
   def show
-    @question = Question.find(params[:id])
-    @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
+    @answer = Answer.find(params[:answer_id])
     
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @question }
+      format.xml  { render :xml => @answer }
     end
   end
 
-  # GET /questions/new
-  # GET /questions/new.xml
+  # GET /questions/1/answers/new
+  # GET /questions/1/answers/new.xml
   def new
-    @question = Question.new
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @question }
+      format.xml  { render :xml => @answer }
     end
   end
 
-  # GET /questions/1/edit
+  # GET /questions/1/answers/1/edit
   def edit
-    @question = Question.find(params[:id])
+    @answer = Answer.find(params[:answer_id])
   end
 
-  # POST /questions
-  # POST /questions.xml
+  # POST /questions/1/answers
+  # POST /questions/1/answers.xml
   def create
-    @question = Question.new(params[:question])
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.create(params[:answer])
 
     respond_to do |format|
-      if @question.save
+      if @answer.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else
@@ -54,13 +45,13 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # PUT /questions/1
-  # PUT /questions/1.xml
+  # PUT /questions/1/answers/1
+  # PUT /questions/1/answers/1.xml
   def update
-    @question = Question.find(params[:id])
+    @answer = Answer.find(params[:answer_id])
 
     respond_to do |format|
-      if @question.update_attributes(params[:question])
+      if @answer.update_attributes(params[:answer])
         format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -70,10 +61,10 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /questions/1
-  # DELETE /questions/1.xml
+  # DELETE /questions/1/answers/1
+  # DELETE /questions/1/answers/1.xml
   def destroy
-    @question = Question.find(params[:id])
+    @answer = Answer.find(params[:answer_id])
     @question.destroy
 
     respond_to do |format|
