@@ -19,9 +19,14 @@
             <!-- start: skip link navigation -->
             <a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
             <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
-            <!-- end: skip link navigation --><a href="#">Login</a> | <a href="#">Contact</a> | <a href="#">Imprint</a>
+            <!-- end: skip link navigation -->
+            <% if user_signed_in? %>
+              You are currently signed in. <%= link_to "Logout", destroy_user_session_url %>
+          <% else %>
+            <%= link_to "Login", new_user_session_url %> 
+          <% end %>
           </div>
-          <h1>Project Inga</h1>
+          <h1><%= link_to "Project Inga", root_url %></h1>
           <p>A participantweb made by ISFiT IT</p>
         </div>
         <div id="nav">
@@ -32,9 +37,6 @@
             <ul>
               <li class="active"><strong>Button 1</strong></li>
               <li><a href="#">Button 2</a></li>
-              <li><a href="#">Button 3</a></li>
-              <li><a href="#">Button 4</a></li>
-              <li><a href="#">Button 5</a></li>
             </ul>
           </div>
         </div>
