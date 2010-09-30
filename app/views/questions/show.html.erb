@@ -12,7 +12,8 @@
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
 <p>
-  <b>Answers:</b><br />
+ <% if user_signed_in? %>
+ <b>Add answer:</b><br />
     <%= form_for([@question, @question.answers.build]) do |f| %>
     <div class="field">
       <%= f.label :content %><br />
@@ -22,7 +23,10 @@
       <%= f.submit %>
     </div>
   <% end %>
+  <br />
+  <b>Answers:</b>
   <% @answers.each do |answer|%> 
     <p><%=answer.content%>
+  <%end%>
   <%end%>
 </p>
