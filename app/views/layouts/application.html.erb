@@ -22,6 +22,11 @@
             <!-- end: skip link navigation -->
             <% if user_signed_in? %>
               You are currently signed in. <%= link_to "Logout", destroy_user_session_url %>
+              
+              <% show_to :admin do %>
+                Hello admin
+              <% end %>
+              
           <% else %>
             <%= link_to "Login", new_user_session_url %> 
           <% end %>
