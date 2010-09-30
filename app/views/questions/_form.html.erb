@@ -1,25 +1,26 @@
-<%= form_for(@question) do |f| %>
+<%= form_for(@question, :html => { :class => "yform columnar"}) do |f| %>
   <% if @question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
 
       <ul>
-      <% @question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @question.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :subject %><br />
-    <%= f.text_field :subject %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset>
+    <div class="type-text">
+      <%= f.label :subject %><br />
+      <%= f.text_field :subject %>
+    </div>
+    <div class="type-text">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div>
+    <div class="type-button">
+      <%= f.submit :class => "submit" %>
+    </div>
+  </fieldset>
 <% end %>

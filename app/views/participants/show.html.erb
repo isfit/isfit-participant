@@ -1,23 +1,23 @@
-<p id="notice"><%= notice %></p>
 <h1> MAKE THIS PRIVATE </h1>
-<p>
-  <b>First name:</b>
-  <%= @participant.first_name %>
-</p>
+<h1><%= "#{@participant.first_name} #{@participant.last_name}"%></h1>
+<p>Form for posting new status messages</p>
+<p>Render out 5 newest status messages?</p>
 
-<p>
-  <b>Last name:</b>
-  <%= @participant.last_name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @participant.email %>
-</p>
-
+<h2>Public information</h2>
+<p class="info">This is your public information. It can be seen by anyone that's logged in</p>
 <p>
   <b>Date of birth:</b>
   <%= @participant.date_of_birth %>
+</p>
+<p>
+  <b>Field of study:</b>
+  <%= @participant.field_of_study %>
+</p>
+<h2>Private information</h2>
+<p class="info">Private information can only be seen by you and the functionaries of ISFiT.</p>
+<p>
+  <b>Email:</b>
+  <%= @participant.email %>
 </p>
 
 <p>
@@ -49,17 +49,11 @@
   <b>Sex:</b>
   <%= @participant.sex %>
 </p>
-
-<p>
-  <b>Field of study:</b>
-  <%= @participant.field_of_study %>
-</p>
-
 <p>
   <b>Workshop:</b>
   <%= @participant.workshop %>
 </p>
-
+<h2>Admin info</h2>
 <p>
   <b>User:</b>
   <%= @participant.user_id %>

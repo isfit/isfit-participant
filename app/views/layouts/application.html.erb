@@ -25,54 +25,54 @@
           <% else %>
             <%= link_to "Login", new_user_session_url %> 
           <% end %>
-          </div>
-          <h1><%= link_to "Project Inga", root_url %></h1>
-          <p>A participantweb made by ISFiT IT</p>
         </div>
-        <div id="nav">
-          <!-- skiplink anchor: navigation -->
-          <a id="navigation" name="navigation"></a>
-          <div class="hlist">
-            <!-- main navigation: horizontal list -->
-            <ul>
-              <li class="active"><strong>Button 1</strong></li>
-              <li><a href="#">Button 2</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="teaser">
-        </div>
-        <div id="main">
-          <div id="col1">
-            <div id="col1_content" class="clearfix">
-              <p class="notice"><%= notice %></p>
-              <p class="alert"><%= alert %></p>
-
-              <%= yield %>
-            </div>
-          </div>
-          <div id="col2">
-            <div id="col2_content" class="clearfix">
-              <h1>Find a participant</h1>
-              <%= form_for  '/search/index' do %>
-              <%= search_field_tag 'query' %>
-              <%= submit_tag "Search" %>
-            <% end %>
-            </div>
-          </div>
-          <div id="col3">
-            <div id="col3_content" class="clearfix">
-              <!-- add your content here -->
-            </div>
-            <!-- IE Column Clearing -->
-            <div id="ie_clearing"> &#160; </div>
-          </div>
-        </div>
-        <!-- begin: #footer -->
-        <div id="footer">Layout based on <a href="http://www.yaml.de/">YAML</a>
+        <h1><%= link_to "Project Inga", root_url %></h1>
+        <p>A participantweb made by ISFiT IT</p>
+      </div>
+      <div id="nav">
+        <!-- skiplink anchor: navigation -->
+        <a id="navigation" name="navigation"></a>
+        <div class="hlist">
+          <!-- main navigation: horizontal list -->
+          <ul>
+            <li class="active"><strong>Button 1</strong></li>
+            <li><a href="#">Button 2</a></li>
+          </ul>
         </div>
       </div>
-    </div>
+      <div id="teaser">
+      </div>
+      <div id="main">
+        <div id="col1">
+          <div id="col1_content" class="clearfix">
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
 
-  </body>
+            <%= yield %>
+          </div>
+        </div>
+        <div id="col2">
+          <div id="col2_content" class="clearfix">
+            <#% @participant = Participant.find_by_user_id(current_user.id) %>
+            <% @participant = Participant.find(1) %>
+            <% if user_signed_in? and @participant %>
+              <%= render @participant %>
+            <% end %>
+          </div>
+        </div>
+        <div id="col3">
+          <div id="col3_content" class="clearfix">
+            <!-- add your content here -->
+          </div>
+          <!-- IE Column Clearing -->
+          <div id="ie_clearing"> &#160; </div>
+        </div>
+      </div>
+      <!-- begin: #footer -->
+      <div id="footer">Layout based on <a href="http://www.yaml.de/">YAML</a>
+      </div>
+    </div>
+  </div>
+
+</body>
 </html>

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Subject:</b>
   <%= @question.subject %>
@@ -13,13 +11,13 @@
 <%= link_to 'Back', questions_path %>
 <p>
   <b>Answers:</b><br />
-    <%= form_for([@question, @question.answers.build]) do |f| %>
-    <div class="field">
-      <%= f.label :content %><br />
+  <%= form_for([@question, @question.answers.build], :html => {:class => "yform columnar"}) do |f| %>
+    <div class="type-text">
+      <%= f.label :answer %><br />
       <%= f.text_area :content %>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+    <div class="type-button">
+      <%= f.submit :class => "submit" %>
     </div>
   <% end %>
   <% @answers.each do |answer|%> 
