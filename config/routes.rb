@@ -3,6 +3,10 @@ IsfitParticipant::Application.routes.draw do
 
   devise_for :users
 
+  resources :questions do
+     resources :answers
+  end
+
   resources :participants
 
   root :to => "home#index"
