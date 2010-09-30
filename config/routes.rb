@@ -10,6 +10,8 @@ IsfitParticipant::Application.routes.draw do
   resources :participants
 
   root :to => "home#index"
+  
+  # map.username_link 'profile/:username', :controller => 'users', :action => 'show_profile'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

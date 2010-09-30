@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100924113410) do
+ActiveRecord::Schema.define(:version => 20100928121422) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -55,6 +55,24 @@ ActiveRecord::Schema.define(:version => 20100924113410) do
     t.integer  "participant_id"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "roles", :force => true do |t|
+    t.string   "name",              :limit => 40
+    t.string   "authorizable_type", :limit => 40
+    t.integer  "authorizable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+>>>>>>> 2aa1253f536dd501855ececbe714fb36bc53914f
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false

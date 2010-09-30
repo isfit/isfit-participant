@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
   # GET /questions/1/answers/1
   # GET /questions/1/answers/1.xml
   def show
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:id])
     
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +25,7 @@ class AnswersController < ApplicationController
 
   # GET /questions/1/answers/1/edit
   def edit
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:id])
   end
 
   # POST /questions/1/answers
@@ -48,7 +48,7 @@ class AnswersController < ApplicationController
   # PUT /questions/1/answers/1
   # PUT /questions/1/answers/1.xml
   def update
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:id])
 
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
@@ -64,7 +64,7 @@ class AnswersController < ApplicationController
   # DELETE /questions/1/answers/1
   # DELETE /questions/1/answers/1.xml
   def destroy
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:id])
     @question.destroy
 
     respond_to do |format|
