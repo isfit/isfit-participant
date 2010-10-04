@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  resources :articles
+
   devise_for :users
 
   resources :participants
