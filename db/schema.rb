@@ -64,8 +64,6 @@ ActiveRecord::Schema.define(:version => 20101004163259) do
     t.integer  "participant_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 40
@@ -90,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20101004163259) do
   add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id", :unique => true
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
->>>>>>> 431d4a86322fbaafe0b03b1eef47dda206091b44
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
