@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928121422) do
+
+ActiveRecord::Schema.define(:version => 20100927180610) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -19,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20100928121422) do
     t.integer  "functionary_id"
     t.text     "content"
   end
+<<<<<<< HEAD:db/schema.rb
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "functionary_id"
+  end
+=======
+>>>>>>> 382d8174715231b6ffad908d628a1c8d0ccd1d52:db/schema.rb
 
   create_table "functionaries", :force => true do |t|
     t.string   "first_name"
@@ -55,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20100928121422) do
     t.integer  "participant_id"
   end
 
+<<<<<<< HEAD:db/schema.rb
+=======
 <<<<<<< HEAD
 =======
   create_table "roles", :force => true do |t|
@@ -73,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20100928121422) do
   end
 
 >>>>>>> 2aa1253f536dd501855ececbe714fb36bc53914f
+>>>>>>> 382d8174715231b6ffad908d628a1c8d0ccd1d52:db/schema.rb
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false

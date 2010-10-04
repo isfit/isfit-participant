@@ -1,6 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  resources :articles
   post "search/index"
-
   devise_for :users
 
   resources :questions do
