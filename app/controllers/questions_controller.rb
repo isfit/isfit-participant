@@ -1,12 +1,19 @@
 class QuestionsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /questions
   # GET /questions.xml
   def index
-    @questions = Question.all
+
+    if !user_signed_in?
+      redirect_to root_path
+    else
+    @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @questions }
+    end
     end
   end
 
@@ -14,7 +21,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   def show
     @question = Question.find(params[:id])
-
+    @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @question }
@@ -41,7 +49,7 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
-
+    @question.participant_id = current_user.id
     respond_to do |format|
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }

@@ -1,11 +1,17 @@
 IsfitParticipant::Application.routes.draw do
   resources :articles
-
+  post "search/index"
   devise_for :users
+
+  resources :questions do
+     resources :answers
+  end
 
   resources :participants
 
   root :to => "home#index"
+  
+  # map.username_link 'profile/:username', :controller => 'users', :action => 'show_profile'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
