@@ -1,3 +1,3 @@
 module ApplicationHelper
-    include Acl9Helpers
+  include Acl9Helpers
 end

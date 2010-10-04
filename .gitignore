@@ -5,4 +5,5 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 public/.htaccess
+db/schema.rb
 *.swp
