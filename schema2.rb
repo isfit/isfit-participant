@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101004163259) do
+
+ActiveRecord::Schema.define(:version => 20101004174128) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -26,8 +27,8 @@ ActiveRecord::Schema.define(:version => 20101004163259) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "functionary_id"
-    t.datetime "publish_at"
   end
+
 
   create_table "functionaries", :force => true do |t|
     t.string   "first_name"
@@ -63,6 +64,30 @@ ActiveRecord::Schema.define(:version => 20101004163259) do
     t.datetime "updated_at"
     t.integer  "participant_id"
   end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",              :limit => 40
+    t.string   "authorizable_type", :limit => 40
+    t.integer  "authorizable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["authorizable_id"], :name => "index_roles_on_authorizable_id"
+  add_index "roles", ["authorizable_type"], :name => "index_roles_on_authorizable_type"
+  add_index "roles", ["name", "authorizable_id", "authorizable_type"], :name => "index_roles_on_name_and_authorizable_id_and_authorizable_type", :unique => true
+  add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id", :unique => true
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
