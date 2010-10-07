@@ -1,4 +1,6 @@
 class ParticipantsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /participants
   # GET /participants.xml
   def index
@@ -13,6 +15,7 @@ class ParticipantsController < ApplicationController
   # GET /participants/1
   # GET /participants/1.xml
   def show
+    
     @participant = Participant.find(params[:id])
 
     respond_to do |format|
