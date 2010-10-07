@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     if !user_signed_in?
       redirect_to root_path
     else
-      if current_user.has_role?(:admin)
+      if current_user.has_role?(:admin) || current_user.has_role?(:functionary)
         @questions = Question.all
       else
         @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})

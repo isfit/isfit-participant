@@ -1,9 +1,12 @@
-<h1>Listing questions</h1>
+<h1>Questions</h1>
 
 <table>
   <tr>
     <th>Subject</th>
     <th>Content</th>
+    <% if current_user.has_role?(:functionary)%>
+    <th>Participant</th>
+    <% end%>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +16,9 @@
   <tr>
     <td><%= question.subject %></td>
     <td><%= question.content %></td>
+    <% if current_user.has_role?(:functionary)%>
+    <td><%= question.participant.user.email %></td>
+    <% end%>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><%= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete %></td>
