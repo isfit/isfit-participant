@@ -8,12 +8,16 @@ class QuestionsController < ApplicationController
     if !user_signed_in?
       redirect_to root_path
     else
-    @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
+      if current_user.has_role?(:admin)
+        @questions = Question.all
+      else
+        @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
+      end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @questions }
-    end
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @questions }
+      end
     end
   end
 
