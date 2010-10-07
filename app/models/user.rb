@@ -10,4 +10,27 @@ class User < ActiveRecord::Base
   # roles
   acts_as_authorization_subject  :association_name => :roles
   #has_many :roles_views
+  has_one :participant
+  has_one :functionary
+  def name
+    user = self.functionary
+    if user == nil
+      user = self.participant
+    end
+    user.first_name
+  end
+  def is_functionary?
+    if self.functionary
+      true
+    else
+      false
+    end
+  end
+  def is_participant?
+    if self.functionary
+      true
+    else
+      false
+    end
+  end
 end
