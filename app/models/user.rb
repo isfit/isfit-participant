@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     end
   end
   def is_participant?
-    if self.functionary
+    if self.participant
       true
     else
       false
