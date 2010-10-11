@@ -14,7 +14,9 @@ class QuestionsController < ApplicationController
     if !user_signed_in?
       redirect_to root_path
     else
-      if current_user.has_role?(:admin) || current_user.has_role?(:functionary)
+      if current_user.has_role?(:admin)
+        @questions = Question.all
+      elsif current_user.has_role?(:functionary)
         @questions = Question.all
       else
         @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
@@ -32,10 +34,13 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @question }
+    if current_user.is_participant? && @question.participant_id == current_user.id 
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @question }
+      end
+    else
+      raise Acl9::AccessDenied 
     end
   end
 
@@ -53,6 +58,10 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    if current_user.is_participant? && @question.participant_id == current_user.id
+    else
+      raise Acl9::AccessDenied
+    end 
   end
 
   # POST /questions
@@ -75,6 +84,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
+    if current_user.is_participant? && @question.participant_id == current_user.id
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -85,17 +95,25 @@ class QuestionsController < ApplicationController
         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end
     end
+    else
+      raise Acl9::AccessDenied
+    end
   end
 
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
+    if current_user.is_participant? && @question.participant_id == current_user.id
 
-    respond_to do |format|
-      format.html { redirect_to(questions_url) }
-      format.xml  { head :ok }
+      @question.destroy
+    
+      respond_to do |format|
+        format.html { redirect_to(questions_url) }
+        format.xml  { head :ok }
+      end
+    else
+      raise Acl9::AccessDenied
     end
   end
 end
