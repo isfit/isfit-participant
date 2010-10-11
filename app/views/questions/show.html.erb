@@ -1,23 +1,23 @@
 <p>
-<b>Subject:</b>
+<b>Subject:</b><br/>
 <%= @question.subject %>
 </p>
 
 <p>
-<b>Content:</b>
+<b>Content:</b><br/>
 <%= @question.content %>
 </p>
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
 <p>
-<b>Answers:</b><br />
+
 <%= form_for([@question, @question.answers.build], :html => {:class => "yform columnar"}) do |f| %>
   <div class="type-text">
     <%= f.label :answer %><br />
     <%= f.text_area :content %>
   </div>
   <div class="type-button">
-    <%= f.submit :class => "submit" %>
+    <%= f.submit :class => "submit", :value=>"Add message" %>
   </div>
 <% end %>
 <br />
