@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -9,9 +9,12 @@ class User < ActiveRecord::Base
   
   # roles
   acts_as_authorization_subject  :association_name => :roles
-  #has_many :roles_views
+  
+  #relations
   has_one :participant
   has_one :functionary
+
+  #methods
   def name
     user = self.functionary
     if user == nil

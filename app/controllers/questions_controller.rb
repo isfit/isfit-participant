@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!
+  set_tab :question
 
   # GET /questions
   # GET /questions.xml

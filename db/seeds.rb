@@ -45,3 +45,6 @@ end
 
 User.create!(:email => "root@isfit.org", :password => "123456")
 User.last.roles << admin
+f = Functionary.create!(:first_name => "Inge-Dag", :last_name => "Functionaryville")
+f.user = User.last
+f.save

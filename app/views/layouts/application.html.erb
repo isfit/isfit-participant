@@ -23,7 +23,7 @@
             <!-- end: skip link navigation -->
             <% if user_signed_in? %>
               Hi <%=current_user.name%> <%= link_to "Logout", destroy_user_session_url %>    
-              
+
           <% else %>
             <%= link_to "Login", new_user_session_url %> 
           <% end %>
@@ -36,10 +36,18 @@
         <a id="navigation" name="navigation"></a>
         <div class="hlist">
           <!-- main navigation: horizontal list -->
-          <ul>
-            <li class="active"><strong>Button 1</strong></li>
-            <li><a href="#">Button 2</a></li>
-          </ul>
+          <% if current_user %>
+            <% tabs_tag(:builder => MenuTabBuilder) do |tab| %>
+              <%= tab.home 'Home', root_path %>
+              <%= tab.profile 'Profile', participant_path(current_user.id) %>
+              <%= tab.information 'Information_temp', articles_path %>
+              <%= tab.question 'Questions', questions_path %>
+            <% end %>
+          <% else %>
+            <% tabs_tag do |tab| %>
+              <%= tab.home 'Home', root_path %>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div id="teaser">

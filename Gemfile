@@ -10,6 +10,9 @@ gem 'devise'
 gem 'acl9'
 gem 'meta_search'
 gem 'foreigner'
+gem "tabs_on_rails"
+gem "bluecloth"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

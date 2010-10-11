@@ -1,11 +1,16 @@
 class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
-  
+  set_tab :profile
+  access_control do
+    allow :admin
+    allow :functionary, :to => [:index, :show]
+    allow :participant, :to => [:show, :edit, :update]
+  end
+
   # GET /participants
   # GET /participants.xml
   def index
     @participants = Participant.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }
@@ -14,10 +19,8 @@ class ParticipantsController < ApplicationController
 
   # GET /participants/1
   # GET /participants/1.xml
-  def show
-    
+  def show    
     @participant = Participant.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @participant }
@@ -27,21 +30,13 @@ class ParticipantsController < ApplicationController
   # GET /participants/1/edit
   def edit
     @participant = Participant.find(params[:id])
-  end
-
-  # POST /participants
-  # POST /participants.xml
-  def create
-    @participant = Participant.new(params[:participant])
-
-    respond_to do |format|
-      if @participant.save
-        format.html { redirect_to(@participant, :notice => 'Participant was successfully created.') }
-        format.xml  { render :xml => @participant, :status => :created, :location => @participant }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @participant.errors, :status => :unprocessable_entity }
+    if current_user == @participant.user or current_user.has_role?(:admin, nil)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @participant }
       end
+    else
+      raise Acl9::AccessDenied
     end
   end
 
@@ -50,26 +45,18 @@ class ParticipantsController < ApplicationController
   def update
     @participant = Participant.find(params[:id])
 
-    respond_to do |format|
-      if @participant.update_attributes(params[:participant])
-        format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @participant.errors, :status => :unprocessable_entity }
+    if current_user == @participant.user or current_user.has_role?(:admin, nil)
+      respond_to do |format|
+        if @participant.update_attributes(params[:participant])
+          format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @participant.errors, :status => :unprocessable_entity }
+        end
       end
-    end
-  end
-
-  # DELETE /participants/1
-  # DELETE /participants/1.xml
-  def destroy
-    @participant = Participant.find(params[:id])
-    @participant.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(participants_url) }
-      format.xml  { head :ok }
+    else
+      raise Acl9::AccessDenied
     end
   end
 end
