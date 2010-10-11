@@ -1,6 +1,11 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :question
+  access_control do
+    allow :admin
+    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create]
+    allow :participant, :to => [:index, :show, :edit, :update, :new, :create]
+  end
 
   # GET /questions
   # GET /questions.xml
