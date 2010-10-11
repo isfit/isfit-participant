@@ -39,7 +39,9 @@
           <% if current_user %>
             <% tabs_tag(:builder => MenuTabBuilder) do |tab| %>
               <%= tab.home 'Home', root_path %>
-              <%= tab.profile 'Profile', participant_path(current_user.id) %>
+              <% if current_user.is_participant? %>
+                <%= tab.profile 'Profile', participant_path(current_user.id) %>
+              <% end %>
               <%= tab.information 'Information_temp', articles_path %>
               <%= tab.question 'Questions', questions_path %>
             <% end %>
