@@ -19,6 +19,7 @@
 @import url(screen/basemod.css);
 @import url(../yaml/screen/content_default.css);
 @import url(../yaml/screen/forms.css);
+@import url(../yaml/navigation/nav_vlist.css);
 
 /* import print layout | Druck-Layout einbinden */
 @import url(../yaml/print/print_draft.css);
