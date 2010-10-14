@@ -185,6 +185,7 @@
   th,td { padding:0.5em; }
   thead th { color:#000; border-bottom:2px #800 solid; }
   tbody th { background:#e0e0e0; color:#333; }
+  tbody th.full { width="100%;" }
   tbody th[scope="row"], tbody th.sub { background:#f0f0f0; }
 
   tbody th { border-bottom:1px solid #fff; text-align:left; }

@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if current_user.is_participant? && @question.participant_id == current_user.id 
+    if (current_user.is_participant? && @question.participant_id == current_user.id) or current_user.has_role?(:admin) or current_user.is_functionary?
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }
@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    if current_user.is_participant? && @question.participant_id == current_user.id
+    if current_user.is_participant? && @question.participant_id == current_user.id or current_user.has_role?(:admin) or current_user.is_functionary?
     else
       raise Acl9::AccessDenied
     end 
