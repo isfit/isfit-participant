@@ -1,10 +1,10 @@
 <h1>Questions</h1>
 
-<table>
+<table class="full">
   <tr>
     <th>Subject</th>
     <% if current_user.has_role?(:functionary)%>
-    <th>Participant</th>
+    <th class="fixed">Participant</th>
     <% end%>
     <th></th>
     <th></th>
