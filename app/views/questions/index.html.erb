@@ -1,11 +1,11 @@
 <h1>Questions</h1>
 <% @regions.each do |r| %>
 <h2><%= r.name %></h2>
-<table>
+<table class="full">
   <tr>
     <th>Subject</th>
     <% if current_user.has_role?(:functionary)%>
-    <th>Participant</th>
+    <th class="full">Participant</th>
     <% end%>
     <th></th>
     <th></th>
