@@ -3,8 +3,10 @@ IsfitParticipant::Application.routes.draw do
   post "search/index"
   devise_for :users
 
+  match 'questions/follow_new/:id' => 'questions#follow_new', :as => :follow_new
+
   resources :questions do
-     resources :answers
+    resources :answers
   end
 
   resources :participants

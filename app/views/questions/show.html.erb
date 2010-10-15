@@ -21,8 +21,32 @@
   </div>
 <% end %>
 <br />
+<% if @question.questions != []%>
+<b>There are <%= @question.questions.size %> follow up questions<b>
+<table>
+  <tr>
+    <th>
+      Subject
+    </th>
+    <th>
+      Date
+    </th>
+  </tr>
+<% @question.questions.each do |q| %>
+  <tr>
+    <td>
+      <%= q.subject %>
+    </td>
+    <td>
+      <%= q.created_at %>
+    </td>
+  </tr>
+<% end %>
+<table>
+<% end %>
 <b>Answers:</b>
 <% @answers.each do |answer|%> 
   <p><%=answer.content%>
 <%end%>
+<%= link_to 'Follow up question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
 </p>

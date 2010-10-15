@@ -1,5 +1,6 @@
 <h1>Questions</h1>
-
+<% @regions.each do |r| %>
+<h2><%= r.name %></h2>
 <table>
   <tr>
     <th>Subject</th>
@@ -11,19 +12,22 @@
     <th></th>
   </tr>
 
+
 <% @questions.each do |question| %>
+  <% if question.participant.region_id == r.id %>
   <tr>
     <td><%= question.subject %></td>
     <% if current_user.has_role?(:functionary)%>
-    <td><%= question.participant.user.email %></td>
+    <td><%= question.participant.first_name %> <%= question.participant.last_name %></td>
     <% end%>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
+  <% end %>
 <% end %>
 </table>
 
 <br />
-
+<% end %>
 <%= link_to 'New Question', new_question_path %>

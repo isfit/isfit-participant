@@ -6,6 +6,7 @@ class HomeController < ApplicationController
       if current_user.has_role?(:admin)
         render :template => 'home/index1'
       elsif current_user.has_role?(:functionary)
+        @lastten = Question.find(:all, :conditions=>"questions.id NOT IN (SELECT DISTINCT answers.question_id FROM answers)", :order=>"created_at DESC", :limit=>"10")
         render :template => 'home/index2'
       elsif current_user.has_role?(:participant)
         render :template => 'home/index3'
