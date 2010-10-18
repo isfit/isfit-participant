@@ -1,6 +1,21 @@
-<h1>Listing information_pages</h1>
+<% content_for :sidebar_left do %>
+  <h6 class="vlist">Navigation</h6>
+  <ul class="vlist">
+  <% InformationCategory.all.each do |c| %>
+    <li><%= c.title %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>
 
-<table>
+
+<h1>Listing information pages</h1>
+
+<table class="full">
   <tr>
     <th>Title</th>
     <th>User</th>
@@ -24,4 +39,4 @@
 
 <br />
 
-<%= link_to 'New Information page', new_information_page_path %>
+<%= link_to 'New Information page', new_information_page_path %> | <%= link_to 'Information categories', information_categories_path %>

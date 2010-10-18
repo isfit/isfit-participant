@@ -11,14 +11,15 @@
   <%end%>
 </ul>
 <% end %>
+
 <h1><%= @information_page.title %></h1>
 <p>
-  <%= @information_page.content %>
+  <%= raw format(@information_page.content) %>
 </p>
 
 <p class="info">
 Posted by <%= @information_page.user.name %> <%= time_ago_in_words(@information_page.created_at) %> ago.
 </p>
-
-<%= link_to 'Edit', edit_information_page_path(@information_page) %> |
-<%= link_to 'Back', information_pages_path %>
+<% if current_user.has_role?(:functionary) or current_user.has_role?(:admin) %>
+  <%= link_to 'Edit', edit_information_page_path(@information_page) %>
+<% end %>
