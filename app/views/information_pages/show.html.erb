@@ -1,0 +1,24 @@
+<% content_for :sidebar_left do %>
+  <h6 class="vlist">Navigation</h6>
+  <ul class="vlist">
+  <% @categories.each do |c| %>
+    <li><%= c.title %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>
+<h1><%= @information_page.title %></h1>
+<p>
+  <%= @information_page.content %>
+</p>
+
+<p class="info">
+Posted by <%= @information_page.user.name %> <%= time_ago_in_words(@information_page.created_at) %> ago.
+</p>
+
+<%= link_to 'Edit', edit_information_page_path(@information_page) %> |
+<%= link_to 'Back', information_pages_path %>

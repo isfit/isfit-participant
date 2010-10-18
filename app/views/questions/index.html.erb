@@ -1,25 +1,25 @@
-<h1>Listing questions</h1>
-
-<table>
+<h1>Questions</h1>
+<table class="full">
   <tr>
     <th>Subject</th>
-    <th>Content</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
+
 
 <% @questions.each do |question| %>
   <tr>
     <td><%= question.subject %></td>
-    <td><%= question.content %></td>
+    <% if current_user.has_role?(:functionary)%>
+    <td><%= question.participant.first_name %> <%= question.participant.last_name %></td>
+    <% end%>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <br />
-
 <%= link_to 'New Question', new_question_path %>

@@ -1,5 +1,11 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!
+  set_tab :question
+  access_control do
+    allow :admin
+    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+    allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+  end
 
   # GET /questions
   # GET /questions.xml
@@ -8,12 +14,20 @@ class QuestionsController < ApplicationController
     if !user_signed_in?
       redirect_to root_path
     else
-    @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @questions }
-    end
+      if current_user.has_role?(:admin)
+        @questions = Question.all
+        render :index_nopart
+      elsif current_user.has_role?(:functionary)
+        @regions = Region.all
+        @questions = Question.all
+        render :index_nopart
+      else
+        @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
+        respond_to do |format|
+          format.html # index.html.erb
+          format.xml  { render :xml => @questions }
+        end     
+      end
     end
   end
 
@@ -22,10 +36,13 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @question }
+    if @question.participant_id == current_user.id || !current_user.is_participant?
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @question }
+      end
+    else
+      raise Acl9::AccessDenied 
     end
   end
 
@@ -43,6 +60,10 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    if !current_user.is_participant? || @question.participant_id == current_user.id
+    else
+      raise Acl9::AccessDenied
+    end 
   end
 
   # POST /questions
@@ -50,6 +71,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(params[:question])
     @question.participant_id = current_user.id
+
     respond_to do |format|
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
@@ -65,6 +87,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
+    if !current_user.is_participant? || @question.participant_id == current_user.id
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -75,17 +98,35 @@ class QuestionsController < ApplicationController
         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end
     end
+    else
+      raise Acl9::AccessDenied
+    end
   end
 
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
+    if !current_user.is_participant? || @question.participant_id == current_user.id
 
+      @question.destroy
+    
+      respond_to do |format|
+        format.html { redirect_to(questions_url) }
+        format.xml  { head :ok }
+      end
+    else
+      raise Acl9::AccessDenied
+    end
+  end
+  
+  # GET /questions/follow_new/1
+  def follow_new
+    @question = Question.new
+    @question.question_id = params[:id]
     respond_to do |format|
-      format.html { redirect_to(questions_url) }
-      format.xml  { head :ok }
+      format.html # follow_new.html.erb
+      format.xml  { render :xml => @question }
     end
   end
 end
