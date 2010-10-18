@@ -16,16 +16,17 @@ class QuestionsController < ApplicationController
     else
       if current_user.has_role?(:admin)
         @questions = Question.all
+        render :index_nopart
       elsif current_user.has_role?(:functionary)
         @regions = Region.all
         @questions = Question.all
+        render :index_nopart
       else
         @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
-      end
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.xml  { render :xml => @questions }
+        respond_to do |format|
+          format.html # index.html.erb
+          format.xml  { render :xml => @questions }
+        end     
       end
     end
   end

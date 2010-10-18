@@ -49,9 +49,5 @@
 <% end %>
 <table>
 <% end %>
-<b>Answers:</b>
-<% @answers.each do |answer|%> 
-  <p><%=answer.content%>
-<%end%>
 <%= link_to 'Follow up question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
 </p>

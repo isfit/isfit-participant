@@ -1,7 +1,12 @@
 <h1>Questions</h1>
+<% @regions.each do |r| %>
+<h2><%= r.name %></h2>
 <table class="full">
   <tr>
     <th>Subject</th>
+    <% if current_user.has_role?(:functionary)%>
+    <th class="full">Participant</th>
+    <% end%>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +14,7 @@
 
 
 <% @questions.each do |question| %>
+  <% if question.participant.region_id == r.id %>
   <tr>
     <td><%= question.subject %></td>
     <% if current_user.has_role?(:functionary)%>
@@ -19,7 +25,9 @@
     <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
+<% end %>
 </table>
 
 <br />
+<% end %>
 <%= link_to 'New Question', new_question_path %>
