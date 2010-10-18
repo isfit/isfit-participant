@@ -1,7 +1,11 @@
 IsfitParticipant::Application.routes.draw do
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+
   resources :articles
   post "search/index"
   devise_for :users
+
+  resources :events
 
   resources :questions do
      resources :answers
