@@ -12,6 +12,7 @@ gem 'meta_search'
 gem 'foreigner'
 gem "tabs_on_rails"
 gem "bluecloth"
+gem "htmldoc"
 
 # Use unicorn as the web server
 # gem 'unicorn'

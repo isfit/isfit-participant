@@ -40,6 +40,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     foreigner (0.9.0)
+    htmldoc (0.2.3)
     i18n (0.4.1)
     mail (2.2.6.1)
       activesupport (>= 2.3.6)
@@ -88,6 +89,7 @@ DEPENDENCIES
   bluecloth
   devise
   foreigner
+  htmldoc
   meta_search
   rails (= 3.0.0)
   sqlite3-ruby

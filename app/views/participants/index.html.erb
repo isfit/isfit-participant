@@ -22,6 +22,7 @@
     <td><%= link_to 'Show', participant %></td>
     <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'PDF', :controller=>:participants, :format => :pdf, :action=> :show, :id => participant%></td>
   </tr>
 <% end %>
 </table>
