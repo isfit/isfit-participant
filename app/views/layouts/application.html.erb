@@ -44,8 +44,12 @@
               <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
                 <%= tab.profile 'Participants', participants_path %>
               <% end %>
-              <%= tab.information 'Information_temp', articles_path %>
-              <%= tab.question 'Questions', questions_path %>
+              <% if current_user.is_participant? %>
+                <%= tab.information 'Information', information_page_path(1) %>
+              <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
+                <%= tab.information 'Information', information_pages_path %>
+              <% end %>
+                <%= tab.question 'Questions', questions_path %>
             <% end %>
           <% else %>
             <% tabs_tag do |tab| %>

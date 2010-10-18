@@ -1,4 +1,11 @@
 class InformationCategoriesController < ApplicationController
+
+  before_filter :authenticate_user!
+  set_tab :information
+  access_control do
+    allow :admin
+  end
+
   # GET /information_categories
   # GET /information_categories.xml
   def index

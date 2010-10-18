@@ -1,4 +1,12 @@
 class InformationPagesController < ApplicationController
+  before_filter :authenticate_user!
+  set_tab :information
+  access_control do
+    allow :admin
+    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create]
+    allow :participant, :to => [:show]
+  end
+
   # GET /information_pages
   # GET /information_pages.xml
   def index

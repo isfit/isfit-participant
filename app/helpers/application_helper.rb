@@ -24,3 +24,20 @@ class MenuTabBuilder < TabsOnRails::Tabs::Builder
     @context.tag("ul", options, open = true)
   end
 end
+
+module ActiveRecord
+  class Base  
+    def self.to_select(index={}, conditions=nil)
+      find(:all, :conditions => conditions).to_select(index)
+    end
+  end
+end
+
+class Array
+  def to_select(index)
+    self.collect { |x| [x.const_get(index),x.id] }
+  end
+  def to_select_title
+    self.collect { |x| [x.title, x.id] }
+  end
+end
