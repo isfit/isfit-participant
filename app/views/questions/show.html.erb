@@ -36,6 +36,8 @@
     <th>
       Date
     </th>
+    <th>
+    </th>
   </tr>
 <% @question.questions.each do |q| %>
   <tr>
@@ -45,12 +47,15 @@
     <td>
       <%= q.created_at %>
     </td>
+    <td>
+      <%= link_to 'Show', q %>
+    </td>
   </tr>
 <% end %>
 <table>
 <% end %>
 <%if @question.question_id == nil%>
-  <%= link_to 'Followup question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
+  <%= link_to 'New followup question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
 <%else%>
   Do you want more followup questions you have to start with a new question<br />
   <%= link_to 'New question', new_question_path %>
