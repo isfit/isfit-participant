@@ -1,3 +1,18 @@
+<% content_for :sidebar_left do %>
+  <% @categories = InformationCategory.all %>
+  <h6 class="vlist">Navigation</h6>
+  <ul class="vlist">
+  <% @categories.each do |c| %>
+    <li><%= c.title %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>
+
 <%= form_for(@information_page, :html => { :class => "yform full"}) do |f| %>
   <% if @information_page.errors.any? %>
     <div id="error_explanation" class="warning">

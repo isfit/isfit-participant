@@ -1,2 +1,19 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb I`m the admin page</p>
+<% content_for :sidebar_right do %>
+  <h4>Admin shortcuts</h4>
+  <ul class="vlist">
+    <li><%=link_to "Write article", new_article_path %></li>
+    <li><%=link_to "Write Information page", new_information_page_path %></li>
+    <li><%=link_to "Create new deadline (not working)", new_article_path %></li>
+  </ul>
+<% end %>
+<% content_for :sidebar_left do  %>
+  <h4>Quick overview</h4>
+  <p class="info">
+    <b>Participants in system:</b> <%= Participant.count %><br>
+    <b>Participants accepted:</b> <%#= Participant.where("").count %><br>
+    <b>Participants generic:</b> <%#= Participant.where("").count %><br>
+    <b>Participants generic:</b> <%#= Participant.where("").count %><br>
+  </p>
+<% end %>
+<!-- Admin view -->
+This is the admin view

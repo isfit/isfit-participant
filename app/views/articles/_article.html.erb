@@ -1,0 +1,11 @@
+<div id="article<%= article.id %>">
+<h1><%= article.title %></h1>
+
+<p>
+  <%= raw format(article.content) %>
+</p>
+<p class="info">
+Written by <%= article.user.name %> <%= time_ago_in_words(article.created_at) %> ago.
+</p>
+</div>
+
