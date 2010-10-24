@@ -10,15 +10,26 @@
 
 <% @questions.each do |question| %>
   <tr>
-    <td><%= question.subject %></td>
-    <% if current_user.has_role?(:functionary)%>
-    <td><%= question.participant.first_name %> <%= question.participant.last_name %></td>
-    <% end%>
+    <td> <%= question.subject %></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-  <% end %>
+  <%@followquestions.each do |follow| %>
+    <%if follow.question_id == question.id%>
+    <tr>
+      <td>|_ <%=follow.subject%></td>
+      <td><%= link_to 'Show', follow %></td>
+      <td>
+      <%if follow.user_id == current_user.id %>
+        <%= link_to 'Edit', edit_question_path(follow) %>
+      <%else%>
+        Posted by functionary
+      <%end%>
+      </td>
+    </tr>
+    <%end%>
+  <%end%>
+  <%end %>
 </table>
 
 <br />

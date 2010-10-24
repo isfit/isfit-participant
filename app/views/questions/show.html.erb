@@ -12,7 +12,7 @@
 <h2>Answers</h2>
 <% @answers.each do |answer|%>
   <p><%=answer.content%></p>
-  <p class="info">Answered by (fix this) <%= time_ago_in_words(answer.created_at) %></p>
+  <p class="info">Answered by  <%=answer.user.email%> <%= time_ago_in_words(answer.created_at) %> ago</p>
 <%end%>
 </p>
 
@@ -27,7 +27,7 @@
 <% end %>
 <br />
 <% if @question.questions != []%>
-<b>There are <%= @question.questions.size %> follow up questions<b>
+<b>There are <%= @question.questions.size %> followup questions<b>
 <table>
   <tr>
     <th>
@@ -35,6 +35,8 @@
     </th>
     <th>
       Date
+    </th>
+    <th>
     </th>
   </tr>
 <% @question.questions.each do |q| %>
@@ -45,9 +47,17 @@
     <td>
       <%= q.created_at %>
     </td>
+    <td>
+      <%= link_to 'Show', q %>
+    </td>
   </tr>
 <% end %>
 <table>
 <% end %>
-<%= link_to 'Follow up question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
+<%if @question.question_id == nil%>
+  <%= link_to 'New followup question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
+<%else%>
+  Do you want more followup questions you have to start with a new question<br />
+  <%= link_to 'New question', new_question_path %>
+<%end%>
 </p>

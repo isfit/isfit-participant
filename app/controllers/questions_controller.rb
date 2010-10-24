@@ -15,14 +15,18 @@ class QuestionsController < ApplicationController
       redirect_to root_path
     else
       if current_user.has_role?(:admin)
-        @questions = Question.all
+        @regions = Region.all
+        @questions = Question.all(:conditions=>"question_id IS NULL")
+        @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         render :index_nopart
       elsif current_user.has_role?(:functionary)
         @regions = Region.all
-        @questions = Question.all
+        @questions = Question.all(:conditions=>"question_id IS NULL")
+        @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         render :index_nopart
       else
-        @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
+        @questions = Question.find(:all, :conditions=>"user_id="+current_user.id.to_s+" AND question_id IS NULL")
+        @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         respond_to do |format|
           format.html # index.html.erb
           format.xml  { render :xml => @questions }
@@ -35,8 +39,14 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   def show
     @question = Question.find(params[:id])
+    if @question.question_id != nil
+      parent = Question.find(@question.question_id)
+    else
+      parent = Question.new
+      parent.user_id = -1
+    end
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if @question.participant_id == current_user.id || !current_user.is_participant?
+    if @question.user_id == current_user.id || !current_user.is_participant? || parent.user_id == current_user.id
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }
@@ -70,7 +80,7 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
-    @question.participant_id = current_user.id
+    @question.user_id = current_user.id
 
     respond_to do |format|
       if @question.save
