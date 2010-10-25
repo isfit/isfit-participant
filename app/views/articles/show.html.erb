@@ -1,16 +1,3 @@
-<p id="notice"><%= notice %></p>
-<h1><%= @article.title %></h1>
-<% if @article.functionary %>
-<p>
-  <b><i>Author:</i></b>
-  <%#= @article.functionary.given_name %>
-</p>
-<% end %>
-<p>
-  <b>Content:</b>
-  <%= @article.content %>
-</p>
-
-
+<%= render @article %>
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>

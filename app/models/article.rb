@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-validates :name, :presence => true
+validates :content, :presence => true
 validates :title,:presence => true
-belongs_to :functionary
+belongs_to :user
 end

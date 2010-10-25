@@ -1,9 +1,8 @@
 
-<table>
+<table class="full">
   <tr>
     <th><b>Title</b></th>
     <th><b>Author</b></th>
-    <th> <style="text-align.center">Content</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +11,7 @@
 <% @articles.each do |article| %>
   <tr>
     <td><%= article.title %></td>
-    <td><%= article.content %></td>
+    <td><%#= article.functionary.user.name %></td>
     <td><%= link_to 'Show', article %></td>
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
     <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
