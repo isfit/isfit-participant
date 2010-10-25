@@ -8,6 +8,8 @@
 admin = Role.create(:name => "admin")
 functionary = Role.create(:name => "functionary")
 participant = Role.create(:name => "participant")
+dialogue = Role.create(:name => "dialogue")
+
 
 Region.create(:name => "Norden")
 Region.create(:name => "Midtøsten")
@@ -43,6 +45,9 @@ Functionary.create!(:first_name => "Audis", :last_name => "Functionarymetropol")
 id = User.last.id
 Functionary.all.reverse.each do |f|
   f.user_id = id
+  if 2%id == 0
+    f.user.roles << dialogue
+  end
   f.user.roles << functionary
   id -= 1
   f.save

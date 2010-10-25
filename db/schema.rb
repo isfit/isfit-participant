@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20101018173258) do
   create_table "questions", :force => true do |t|
     t.string   "subject"
     t.text     "content"
+    t.integer  "dialogue"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_id"

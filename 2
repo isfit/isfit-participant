@@ -20,8 +20,8 @@
     </div>
     <% if current_user.has_role?(:functionary) %>
       <div class="type-text">
-        <%= f.label :dialogue %><br />
-        <%= f.check_box :dialogue %>
+        <%= f.label :Dialogue? %><br />
+        <input type="checkbox" name="dialogue" value="<% if @question.has_role?(:dialogue) %>1<%else%>0<%end%>">
       </div>    
     <%end%>
     <div class="type-button">

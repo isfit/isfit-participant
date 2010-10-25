@@ -1,0 +1,23 @@
+class CreateRoleQuestions < ActiveRecord::Migration
+  def self.up
+    create_table :roles_questions, :id => false, :force => true do |t|
+      t.integer  :question_id
+      t.integer  :role_id
+      t.timestamps
+    end
+    add_index :roles_questions, :question_id
+    add_index :roles_questions, :role_id
+    add_index :roles_questions, [:question_id, :role_id], :unique => true
+    add_foreign_key :roles_questions, :questions
+    add_foreign_key :roles_questions, :roles
+  end
+  
+  def self.down
+    drop_foreign_key :roles_questions, :questions
+    drop_foreign_key :roles_questions, :roles
+    remove_index :roles_questions, :question_id
+    remove_index :roles_questions, :role_id
+    remove_index :roles_questions, [:question_id, :role_id]
+    drop_table :roles_questions
+  end
+end

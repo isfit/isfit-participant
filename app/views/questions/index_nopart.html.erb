@@ -10,6 +10,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 
@@ -24,6 +25,7 @@
           Functionary
         <%end%>
     </td>
+    <td><%if question.dialogue == 1%>Dialogue<%end%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -37,7 +39,8 @@
             <%else%>
               Functionary
             <%end%>
-        </td>
+        </td>i
+        <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
         <td><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -60,6 +63,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 <% @questions.each do |question| %>
   <% p = Participant.first(:conditions=>"user_id = "+question.user_id.to_s)%>
@@ -74,6 +78,7 @@
         <%end%>
     <%end%>
     </td>
+    <td><%if question.dialogue == 1%>Dialogue<%end%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -88,6 +93,7 @@
               Functionary
             <%end%>
         </td>
+        <td><%if follow.dialogue ==1 %>Dialogue<%end%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
         <td><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %></td>
