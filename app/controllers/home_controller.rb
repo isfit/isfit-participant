@@ -3,6 +3,8 @@ class HomeController < ApplicationController
   set_tab :home
 
   def index
+      @deadlines = Deadline.all 
+      
       if current_user.has_role?(:admin)
         render :template => 'home/index1'
       elsif current_user.has_role?(:functionary)

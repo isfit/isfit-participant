@@ -28,7 +28,7 @@ id = User.last.id
 
 Participant.all.reverse.each do |p|
   p.user_id = id
-  p.region_id = 3%id
+  p.region_id = (id%3)+1
   p.user.roles << participant
   id -= 1
   p.save
@@ -45,7 +45,7 @@ Functionary.create!(:first_name => "Audis", :last_name => "Functionarymetropol")
 id = User.last.id
 Functionary.all.reverse.each do |f|
   f.user_id = id
-  if 2%id == 0
+  if id%2 == 0
     f.user.roles << dialogue
   end
   f.user.roles << functionary
@@ -59,3 +59,6 @@ f = Functionary.create!(:first_name => "Inge-Dag", :last_name => "Functionaryvil
 f.user = User.last
 f.save
 
+Deadline.create(:name=>"Visit profile page", :deadline=>"2010-11-15 23:59")
+Deadline.create(:name=>"Get visa", :deadline=>"2010-12-15 23:59")
+Deadline.create(:name=>"Past deadline....", :deadline=>Time.now)

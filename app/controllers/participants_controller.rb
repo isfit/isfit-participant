@@ -19,7 +19,10 @@ class ParticipantsController < ApplicationController
 
   # GET /participants/1
   # GET /participants/1.xml
-  def show    
+  def show
+    if !Deadline.deadline_done?("Visit profile page", current_user)
+      Deadline.first.users << current_user
+    end
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
