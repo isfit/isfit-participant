@@ -1,11 +1,16 @@
 <div id="article<%= article.id %>">
+<% if article.sticky == 1 %>
+  <div class="important">
+<% else %>
+  <div>
+<% end %>
 <h1><%= article.title %></h1>
-
-<p>
   <%= raw format(article.content) %>
-</p>
+</div>
+<% if article.sticky == 0 %>
 <p class="info">
 Written by <%= article.user.name %> <%= time_ago_in_words(article.created_at) %> ago.
 </p>
+<% end %>
 </div>
 

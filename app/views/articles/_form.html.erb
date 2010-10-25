@@ -12,19 +12,23 @@
   <% end %>
   <fieldset>
     <legend>Meta</legend>
+    <div class="type-check">
+      <%= f.check_box :sticky %>
+      <%= f.label :sticky %>
+    </div>
     <div class="type-text">
-      <%= f.label :publish_at %><br />
+      <%= f.label :publish_at %>
       <%= f.text_field :publish_at, :class => "select-date" %>
     </div>
   </fieldset>
   <fieldset>
     <legend>Public information</legend>
     <div class="type-text">
-      <%= f.label :title %><br />
+      <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
     <div class="type-text">
-      <%= f.label :content %><br />
+      <%= f.label :content %>
       <%= f.text_area :content %>
     </div>
     <div class="type-button">

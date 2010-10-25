@@ -9,7 +9,8 @@ class HomeController < ApplicationController
         @lastten = Question.find(:all, :conditions=>"questions.id NOT IN (SELECT DISTINCT answers.question_id FROM answers)", :order=>"created_at DESC", :limit=>"10")
         render :template => 'home/index2'
       elsif current_user.has_role?(:participant)
-        @articles = Article.where("publish_at > #{Time.now.to_i}" ).order("created_at DESC").limit(1)
+        @important_articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky = 1").order("created_at DESC").limit(1)
+        @articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky < 1").order("created_at DESC").limit(5)
         render :template => 'home/index3'
       else
         render :template => 'home/index'
