@@ -70,7 +70,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
+    if !current_user.is_participant? || @question.user_id == current_user.id
+      
     else
       raise Acl9::AccessDenied
     end 
@@ -97,7 +98,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
+    if !current_user.is_participant? || @question.user_id == current_user.id
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
