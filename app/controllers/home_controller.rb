@@ -6,7 +6,6 @@ class HomeController < ApplicationController
       @deadlines = Deadline.all 
       @important_articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky = 1").order("created_at DESC").limit(1)
       @articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky < 1").order("created_at DESC").limit(5)
-     
       if current_user.has_role?(:admin)
         render :template => 'home/index1'
       elsif current_user.has_role?(:functionary)
