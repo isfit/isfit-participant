@@ -1,5 +1,11 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index2.html.erb I`m the functionary view</p>
+<!-- functionary view -->
+<div id="important_articles" class="important_articles">
+  <%= render @important_articles %>
+</div>
+<div id="articles" class="articles">
+  <%= render @articles %>
+</div>
+
 <div style="float:left">
   There are <%= Question.count(:conditions=>"questions.id NOT IN (SELECT DISTINCT question_id FROM answers)")%> unanswered questions
   <table>
@@ -41,4 +47,3 @@
     <% end %>
   </table>
 </div>
-<div style="float:right">RIGHT</div>

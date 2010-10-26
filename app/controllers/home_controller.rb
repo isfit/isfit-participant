@@ -4,15 +4,15 @@ class HomeController < ApplicationController
 
   def index
       @deadlines = Deadline.all 
-      
+      @important_articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky = 1").order("created_at DESC").limit(1)
+      @articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky < 1").order("created_at DESC").limit(5)
+     
       if current_user.has_role?(:admin)
         render :template => 'home/index1'
       elsif current_user.has_role?(:functionary)
         @lastten = Question.find(:all, :conditions=>"questions.id NOT IN (SELECT DISTINCT answers.question_id FROM answers)", :order=>"created_at DESC", :limit=>"10")
         render :template => 'home/index2'
       elsif current_user.has_role?(:participant)
-        @important_articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky = 1").order("created_at DESC").limit(1)
-        @articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky < 1").order("created_at DESC").limit(5)
         render :template => 'home/index3'
       else
         render :template => 'home/index'

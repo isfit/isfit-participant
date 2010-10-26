@@ -5,22 +5,23 @@
 <div id="articles" class="articles">
   <%= render @articles %>
 </div>
-<div class="deadlines">
-<% if @deadlines %>
-  <h3>Deadlines:</h3>
-  <% @deadlines.each do |d| %>
-    <%if d.users.include?(current_user)%>
-      <del><%=d.name%> - DONE<br /></del> 
-    <%else%>
-      <%if d.deadline < Time.now%>
-        <div class="warning">
-          <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%><br />
-        </div>
-      <%else%>
-           <%=d.name%> - in <%=time_ago_in_words(d.deadline)%><br /> 
+<% content_for :sidebar_left do %>
+  <div class="deadlines">
+    <% if @deadlines %>
+      <h3>Deadlines:</h3>
+      <% @deadlines.each do |d| %>
+        <%if d.users.include?(current_user)%>
+          <del><%=d.name%> - DONE<br /></del> 
+        <%else%>
+          <%if d.deadline < Time.now%>
+            <div class="warning">
+              <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%><br />
+            </div>
+          <%else%>
+            <%=d.name%> - in <%=time_ago_in_words(d.deadline)%><br /> 
+          <%end%>
+        <%end%>
       <%end%>
     <%end%>
-  <%end%>
-<%end%>
-</div>
-
+  </div>
+<% end %>

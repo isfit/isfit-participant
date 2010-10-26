@@ -47,6 +47,9 @@
               <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
                 <%= tab.profile 'Participants', participants_path %>
               <% end %>
+              <% if current_user.has_role?(:admin) %>
+                <%= tab.article 'Articles', articles_path %>
+              <% end %>
               <% if current_user.is_participant? %>
                 <%= tab.information 'Information', information_page_path(1) %>
               <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
