@@ -1,0 +1,24 @@
+<h1>Deadlines</h1>
+<table class="full">
+  <tr>
+    <th>Name</th>
+    <th>Deadline</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+  <% @deadlines.each do |d| %>
+    <tr>
+      <td><%=d.name %></td>
+      <td><%=d.deadline%></td>
+      <td><%= link_to 'Show', d %></td>
+      <td><%= link_to 'Edit', edit_deadline_path(d) %></td>
+      <td><%= link_to 'Delete', d, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <%end %>
+</table>
+
+<br />
+<%= link_to 'New Deadline', new_deadline_path %>
