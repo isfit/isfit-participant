@@ -12,7 +12,9 @@
   <%end%>
 </ul>
 <% end %>
-
+<% content_for :sidebar_right do %>
+  <% render "information" %>
+<% end %>
 <%= form_for(@information_page, :html => { :class => "yform full"}) do |f| %>
   <% if @information_page.errors.any? %>
     <div id="error_explanation" class="warning">
