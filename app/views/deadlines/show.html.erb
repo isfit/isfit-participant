@@ -1,0 +1,6 @@
+<h1>Deadline</h1>
+<h3><%= @deadline.name %> in <%= @deadline.deadline %></h3>
+<p class="info">
+<%= link_to 'Edit', edit_deadline_path(@deadline) %> |
+<%= link_to 'Back', deadlines_path %>
+</p>
