@@ -9,7 +9,8 @@ admin = Role.create(:name => "admin")
 functionary = Role.create(:name => "functionary")
 participant = Role.create(:name => "participant")
 dialogue = Role.create(:name => "dialogue")
-
+ArrivalPlace.create(:name => "Trondheim")
+ArrivalPlace.create(:name => "Oslo")
 
 Region.create(:name => "Norden")
 Region.create(:name => "Midtøsten")

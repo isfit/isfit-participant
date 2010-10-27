@@ -40,4 +40,7 @@ class Array
   def to_select_title
     self.collect { |x| [x.title, x.id] }
   end
+  def to_select_name
+    self.collect { |x| [x.name, x.id] }
+  end
 end

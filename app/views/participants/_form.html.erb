@@ -1,6 +1,6 @@
 <%= form_for(@participant,:html => {:class => "yform columnar"} ) do |f| %>
   <% if @participant.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="warning">
       <h2><%= pluralize(@participant.errors.count, "error") %> prohibited this participant from being saved:</h2>
 
       <ul>
@@ -51,7 +51,60 @@
       <%= f.label :city %>
       <%= f.text_field :city %>
     </div>
-
+    <legend>Next of kin</legend>
+    <p class="info">Your next of kin is contaced in case of emergency</p>
+     <div class="type-text">
+      <%= f.label :name %>
+      <%= f.text_field :next_of_kin_name %>
+    </div>
+    <div class="type-text">
+      <%= f.label :phone %>
+      <%= f.text_field :next_of_kin_phone %>
+    </div>
+    <div class="type-text">
+      <%= f.label :address %>
+      <%= f.text_area :next_of_kin_address %>
+    </div>
+    <legend>Travel information</legend>
+    <p class="info">Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
+    <div class="type-text">
+      <%= f.label :flightnumber %>
+      <%= f.text_field :flightnumber %>
+    </div>
+     <div class="type-text">
+      <%= f.label "Arrives at (time)" %>
+      <%= f.text_field :arrives_at, :class => "select-datetime" %>
+    </div>
+    <div class="type-text">
+      <%= f.label "Departs at (time)" %>
+      <%= f.text_field :departs_at, :class => "select-datetime" %>
+    </div>
+    <div class="type-select">
+      <%= f.label "Arrives at (place)" %>
+      <%= f.select :arrival_place_id, ArrivalPlace.all.to_select_name %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :need_transport %>
+      <%= f.label "I need transportation by ISFiT from Oslo to Trondheim" %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :has_passport %>
+      <%= f.label "I have my passport in order" %>
+    </div>
+    <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
+    <div class="type-check">
+      <%= f.check_box :visa %>
+      <%= f.label "Visa in order" %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>ISFiT related information</legend>
+    <% if not @accepted or @accepted < 1 %>
+    <div class="type-check">
+      <%= f.check_box :accepted %>
+      <%= f.label "I hereby accept my invitation to ISFiT." %>
+    </div>
+    <% end %>
   </fieldset>
   <div class="type-button">
     <%= f.submit :class => "submit" %>

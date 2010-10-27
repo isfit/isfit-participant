@@ -34,6 +34,7 @@ class ParticipantsController < ApplicationController
   # GET /participants/1/edit
   def edit
     @participant = Participant.find(params[:id])
+    @accepted = @participant.accepted
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         format.html # show.html.erb
