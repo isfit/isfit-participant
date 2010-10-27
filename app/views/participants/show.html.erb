@@ -5,9 +5,6 @@
   <% end %>
 <% end %>
 <h1><%= "#{@participant.first_name} #{@participant.last_name}"%></h1>
-<p>Form for posting new status messages</p>
-<p>Render out 5 newest status messages?</p>
-
 <h2>Public information</h2>
 <p>
 <b>Date of birth:</b>
@@ -56,6 +53,52 @@
   <p>
   <b>Workshop:</b>
   <%= @participant.workshop %>
+  </p>
+  <h3>Next of kin information</h3>
+  <p>
+  <b>Name:</b>
+  <%= @participant.next_of_kin_name %>
+  </p>
+  <p>
+  <b>Phone:</b>
+  <%= @participant.next_of_kin_phone %>
+  </p>
+  <p>
+  <b>Address:</b></p>
+  <%= raw format(@participant.next_of_kin_address) %>
+  <h3>Travel Information</h3>
+  <p>
+  <b>Flightnumber:</b>
+  <%= @participant.flightnumber %>
+  </p>
+  <p>
+  <b>Arrival place:</b>
+  <%= @participant.arrival_place.name %>
+  </p>
+  <p>
+  <b>Arrives at (time):</b>
+  <%= @participant.arrives_at %>
+  </p>
+  <p>
+  <b>Departs at (time):</b>
+  <%= @participant.departs_at %>
+  </p>
+  <p>
+  <b>Has passport in order?:</b>
+  <%= @participant.has_passport == 1 ? "Yes":"No" %>
+  </p>
+  <p>
+  <b>Has Visa in order or don't need Visa?:</b>
+  <%= @participant.visa == 1 ? "Yes":"No" %>
+  </p>
+  <p>
+  <b>Needs transportation by ISFiT from Oslo to Trondheim:</b>
+  <%= @participant.need_transport == 1 ? "Yes":"No" %>
+  </p>
+  <h3>ISFiT specific information</h3>
+  <p>
+  <b>Accepted invitation:</b>
+  <%= @participant.accepted == 1 ? "Yes":"No" %>
   </p>
 <% end %>
 <% if current_user.has_role?(:admin, nil) %>
