@@ -1,0 +1,22 @@
+<h1>Listing all Users</h1>
+
+<table class="full">
+  <tr>
+    <th>Email</th>
+    <th>Last signed in</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.email %></td>
+    <td><%if user.last_sign_in_at %><%= user.last_sign_in_at %><%else%>Never signed in<%end%></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<%= link_to 'New User', new_user_path%>
+</table>

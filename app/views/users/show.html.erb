@@ -1,0 +1,13 @@
+<h2>User information</h2>
+<p>
+<b>Email</b>
+<%= @user.email %>
+</p>
+<p>
+<b>Member of these groups:</b>
+<ul>
+<%@user.roles.each do |r|%>
+  <li><%=r.name%></li>
+<%end%>
+</ul>
+<%= link_to 'Edit', edit_user_path(@user) %>
