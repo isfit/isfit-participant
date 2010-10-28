@@ -16,6 +16,8 @@ IsfitParticipant::Application.routes.draw do
   match 'questions/follow_new/:id' => 'questions#follow_new', :as => :follow_new
   
   resources :deadlines
+  
+  resources :users
 
   resources :questions do
     resources :answers
