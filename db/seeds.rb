@@ -12,10 +12,6 @@ dialogue = Role.create(:name => "dialogue")
 ArrivalPlace.create(:name => "Trondheim")
 ArrivalPlace.create(:name => "Oslo")
 
-Region.create(:name => "Norden")
-Region.create(:name => "Midtøsten")
-Region.create(:name => "Asia")
-
 User.create!(:email => "daginge@gmail.com", :password => "123456")
 User.create!(:email => "skjervum@isfit.org", :password => "123456")
 User.create!(:email => "erisperl@isfit.org", :password => "123456")
@@ -29,8 +25,8 @@ id = User.last.id
 
 Participant.all.reverse.each do |p|
   p.user_id = id
-  p.region_id = (id%3)+1
   p.user.roles << participant
+  p.functionary_id = (id%4)+1
   id -= 1
   p.save
 end

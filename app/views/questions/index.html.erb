@@ -19,13 +19,7 @@
     <tr>
       <td>|_ <%=follow.subject%></td>
       <td><%= link_to 'Show', follow %></td>
-      <td>
-      <%if follow.user_id == current_user.id %>
-        <%= link_to 'Edit', edit_question_path(follow) %>
-      <%else%>
-        Posted by functionary
-      <%end%>
-      </td>
+      <td><%= link_to 'Edit', edit_question_path(follow) %></td>
     </tr>
     <%end%>
   <%end%>

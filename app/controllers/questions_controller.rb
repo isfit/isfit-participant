@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   set_tab :question
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+    allow :functionary, :to => [:index, :show, :edit, :update]
     allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
   end
 
@@ -15,17 +15,15 @@ class QuestionsController < ApplicationController
       redirect_to root_path
     else
       if current_user.has_role?(:admin)
-        @regions = Region.all
         @questions = Question.all(:conditions=>"question_id IS NULL")
         @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         render :index_nopart
       elsif current_user.has_role?(:functionary)
-        @regions = Region.all
-        @questions = Question.all(:conditions=>"question_id IS NULL")
-        @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
+        @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s)
+        @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s)
         render :index_nopart
       else
-        @questions = Question.find(:all, :conditions=>"user_id="+current_user.id.to_s+" AND question_id IS NULL")
+        @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")
         @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         respond_to do |format|
           format.html # index.html.erb
@@ -43,10 +41,10 @@ class QuestionsController < ApplicationController
       parent = Question.find(@question.question_id)
     else
       parent = Question.new
-      parent.user_id = -1
+      parent.participant_id = -1
     end
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if @question.user_id == current_user.id || !current_user.is_participant? || parent.user_id == current_user.id
+    if @question.participant.user == current_user || !current_user.is_participant? || parent.participant.user == current_user
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }
@@ -81,7 +79,7 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
-    @question.user_id = current_user.id
+    @question.participant = current_user.participant
 
     respond_to do |format|
       if @question.save
@@ -98,7 +96,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.user_id == current_user.id
+    if !current_user.is_participant? || @question.participant.user == current_user
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -118,16 +116,12 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.xml
   def destroy
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
 
-      @question.destroy
+    @question.destroy
     
-      respond_to do |format|
-        format.html { redirect_to(questions_url) }
-        format.xml  { head :ok }
-      end
-    else
-      raise Acl9::AccessDenied
+    respond_to do |format|
+      format.html { redirect_to(questions_url) }
+      format.xml  { head :ok }
     end
   end
   

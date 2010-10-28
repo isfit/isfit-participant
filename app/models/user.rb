@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :questions
   has_and_belongs_to_many :deadlines
   validates_uniqueness_of :email
-  validates_presence_of :email
+#  validates_presence_of :email
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
