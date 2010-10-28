@@ -50,9 +50,9 @@
               <% if current_user.has_role?(:admin) %>
                 <%= tab.article 'Articles', articles_path %>
               <% end %>
-              <% if current_user.is_participant? %>
+              <% if current_user.is_participant? or current_user.is_functionary? %>
                 <%= tab.information 'Information', information_page_path(1) %>
-              <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
+              <% elsif current_user.has_role?(:admin) %>
                 <%= tab.information 'Information', information_pages_path %>
               <% end %>
                 <%= tab.question 'Questions', questions_path %>

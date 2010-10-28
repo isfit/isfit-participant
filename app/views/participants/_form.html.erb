@@ -67,6 +67,10 @@
     </div>
     <legend>Travel information</legend>
     <p class="info">Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
+    <div class="type-select">
+      <%= f.label "Transport type" %>
+      <%= f.select :transport_type_id, TransportType.all.to_select_name %>
+    </div>
     <div class="type-text">
       <%= f.label :flightnumber %>
       <%= f.text_field :flightnumber %>
@@ -84,12 +88,13 @@
       <%= f.select :arrival_place_id, ArrivalPlace.all.to_select_name %>
     </div>
     <div class="type-check">
-      <%= f.check_box :need_transport %>
-      <%= f.label "I need transportation by ISFiT from Oslo to Trondheim" %>
-    </div>
-    <div class="type-check">
       <%= f.check_box :has_passport %>
       <%= f.label "I have my passport in order" %>
+    </div>
+    <div class="type-check">
+      <p class="info">Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NKR ($25 USD).</p>
+      <%= f.check_box :need_transport %>
+      <%= f.label "I need transportation" %>
     </div>
     <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
     <div class="type-check">
@@ -100,7 +105,8 @@
   <fieldset>
     <legend>ISFiT related information</legend>
     <% if not @accepted or @accepted < 1 %>
-    <div class="type-check">
+      <div class="type-check">
+        <p class="info">Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of November. <span class="highlight">This cannot be undone.</span></p>
       <%= f.check_box :accepted %>
       <%= f.label "I hereby accept my invitation to ISFiT." %>
     </div>

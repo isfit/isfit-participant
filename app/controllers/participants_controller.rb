@@ -1,6 +1,7 @@
 class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :profile
+  helper_method :sort_column, :sort_direction
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
@@ -10,7 +11,7 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   def index
-    @participants = Participant.all
+    @participants = Participant.order(sort_column + ' ' + sort_direction)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }
@@ -63,5 +64,12 @@ class ParticipantsController < ApplicationController
     else
       raise Acl9::AccessDenied
     end
+  end
+  private
+  def sort_column
+    Participant.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
+  end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
