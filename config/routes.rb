@@ -20,6 +20,9 @@ IsfitParticipant::Application.routes.draw do
   resources :users
 
   resources :questions do
+    collection do 
+      post "index"
+    end
     resources :answers
   end
 

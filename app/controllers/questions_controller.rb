@@ -19,8 +19,18 @@ class QuestionsController < ApplicationController
         @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
         render :index_nopart
       elsif current_user.has_role?(:functionary)
-        @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s)
-        @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s)
+        selected_status = params[:status]
+        statusq = ""
+        @status = QuestionStatus.first
+        @statuses = QuestionStatus.all
+        if selected_status != nil
+          statusq = " AND question_status_id = "+selected_status
+          @status = QuestionStatus.find(selected_status)
+        else
+          statusq = " AND question_status_id = 1"
+        end
+        @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
+        @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
         render :index_nopart
       else
         @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")
@@ -68,7 +78,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.user_id == current_user.id
+    @statuses = QuestionStatus.all
+    if !current_user.is_participant? || @question.participant.user == current_user
       
     else
       raise Acl9::AccessDenied
@@ -79,8 +90,9 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
+    @question.dialogue = 0
     @question.participant = current_user.participant
-
+    @question.question_status = QuestionStatus.find(:first, :conditions=>{:name=>:New})
     respond_to do |format|
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
@@ -96,6 +108,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
+    @question.question_status = QuestionStatus.find(params[:status])
     if !current_user.is_participant? || @question.participant.user == current_user
 
     respond_to do |format|

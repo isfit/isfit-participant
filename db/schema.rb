@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101028112738) do
+ActiveRecord::Schema.define(:version => 20101028200057) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -110,11 +110,18 @@ ActiveRecord::Schema.define(:version => 20101028112738) do
     t.integer  "transport_type_id"
   end
 
+  create_table "question_statuses", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "subject"
     t.text     "content"
     t.integer  "dialogue"
     t.integer  "participant_id"
+    t.integer  "question_status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_id"
@@ -164,6 +171,10 @@ ActiveRecord::Schema.define(:version => 20101028112738) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,4 +1,12 @@
 <h1>Questions</h1>
+<%= form_for Question.new do |f| %>
+  <div class="type-text">
+    <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @status.id)) %>
+    <%= f.submit "Show"%>
+  </div>
+  <br />
+<%end%>
+ 
 <table class="full">
   <tr>
     <th>Subject</th>
@@ -19,7 +27,7 @@
     <td><%if question.dialogue == 1%>Dialogue<%end%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
   </tr>
   <%@followquestions.each do |follow| %>
     <%if follow.question_id == question.id%>
@@ -29,7 +37,7 @@
         <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
-        <td><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
       </tr>    
     <%end%>
   <%end%>
