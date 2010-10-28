@@ -21,7 +21,8 @@ IsfitParticipant::Application.routes.draw do
 
   resources :questions do
     collection do 
-      post "index"
+      post "status"
+      get "status"
     end
     resources :answers
   end

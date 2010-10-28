@@ -1,5 +1,5 @@
 <h1>Questions</h1>
-<%= form_for Question.new do |f| %>
+<%= form_for Question.new, :url=> status_questions_path do |f| %>
   <div class="type-text">
     <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @status.id)) %>
     <%= f.submit "Show"%>
@@ -15,6 +15,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 
@@ -25,6 +26,7 @@
     <td><%if question.question_id != nil%> |_ <%end%> <%= question.subject %></td>
     <td><%=p.first_name %> <%= p.last_name %></td>
     <td><%if question.dialogue == 1%>Dialogue<%end%></td>
+    <td><%=pluralize(question.answers.size, "answer")%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
@@ -35,6 +37,7 @@
         <td> |_ <%= follow.subject %></td>
         <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
         <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
+        <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
         <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>

@@ -11,6 +11,7 @@
 <% @questions.each do |question| %>
   <tr>
     <td> <%= question.subject %></td>
+    <td><%=pluralize(question.answers.size, "answer")%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
   </tr>
@@ -18,6 +19,7 @@
     <%if follow.question_id == question.id%>
     <tr>
       <td>|_ <%=follow.subject%></td>
+      <td><%=pluralize(question.answers.size, "answer")%></td>
       <td><%= link_to 'Show', follow %></td>
       <td><%= link_to 'Edit', edit_question_path(follow) %></td>
     </tr>
