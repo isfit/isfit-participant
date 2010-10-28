@@ -12,6 +12,10 @@ dialogue = Role.create(:name => "dialogue")
 ArrivalPlace.create(:name => "Trondheim")
 ArrivalPlace.create(:name => "Oslo")
 
+TransportType.create(:name => "Plane")
+TransportType.create(:name => "Train")
+TransportType.create(:name => "Bus")
+
 User.create!(:email => "daginge@gmail.com", :password => "123456")
 User.create!(:email => "skjervum@isfit.org", :password => "123456")
 User.create!(:email => "erisperl@isfit.org", :password => "123456")

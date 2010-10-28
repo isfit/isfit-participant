@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101027113341) do
+ActiveRecord::Schema.define(:version => 20101028112738) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20101027113341) do
     t.integer  "has_passport"
     t.integer  "accepted"
     t.integer  "visa"
+    t.integer  "transport_type_id"
   end
 
   create_table "questions", :force => true do |t|
@@ -142,6 +143,12 @@ ActiveRecord::Schema.define(:version => 20101027113341) do
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id", :unique => true
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
+
+  create_table "transport_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

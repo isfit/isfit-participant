@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   set_tab :users
   access_control do
     allow :admin
+    allow :functionary, to => [:show, :edit]
   end
   
   # GET /users

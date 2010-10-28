@@ -6,7 +6,7 @@
   <%= render @articles %>
 </div>
 
-<div style="float:left">
+<div>
   There are <%= Question.count(:conditions=>"questions.id NOT IN (SELECT DISTINCT question_id FROM answers)")%> unanswered questions
   <table>
     <tr>

@@ -3,7 +3,7 @@ class InformationPagesController < ApplicationController
   set_tab :information
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create]
+    allow :functionary, :to => [:show]
     allow :participant, :to => [:show]
   end
 
