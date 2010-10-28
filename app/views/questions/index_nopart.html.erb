@@ -1,12 +1,8 @@
 <h1>Questions</h1>
-<% @regions.each do |r| %>
-<h2><%= r.name %></h2>
 <table class="full">
   <tr>
     <th>Subject</th>
-    <% if current_user.has_role?(:functionary)%>
-    <th class="full">User</th>
-    <% end%>
+    <th class="full">Participant</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,16 +11,11 @@
 
 
 <% @questions.each do |question| %>
-  <% p = Participant.first(:conditions=>"user_id = "+question.user_id.to_s)%>
-  <% if p != nil && p.region_id == r.id %>
+  <% p = question.participant%>
+  <% if p != nil &&  %>
   <tr>
     <td><%if question.question_id != nil%> |_ <%end%> <%= question.subject %></td>
-    <td><% if question.user.has_role?(:participant) %>
-          <%=p.first_name %> <%= p.last_name %>
-        <%else%>
-          Functionary
-        <%end%>
-    </td>
+    <td><%=p.first_name %> <%= p.last_name %></td>
     <td><%if question.dialogue == 1%>Dialogue<%end%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
@@ -34,12 +25,7 @@
     <%if follow.question_id == question.id%>
       <tr>
         <td> |_ <%= follow.subject %></td>
-        <td><% if follow.user.has_role?(:participant) %>
-              <%=follow.first_name %> <%= follow.last_name %>
-            <%else%>
-              Functionary
-            <%end%>
-        </td>
+        <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
         <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
@@ -50,59 +36,4 @@
 <% end %>
 <%end%>
 </table>
-<br />
-<% end %>
 
-<h2>Functionary</h2>
-<table class="full">
-  <tr>
-    <th>Subject</th>
-    <% if current_user.has_role?(:functionary)%>
-    <th class="full">User</th>
-    <% end%>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @questions.each do |question| %>
-  <% p = Participant.first(:conditions=>"user_id = "+question.user_id.to_s)%>
-  <% if p == nil %>
-  <tr>
-    <td><%if question.question_id != nil%> |_ <%end%><%= question.subject %></td>
-    <% if current_user.has_role?(:functionary)%>
-    <td><%  if question.user.has_role?(:participant) %>
-          <%=p.first_name %> <%= p.last_name %>
-        <%else%>
-          Functionary
-        <%end%>
-    <%end%>
-    </td>
-    <td><%if question.dialogue == 1%>Dialogue<%end%></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-  <%@followquestions.each do |follow| %>
-    <%if follow.question_id == question.id%>
-      <tr>
-        <td> |_ <%= follow.subject %></td>
-        <td><% if follow.user.has_role?(:participant) %>
-              <%=p.first_name %> <%= p.last_name %>
-            <%else%>
-              Functionary
-            <%end%>
-        </td>
-        <td><%if follow.dialogue ==1 %>Dialogue<%end%></td>
-        <td><%= link_to 'Show', follow %></td>
-        <td><%= link_to 'Edit', edit_question_path(follow) %></td>
-        <td><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %></td>
-      </tr>    
-    <%end%>
-  <%end%>
-<% end %>
-<%end%>
-</table>
-
-<br />
-<%= link_to 'New Question', new_question_path %>

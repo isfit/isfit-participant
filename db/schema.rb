@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20101028133925) do
     t.string   "field_of_study"
     t.integer  "workshop"
     t.integer  "user_id"
+    t.integer  "functionary_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "region_id"
     t.datetime "arrives_at"
     t.datetime "departs_at"
     t.integer  "arrival_place_id"
@@ -114,16 +114,10 @@ ActiveRecord::Schema.define(:version => 20101028133925) do
     t.string   "subject"
     t.text     "content"
     t.integer  "dialogue"
+    t.integer  "participant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_id"
-    t.integer  "user_id"
-  end
-
-  create_table "regions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -178,12 +172,5 @@ ActiveRecord::Schema.define(:version => 20101028133925) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "users_deadlines", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "deadline_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

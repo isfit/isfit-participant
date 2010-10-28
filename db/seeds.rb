@@ -12,10 +12,6 @@ dialogue = Role.create(:name => "dialogue")
 ArrivalPlace.create(:name => "Trondheim")
 ArrivalPlace.create(:name => "Oslo")
 
-Region.create(:name => "Norden")
-Region.create(:name => "Midtøsten")
-Region.create(:name => "Asia")
-
 TransportType.create(:name => "Plane")
 TransportType.create(:name => "Train")
 TransportType.create(:name => "Bus")
@@ -33,8 +29,8 @@ id = User.last.id
 
 Participant.all.reverse.each do |p|
   p.user_id = id
-  p.region_id = (id%3)+1
   p.user.roles << participant
+  p.functionary_id = (id%4)+1
   id -= 1
   p.save
 end

@@ -14,6 +14,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :field_of_study
       t.integer :workshop
       t.integer :user_id
+      t.integer :functionary_id
 
       t.timestamps
     end
