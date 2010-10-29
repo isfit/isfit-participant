@@ -7,7 +7,7 @@
       selectedroles.push(r.name)
     end
 %>
-<%= form_for(@user,:html => {:class => "yform columnar", :multipart => true } ) do |f| %>
+<%= form_for(@user,:url => role_path, :html => {:class => "yform columnar", :multipart => true } ) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation" class="warning">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this participant from being saved:</h2>

@@ -16,8 +16,18 @@ class QuestionsController < ApplicationController
   def index
 
     if current_user.has_role?(:admin)
-      @questions = Question.all(:conditions=>"question_id IS NULL")
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
+      selected_status = params[:status]
+      statusq = ""
+      @status = QuestionStatus.first
+      @statuses = QuestionStatus.all
+      if selected_status != nil
+        statusq = " AND question_status_id = "+selected_status
+        @status = QuestionStatus.find(selected_status)
+      else
+        statusq = " AND question_status_id = 1"
+      end
+      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq)
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq)
       render :index_nopart
     elsif current_user.has_role?(:functionary)
       selected_status = params[:status]
