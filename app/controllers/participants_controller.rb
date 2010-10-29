@@ -16,10 +16,12 @@ class ParticipantsController < ApplicationController
       @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query)
     else
       @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)
-    end
+    end 
+    @index_table = @participants
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }
+      format.js
     end
   end
 

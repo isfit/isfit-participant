@@ -1,7 +1,23 @@
 <h1>Listing all participants</h1>
+<script>
+$(document).ready(function (){  
+  jQuery.ajaxSetup({  
+  'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
+});  
+$('.search').submit(function (){  
+    //$.get($(this).attr('action'), $(this).serialize(), null, "script");
+    $.get($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;  
+  });
+  $('.search').keyup(function (){
+    setTimeout(function() { $('.search').submit(); }, 500);
+  });
+
+}); 
+</script>
 <% content_for :sidebar_left do %>
-  <% form_for :participant, @search_participant, :url => { :action => "index" },
-          :html => {:method => "get"} do |f| %>
+<% form_for :participant, @search_participant, :url => { :action => "index" },
+:html => {:method => "get", :class => "search"} do |f| %>
   <table>
     <tr>
       <tr><td><b>First name: </b></td></tr><tr><td><%= f.text_field :first_name %></td></tr>
@@ -13,28 +29,6 @@
   <%= submit_tag 'Search' %><br>
   <% end %>
 <% end %>
-
-<table class="full">
-  <tr>
-    <th><%= sortable "first_name", "First name" %></th>
-    <th><%= sortable "last_name", "Last name" %></th>
-    <th><%= sortable "city" %></th>
-    <th><%= sortable "workshop" %></th>
-    <th><%= sortable "accepted" %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @participants.each do |participant| %>
-  <tr>
-    <td><%= participant.first_name %></td>
-    <td><%= participant.last_name %></td>
-    <td><%= participant.city %></td>
-    <td><%= participant.workshop %></td>
-    <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
-    <td><%= link_to 'Show', participant %></td>
-    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-  </tr>
-<% end %>
-</table>
+<div id="index_table">
+  <%= render :partial => "participants" %>
+</div>
