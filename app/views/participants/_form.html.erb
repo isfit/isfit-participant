@@ -98,6 +98,10 @@
     </div>
     <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
     <div class="type-check">
+      <%= f.check_box :applied_for_visa %>
+      <%= f.label "Applied for VISA" %>
+    </div>
+    <div class="type-check">
       <%= f.check_box :visa %>
       <%= f.label "Visa in order" %>
     </div>
