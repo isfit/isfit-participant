@@ -14,6 +14,7 @@ gem "tabs_on_rails"
 gem "bluecloth"
 gem "htmldoc"
 gem "paperclip"
+gem 'rmagick'
 
 # Use unicorn as the web server
 # gem 'unicorn'

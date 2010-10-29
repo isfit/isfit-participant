@@ -1,10 +1,15 @@
+<% content_for :sidebar_left do %>
+  <% if @user.avatar %>
+    <%= image_tag @user.avatar.url%>
+  <% end %>
+<% end %>
 <h2>User information</h2>
 <p>
 <b>Email</b>
 <%= @user.email %>
 </p>
 <p>
-<b>Member of these groups:</b>
+<b>Member of model groups:</b>
 <ul>
 <%@user.roles.each do |r|%>
   <li><%=r.name%></li>
