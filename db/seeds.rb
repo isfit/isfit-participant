@@ -63,3 +63,7 @@ f.save
 Deadline.create(:name=>"Visit profile page", :deadline=>"2010-11-15 23:59")
 Deadline.create(:name=>"Get visa", :deadline=>"2010-12-15 23:59")
 Deadline.create(:name=>"Past deadline....", :deadline=>Time.now)
+
+QuestionStatus.create(:name=>"New")
+QuestionStatus.create(:name=>"Open")
+QuestionStatus.create(:name=>"Resolved")

@@ -1,0 +1,20 @@
+<h1>Listing all functionaries</h1>
+
+<table class="full">
+  <tr>
+    <th><%= sortable "first_name", "First name" %></th>
+    <th><%= sortable "last_name", "Last name" %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @functionaries.each do |functionary| %>
+  <tr>
+    <td><%= functionary.first_name %></td>
+    <td><%= functionary.last_name %></td>
+    <td><%= link_to 'Show', functionary %></td>
+    <td><%if current_user.has_role?(:admin) || (current_user.has_role?(:functionary) && current_user.functionary == functionary)%><%= link_to 'Edit', edit_functionary_path(functionary) %><%end%></td>
+    <td><%if current_user.has_role?(:admin)%><%= link_to 'Destroy', functionary, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
+  </tr>
+<% end %>
+</table>

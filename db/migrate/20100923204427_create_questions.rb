@@ -5,6 +5,8 @@ class CreateQuestions < ActiveRecord::Migration
       t.text :content
       t.integer :dialogue
       t.integer :participant_id
+      t.integer :question_status_id
+
       t.timestamps
     end
   end

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def access_denied
     if current_user
       flash[:alert] = "You are not authorized to view this resource!"
-      render :template => 'home/index'
+      redirect_to root_path
     else
       flash[:warning] = 'Access denied. Try to log in first.'
       redirect_to login_path
