@@ -17,7 +17,9 @@ IsfitParticipant::Application.routes.draw do
   
   resources :deadlines
   
-  resources :users
+  match 'change_password' => 'changepasswords#edit_password', :as => :change_password
+  match 'change_password/update_password' => 'changepasswords#update_password', :as => :update_password
+
 
   resources :roles
 

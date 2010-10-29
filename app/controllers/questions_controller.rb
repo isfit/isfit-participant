@@ -118,7 +118,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    #@question.question_status = QuestionStatus.find(params[:status])
+    @question.question_status = QuestionStatus.find(params[:status])
     if !current_user.is_participant? || @question.participant.user == current_user
       respond_to do |format|
         if @question.update_attributes(params[:question])
