@@ -11,7 +11,11 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   def index
-    @participants = Participant.order(sort_column + ' ' + sort_direction)
+    #@participants = Participant.order(sort_column + ' ' + sort_direction)
+    search_participant
+    #@participants = Participant.all(:order => sort_column + " " + sort_direction, :conditions = {@query})
+    @participants = Participant.where(@query).order(sort_column + " " + sort_direction)
+   
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }
@@ -65,6 +69,53 @@ class ParticipantsController < ApplicationController
       raise Acl9::AccessDenied
     end
   end
+
+  #NIKOLAI WAS HERE
+
+  def search_participant
+    @query = ""
+    
+    if params[:participant]
+       @search_participant = Participant.new(params[:participant])
+       first_name = @search_participant.first_name
+       last_name = @search_participant.last_name
+       email = @search_participant.email
+       workshop = @search_participant.workshop
+
+       if first_name != ""
+        if @query == ""
+          @query = "first_name LIKE '%"+first_name+"%'"
+        else
+          @query += " AND first_name LIKE '%"+first_name+"%'"
+        end
+      end
+      if last_name != ""
+        if @query == ""
+          @query = "last_name LIKE '%"+last_name+"%'"
+        else
+          @query += " AND last_name LIKE '%"+last_name+"%'"
+        end
+      end
+      if email !=""
+        if @query == ""
+          @query = "email LIKE '%"+email+"%'"
+        else
+          @query += " AND email LIKE '%"+email+"%'"
+        end
+      end 
+      if workshop == nil
+      elsif workshop !=""
+        if @query == ""
+           @query = "workshop LIKE 'workshop'"
+        else
+          @query += " AND workshop LIKE 'workshop'"
+        end
+      end 
+
+    end
+  end
+
+
   private
   def sort_column
     Participant.column_names.include?(params[:sort]) ? params[:sort] : "last_name"

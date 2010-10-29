@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101028200057) do
+ActiveRecord::Schema.define(:version => 20101029135115) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20101028200057) do
     t.integer  "accepted"
     t.integer  "visa"
     t.integer  "transport_type_id"
+    t.integer  "travel_support"
+    t.integer  "applied_for_visa"
   end
 
   create_table "question_statuses", :force => true do |t|

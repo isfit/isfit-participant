@@ -1,4 +1,18 @@
 <h1>Listing all participants</h1>
+<% content_for :sidebar_left do %>
+  <% form_for :participant, @search_participant, :url => { :action => "index" },
+          :html => {:method => "get"} do |f| %>
+  <table>
+    <tr>
+      <tr><td><b>First name: </b></td></tr><tr><td><%= f.text_field :first_name %></td></tr>
+    <tr><td><b>Last name: </b></td></tr><tr><td><%= f.text_field :last_name %></td></tr>
+    <tr><td><b>E-mail address: </b></td></tr><tr><td><%= f.text_field :email %></td></tr>
+    <tr><td><b>Workshop: </b></td></tr><tr><td><%= f.text_field :workshop %></td></tr>
+  </table>
+  <br />
+  <%= submit_tag 'Search' %><br>
+  <% end %>
+<% end %>
 
 <table class="full">
   <tr>
