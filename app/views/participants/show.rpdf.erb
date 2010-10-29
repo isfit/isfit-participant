@@ -1,73 +1,46 @@
-<% if current_user.id == @participant.user_id %>
-  <% content_for :sidebar_right do %>
-    <p class="info">Your public information can be seen by anyone that's logged in.</p>
-    <p class="info">Private information can only be seen by you and the functionaries of ISFiT.</p>
-  <% end %>
-<% end %>
-<h1><%= "#{@participant.first_name} #{@participant.last_name}"%></h1>
-<p>Form for posting new status messages</p>
-<p>Render out 5 newest status messages?</p>
+<style>
+dy, td {
+font-family: 'BellGothic BT';
+font-size: 10pt;
+}
+body {
+padding-left: 50px;
+padding-right: 50px;
+}
+.style2 {
+text-align:justify;
+}
+</style> 
 
-<h2>Public information</h2>
-<p>
-<b>Date of birth:</b>
-<%= @participant.date_of_birth %>
-</p>
-<p>
-<b>Field of study:</b>
-<%= @participant.field_of_study %>
-</p>
-<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
-  <h2>Private information</h2>
-  <p>
-  <b>Email:</b>
-  <%= @participant.email %>
-  </p>
-
-  <p>
-  <b>Address1:</b>
-  <%= @participant.address1 %>
-  </p>
-
-  <p>
-  <b>Address2:</b>
-  <%= @participant.address2 %>
-  </p>
-
-  <p>
-  <b>Zipcode:</b>
-  <%= @participant.zipcode %>
-  </p>
-
-  <p>
-  <b>City:</b>
-  <%= @participant.city %>
-  </p>
-
-  <p>
-  <b>Country:</b>
-  <%= @participant.country_id %>
-  </p>
-
-  <p>
-  <b>Sex:</b>
-  <%= @participant.sex %>
-  </p>
-  <p>
-  <b>Workshop:</b>
-  <%= @participant.workshop %>
-  </p>
-<% end %>
-<% if current_user.has_role?(:admin, nil) %>
-  <h2>Admin info</h2>
-  <p>
-  <b>User id:</b>
-  <%= @participant.user_id %>
-  </p>
-  <p>
-  <b>Primary role:</b>
-  <%= @participant.user.roles.first.name %>
-  </p>
-<% end %>
-
-<%= link_to 'Edit', edit_participant_path(@participant) %>
+<table width="100%" border="0"> 
+<tr> 
+<td colspan="2"><div align="right"><img alt="Logo_ny_blacyan" height="40" src="/images/logo_ny_blacyan.png?1288222543" width="129" /></div></td> 
+</tr> 
+<tr> 
+<td colspan="2"><span class="style2">Dear <%= @participant.last_name%>, <%= @participant.first_name %></span></td> 
+</tr> 
+<tr> <td colspan="2">&nbsp;</td></tr> 
+<tr> 
+<td colspan="2">  
+<p class="style2"> 
+The International Student Festival in Trondheim (ISFiT) 2011 and the ISFiT Foundation, hereby confirm
+that you are invited to participate in ISFiT 2011, in workshop 13: Genes. The conference takes place in Trondheim, 
+Norway, from 11 February to 20 Februrary 2011.</p> 
+<p class="style2">ISFiT 2011 has received about 4300 applications from 147 nations. All applications have gone through a thorough selection process, where only the most motivated and dedicated students were selected. On this basis you are one of the 450 students who we look forward to meeting in February.</p> 
+<p class="style2">The title of ISFiT 2011 is «Globalize This: Health». Health is more than the absence of illness. Global health includes all people and the way they interact with each other, their living conditions, and their life quality. ISFiT 2011 wants to put health back on the international agenda. ISFiT is a meeting place where future leaders are given a chance to be heard, establish networks and learn from each other.</p> 
+<p class="style2">ISFiT 2011 is able to provide travel support for only a few of the participants. Those who are granted travel support will receive a separate letter concerning this. Food and accommodation in Trondheim is free of charge for the participants, and will be taken care of by ISFiT.</p> 
+<p class="style2">The ISFiT Foundation consists of the Norwegian University of Science and Technology (NTNU), Sør-Trøndelag University College (HiST), the Student Society of Trondheim, “Studentsamskipnaden i Trondheim” (SiT), Trondheim local authority and Sør-Trøndelag County Authority. Representing the city of Trondheim and its institutions for higher education, the ISFiT Foundation proudly welcomes you to Trondheim and ISFiT 2011.</p> 
+<p class="style2">We consider it most important that all those who are invited are able to attend ISFiT 2011. We therefore hope that universities, companies and embassies will do their best to help the selected participants.<br> 
+</p> 
+<p class="style2">Yours sincerely,</p></td> 
+</tr> 
+<tr> 
+<td width="50%"><p><img alt="Jorgen_signature" height="40" src="/images/jorgen_signature.jpg?1288222543" style="border-bottom: 1px solid black" width="125" /></p> 
+<p>Jørgen Westrum Thorsen<br> 
+President, ISFiT 2011    </p></td> 
+<td width="50%" align="right"><p><img alt="Eivind_signature" height="40" src="/images/eivind_signature.png?1288222543" style="border-bottom: 1px solid black" width="160" /></p> 
+<p>Eivind Høibø<br> 
+Chairman, the ISFiT foundation</p></td> 
+</tr> 
+</table> 
+<div style="page-break-after:always"></div> 
