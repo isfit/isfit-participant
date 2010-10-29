@@ -43,10 +43,14 @@
             <% tabs_tag(:builder => MenuTabBuilder) do |tab| %>
               <%= tab.home 'Home', root_path %>
               <% if current_user.is_participant? %>
-                <%= tab.profile 'Profile', participant_path(current_user.id) %>
+                <%= tab.profile 'Profile', participant_path(current_user.participant.id) %>
               <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
                 <%= tab.profile 'Participants', participants_path %>
+                <%= tab.functionaries 'Functionaries', functionaries_path %> 
               <% end %>
+              <% if current_user.is_functionary? %>
+                <%= tab.functionary_profile 'Profile', functionary_path(current_user.functionary) %>
+              <%end%>
               <% if current_user.has_role?(:admin) %>
                 <%= tab.article 'Articles', articles_path %>
               <% end %>

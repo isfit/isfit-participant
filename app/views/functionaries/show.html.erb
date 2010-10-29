@@ -1,0 +1,7 @@
+<h1><%= "#{@functionary.first_name} #{@functionary.last_name}"%></h1>
+<p>
+<b>Email:</b>
+  <%= @functionary.email %>
+</p>
+
+<%if (current_user.has_role?(:functionary) && current_user.functionary == @functionary) || current_user.has_role?(:admin)%><%= link_to 'Edit', edit_functionary_path(@functionary) %><%end%>

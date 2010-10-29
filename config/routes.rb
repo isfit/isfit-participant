@@ -21,12 +21,12 @@ IsfitParticipant::Application.routes.draw do
 
   resources :questions do
     collection do 
-      post "status"
-      get "status"
+      post "q_status"
+      get "q_status"
     end
     resources :answers
   end
-
+  resources :functionaries
   resources :participants
 
   root :to => "home#index"

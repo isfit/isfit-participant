@@ -3,11 +3,11 @@ class QuestionsController < ApplicationController
   set_tab :question
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :status]
+    allow :functionary, :to => [:index, :show, :edit, :update, :q_status]
     allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
   end
 
-  def status
+  def q_status
     index  
   end
 
@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
       @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
       @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
       render :index_nopart
-      else
+    else
       @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")
       @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
       respond_to do |format|
@@ -108,18 +108,17 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    @question.question_status = QuestionStatus.find(params[:status])
+    #@question.question_status = QuestionStatus.find(params[:status])
     if !current_user.is_participant? || @question.participant.user == current_user
-
-    respond_to do |format|
-      if @question.update_attributes(params[:question])
-        format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+      respond_to do |format|
+        if @question.update_attributes(params[:question])
+          format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        end
       end
-    end
     else
       raise Acl9::AccessDenied
     end
