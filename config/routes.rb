@@ -19,6 +19,8 @@ IsfitParticipant::Application.routes.draw do
   
   resources :users
 
+  resources :roles
+
   resources :questions do
     collection do 
       post "q_status"
