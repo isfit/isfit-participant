@@ -11,13 +11,17 @@
 <% @information_categories.each do |information_category| %>
   <tr>
     <td><%= information_category.title %></td>
-    <td><%= link_to 'Show', information_category %></td>
-    <td><%= link_to 'Edit', edit_information_category_path(information_category) %></td>
-    <td><%= link_to 'Destroy', information_category, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to image_tag('icons/folder_go.png'), information_category %></td>
+    <td><%= link_to image_tag('icons/folder_edit.png'), edit_information_category_path(information_category) %></td>
+    <td><%= link_to image_tag('icons/folder_delete.png'), information_category, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Information category', new_information_category_path %> | <%= link_to "Information pages", information_pages_path %>
+<% content_for :sidebar_left do %>
+  <h4>Tools</h4>
+  <ul class="vlist">
+  <li><%= link_to image_tag('icons/folder_add.png') + ' New Information category', new_information_category_path %></li>
+  <li><%= link_to image_tag('icons/report.png') + " Information pages", information_pages_path %></li>
+<% end %>

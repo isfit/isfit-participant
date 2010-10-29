@@ -1,9 +1,9 @@
 <% content_for :sidebar_right do %>
   <h4>Admin shortcuts</h4>
   <ul class="vlist">
-    <li><%=link_to "Write article", new_article_path %></li>
-    <li><%=link_to "Write Information page", new_information_page_path %></li>
-    <li><%=link_to "Create new deadline (not working)", new_article_path %></li>
+    <li><%=link_to image_tag('icons/page_white_add.png')  + " Write article", new_article_path %></li>
+    <li><%=link_to image_tag('icons/report_add.png') + " Write Information page", new_information_page_path %></li>
+    <li><%=link_to image_tag('icons/hourglass.png')  + " Create new deadline", new_deadline_path %></li>
   </ul>
 <% end %>
 <% content_for :sidebar_left do  %>

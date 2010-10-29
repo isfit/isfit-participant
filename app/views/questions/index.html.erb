@@ -12,16 +12,16 @@
   <tr>
     <td> <%= question.subject %></td>
     <td><%=pluralize(question.answers.size, "answer")%></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
+    <td><%= link_to image_tag('icons/comment.png'), question %></td>
+    <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
   </tr>
   <%@followquestions.each do |follow| %>
     <%if follow.question_id == question.id%>
     <tr>
       <td>|_ <%=follow.subject%></td>
       <td><%=pluralize(question.answers.size, "answer")%></td>
-      <td><%= link_to 'Show', follow %></td>
-      <td><%= link_to 'Edit', edit_question_path(follow) %></td>
+      <td><%= link_to image_tag('icons/comments.png'), follow %></td>
+      <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
     </tr>
     <%end%>
   <%end%>

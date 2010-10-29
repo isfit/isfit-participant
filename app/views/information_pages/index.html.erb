@@ -1,11 +1,16 @@
 <% content_for :sidebar_left do %>
+  <h4>Tools</h4>
+  <ul class="vlist">
+    <li><%= link_to image_tag('icons/report_add.png') + ' New Information page', new_information_page_path %></li>
+    <li><%= link_to image_tag('icons/folder.png') + ' Information categories', information_categories_path %></li>
+  </ul>
   <h6 class="vlist">Navigation</h6>
   <ul class="vlist">
   <% InformationCategory.all.each do |c| %>
-    <li><%= c.title %></li>
+    <li><%= image_tag('icons/folder.png') + ' ' + c.title %></li>
     <ul>
       <% c.information_pages.each do |i| %>
-        <li><%= link_to i.title, information_page_path(i) %></li>
+        <li><%= link_to image_tag('icons/report.png') + ' ' + i.title, information_page_path(i) %></li>
       <%end%>
     </ul>
   <%end%>
@@ -33,13 +38,12 @@
     <td><%= information_page.title %></td>
     <td><%= information_page.user.name %></td>
     <td><%= information_page.information_category.title %></td>
-    <td><%= link_to 'Show', information_page %></td>
-    <td><%= link_to 'Edit', edit_information_page_path(information_page) %></td>
-    <td><%= link_to 'Destroy', information_page, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to image_tag('icons/report_go.png'), information_page %></td>
+    <td><%= link_to image_tag('icons/report_edit.png'), edit_information_page_path(information_page) %></td>
+    <td><%= link_to image_tag('icons/report_delete.png'), information_page, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Information page', new_information_page_path %> | <%= link_to 'Information categories', information_categories_path %>
