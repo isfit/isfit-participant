@@ -73,7 +73,9 @@
   </p>
   <p>
   <b>Arrival place:</b>
-  <%= @participant.arrival_place.name %>
+  <%if @participant.arrival_place != nil%>
+    <%= @participant.arrival_place.name %>
+  <%end%>
   </p>
   <p>
   <b>Arrives at (time):</b>
