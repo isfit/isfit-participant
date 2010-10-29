@@ -14,32 +14,25 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
-
+    selected_status = params[:status]
+    statusq = ""
+    @status = QuestionStatus.first
+    @statuses = QuestionStatus.all
+    if selected_status != nil
+      statusq = " AND question_status_id = "+selected_status
+      @status = QuestionStatus.find(selected_status)
+    else
+      statusq = " AND question_status_id = 1"
+    end
     if current_user.has_role?(:admin)
-      selected_status = params[:status]
-      statusq = ""
-      @status = QuestionStatus.first
-      @statuses = QuestionStatus.all
-      if selected_status != nil
-        statusq = " AND question_status_id = "+selected_status
-        @status = QuestionStatus.find(selected_status)
-      else
-        statusq = " AND question_status_id = 1"
-      end
       @questions = Question.all(:conditions=>"question_id IS NULL"+statusq)
       @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq)
       render :index_nopart
+    elsif current_user.has_role?(:dialogue)
+      @questions = Question.all(:conditions=>"question_id IS NULL AND dialogue = 1"+statusq)
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL AND dialogue = 1"+statusq)
+      render :index_nopart
     elsif current_user.has_role?(:functionary)
-      selected_status = params[:status]
-      statusq = ""
-      @status = QuestionStatus.first
-      @statuses = QuestionStatus.all
-      if selected_status != nil
-        statusq = " AND question_status_id = "+selected_status
-        @status = QuestionStatus.find(selected_status)
-      else
-        statusq = " AND question_status_id = 1"
-      end
       @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
       @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
       render :index_nopart
