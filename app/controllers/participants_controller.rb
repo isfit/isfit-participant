@@ -11,7 +11,11 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   def index
-    @participants = Participant.order(sort_column + ' ' + sort_direction)
+    if current_user.has_role?(:admin)
+      @participants = Participant.order(sort_column + ' ' + sort_direction)
+    else
+      @participants = Participant.where(:functionary_id => current_user.functionary.id).order(sort_column + ' ' + sort_direction)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }

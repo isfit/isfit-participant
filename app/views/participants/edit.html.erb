@@ -1,4 +1,9 @@
 <h1>Edit your profile</h1>
 <%= render 'form' %>
 
-<%= link_to 'Show', @participant %>
+<% content_for :sidebar_left do %>
+  <h4>Controls</h4>
+  <ul class="vlist">
+    <li><%= link_to 'Show profile', @participant %></li>
+  </ul>
+<% end %>
