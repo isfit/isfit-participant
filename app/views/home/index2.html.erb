@@ -7,7 +7,7 @@
 </div>
 
 <div>
-  There are <%= Question.count(:conditions=>"questions.id NOT IN (SELECT DISTINCT question_id FROM answers)")%> unanswered questions
+  There are <%=pluralize(@lastten.size, "unanswered question")%>
   <table>
     <tr>
       <th>
