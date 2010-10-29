@@ -5,6 +5,7 @@
 <div id="articles" class="articles">
   <%= render @articles %>
 </div>
+<%= link_to 'Change_password', edit_user_password_path%>
 <% content_for :sidebar_left do %>
   <div class="deadlines">
     <% if @deadlines %>
@@ -14,11 +15,11 @@
           <del><%=d.name%> - DONE<br /></del> 
         <%else%>
           <%if d.deadline < Time.now%>
-            <div class="warning">
+            <div class="highlight">
               <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%><br />
             </div>
           <%else%>
-            <%=d.name%> - in <%=time_ago_in_words(d.deadline)%><br /> 
+            <%=d.name%> - in <%=time_ago_in_words(d.deadline)%>(<%= d.deadline%>)<br /> 
           <%end%>
         <%end%>
       <%end%>

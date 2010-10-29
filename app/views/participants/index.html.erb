@@ -24,7 +24,6 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @participants.each do |participant| %>
@@ -32,13 +31,10 @@
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.city %></td>
-    <td><%= participant.country_id %></td>
     <td><%= participant.workshop %></td>
     <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
     <td><%= link_to 'Show', participant %></td>
     <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
-    <td><%= link_to 'PDF', :controller=>:participants, :format => :pdf, :action=> :show, :id => participant%></td>
   </tr>
 <% end %>
 </table>

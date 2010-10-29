@@ -25,8 +25,7 @@
             <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
             <!-- end: skip link navigation -->
             <% if user_signed_in? %>
-              Hi <%=current_user.name%> <%= link_to "Logout", destroy_user_session_url %>    
-
+              Hi <%=current_user.name%> <%= link_to "Logout", destroy_user_session_url %> | <%=link_to "Change password", change_password_path%>
           <% else %>
             <%= link_to "Login", new_user_session_url %> 
           <% end %>
