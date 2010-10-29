@@ -21,7 +21,11 @@ IsfitParticipant::Application.routes.draw do
   match 'change_password/update_password' => 'changepasswords#update_password', :as => :update_password
 
 
-  resources :roles
+  resources :roles do
+    member do
+      get "impersonate"
+    end
+  end
 
   resources :questions do
     collection do 

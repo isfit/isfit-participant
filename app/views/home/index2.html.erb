@@ -5,45 +5,22 @@
 <div id="articles" class="articles">
   <%= render @articles %>
 </div>
-
+<% content_for :sidebar_left do %>
 <div>
   There are <%=pluralize(@lastten.size, "unanswered question")%>
-  <table>
+  <table class="full">
     <tr>
       <th>
         Subject
-      </th>
-      <th>
-        Asked by
-      </th>
-      <th>
-        Date
-      </th>
-      <th>
-      </th>
-      <th>
       </th>
     </tr>
     <%  @lastten.each do |x| %>
       <tr>
         <td>
-          <%= x.subject %>
-        </td>
-        <td>
-          <%= x.participant.user.email %>
-        </td>
-        <td>
-          <%= x.created_at %>
-        </td>
-        <td>
-          <% if x.dialogue == 1 %>
-            Dialogue
-          <% end %>
-        </td>
-        <td>
-          <%= link_to 'Show', x %>
+          <%= link_to x.subject, x %>
         </td>
       </tr>
     <% end %>
   </table>
 </div>
+<% end %>

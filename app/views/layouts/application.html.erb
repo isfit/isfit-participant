@@ -30,8 +30,10 @@
             <%= link_to "Login", new_user_session_url %> 
           <% end %>
         </div>
+        <!-- Project Inga was made by ISFiT IT 2011. Proud fathers are Dag-Inge, Stian, Nikolaia (Inga-Instant) and Amr. Project Inga will remain in our hearts forever.
         <h1><%= link_to "Project Inga", root_url %></h1>
         <p>A participantweb made by ISFiT IT</p>
+        -->
       </div>
       <div id="nav">
         <!-- skiplink anchor: navigation -->
@@ -53,10 +55,10 @@
               <% if current_user.has_role?(:admin) %>
                 <%= tab.article 'Articles', articles_path %>
               <% end %>
-              <% if current_user.is_participant? or current_user.is_functionary? %>
-                <%= tab.information 'Information', information_page_path(1) %>
-              <% elsif current_user.has_role?(:admin) %>
+              <% if current_user.has_role?(:admin) %>
                 <%= tab.information 'Information', information_pages_path %>
+              <% elsif current_user.is_participant? or current_user.is_functionary? %>
+                <%= tab.information 'Information', information_page_path(1) %>
               <% end %>
                 <%= tab.question 'Questions', questions_path %>
             <% end %>

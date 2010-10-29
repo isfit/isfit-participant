@@ -3,9 +3,12 @@ class RolesController < ApplicationController
   set_tab :users
   access_control do
     allow :admin
-    allow :functionary, :to => [:show, :edit]
   end
-  
+  def impersonate
+    sign_in(:user, User.find(params[:id]))
+    redirect_to root_path
+  end
+
   # GET /users
   # GET /users.xml
   def index
@@ -72,6 +75,9 @@ class RolesController < ApplicationController
       end
     end
     respond_to do |format|
+      if params[:user][:password] == ""
+        params[:user].delete(:password)
+      end
       if @user.update_attributes(params[:user])
         format.html { redirect_to(role_path(@user), :notice => 'User was successfully updated.') }
         format.xml  { head :ok }

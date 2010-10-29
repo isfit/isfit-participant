@@ -50,14 +50,14 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   def show
     @question = Question.find(params[:id])
-    if @question.question_id != nil
-      parent = Question.find(@question.question_id)
-    else
-      parent = Question.new
-      parent.participant_id = -1
-    end
+   # if @question.question_id != nil
+   #   parent = Question.find(@question.question_id)
+   # else
+   #   parent = Question.new
+   #   parent.participant_id = -1
+   # end
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if @question.participant.user == current_user || !current_user.is_participant? || parent.participant.user == current_user
+    if @question.participant.user == current_user || !current_user.is_participant?# || parent.participant.user == current_user
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }

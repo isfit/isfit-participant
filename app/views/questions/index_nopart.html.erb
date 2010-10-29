@@ -15,7 +15,6 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 
@@ -29,7 +28,6 @@
     <td><%=pluralize(question.answers.size, "answer")%></td>
     <td><%= link_to 'Show', question %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
   </tr>
   <%@followquestions.each do |follow| %>
     <%if follow.question_id == question.id%>
@@ -40,7 +38,6 @@
         <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to 'Show', follow %></td>
         <td><%= link_to 'Edit', edit_question_path(follow) %></td>
-        <td><% if current_user.has_role?(:admin)%><%= link_to 'Delete', follow, :confirm => 'Are you sure?', :method => :delete %><%end%></td>
       </tr>    
     <%end%>
   <%end%>
