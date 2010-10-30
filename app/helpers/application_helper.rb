@@ -10,7 +10,11 @@ module ApplicationHelper
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
     link_to title, :sort => column, :direction => direction
   end
-
+  
+  def pdf_image_tag(image, options = {})
+    options[:src] = File.expand_path(RAILS_ROOT) + '/public/images/' + image
+    tag(:img, options)
+  end
 end
 
 # Custom tab builder made to work with yaml

@@ -35,7 +35,7 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @participant }
-      format.pdf { send_data render_to_pdf({ :action => 'show.rpdf'})}#, :layout => 'pdf_report' })} 
+      format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
     end
   end
 
