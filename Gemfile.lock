@@ -52,6 +52,7 @@ GEM
       activesupport (~> 3.0.0)
       arel (~> 1.0.1)
     mime-types (1.16)
+    mysql (2.8.1)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -91,6 +92,7 @@ DEPENDENCIES
   foreigner
   htmldoc
   meta_search
+  mysql
   rails (= 3.0.0)
   sqlite3-ruby
   tabs_on_rails
