@@ -95,11 +95,8 @@ DEPENDENCIES
   foreigner
   htmldoc
   meta_search
-<<<<<<< HEAD:Gemfile.lock
   mysql
-=======
   paperclip
->>>>>>> b6f2eec006fc5e21ac6dd051144a8e7821ea2908:Gemfile.lock
   rails (= 3.0.0)
   sqlite3-ruby
   tabs_on_rails
