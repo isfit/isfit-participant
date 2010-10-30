@@ -16,8 +16,8 @@ class ParticipantsController < ApplicationController
       @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query)
     else
       @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)
-    end 
-    @index_table = @participants
+    end
+ 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @participants }
@@ -118,6 +118,32 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def mail_to_search_results
+
+     search_participant
+     if current_user.has_role?(:admin)
+      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query)
+     else
+      @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)
+     end
+
+
+     if params[:mailform]
+
+       subject = params[:mailform][:subject]
+       text = params[:mailform][:text]
+       
+       respond_to do |format|
+          format.js
+       end
+
+ 
+       @participants.each do |a|
+         sleep(0.5)
+         ParticipantsMailer.send_mail(a, subject, text) 
+       end
+     end
+  end
 
   private
   def sort_column
