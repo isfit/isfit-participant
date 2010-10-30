@@ -5,45 +5,15 @@
 <div id="articles" class="articles">
   <%= render @articles %>
 </div>
-
-<div style="float:left">
-  There are <%= Question.count(:conditions=>"questions.id NOT IN (SELECT DISTINCT question_id FROM answers)")%> unanswered questions
-  <table>
-    <tr>
-      <th>
-        Subject
-      </th>
-      <th>
-        Asked by
-      </th>
-      <th>
-        Date
-      </th>
-      <th>
-      </th>
-      <th>
-      </th>
-    </tr>
+<% content_for :sidebar_left do %>
+<div>
+  There are <%=pluralize(@lastten.size, "unanswered question")%>
+  <ul class="vlist">
     <%  @lastten.each do |x| %>
-      <tr>
-        <td>
-          <%= x.subject %>
-        </td>
-        <td>
-          <%= x.user.email %>
-        </td>
-        <td>
-          <%= x.created_at %>
-        </td>
-        <td>
-          <% if x.dialogue %>
-            Dialogue
-          <% end %>
-        </td>
-        <td>
-          <%= link_to 'Show', x %>
-        </td>
-      </tr>
+        <li>
+          <%= link_to image_tag('icons/comment.png') + ' ' + x.subject, x %>
+        </li>
     <% end %>
-  </table>
+  </ul>
 </div>
+<% end %>

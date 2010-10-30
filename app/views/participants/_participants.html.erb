@@ -1,0 +1,25 @@
+<table class="full">
+  <tr>
+    <th><%= sortable "first_name", "First name" %></th>
+    <th><%= sortable "last_name", "Last name" %></th>
+    <th><%= sortable "city" %></th>
+    <th><%= sortable "workshop" %></th>
+    <th><%= sortable "accepted" %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @participants.each do |participant| %>
+  <tr>
+    <td><%= participant.first_name %></td>
+    <td><%= participant.last_name %></td>
+    <td><%= participant.city %></td>
+    <td><%= participant.workshop %></td>
+    <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
+    <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
+    <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
+  </tr>
+<% end %>
+</table>
+

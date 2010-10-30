@@ -73,7 +73,9 @@
   </p>
   <p>
   <b>Arrival place:</b>
-  <%= @participant.arrival_place.name %>
+  <%if @participant.arrival_place != nil%>
+    <%= @participant.arrival_place.name %>
+  <%end%>
   </p>
   <p>
   <b>Arrives at (time):</b>
@@ -88,6 +90,10 @@
   <%= @participant.has_passport == 1 ? "Yes":"No" %>
   </p>
   <p>
+  <b>Applied for Visa?:</b>
+  <%= @participant.applied_for_visa == 1 ? "Yes":"No" %>
+  </p>
+  <p>
   <b>Has Visa in order or don't need Visa?:</b>
   <%= @participant.visa == 1 ? "Yes":"No" %>
   </p>
@@ -99,6 +105,10 @@
   <p>
   <b>Accepted invitation:</b>
   <%= @participant.accepted == 1 ? "Yes":"No" %>
+  </p>
+  <p>
+  <b>Travel support amount:</b>
+  <%= @participant.travel_support ? @participant.travel_support : "0" %> USD
   </p>
 <% end %>
 <% if current_user.has_role?(:admin, nil) %>
@@ -112,5 +122,10 @@
   <%= @participant.user.roles.first.name %>
   </p>
 <% end %>
-
-<%= link_to 'Edit', edit_participant_path(@participant) %>
+<% content_for :sidebar_left do %>
+  <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
+  <ul class="vlist">
+    <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
+    <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitationletter',  :controller=>:participants, :format => :pdf, :action=> :show, :id => @participant.id%></li>
+  </ul>
+<% end %>

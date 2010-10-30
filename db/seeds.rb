@@ -12,9 +12,9 @@ dialogue = Role.create(:name => "dialogue")
 ArrivalPlace.create(:name => "Trondheim")
 ArrivalPlace.create(:name => "Oslo")
 
-Region.create(:name => "Norden")
-Region.create(:name => "Midtøsten")
-Region.create(:name => "Asia")
+TransportType.create(:name => "Plane")
+TransportType.create(:name => "Train")
+TransportType.create(:name => "Bus")
 
 User.create!(:email => "daginge@gmail.com", :password => "123456")
 User.create!(:email => "skjervum@isfit.org", :password => "123456")
@@ -29,8 +29,8 @@ id = User.last.id
 
 Participant.all.reverse.each do |p|
   p.user_id = id
-  p.region_id = (id%3)+1
   p.user.roles << participant
+  p.functionary_id = (id%4)+1
   id -= 1
   p.save
 end
@@ -63,3 +63,7 @@ f.save
 Deadline.create(:name=>"Visit profile page", :deadline=>"2010-11-15 23:59")
 Deadline.create(:name=>"Get visa", :deadline=>"2010-12-15 23:59")
 Deadline.create(:name=>"Past deadline....", :deadline=>Time.now)
+
+QuestionStatus.create(:name=>"New")
+QuestionStatus.create(:name=>"Open")
+QuestionStatus.create(:name=>"Resolved")

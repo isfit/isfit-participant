@@ -5,6 +5,12 @@ module ApplicationHelper
     bc.to_html
   end
 
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    link_to title, :sort => column, :direction => direction
+  end
+
 end
 
 # Custom tab builder made to work with yaml

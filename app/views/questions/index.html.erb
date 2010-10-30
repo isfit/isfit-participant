@@ -1,4 +1,3 @@
-<h1>Questions</h1>
 <table class="full">
   <tr>
     <th>Subject</th>
@@ -11,21 +10,17 @@
 <% @questions.each do |question| %>
   <tr>
     <td> <%= question.subject %></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
+    <td><%=pluralize(question.answers.size, "answer")%></td>
+    <td><%= link_to image_tag('icons/comment.png'), question %></td>
+    <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
   </tr>
   <%@followquestions.each do |follow| %>
     <%if follow.question_id == question.id%>
     <tr>
       <td>|_ <%=follow.subject%></td>
-      <td><%= link_to 'Show', follow %></td>
-      <td>
-      <%if follow.user_id == current_user.id %>
-        <%= link_to 'Edit', edit_question_path(follow) %>
-      <%else%>
-        Posted by functionary
-      <%end%>
-      </td>
+      <td><%=pluralize(question.answers.size, "answer")%></td>
+      <td><%= link_to image_tag('icons/comments.png'), follow %></td>
+      <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
     </tr>
     <%end%>
   <%end%>
@@ -33,4 +28,8 @@
 </table>
 
 <br />
-<%= link_to 'New Question', new_question_path %>
+<% content_for :sidebar_left do %>
+  <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
+  <ul class="vlist">
+    <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
+<% end %>

@@ -16,11 +16,25 @@ IsfitParticipant::Application.routes.draw do
   match 'questions/follow_new/:id' => 'questions#follow_new', :as => :follow_new
   
   resources :deadlines
+  
+  match 'change_password' => 'changepasswords#edit_password', :as => :change_password
+  match 'change_password/update_password' => 'changepasswords#update_password', :as => :update_password
 
-  resources :questions do
-    resources :answers
+
+  resources :roles do
+    member do
+      get "impersonate"
+    end
   end
 
+  resources :questions do
+    collection do 
+      post "q_status"
+      get "q_status"
+    end
+    resources :answers
+  end
+  resources :functionaries
   resources :participants
 
   root :to => "home#index"
