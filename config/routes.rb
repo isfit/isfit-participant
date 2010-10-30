@@ -35,7 +35,11 @@ IsfitParticipant::Application.routes.draw do
     resources :answers
   end
   resources :functionaries
-  resources :participants
+  resources :participants do
+    collection do
+      get "mail_to_search_results"
+    end
+  end
 
   root :to => "home#index"
   

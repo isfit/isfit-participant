@@ -15,6 +15,7 @@ gem "bluecloth"
 gem "htmldoc"
 gem 'mysql'
 gem "paperclip"
+gem "princely"
 #gem 'rmagick'
 
 # Use unicorn as the web server
