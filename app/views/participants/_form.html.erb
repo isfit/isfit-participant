@@ -52,8 +52,8 @@
       <%= f.text_field :city %>
     </div>
     <legend>Next of kin</legend>
-    <p class="info">Your next of kin is contaced in case of emergency</p>
-     <div class="type-text">
+    <p class="info"><%=image_tag('icons/information.png')%>  Your next of kin is contaced in case of emergency</p>
+    <div class="type-text">
       <%= f.label :name %>
       <%= f.text_field :next_of_kin_name %>
     </div>
@@ -63,10 +63,10 @@
     </div>
     <div class="type-text">
       <%= f.label :address %>
-      <%= f.text_area :next_of_kin_address %>
+      <%= f.text_area :next_of_kin_address, :rows => 4 %>
     </div>
     <legend>Travel information</legend>
-    <p class="info">Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
+    <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
     <div class="type-select">
       <%= f.label "Transport type" %>
       <%= f.select :transport_type_id, TransportType.all.to_select_name %>
@@ -75,7 +75,7 @@
       <%= f.label :flightnumber %>
       <%= f.text_field :flightnumber %>
     </div>
-     <div class="type-text">
+    <div class="type-text">
       <%= f.label "Arrives at (time)" %>
       <%= f.text_field :arrives_at, :class => "select-datetime" %>
     </div>
@@ -111,9 +111,11 @@
     <% if not @accepted or @accepted < 1 %>
       <div class="type-check">
         <p class="info">Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of November. <span class="highlight">This cannot be undone.</span></p>
-      <%= f.check_box :accepted %>
-      <%= f.label "I hereby accept my invitation to ISFiT." %>
-    </div>
+        <%= f.check_box :accepted %>
+        <%= f.label "I hereby accept my invitation to ISFiT." %>
+      </div>
+    <% else %>
+      <p class="info"><%= image_tag('icons/accept.png') %> You have accepted your invitation to participate in ISFiT</p>
     <% end %>
   </fieldset>
   <div class="type-button">

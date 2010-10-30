@@ -8,19 +8,12 @@
 <% content_for :sidebar_left do %>
 <div>
   There are <%=pluralize(@lastten.size, "unanswered question")%>
-  <table class="full">
-    <tr>
-      <th>
-        Subject
-      </th>
-    </tr>
+  <ul class="vlist">
     <%  @lastten.each do |x| %>
-      <tr>
-        <td>
-          <%= link_to x.subject, x %>
-        </td>
-      </tr>
+        <li>
+          <%= link_to image_tag('icons/comment.png') + ' ' + x.subject, x %>
+        </li>
     <% end %>
-  </table>
+  </ul>
 </div>
 <% end %>

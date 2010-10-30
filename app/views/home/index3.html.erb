@@ -9,20 +9,20 @@
 <% content_for :sidebar_left do %>
   <div class="deadlines">
     <% if @deadlines %>
-      <h3>Deadlines:</h3>
+      <h3><%= image_tag('icons/hourglass.png') %> Deadlines:</h3>
+      <ul class="vlist">
       <% @deadlines.each do |d| %>
         <%if d.users.include?(current_user)%>
-          <del><%=d.name%> - DONE<br /></del> 
+          <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
         <%else%>
           <%if d.deadline < Time.now%>
-            <div class="highlight">
-              <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%><br />
-            </div>
+            <li><div class="highlight"><%= image_tag('icons/clock_red.png')%> <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%></div></li>
           <%else%>
-            <%=d.name%> - in <%=time_ago_in_words(d.deadline)%>(<%= d.deadline%>)<br /> 
+            <li><%= image_tag('icons/clock.png')%> <%=d.name%> - in <%=time_ago_in_words(d.deadline)%>(<%= d.deadline%>)</li>
           <%end%>
         <%end%>
       <%end%>
+      </ul>
     <%end%>
   </div>
 <% end %>

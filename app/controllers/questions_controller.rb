@@ -149,4 +149,6 @@ class QuestionsController < ApplicationController
       format.xml  { render :xml => @question }
     end
   end
+    
+
 end
