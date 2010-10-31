@@ -40,7 +40,7 @@
         <div class="hlist">
           <!-- main navigation: horizontal list -->
           <% if current_user %>
-            <% tabs_tag(:builder => MenuTabBuilder) do |tab| %>
+            <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
               <%= tab.home 'Home', root_path %>
               <% if current_user.is_participant? %>
                 <%= tab.profile 'Profile', participant_path(current_user.participant.id) %>
@@ -62,7 +62,7 @@
                 <%= tab.question 'Questions', questions_path %>
             <% end %>
           <% else %>
-            <% tabs_tag do |tab| %>
+            <%= tabs_tag do |tab| %>
               <%= tab.home 'Home', root_path %>
             <% end %>
           <% end %>
