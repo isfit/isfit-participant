@@ -53,6 +53,7 @@
               <%end%>
               <% if current_user.has_role?(:admin) %>
                 <%= tab.article 'Articles', articles_path %>
+                <%= tab.deadline 'Deadlines', deadlines_path %>
               <% end %>
               <% if current_user.has_role?(:admin) %>
                 <%= tab.information 'Information', information_pages_path %>
