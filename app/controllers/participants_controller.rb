@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :participant, :to => [:show, :edit, :update]
+    allow :participant, :to => [:show, :edit, :update, :travel_support]
   end
 
   # GET /participants
@@ -36,6 +36,18 @@ class ParticipantsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @participant }
       format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
+    end
+  end
+
+  def travel_support
+    @participant = Participant.find(params[:id])
+    if @participant.travel_support < 1
+      return
+    end
+    if current_user.id == @participant.user.id
+      respond_to do |format|
+        format.pdf { send_data render_to_pdf({ :action => "travel.rpdf"})}
+      end
     end
   end
 
