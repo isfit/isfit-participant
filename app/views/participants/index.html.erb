@@ -23,13 +23,13 @@ $(document).ready(function (){
 <% content_for :sidebar_left do %>
 <% form_for :participant, @search_participant, :url => { :action => "index" },
 :html => {:method => "get", :class => "search"} do |f| %>
-  <table>
-    <tr>
-      <tr><td><b>First name: </b></td></tr><tr><td><%= f.text_field :first_name %></td></tr>
-    <tr><td><b>Last name: </b></td></tr><tr><td><%= f.text_field :last_name %></td></tr>
-    <tr><td><b>E-mail address: </b></td></tr><tr><td><%= f.text_field :email %></td></tr>
-    <tr><td><b>Workshop: </b></td></tr><tr><td><%= f.text_field :workshop %></td></tr>
-  </table>
+  <ul class="vlist">
+  <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
+  <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
+  <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
+    <li><b>Workshop: </b></li><li><%= f.text_field :workshop %></li>
+  </ul>
+
   <br />
   <%= submit_tag 'Search' %><br>
   <% end %>
