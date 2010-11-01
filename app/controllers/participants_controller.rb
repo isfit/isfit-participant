@@ -32,7 +32,7 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      if current_user == @participant.user
+      if current_user == @participant.user || !current_user.has_role?(:participant)
         format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
       else
         raise Acl9::AccessDenied
