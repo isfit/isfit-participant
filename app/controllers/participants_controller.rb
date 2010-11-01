@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :participant, :to => [:show, :edit, :update]
+    allow :participant, :to => [:show, :edit, :update, :travel_support]
   end
 
   # GET /participants
@@ -36,6 +36,18 @@ class ParticipantsController < ApplicationController
         format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
       else
         raise Acl9::AccessDenied
+      end
+    end
+  end
+
+  def travel_support
+    @participant = Participant.find(params[:id])
+    if @participant.travel_support < 1
+      return
+    end
+    if current_user.id == @participant.user.id
+      respond_to do |format|
+        format.pdf { send_data render_to_pdf({ :action => "travel.rpdf"})}
       end
     end
   end
