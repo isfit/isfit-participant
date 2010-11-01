@@ -37,41 +37,50 @@ namespace :functionary do
 namespace :participant do
 
   task :create => :environment do
-  func = {
-   "5" => ["tanita" ,"hannagri","kennej" ],
-   "3" => ["krisdjup" ,"toftoyan" ,"karisyj"],
-   "2" => ["marierts" , "sophridd"] ,
-   "1" => ["helgasyn","sofielys"] ,
-   "4" => ["ullern" , "kristaf" ,"oystf" ]
+    func = {
+      "5" => ["tanita" ,"hannagri","kennej" ],
+      "3" => ["krisdjup" ,"toftoyan" ,"karisyj"],
+      "2" => ["marierts" , "sophridd"] ,
+      "1" => ["helgasyn","sofielys"] ,
+      "4" => ["ullern" , "kristaf" ,"oystf" ]
     }
-    all_participants = ParticipantReal.where(:invited => 1)
-    all_participants.each do |p|
-    password = generate_password.to_s
-    user = User.create(:email => p.email, :first_password => password,
-                       :password => password)
-    participant = Participant.create(:first_name => p.first_name,
-                                     :last_name => p.last_name,
-                                     :address1 => p.address1,
-                                     :address2 => p.address2,
-                                     :zipcode => p.zipcode,
-                                     :city => p.city,
-                                     :country_id => p.country_id,
-                                     :workshop => p.final_workshop,
-                                     :travel_support => p.travel_assigned_amount,
-                                     :user_id => user.id)
+    func.each do |key,value|
+      participants = ParticipantReal.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
+      counter = 0
+      funcs = []
+      value.each do |username|
+        email = username << "@isfit.org"
+        funcs << Functionary.find_by_email(email)
+        p Functionary.find_by_email(email) 
+      end
+      modulo = value.size
+      participants.each do |p|
+        password = generate_password.to_s
+        user = User.create(:email => p.email, :first_password => password,
+                           :password => password)
+        participant = Participant.create(:first_name => p.first_name,
+                                         :last_name => p.last_name,
+                                         :address1 => p.address1,
+                                         :address2 => p.address2,
+                                         :zipcode => p.zipcode,
+                                         :city => p.city,
+                                         :country_id => p.country_id,
+                                         :workshop => p.final_workshop,
+                                         :travel_support => p.travel_assigned_amount,
+                                         :functionary_id => funcs[counter].id,
+                                         :user_id => user.id)
 
-
-  #logikk for å knytte opp med functionaries her
-  #  end
-  #
-
-
+        counter +=1
+        counter %= modulo
+      end
+      #logikk for å knytte opp med functionaries her
+    end
   end
 
 end
 
 class RealParticipant < ActiveRecord::Base
-
+  belongs_to :country
 end
 
 def generate_password(size = 8)

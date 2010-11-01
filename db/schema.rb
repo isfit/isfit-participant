@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101029135115) do
+ActiveRecord::Schema.define(:version => 20101031115532) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -129,12 +129,6 @@ ActiveRecord::Schema.define(:version => 20101029135115) do
     t.integer  "question_id"
   end
 
-  create_table "regions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 40
@@ -183,16 +177,10 @@ ActiveRecord::Schema.define(:version => 20101029135115) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "first_password"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "users_deadlines", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "deadline_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end
