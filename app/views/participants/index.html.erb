@@ -39,18 +39,3 @@ $(document).ready(function (){
   <%= render :partial => "participants" %>
 </div>
 
-<% content_for :sidebar_right do %>
-
-<% form_for :mailform, @mailform, :url => { :action => "mail_to_search_results" },
-:html => {:method => "get", :class => "sendmail"} do |f| %>
-  <table>
-    <tr>
-      <tr><td><b>Subject: </b></td></tr><tr><td><%= f.text_field :subject %></td></tr>
-      <tr><td><b>Your message: </b></td></tr><tr><td><%= f.text_field :text %></td></tr>
-  </table>
-  <br />
-  <%= submit_tag 'Send email' %><br>
-<% end %>
-
-<% end %>
-

@@ -53,26 +53,30 @@ namespace :participant do
       value.each do |username|
         email = username << "@isfit.org"
         funcs << Functionary.find_by_email(email)
-        p Functionary.find_by_email(email) 
+        #p Functionary.find_by_email(email) 
       end
       modulo = value.size
       participants.each do |p|
         password = generate_password.to_s
+				p password
         user = User.new(:email => p.email, :first_password => password,
                            :password => password)
+        user.roles << role
+        user.save
         participant = Participant.create(:first_name => p.first_name,
                                          :last_name => p.last_name,
                                          :address1 => p.address1,
                                          :address2 => p.address2,
                                          :zipcode => p.zipcode,
                                          :city => p.city,
+																				 :email => p.email,
+																				 :field_of_study => p.field_of_study,
                                          :country_id => p.country_id,
                                          :workshop => p.final_workshop,
                                          :travel_support => p.travel_assigned_amount,
                                          :functionary_id => funcs[counter].id,
                                          :user_id => user.id)
-        user.roles << role
-        user.save
+
 
         p participant.id
 
