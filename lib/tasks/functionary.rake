@@ -44,8 +44,10 @@ namespace :participant do
       "1" => ["helgasyn","sofielys"] ,
       "4" => ["ullern" , "kristaf" ,"oystf" ]
     }
+    role = Role.find(3)
     func.each do |key,value|
-      participants = ParticipantReal.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
+      participants = ParticipantsReal.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
+#      participants = []
       counter = 0
       funcs = []
       value.each do |username|
@@ -56,7 +58,7 @@ namespace :participant do
       modulo = value.size
       participants.each do |p|
         password = generate_password.to_s
-        user = User.create(:email => p.email, :first_password => password,
+        user = User.new(:email => p.email, :first_password => password,
                            :password => password)
         participant = Participant.create(:first_name => p.first_name,
                                          :last_name => p.last_name,
@@ -69,6 +71,10 @@ namespace :participant do
                                          :travel_support => p.travel_assigned_amount,
                                          :functionary_id => funcs[counter].id,
                                          :user_id => user.id)
+        user.roles << role
+        user.save
+
+        p participant.id
 
         counter +=1
         counter %= modulo
@@ -77,10 +83,6 @@ namespace :participant do
     end
   end
 
-end
-
-class RealParticipant < ActiveRecord::Base
-  belongs_to :country
 end
 
 def generate_password(size = 8)
