@@ -70,10 +70,13 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1.xml
   def update
     @participant = Participant.find(params[:id])
-
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
+          if @participant.applied_for_visa == 1 && !Deadline.deadline_done?("Get visa", current_user)
+            d = Deadline.find(2)
+            d.users << current_user
+          end
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
         else
           format.html { render :action => "edit" }
