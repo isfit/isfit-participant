@@ -34,6 +34,28 @@ namespace :functionary do
 
   end
 
+namespace :admin do
+  task :create => :environment do
+     func = {
+    :hannah => {:first  => "Hanna", :last => "Haaland"},
+    :tuvajako => {:first =>"Tuva", :last => "Rønnes"},
+    :malenehu => {:first => "Malene Huse", :last => "Eikrem"},
+    :andhaugs => {:first =>"Anders Grønning", :last => "Haugseth"},
+    }
+ 
+    func.each do |username,value|
+      password = generate_password.to_s
+        email = username.to_s + "@isfit.org"
+        first =  value[:first]
+        last = value[:last]
+        user = User.new(:email => email, :first_password => password, :password => password)
+        user.roles << Role.find(1)
+        user.save
+        Functionary.create(:email => email, :user_id => user.id,:first_name => first, :last_name => last)
+    end   
+  end
+end
+
 namespace :participant do
 
   task :create => :environment do
