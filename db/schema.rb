@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101031115532) do
+ActiveRecord::Schema.define(:version => 20101101190657) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20101031115532) do
     t.integer  "transport_type_id"
     t.integer  "travel_support"
     t.integer  "applied_for_visa"
+    t.integer  "notified"
   end
 
   create_table "participants_reals", :force => true do |t|
@@ -216,9 +217,7 @@ ActiveRecord::Schema.define(:version => 20101031115532) do
   end
 
   create_table "regions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
   end
 
   create_table "roles", :force => true do |t|
