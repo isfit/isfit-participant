@@ -20,13 +20,11 @@ class ParticipantsController < ApplicationController
  
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @participants }
       format.js
     end
   end
 
   # GET /participants/1
-  # GET /participants/1.xml
   def show
     if !Deadline.deadline_done?("Visit profile page", current_user)
       Deadline.first.users << current_user
@@ -34,8 +32,11 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @participant }
-      format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
+      if current_user == @participant.user
+        format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
+      else
+        raise Acl9::AccessDenied
+      end
     end
   end
 
@@ -74,10 +75,8 @@ class ParticipantsController < ApplicationController
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
-          format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @participant.errors, :status => :unprocessable_entity }
         end
       end
     else

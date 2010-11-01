@@ -13,7 +13,7 @@ gem 'foreigner'
 gem "tabs_on_rails"
 gem "bluecloth"
 gem "htmldoc"
-gem 'mysql'
+#gem 'mysql'
 gem "paperclip"
 gem "princely"
 #gem 'rmagick'

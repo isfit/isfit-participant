@@ -123,6 +123,7 @@
   </p>
 <% end %>
 <% content_for :sidebar_left do %>
+  <% if current_user == @participant.user%>
   <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
   <ul class="vlist">
     <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
@@ -131,4 +132,5 @@
     <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
     <% end %>
   </ul>
+  <%end%>
 <% end %>
