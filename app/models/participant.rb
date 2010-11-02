@@ -4,6 +4,7 @@ class Participant < ActiveRecord::Base
   belongs_to :functionary
   has_many :questions
   belongs_to :transport_type
+  belongs_to :country
   
   #validations
   #validates_presence_of :first_name, :last_name, :email, :date_of_birth, :address1, :zipcode, :city, :field_of_study
