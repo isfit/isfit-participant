@@ -123,7 +123,7 @@
   </p>
 <% end %>
 <% content_for :sidebar_left do %>
-  <% if current_user == @participant.user%>
+  <% if current_user == @participant.user || !current_user.has_role?(:participant)%>
   <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
   <ul class="vlist">
     <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
@@ -131,7 +131,8 @@
     <% if @participant.travel_support > 0 %>
     <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
     <% end %>
-    <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download Information Brochure", "/Information_brochure.pdf"%>
+    <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%>
+    <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%>
   </ul>
   <%end%>
 <% end %>
