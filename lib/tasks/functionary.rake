@@ -28,12 +28,79 @@ namespace :functionary do
         Functionary.create(:email => email, :user_id => user.id,:first_name => first, :last_name => last)
     end
   end
+namespace :facilitator do
 
+  task :create => :environment do
+    func = {
+      :siljemat => {:first => "Silje", :last => "Mathisen"},
+      :krisover => {:first => "Kristian", :last => "Bøhle Overrein"},
+      :ragnmoln => {:first => "Ragnhild", :last => "Molnes"},
+      :henrisi => {:first => "Henrik", :last => "Sigstad"},
+      :kristokj => {:first => "Kristoffer", :last => "Kjærnes"},
+      :ingvnyg => {:first => "Ingvild", :last => "Tanke Nygård"}
+    }
+    func.each do |username,value|
+      password = generate_password.to_s
+        email = username.to_s + "@isfit.org"
+        first =  value[:first]
+        last = value[:last]
+        user = User.new(:email => email, :first_password => password, :password => password)
+        user.roles << Role.find(2)
+        user.save
+        Functionary.create(:email => email, :user_id => user.id,:first_name => first, :last_name => last)
+    end
+
+  end
+
+end
 
 
 
   end
+namespace :dialogue do
 
+  task :create => :environment do
+    func = {
+      "5" => ["tanita" ,"hannagri","kennej" ],
+      "3" => ["krisdjup" ,"toftoyan" ,"karisyj"],
+      "2" => ["marierts" , "sophridd"] ,
+      "1" => ["helgasyn","sofielys"] ,
+      "4" => ["ullern" , "kristaf" ,"oystf" ]
+    }
+    func.each do |key,value|
+      participants = ParticipantReal.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
+      counter = 0
+      funcs = []
+      value.each do |username|
+        email = username << "@isfit.org"
+        funcs << Functionary.find_by_email(email)
+        p Functionary.find_by_email(email) 
+      end
+      modulo = value.size
+      participants.each do |p|
+        password = generate_password.to_s
+        user = User.create(:email => p.email, :first_password => password,
+                           :password => password)
+        participant = Participant.create(:first_name => p.first_name,
+                                         :last_name => p.last_name,
+                                         :address1 => p.address1,
+                                         :address2 => p.address2,
+                                         :zipcode => p.zipcode,
+                                         :city => p.city,
+                                         :country_id => p.country_id,
+                                         :workshop => p.final_workshop,
+                                         :travel_support => p.travel_assigned_amount,
+                                         :functionary_id => funcs[counter].id,
+                                         :user_id => user.id)
+
+        counter +=1
+        counter %= modulo
+      end
+      #logikk for å knytte opp med functionaries her
+    end
+  end
+
+end
 namespace :participant do
 
   task :create => :environment do
