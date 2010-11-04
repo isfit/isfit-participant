@@ -119,6 +119,14 @@
     <% else %>
       <p class="info"><%= image_tag('icons/accept.png') %> You have accepted your invitation to participate in ISFiT</p>
     <% end %>
+      <div class="type-check">
+        <%= f.check_box :media_consent %>
+        <%= f.label "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
+      </div>
+      <div class="type-check">
+        <%= f.check_box :subscribe_consent %>
+        <%= f.label "I want to subscribe to NTNU's research magazine Gemini - two issues a year, without any cost" %>
+      </div>
   </fieldset>
   <div class="type-button">
     <%= f.submit :class => "submit" %>
