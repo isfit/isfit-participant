@@ -12,6 +12,7 @@
   <% end %>
   <fieldset>
     <legend>Public information</legend>
+    <% if current_user.has_role?(:admin) %>
     <div class="type-text">
       <%= f.label :first_name %>
       <%= f.text_field :first_name %>
@@ -20,6 +21,7 @@
       <%= f.label :last_name %>
       <%= f.text_field :last_name %>
     </div>
+  <% end %>
     <div class="type-text">
       <%= f.label :date_of_birth %>
       <%= f.text_field :date_of_birth, :class => "select-date" %>
