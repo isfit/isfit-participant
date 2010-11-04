@@ -67,31 +67,41 @@ namespace :dialogue do
       "1" => ["helgasyn","sofielys"] ,
       "4" => ["ullern" , "kristaf" ,"oystf" ]
     }
+    role = Role.find(3)
     func.each do |key,value|
-      participants = ParticipantReal.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
+      participants = DialogueParticipant.joins(:country).where(:invited => 1).where("countries.region_id = #{key}")
       counter = 0
       funcs = []
       value.each do |username|
         email = username << "@isfit.org"
         funcs << Functionary.find_by_email(email)
-        p Functionary.find_by_email(email) 
       end
       modulo = value.size
       participants.each do |p|
         password = generate_password.to_s
-        user = User.create(:email => p.email, :first_password => password,
+				p password
+        user = User.new(:email => p.email, :first_password => password,
                            :password => password)
+        user.roles << role
+        user.save
         participant = Participant.create(:first_name => p.first_name,
                                          :last_name => p.last_name,
                                          :address1 => p.address1,
                                          :address2 => p.address2,
                                          :zipcode => p.zipcode,
                                          :city => p.city,
+																				 :email => p.email,
+																				 :field_of_study => p.field_of_study,
                                          :country_id => p.country_id,
-                                         :workshop => p.final_workshop,
-                                         :travel_support => p.travel_assigned_amount,
+                                         :workshop => 18,
+                                         :travel_support => p.travel_amount,
                                          :functionary_id => funcs[counter].id,
-                                         :user_id => user.id)
+                                         :user_id => user.id,
+                                         :dialogue => 1,
+                                         :middle_name => p.middle_name)
+
+
+        p participant.id
 
         counter +=1
         counter %= modulo
@@ -99,8 +109,8 @@ namespace :dialogue do
       #logikk for å knytte opp med functionaries her
     end
   end
-
 end
+
 namespace :admin do
   task :create => :environment do
      func = {
