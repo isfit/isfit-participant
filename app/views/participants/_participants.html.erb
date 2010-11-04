@@ -2,7 +2,7 @@
   <tr>
     <th><%= sortable "first_name", "First name" %></th>
     <th><%= sortable "last_name", "Last name" %></th>
-    <th><%= sortable "city" %></th>
+    <th><%= sortable "country_id", "Country" %></th>
     <th><%= sortable "workshop" %></th>
     <th><%= sortable "accepted" %></th>
     <th></th>
@@ -14,7 +14,7 @@
   <tr>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
-    <td><%= participant.city %></td>
+    <td><%= participant.country.name %></td>
     <td><%= participant.workshop %></td>
     <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>

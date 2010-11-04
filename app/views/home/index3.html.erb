@@ -5,7 +5,6 @@
 <div id="articles" class="articles">
   <%= render @articles %>
 </div>
-<%= link_to 'Change_password', edit_user_password_path%>
 <% content_for :sidebar_left do %>
   <div class="deadlines">
     <% if @deadlines %>
@@ -26,3 +25,5 @@
     <%end%>
   </div>
 <% end %>
+<% content_for :sidebar_right do %>
+<%end%>

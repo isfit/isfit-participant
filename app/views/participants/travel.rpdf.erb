@@ -1,0 +1,47 @@
+<style> 
+body, td {
+font-family: 'BellGothic BT';
+font-size: 10pt;
+}
+body {
+padding-left: 50px;
+padding-right: 50px;
+}
+.style2 {
+text-align:justify;
+}
+</style> 
+
+
+
+<table width="100%" border="0"> 
+<tr> 
+<td width="50%"><div align="left" class="style2"> 
+ISFiT<br> 
+Hovedbygget, NTNU<br> 
+H&oslash;gskoleringen 1<br> 
+7491 Trondheim<br> 
+NORWAY</div></td> 
+<td width="395"><div align="right"> <%= pdf_image_tag('logo_ny_blacyan.png')%></div></td> 
+</tr> 
+<tr> 
+<td colspan="2" class="style2"><p align="right">&nbsp;</p> 
+<p align="right">Trondheim, 01.11.10<br> 
+</p> 
+<p>Dear <%= @participant.last_name %>, <%= @participant.first_name %></p> 
+<p>You have been granted travel support in the amount of: <%= @participant.travel_support %> USD</p> 
+<p style="style2">Please note that the travel support will be refunded during the festival in February 2011. You will be asked to present your ticket stubs and travel receipts, so please do not throw these away. From your application and our conducted research, this sum should help you cover what you need for a round trip ticket from your home country to Trondheim, Norway. Please note that the travel support does not cover passport or visa expenses. </p> 
+<p style="style2">We would like you to find tickets directly to Værnes airport in Trondheim. If you are only able to fly into Gardermoen airport in Oslo, bus and train transportation to Trondheim will be arranged by ISFiT at the cost of NOK 150 (approx. 25 USD) one-way. More information on travel options is available in the information brochure you received by email and on your personal profile.</p> 
+<p style="style2">An invitation email has been sent to you where you have been given access to your own personal profile at https://participant.isfit.org. In this profile there is a scheme regarding travel information. You need to show us some proof that you have started to plan your trip, and remember to confirm your attendance by December 15th. If you fail to do this, you risk losing your travel support, as it might be given to someone else.</p> 
+<p style="style2">Due to our limited funds, the majority of the travel support applications have been rejected. For this reason we kindly ask you to be discrete towards other participants about your advantageous situation.</p> 
+<p style="style2">We wish you good luck planning your trip and look forward to seeing you in Trondheim in February 2011. If you have further questions, please contact us through your profile at https://participant.isfit.org. <br> 
+</p> 
+<p>&nbsp;      </p> 
+<p>Yours sincerely, </p> 
+<p><%= pdf_image_tag('jorgen_signature.jpg') %></p> 
+<p>J&oslash;rgen Westrum Thorsen<br> 
+President, ISFiT 2011    </p> 
+<p>&nbsp;</p></td> 
+</tr> 
+</table> 
+<div style="page-break-after:always"></div> 

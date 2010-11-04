@@ -39,6 +39,9 @@ IsfitParticipant::Application.routes.draw do
     collection do
       get "mail_to_search_results"
     end
+    member do
+      get "travel_support"
+    end
   end
 
   root :to => "home#index"

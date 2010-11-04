@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :participant, :to => [:show, :edit, :update]
+    allow :participant, :to => [:show, :edit, :update, :travel_support]
   end
 
   # GET /participants
@@ -20,13 +20,11 @@ class ParticipantsController < ApplicationController
  
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @participants }
       format.js
     end
   end
 
   # GET /participants/1
-  # GET /participants/1.xml
   def show
     if !Deadline.deadline_done?("Visit profile page", current_user)
       Deadline.first.users << current_user
@@ -34,8 +32,23 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @participant }
-      format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
+      if current_user == @participant.user || !current_user.has_role?(:participant)
+        format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
+      else
+        raise Acl9::AccessDenied
+      end
+    end
+  end
+
+  def travel_support
+    @participant = Participant.find(params[:id])
+    if @participant.travel_support < 1
+      return
+    end
+    if current_user.id == @participant.user.id
+      respond_to do |format|
+        format.pdf { send_data render_to_pdf({ :action => "travel.rpdf"})}
+      end
     end
   end
 
@@ -57,15 +70,16 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1.xml
   def update
     @participant = Participant.find(params[:id])
-
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
+          if @participant.applied_for_visa == 1 && !Deadline.deadline_done?("Apply for a visa", current_user)
+            d = Deadline.find(4)
+            d.users << current_user
+          end
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
-          format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @participant.errors, :status => :unprocessable_entity }
         end
       end
     else
