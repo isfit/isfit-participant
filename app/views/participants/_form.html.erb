@@ -115,7 +115,7 @@
   </fieldset>
   <fieldset>
     <legend>ISFiT related information</legend>
-    <% if not @accepted or @accepted < 1 %>
+    <% if (not @accepted or @accepted < 1) || current_user.has_role?(:admin) %>
       <div class="type-check">
         <p class="info">Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of Desember. <span class="highlight">This cannot be undone.</span></p>
         <%= f.check_box :accepted %>

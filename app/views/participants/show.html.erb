@@ -52,11 +52,16 @@
   <%= @participant.country ? @participant.country.name : "Not selected, please contact your functionary" %>
   </p>
 
-
+  <% if @participant.workshop_id < 18 %>
   <p>
   <b>Workshop:</b>
-  <%= @participant.workshop %>
+  <%= @participant.workshop.name %>
   </p>
+  <% else %>
+  <p>
+  <b>Dialogue:</b> Yes
+  </p>
+  <% end %>
   <h3>Next of kin information</h3>
   <p>
   <b>Name:</b>
