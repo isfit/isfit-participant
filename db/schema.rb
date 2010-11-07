@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20101104213834) do
     t.integer  "country_id"
     t.integer  "sex"
     t.string   "field_of_study"
-    t.integer  "workshop"
+    t.integer  "workshop_id"
     t.integer  "user_id"
     t.integer  "functionary_id"
     t.datetime "created_at"
