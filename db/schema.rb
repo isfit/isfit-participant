@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104152454) do
+ActiveRecord::Schema.define(:version => 20101104213834) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -127,6 +127,44 @@ ActiveRecord::Schema.define(:version => 20101104152454) do
   end
 
   create_table "participants", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.date     "date_of_birth"
+    t.string   "address1"
+    t.string   "address2"
+    t.integer  "zipcode"
+    t.string   "city"
+    t.integer  "country_id"
+    t.integer  "sex"
+    t.string   "field_of_study"
+    t.integer  "workshop"
+    t.integer  "user_id"
+    t.integer  "functionary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "arrives_at"
+    t.datetime "departs_at"
+    t.integer  "arrival_place_id"
+    t.integer  "need_transport"
+    t.string   "next_of_kin_name"
+    t.string   "next_of_kin_phone"
+    t.text     "next_of_kin_address"
+    t.integer  "flightnumber"
+    t.integer  "has_passport"
+    t.integer  "accepted"
+    t.integer  "visa"
+    t.integer  "transport_type_id"
+    t.integer  "travel_support"
+    t.integer  "applied_for_visa"
+    t.integer  "notified"
+    t.boolean  "dialogue"
+    t.string   "middle_name"
+    t.boolean  "media_consent"
+    t.boolean  "subscribe_consent"
+  end
+
+  create_table "participants_bak", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -317,6 +355,30 @@ ActiveRecord::Schema.define(:version => 20101104152454) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "users_bak", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "first_password"
+  end
+
+  add_index "users_bak", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users_bak", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "users_deadlines", :force => true do |t|
     t.integer  "user_id"
