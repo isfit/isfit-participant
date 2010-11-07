@@ -22,6 +22,11 @@
       <%= f.text_field :last_name %>
     </div>
   <% end %>
+    <div class="type-check">
+      <%= f.label :sex %>  
+      <%= f.radio_button :sex,  1 %><%= f.label "Male" %>
+      <%= f.radio_button :sex, 0 %><%= f.label "Female" %>
+    </div>
     <div class="type-text">
       <%= f.label :date_of_birth %>
       <%= f.text_field :date_of_birth, :class => "select-date" %>
