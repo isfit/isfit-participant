@@ -25,8 +25,9 @@ class QuestionsController < ApplicationController
       statusq = " AND question_status_id = 1"
     end
     if current_user.has_role?(:admin)
-      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq)
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq)
+      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq, :joins=>"JOIN participants ON participants.id = questions.participant_id", :order=>"participants.functionary_id")
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq, :joins=>"JOIN participants ON participants.id = questions.participant_id", :order=>"participants.functionary_id")
+      @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN participants p ON p.functionary_id = f.id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
       render :index_nopart
     elsif current_user.has_role?(:dialogue)
       @questions = Question.all(:conditions=>"question_id IS NULL AND dialogue = 1"+statusq)
