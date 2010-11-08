@@ -21,7 +21,7 @@
             <td><%= follow.subject %></td>
             <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
             <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-            <td><%=pluralize(question.answers.size, "answer")%></td>
+            <td><%=pluralize(follow.answers.size, "answer")%></td>
             <td><%= link_to image_tag('icons/comments.png'), follow %></td>
             <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
           </tr>    
@@ -40,7 +40,7 @@
             <td><%= follow.subject %></td>
             <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
             <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-            <td><%=pluralize(question.answers.size, "answer")%></td>
+            <td><%=pluralize(follow.answers.size, "answer")%></td>
             <td><%= link_to image_tag('icons/comments.png'), follow %></td>
             <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
           </tr>    
@@ -61,7 +61,7 @@
           <td><%if Question.find(follow.question_id).question_status == follow.question_status%> |_ <%end%><%= follow.subject %></td>
           <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
           <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-          <td><%=pluralize(question.answers.size, "answer")%></td>
+          <td><%=pluralize(follow.answers.size, "answer")%></td>
           <td><%= link_to image_tag('icons/comments.png'), follow %></td>
           <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
         </tr>    
