@@ -24,7 +24,7 @@ text-align:justify;
 <td colspan="2">  
 <p class="style2"> 
 The International Student Festival in Trondheim (ISFiT) 2011 and the ISFiT Foundation, hereby confirm
-that you are invited to participate in ISFiT 2011, in workshop <%= @participant.workshop %>. The conference takes place in Trondheim, 
+that you are invited to participate in ISFiT 2011<%if @participant.workshop != nil%>,in workshop <%= @participant.workshop.name %><%end%>. The conference takes place in Trondheim, 
 Norway, from 11 February to 20 Februrary 2011.</p> 
 <p class="style2">ISFiT 2011 has received about 4300 applications from 147 nations. All applications have gone through a thorough selection process, where only the most motivated and dedicated students were selected. On this basis you are one of the 450 students who we look forward to meeting in February.</p> 
 <p class="style2">The title of ISFiT 2011 is "Globalize This: Health". Health is more than the absence of illness. Global health includes all people and the way they interact with each other, their living conditions, and their life quality. ISFiT 2011 wants to put health back on the international agenda. ISFiT is a meeting place where future leaders are given a chance to be heard, establish networks and learn from each other.</p> 

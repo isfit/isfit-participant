@@ -15,7 +15,7 @@
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
-    <td><%= participant.workshop %></td>
+    <td><%if participant.workshop != nil %><%= participant.workshop.name %><%else%>Not assigned<%end%></td>
     <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
     <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
