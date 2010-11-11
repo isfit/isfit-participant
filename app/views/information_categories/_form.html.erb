@@ -1,6 +1,22 @@
-<%= form_for(@information_category) do |f| %>
+<% content_for :sidebar_left do %>
+  <% @categories = InformationCategory.all %>
+  <h6 class="vlist">Navigation</h6>
+  <ul class="vlist">
+  <% @categories.each do |c| %>
+    <li><%= c.title %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>
+
+
+<%= form_for(@information_category, :html => { :class => "yform full"}) do |f| %>
   <% if @information_category.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="warning">
       <h2><%= pluralize(@information_category.errors.count, "error") %> prohibited this information_category from being saved:</h2>
 
       <ul>
@@ -11,11 +27,11 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="type-text">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="type-button">
+    <%= f.submit :class => "submit"%>
   </div>
 <% end %>

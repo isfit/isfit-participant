@@ -1,37 +1,19 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index2.html.erb I`m the functionary view</p>
-<div style="float:left">
-  There are <%= Question.count(:conditions=>"questions.id NOT IN (SELECT DISTINCT question_id FROM answers)")%> unanswered questions
-  <table>
-    <tr>
-      <th>
-        Subject
-      </th>
-      <th>
-        Asked by
-      </th>
-      <th>
-        Date
-      </th>
-      <th>
-      </th>
-    </tr>
-    <%  @lastten.each do |x| %>
-      <tr>
-        <td>
-          <%= x.subject %>
-        </td>
-        <td>
-          <%= x.participant.first_name %> <%= x.participant.last_name %>
-        </td>
-        <td>
-          <%= x.created_at %>
-        </td>
-        <td>
-          <%= link_to 'Show', x %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<!-- functionary view -->
+<div id="important_articles" class="important_articles">
+  <%= render @important_articles %>
 </div>
-<div style="float:right">RIGHT</div>
+<div id="articles" class="articles">
+  <%= render @articles %>
+</div>
+<% content_for :sidebar_left do %>
+<div>
+  There are <%=pluralize(@lastten.size, "unanswered question")%>
+  <ul class="vlist">
+    <%  @lastten.each do |x| %>
+        <li>
+          <%= link_to image_tag('icons/comment.png') + ' ' + x.subject, x %>
+        </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>

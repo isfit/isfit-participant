@@ -1,0 +1,28 @@
+<%= form_for(@functionary,:html => {:class => "yform columnar"} ) do |f| %>
+  <% if @functionary.errors.any? %>
+    <div id="error_explanation" class="warning">
+      <h2><%= pluralize(@functionary.errors.count, "error") %> prohibited this functionary from being saved:</h2>
+
+      <ul>
+        <% @functionary.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="type-text">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="type-text">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="type-text">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="type-button">
+    <%= f.submit :class => "submit" %>
+  </div>
+<% end %>

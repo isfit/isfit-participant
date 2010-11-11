@@ -10,6 +10,12 @@
   <% end %>
   <%= f.hidden_field :question_id, :value => @question.question_id %>
   <fieldset>
+  <% if !current_user.has_role?(:participant)%>
+    <div class="type-text">
+      <%= f.label "Update status"%>
+      <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @question.question_status.id)) %>
+    </div>
+  <%end%>
     <div class="type-text">
       <%= f.label :subject %><br />
       <%= f.text_field :subject %>
@@ -18,6 +24,12 @@
       <%= f.label :content %><br />
       <%= f.text_area :content %>
     </div>
+    <% if current_user.has_role?(:functionary) %>
+      <div class="type-text">
+        <%= f.label :dialogue %><br />
+        <%= f.check_box :dialogue %>
+      </div>    
+    <%end%>
     <div class="type-button">
       <%= f.submit :class => "submit" %>
     </div>

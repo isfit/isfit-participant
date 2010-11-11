@@ -1,6 +1,23 @@
-<%= form_for(@information_page) do |f| %>
+<% content_for :sidebar_left do %>
+  <% @categories = InformationCategory.all %>
+  <h6 class="vlist">Navigation</h6>
+  <ul class="vlist">
+  <% @categories.each do |c| %>
+    <li><%= c.title %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>
+<% content_for :sidebar_right do %>
+  <% render "information" %>
+<% end %>
+<%= form_for(@information_page, :html => { :class => "yform full"}) do |f| %>
   <% if @information_page.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="warning">
       <h2><%= pluralize(@information_page.errors.count, "error") %> prohibited this information_page from being saved:</h2>
 
       <ul>
@@ -10,21 +27,21 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+  <div class="type-select">
+    <%= f.label :information_category_id %><br />
+    <%= f.select :information_category_id, InformationCategory.all.to_select_title %>
+  </div>
+  <div class="type-text">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
-  <div class="field">
+  <div class="type-text">
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </div>
     <%= f.hidden_field :user_id, :value => current_user.id %>
-  <div class="field">
-    <%= f.label :information_category_id %><br />
-    <%= f.text_field :information_category_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="type-button">
+    <%= f.submit :class => "submit" %>
   </div>
 <% end %>

@@ -1,33 +1,92 @@
-<h1>Questions</h1>
-<% @regions.each do |r| %>
-<h2><%= r.name %></h2>
+<%= form_for Question.new, :url=> q_status_questions_path do |f| %>
+  <div class="type-text">
+    <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @status.id)) %>
+    <%= f.submit "Show"%>
+  </div>
+  <br />
+<%end%>
 <table class="full">
   <tr>
     <th>Subject</th>
-    <% if current_user.has_role?(:functionary)%>
     <th class="full">Participant</th>
-    <% end%>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
-
-<% @questions.each do |question| %>
-  <% if question.participant.region_id == r.id %>
-  <tr>
-    <td><%= question.subject %></td>
-    <% if current_user.has_role?(:functionary)%>
-    <td><%= question.participant.first_name %> <%= question.participant.last_name %></td>
-    <% end%>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Delete', question, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-  <% end %>
-<% end %>
+  <%if !current_user.has_role?(:admin)%>
+     <%@followquestions.each do |follow| %>
+        <%if Question.find(follow.question_id).question_status != follow.question_status%>
+          <tr>
+            <td><%= follow.subject %></td>
+            <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
+            <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
+            <td><%=pluralize(follow.answers.size, "answer")%></td>
+            <td><%= link_to image_tag('icons/comments.png'), follow %></td>
+            <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
+          </tr>    
+        <%end%>
+      <%end%> 
+  <%end%>
+  <% last_func = Functionary.new %>
+  <% @questions.each do |question| %>
+    <% p = question.participant%>
+    <% if last_func != p.functionary && current_user.has_role?(:admin)%>
+      <%last_func = p.functionary %>
+      </table><h3><%= last_func.first_name %> <%=last_func.last_name %></h3><table>
+      <%@followquestions.each do |follow| %>
+        <%if Question.find(follow.question_id).question_status != follow.question_status && last_func == follow.participant.functionary%>
+          <tr>
+            <td><%= follow.subject %></td>
+            <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
+            <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
+            <td><%=pluralize(follow.answers.size, "answer")%></td>
+            <td><%= link_to image_tag('icons/comments.png'), follow %></td>
+            <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
+          </tr>    
+        <%end%>
+      <%end%>
+    <%end%>
+    <tr>
+      <td><%if question.question_id != nil%> |_ <%end%> <%= question.subject %></td>
+      <td><%=p.first_name %> <%= p.last_name %></td>
+      <td><%if question.dialogue == 1%>Dialogue<%end%></td>
+      <td><%=pluralize(question.answers.size, "answer")%></td>
+      <td><%= link_to image_tag('icons/comment.png'), question %></td>
+      <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
+    </tr>
+    <%@followquestions.each do |follow| %>
+      <%if follow.question_id == question.id %>
+        <tr>
+          <td><%if Question.find(follow.question_id).question_status == follow.question_status%> |_ <%end%><%= follow.subject %></td>
+          <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
+          <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
+          <td><%=pluralize(follow.answers.size, "answer")%></td>
+          <td><%= link_to image_tag('icons/comments.png'), follow %></td>
+          <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
+        </tr>    
+      <%end%>
+    <%end%>
+  <%end %>
 </table>
-
-<br />
-<% end %>
-<%= link_to 'New Question', new_question_path %>
+<%if current_user.has_role?(:admin)%>
+  <% content_for :sidebar_right do %>
+    <table style="font-size:0.8em">
+      <tr>
+        <th>Functionary</th>
+        <th>New</th>
+        <th>Open</th>
+        <th>Resolved</th>
+      </tr>
+      <%last_id = -1%>
+      <% @static.each do |s| %>
+        <tr>
+          <td><%=s.first_name%> <%=s.last_name%></td>
+          <td><%=s.new%></td>
+          <td><%=s.opened%></td>
+          <td><%=s.resolved%></td>
+        </tr>
+      <%end%> 
+    </table>
+  <%end%>
+<%end%>

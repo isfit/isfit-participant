@@ -1,27 +1,41 @@
-<h1>Listing all participants</h1>
+<script>
+$(document).ready(function (){  
+  jQuery.ajaxSetup({  
+    'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
+  });  
+  $('.search').submit(function (){  
+    //$.get($(this).attr('action'), $(this).serialize(), null, "script");
+    $.get($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;  
+  });
+  $('.search').keyup(function (){
+    setTimeout(function() { $('.search').submit(); }, 500);
+  });
+  $('.sendmail').submit(function (){
+    var res = $('.search').serialize();
+    var res2 = $(this).serialize();
+    var res3 = res + res2;
+    $.get($(this).attr('action'), res3, null, "script");
+    return false;  
+  });
+}); 
+</script>
+<% content_for :sidebar_left do %>
+<% form_for :participant, @search_participant, :url => { :action => "index" },
+:html => {:method => "get", :class => "search"} do |f| %>
+  <ul class="vlist">
+  <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
+  <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
+  <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
+    <li><b>Workshop: </b></li><li><%= f.text_field :workshop %></li>
+  </ul>
 
-<table class="full">
-  <tr>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>City</th>
-    <th>Country</th>
-    <th>Workshop</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @participants.each do |participant| %>
-  <tr>
-    <td><%= participant.first_name %></td>
-    <td><%= participant.last_name %></td>
-    <td><%= participant.city %></td>
-    <td><%= participant.country_id %></td>
-    <td><%= participant.workshop %></td>
-    <td><%= link_to 'Show', participant %></td>
-    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td><%= link_to 'Destroy', participant, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <br />
+  <%= submit_tag 'Search' %><br>
+  <% end %>
 <% end %>
-</table>
+
+<div id="index_table">
+  <%= render :partial => "participants" %>
+</div>
+

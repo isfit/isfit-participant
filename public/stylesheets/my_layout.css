@@ -11,15 +11,15 @@
  *          */
 
 /* import core styles | Basis-Stylesheets einbinden */
-@import url(../yaml/core/base.css);
+@import url(yaml/core/base.css);
 @import url(smoothness/jquery-ui-1.8.4.custom.css);
 
 /* import screen layout | Screen-Layout einbinden */
-@import url(../yaml/navigation/nav_slidingdoor.css);
+@import url(yaml/navigation/nav_slidingdoor.css);
 @import url(screen/basemod.css);
-@import url(../yaml/screen/content_default.css);
-@import url(../yaml/screen/forms.css);
-@import url(../yaml/navigation/nav_vlist.css);
+@import url(yaml/screen/content.css);
+@import url(yaml/screen/forms.css);
+@import url(yaml/navigation/nav_vlist.css);
 
 /* import print layout | Druck-Layout einbinden */
-@import url(../yaml/print/print_draft.css);
+@import url(yaml/print/print_draft.css);

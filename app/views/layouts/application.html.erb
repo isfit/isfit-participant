@@ -2,17 +2,33 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Project Inga</title>
+    <title>ISFiT 2011 - participant</title>
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %> 
     <%= javascript_include_tag 'rails' %>
     <%= javascript_include_tag 'event_calendar' %>
     <%= javascript_include_tag 'jquery-ui' %>
+    <%= javascript_include_tag 'jquery-ui-timepicker-addon' %>
+    <%= javascript_include_tag 'application' %>
 
-    <%= csrf_meta_tag %>
-    <!--[if lte IE 7]>
-    <link href="stylesheets/patches/patch_my_layout.css" rel="stylesheet" type="text/css" />
-    <![endif]-->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-18016792-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+
+</script>
+
+<%= csrf_meta_tag %>
+<!--[if lte IE 7]>
+<link href="stylesheets/patches/patch_my_layout.css" rel="stylesheet" type="text/css" />
+<![endif]-->
   </head>
   <body>
     <div class="page_margins">
@@ -24,70 +40,82 @@
             <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
             <!-- end: skip link navigation -->
             <% if user_signed_in? %>
-              Hi <%=current_user.name%> <%= link_to "Logout", destroy_user_session_url %>    
-
-          <% else %>
-            <%= link_to "Login", new_user_session_url %> 
-          <% end %>
+              Hi <%=current_user.name%> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %>          <% else %>
+              <%= link_to "Login", new_user_session_url %> 
+            <% end %>
+          </div>
+          <!-- Project Inga was made by ISFiT IT 2011. Proud fathers are Dag-Inge, Stian, Nikolaia (Inga-Instant) and Amr. Project Inga will remain in our hearts forever.
+          <h1><%= link_to "Project Inga", root_url %></h1>
+          <p>A participantweb made by ISFiT IT</p>
+          -->
         </div>
-        <h1><%= link_to "Project Inga", root_url %></h1>
-        <p>A participantweb made by ISFiT IT</p>
-      </div>
-      <div id="nav">
-        <!-- skiplink anchor: navigation -->
-        <a id="navigation" name="navigation"></a>
-        <div class="hlist">
-          <!-- main navigation: horizontal list -->
-          <% if current_user %>
-            <% tabs_tag(:builder => MenuTabBuilder) do |tab| %>
-              <%= tab.home 'Home', root_path %>
-              <% if current_user.is_participant? %>
-                <%= tab.profile 'Profile', participant_path(current_user.id) %>
-              <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
-                <%= tab.profile 'Participants', participants_path %>
+        <div id="nav">
+          <!-- skiplink anchor: navigation -->
+          <a id="navigation" name="navigation"></a>
+          <div class="hlist">
+            <!-- main navigation: horizontal list -->
+            <% if current_user %>
+              <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
+                <%= tab.home 'Home', root_path %>
+                <% if current_user.is_participant? %>
+                  <%= tab.profile 'Profile', participant_path(current_user.participant.id) %>
+                <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
+                  <%= tab.profile 'Participants', participants_path %>
+                  <%= tab.functionaries 'Functionaries', functionaries_path %> 
+                <% end %>
+                <% if current_user.is_functionary? %>
+                  <%= tab.functionary_profile 'Profile', functionary_path(current_user.functionary) %>
+                <%end%>
+                <% if current_user.has_role?(:admin) %>
+                  <%= tab.article 'Articles', articles_path %>
+                  <%= tab.deadline 'Deadlines', deadlines_path %>
+                <% end %>
+                <% if current_user.has_role?(:admin) %>
+                  <%= tab.information 'Information', information_pages_path %>
+                <% elsif current_user.is_participant? or current_user.is_functionary? %>
+                  <%= tab.information 'Information', information_page_path(InformationPage.first.id) %>
+                <% end %>
+                <%= tab.question 'Questions', questions_path %>
               <% end %>
-              <%= tab.information 'Information_temp', articles_path %>
-              <%= tab.question 'Questions', questions_path %>
+            <% else %>
+              <%= tabs_tag do |tab| %>
+                <%= tab.home 'Home', root_path %>
+              <% end %>
             <% end %>
-          <% else %>
-            <% tabs_tag do |tab| %>
-              <%= tab.home 'Home', root_path %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <div id="teaser">
-      </div>
-      <div id="main">
-        <div id="col1">
-          <div id="col1_content" class="clearfix">
-            <% if notice %>
-              <p class="note"><%= notice %></p>
-            <% end %>
-            <% if alert %>
-              <p class="warning"><%= alert %></p>
-            <% end %>
-            <%= yield %>
           </div>
         </div>
-        <div id="col2">
-          <div id="col2_content" class="clearfix">
-            <%= yield :sidebar_left %>
+        <div id="teaser">
+        </div>
+        <div id="main">
+          <div id="col1">
+            <div id="col1_content" class="clearfix">
+              <% if notice %>
+                <p class="note"><%= notice %></p>
+              <% end %>
+              <% if alert %>
+                <p class="warning"><%= alert %></p>
+              <% end %>
+              <%= yield %>
+            </div>
+          </div>
+          <div id="col2">
+            <div id="col2_content" class="clearfix">
+              <%= yield :sidebar_left %>
+            </div>
+          </div>
+          <div id="col3">
+            <div id="col3_content" class="clearfix">
+              <%= yield :sidebar_right %>
+            </div>
+            <!-- IE Column Clearing -->
+            <div id="ie_clearing"> &#160; </div>
           </div>
         </div>
-        <div id="col3">
-          <div id="col3_content" class="clearfix">
-            <%= yield :sidebar_right %>
-          </div>
-          <!-- IE Column Clearing -->
-          <div id="ie_clearing"> &#160; </div>
+        <!-- begin: #footer -->
+        <div id="footer">
+          All written material and the ISFiT logo is copyrighted the ISFiT Foundation. Layout based on <a href="http://www.yaml.de/">YAML</a>.
         </div>
       </div>
-      <!-- begin: #footer -->
-      <div id="footer">Layout based on <a href="http://www.yaml.de/">YAML</a>
-      </div>
-    </div>
-  </div>
 
-</body>
-</html>
+    </body>
+  </html>

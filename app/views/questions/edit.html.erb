@@ -1,6 +1,9 @@
 <h1>Editing question</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @question %> |
-<%= link_to 'Back', questions_path %>
+<% content_for :sidebar_left do %>
+  <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
+  <ul class="vlist">
+    <li><%= link_to image_tag('icons/cancel.png') + ' Discard changes', @question %></li>
+    <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
+<% end %>

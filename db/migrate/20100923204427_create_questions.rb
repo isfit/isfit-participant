@@ -3,6 +3,9 @@ class CreateQuestions < ActiveRecord::Migration
     create_table :questions do |t|
       t.string :subject
       t.text :content
+      t.integer :dialogue
+      t.integer :participant_id
+      t.integer :question_status_id
 
       t.timestamps
     end

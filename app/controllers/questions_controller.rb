@@ -3,31 +3,47 @@ class QuestionsController < ApplicationController
   set_tab :question
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+    allow :functionary, :to => [:index, :show, :edit, :update, :q_status]
     allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+  end
+
+  def q_status
+    index  
   end
 
   # GET /questions
   # GET /questions.xml
   def index
-
-    if !user_signed_in?
-      redirect_to root_path
+    selected_status = params[:status]
+    statusq = ""
+    @status = QuestionStatus.first
+    @statuses = QuestionStatus.all
+    if selected_status != nil
+      statusq = " AND question_status_id = "+selected_status
+      @status = QuestionStatus.find(selected_status)
     else
-      if current_user.has_role?(:admin)
-        @questions = Question.all
-        render :index_nopart
-      elsif current_user.has_role?(:functionary)
-        @regions = Region.all
-        @questions = Question.all
-        render :index_nopart
-      else
-        @questions = Question.find(:all, :conditions=>{:participant_id=>current_user.id})
-        respond_to do |format|
-          format.html # index.html.erb
-          format.xml  { render :xml => @questions }
-        end     
-      end
+      statusq = " AND question_status_id = 1"
+    end
+    if current_user.has_role?(:admin)
+      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq, :joins=>"JOIN participants ON participants.id = questions.participant_id", :order=>"participants.functionary_id")
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq, :joins=>"JOIN participants ON participants.id = questions.participant_id", :order=>"participants.functionary_id")
+      @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN participants p ON p.functionary_id = f.id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
+      render :index_nopart
+    elsif current_user.has_role?(:dialogue)
+      @questions = Question.all(:conditions=>"question_id IS NULL AND dialogue = 1"+statusq)
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL AND dialogue = 1"+statusq)
+      render :index_nopart
+    elsif current_user.has_role?(:functionary)
+      @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      render :index_nopart
+    else
+      @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")
+      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @questions }
+      end     
     end
   end
 
@@ -35,8 +51,14 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   def show
     @question = Question.find(params[:id])
+   # if @question.question_id != nil
+   #   parent = Question.find(@question.question_id)
+   # else
+   #   parent = Question.new
+   #   parent.participant_id = -1
+   # end
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if @question.participant_id == current_user.id || !current_user.is_participant?
+    if @question.participant.user == current_user || !current_user.is_participant?# || parent.participant.user == current_user
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }
@@ -60,7 +82,9 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
+    @statuses = QuestionStatus.all
+    if !current_user.is_participant? || @question.participant.user == current_user
+      
     else
       raise Acl9::AccessDenied
     end 
@@ -70,8 +94,9 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
-    @question.participant_id = current_user.id
-
+    @question.dialogue = 0
+    @question.participant = current_user.participant
+    @question.question_status = QuestionStatus.find(:first, :conditions=>{:name=>:New})
     respond_to do |format|
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
@@ -87,17 +112,17 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
-
-    respond_to do |format|
-      if @question.update_attributes(params[:question])
-        format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+    @question.question_status = QuestionStatus.find(params[:status])
+    if !current_user.is_participant? || @question.participant.user == current_user
+      respond_to do |format|
+        if @question.update_attributes(params[:question])
+          format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        end
       end
-    end
     else
       raise Acl9::AccessDenied
     end
@@ -107,16 +132,12 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.xml
   def destroy
     @question = Question.find(params[:id])
-    if !current_user.is_participant? || @question.participant_id == current_user.id
 
-      @question.destroy
+    @question.destroy
     
-      respond_to do |format|
-        format.html { redirect_to(questions_url) }
-        format.xml  { head :ok }
-      end
-    else
-      raise Acl9::AccessDenied
+    respond_to do |format|
+      format.html { redirect_to(questions_url) }
+      format.xml  { head :ok }
     end
   end
   
@@ -129,4 +150,6 @@ class QuestionsController < ApplicationController
       format.xml  { render :xml => @question }
     end
   end
+    
+
 end

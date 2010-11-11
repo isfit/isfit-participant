@@ -1,4 +1,12 @@
 class ArticlesController < ApplicationController
+  before_filter :authenticate_user!
+  set_tab :article
+  access_control do
+    allow :admin
+    allow :functionary, :to => [:show]
+    allow :participant, :to => [:show]
+  end
+
   # GET /articles
   # GET /articles.xml
   def index
@@ -41,7 +49,7 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
-
+    @article.user = current_user
     respond_to do |format|
       if @article.save
         format.html { redirect_to(@article, :notice => 'Article was successfully created.') }

@@ -1,2 +1,25 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb I`m the admin page</p>
+<% content_for :sidebar_left do %>
+  <h4>Admin shortcuts</h4>
+  <ul class="vlist">
+    <li><%=link_to image_tag('icons/page_white_add.png')  + " Write article", new_article_path %></li>
+    <li><%=link_to image_tag('icons/report_add.png') + " Write Information page", new_information_page_path %></li>
+    <li><%=link_to image_tag('icons/hourglass.png')  + " Create new deadline", new_deadline_path %></li>
+  </ul>
+<% end %>
+<% content_for :sidebar_right do  %>
+  <h4>Quick overview</h4>
+  <p class="info">
+    <b>Participants in system:</b> <%= Participant.count %><br>
+    <b>Participants accepted:</b> <%= Participant.where(:accepted => 1).count %><br>
+    <b>Participants in need of transportation:</b> <%= Participant.where(:need_transport => "1").count %><br>
+    <b>Participants with Visa:</b> <%= Participant.where(:visa => 1).count %><br>
+    <b>Participants with passport:</b> <%= Participant.where(:has_passport => 1).count %><br>
+  </p>
+<% end %>
+<!-- Admin view -->
+<div id="important_articles" class="important_articles">
+  <%= render @important_articles %>
+</div>
+<div id="articles" class="articles">
+  <%= render @articles %>
+</div>

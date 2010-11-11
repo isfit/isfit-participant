@@ -1,25 +1,32 @@
-
-<table>
+<% content_for :sidebar_right do %>
+  <%= render "information" %>
+<% end %>
+<table class="full">
   <tr>
     <th><b>Title</b></th>
     <th><b>Author</b></th>
-    <th> <style="text-align.center">Content</th>
+    <th><b>Sticky?</b></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.content %></td>
-    <td><%= link_to 'Show', article %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.user.name %></td>
+      <td><%=  article.sticky == 1 ? "yes" : "no" %>
+      <td><%= link_to image_tag('icons/page_white_go.png'), article %></td>
+      <td><%= link_to image_tag('icons/page_white_edit.png'), edit_article_path(article) %></td>
+      <td><%= link_to image_tag('icons/page_white_delete.png'), article, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Article', new_article_path %>
+<% content_for :sidebar_left do %>
+  <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
+  <ul class="vlist">
+    <li><%= link_to image_tag('icons/page_white_add.png') +' New Article', new_article_path %></li>
+</ul>
+<% end %>

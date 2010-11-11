@@ -1,2 +1,29 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb I`m the participant view</p>
+<!-- Participant view -->
+<div id="important_articles" class="important_articles">
+  <%= render @important_articles %>
+</div>
+<div id="articles" class="articles">
+  <%= render @articles %>
+</div>
+<% content_for :sidebar_left do %>
+  <div class="deadlines">
+    <% if @deadlines %>
+      <h3><%= image_tag('icons/hourglass.png') %> Deadlines:</h3>
+      <ul class="vlist">
+      <% @deadlines.each do |d| %>
+        <%if d.users.include?(current_user)%>
+          <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+        <%else%>
+          <%if d.deadline < Time.now%>
+            <li><div class="highlight"><%= image_tag('icons/clock_red.png')%> <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%></div></li>
+          <%else%>
+            <li><%= image_tag('icons/clock.png')%> <%=d.name%> - in <%=time_ago_in_words(d.deadline)%>(<%= d.deadline%>)</li>
+          <%end%>
+        <%end%>
+      <%end%>
+      </ul>
+    <%end%>
+  </div>
+<% end %>
+<% content_for :sidebar_right do %>
+<%end%>
