@@ -1,3 +1,9 @@
+<script type="text/javascript">
+$(function() {
+  $('#participant_departs_at').datetimepicker();
+  $('#participant_arrives_at').datetimepicker();
+});
+</script>
 <%= form_for(@participant,:html => {:class => "yform columnar"} ) do |f| %>
   <% if @participant.errors.any? %>
     <div id="error_explanation" class="warning">
@@ -16,6 +22,10 @@
     <div class="type-text">
       <%= f.label :first_name %>
       <%= f.text_field :first_name %>
+    </div>
+    <div class="type-text">
+      <%= f.label :middle_name %>
+      <%= f.text_field :middle_name %>
     </div>
     <div class="type-text">
       <%= f.label :last_name %>
@@ -84,11 +94,11 @@
     </div>
     <div class="type-text">
       <%= f.label "Arrives at (time)" %>
-      <%= f.text_field :arrives_at, :class => "select-datetime" %>
+      <%= f.text_field :arrives_at%>
     </div>
     <div class="type-text">
       <%= f.label "Departs at (time)" %>
-      <%= f.text_field :departs_at, :class => "select-datetime" %>
+      <%= f.text_field :departs_at%>
     </div>
     <div class="type-select">
       <%= f.label "Arrives at (place)" %>

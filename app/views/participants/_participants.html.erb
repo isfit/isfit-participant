@@ -15,7 +15,11 @@
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
+<<<<<<< HEAD:app/views/participants/_participants.html.erb
     <td><%= participant.workshop_id < 18 ? participant.workshop.name : "dialogue" %></td>
+=======
+    <td><%if participant.workshop != nil %><%= participant.workshop.name %><%else%>Not assigned<%end%></td>
+>>>>>>> 19826c730b2721ee5702e62e45cca590d84c64ff:app/views/participants/_participants.html.erb
     <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
     <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
