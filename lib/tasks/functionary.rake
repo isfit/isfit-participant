@@ -133,7 +133,22 @@ namespace :admin do
   end
 end
 
+
+
 namespace :participant do
+	task :middle_name_fix => :environment do
+		@participants = ParticipantsReal.where(:invited => 1)
+		@participants.each do |app|
+			@participant = Participant.where(:email => app.email).first
+			if @participant
+				@participant.middle_name = app.middle_name
+				@participant.save
+			else
+				puts app.id
+			end
+		end
+	end
+
 
   task :create => :environment do
     func = {
