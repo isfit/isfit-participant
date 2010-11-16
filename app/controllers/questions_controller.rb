@@ -25,8 +25,8 @@ class QuestionsController < ApplicationController
       statusq = " AND question_status_id = 1"
     end
     if current_user.has_role?(:admin)
-      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq, :joins=>"JOIN participants p ON p.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = p.id", :order=>"fp.functionary_id")
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq, :joins=>"JOIN participants p ON p.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = p.id", :order=>"fp.functionary_id")
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NULL"+statusq, :order=>"fp.functionary_id")
+      @followquestions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NOT NULL"+statusq, :order=>"fp.functionary_id")
       @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id = fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
       render :index_nopart
     elsif current_user.has_role?(:dialogue)
@@ -34,8 +34,9 @@ class QuestionsController < ApplicationController
       @followquestions = Question.all(:conditions=>"question_id IS NOT NULL AND dialogue = 1"+statusq)
       render :index_nopart
     elsif current_user.has_role?(:functionary)
-      @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NULL AND fp.functionary_id = "+current_user.functionary.id.to_s+statusq)
-      @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NOT NULL AND fp.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NULL AND fp.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      #@questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NULL AND fp.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      @followquestions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"question_id IS NOT NULL AND fp.functionary_id = "+current_user.functionary.id.to_s+statusq)
       render :index_nopart
     else
       @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")

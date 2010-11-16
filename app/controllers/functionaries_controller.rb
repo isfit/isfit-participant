@@ -37,11 +37,15 @@ class FunctionariesController < ApplicationController
   def edit
     @functionary = Functionary.find(params[:id])
     if current_user.has_role?(:admin)
-      participants_temp = Participant.find(:all, :conditions=>"accepted = 1 OR accepted IS NULL")
+      participants_temp = Participant.find(:all, :conditions=>"accepted = 1 OR accepted IS NULL", :order=>"participants.first_name, participants.last_name")
       selected_participants_temp = Participant.find(:all, :joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"fp.functionary_id = "+params[:id])
       @participants = Array.new
       participants_temp.each do |p|
-        @participants.push([p.first_name + " " + p.last_name, p.id])
+        if p.functionaries.empty?
+          @participants.push([" *** "+ p.first_name + " " + p.last_name+" *** ", p.id])
+        else 
+          @participants.push([p.first_name + " " + p.last_name, p.id])
+        end
       end
       @selected_participants = Array.new
       selected_participants_temp.each do |p|
