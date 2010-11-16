@@ -22,6 +22,10 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
+  <div clas="type-text">
+    <%= f.label :participants %> 
+    <%= select_tag(:participant, options_for_select(@participants, @selected_participants), {:multiple => true, :size => @participants.size} )%>
+  </div>
   <div class="type-button">
     <%= f.submit :class => "submit" %>
   </div>

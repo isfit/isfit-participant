@@ -21,6 +21,9 @@ class FunctionariesController < ApplicationController
   # GET /functionaries/1.xml
   def show
     @functionary = Functionary.find(params[:id])
+    if current_user.has_role?(:admin)
+      @participants = Participant.find(:all, :joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"fp.functionary_id = "+params[:id])
+    end
     if current_user.is_functionary? && current_user.functionary == @functionary
       set_tab :functionary_profile
     end
@@ -33,6 +36,18 @@ class FunctionariesController < ApplicationController
   # GET /functionaries/1/edit
   def edit
     @functionary = Functionary.find(params[:id])
+    if current_user.has_role?(:admin)
+      participants_temp = Participant.find(:all, :conditions=>"accepted = 1 OR accepted IS NULL")
+      selected_participants_temp = Participant.find(:all, :joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>"fp.functionary_id = "+params[:id])
+      @participants = Array.new
+      participants_temp.each do |p|
+        @participants.push([p.first_name + " " + p.last_name, p.id])
+      end
+      @selected_participants = Array.new
+      selected_participants_temp.each do |p|
+        @selected_participants.push(p.id)
+      end
+    end
     if current_user == @functionary.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         format.html # show.html.erb
@@ -47,7 +62,10 @@ class FunctionariesController < ApplicationController
   # PUT /functionaries/1.xml
   def update
     @functionary = Functionary.find(params[:id])
-
+    @functionary.participants = []
+    params[:participant].each do |p|
+      @functionary.participants << Participant.find(p)
+    end
     if current_user == @functionary.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @functionary.update_attributes(params[:functionary])
