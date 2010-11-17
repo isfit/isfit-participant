@@ -44,10 +44,6 @@ module IsfitParticipant
     config.middleware.use PDFKit::Middleware
     PDFKit.configure do |c|
       c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
-      c.default_options = {
-        :page_size => 'Legal',
-        :print_media_type => true
-      }
     end
   end
 end
