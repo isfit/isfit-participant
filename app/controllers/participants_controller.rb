@@ -1,5 +1,4 @@
 class ParticipantsController < ApplicationController
-  require 'htmlentities'
   before_filter :authenticate_user!
   set_tab :profile
   helper_method :sort_column, :sort_direction
@@ -31,7 +30,6 @@ class ParticipantsController < ApplicationController
       Deadline.first.users << current_user
     end
     @participant = Participant.find(params[:id])
-    @coder = HTMLEntities::new
     respond_to do |format|
       format.html # show.html.erb
       if current_user == @participant.user || !current_user.has_role?(:participant)
@@ -39,6 +37,18 @@ class ParticipantsController < ApplicationController
       else
         raise Acl9::AccessDenied
       end
+    end
+  end
+
+  def invitation
+    @participant = Participant.find(params[:id])
+    if current_user == @participant.user || !current_user.has_role?(:participant)
+      respond_to do |f|
+        f.html {render 'invitation', :layout=>false}
+        f.pdf {render 'invitation', :layout=>false}
+      end
+    else
+      raise Acl9::AccessDenied
     end
   end
 
