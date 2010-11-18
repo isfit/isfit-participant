@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   set_tab :question
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :q_status]
+    allow :functionary, :to => [:index, :show, :edit, :update, :q_status, :resolve]
     allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
   end
 
