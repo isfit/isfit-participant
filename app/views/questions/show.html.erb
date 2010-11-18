@@ -4,6 +4,21 @@
     <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
     <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
 <% end %>
+<%= content_for :sidebar_right do %>
+  <% if !current_user.has_role?(:participant) %>
+  <table class="full">
+    <th>Previous questions by this participant</th>
+    <th></th>
+    <% @prev_questions.each do |q| %>
+      <tr>
+        <td><%= q.subject %></td>
+        <td><%= link_to image_tag('icons/comment.png'), q %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% end%>
+<% end %>
+
 
 <h2><%= @question.subject %></h2>
 <p>
