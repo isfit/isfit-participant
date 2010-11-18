@@ -31,6 +31,9 @@ IsfitParticipant::Application.routes.draw do
     collection do 
       post "q_status"
       get "q_status"
+		end
+		member do
+			get "resolve"
     end
     resources :answers
   end

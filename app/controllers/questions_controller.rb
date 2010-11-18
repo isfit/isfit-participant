@@ -108,6 +108,18 @@ class QuestionsController < ApplicationController
     end
   end
 
+  #
+  def resolve
+  @question = Question.find(params[:id])
+  @question.question_status = QuestionsStatus.find(3)
+    if !current_user.is_participant? || @question.participant.user == current_user
+	@question.save!
+    else
+     raise Acl9:AccessDenied
+    end
+    
+  end
+
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
