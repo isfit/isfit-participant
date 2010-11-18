@@ -1,6 +1,7 @@
 class CreateParticipantsFunctionaries < ActiveRecord::Migration
   def self.up
     create_table :functionaries_participants, :id => false do |t|
+      t.integer :functionary_id
       t.integer :participant_id
       t.timestamps
     end
