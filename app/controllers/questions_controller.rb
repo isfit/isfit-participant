@@ -113,9 +113,11 @@ class QuestionsController < ApplicationController
   #
   def resolve
   @question = Question.find(params[:id])
-  @question.question_status = QuestionsStatus.find(3)
+  @question.question_status = QuestionStatus.find(3)
     if !current_user.is_participant? || @question.participant.user == current_user
 	@question.save!
+        flash[:notice] = "Question status has been updated to resolved"
+        redirect_to(@question)
     else
      raise Acl9:AccessDenied
     end
