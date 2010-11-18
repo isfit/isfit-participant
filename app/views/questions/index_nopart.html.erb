@@ -31,11 +31,11 @@
   <% last_func = Functionary.new %>
   <% @questions.each do |question| %>
     <% p = question.participant%>
-    <% if last_func != p.functionary && current_user.has_role?(:admin)%>
-      <%last_func = p.functionary %>
+    <% if p.functionaries.index(last_func) == nil && current_user.has_role?(:admin)%>
+      <%last_func = p.functionaries.first %>
       </table><h3><%= last_func.first_name %> <%=last_func.last_name %></h3><table>
       <%@followquestions.each do |follow| %>
-        <%if Question.find(follow.question_id).question_status != follow.question_status && last_func == follow.participant.functionary%>
+        <%if Question.find(follow.question_id).question_status != follow.question_status && follow.participant.functionaries.index(last_func) != nil%>
           <tr>
             <td><%= follow.subject %></td>
             <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>

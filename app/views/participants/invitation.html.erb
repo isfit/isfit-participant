@@ -1,18 +1,19 @@
 <html> 
   <head>
       <meta charset="UTF-8">
-      <style>
-        dy, td {
-          font-family: 'BellGothic BT';
+
+  <style type="text/css">
+        td {
+          font-family: 'Times New Roman';
           font-size: 10pt;
-        }
+        };
         body {
-          padding-left: 50px;
-          padding-right: 50px;
-        }
+          padding-left: 100px;
+          padding-right: 100px;
+        };
         .style2 {
           text-align:justify;
-        }
+        };
       </style> 
     </head>
   <body>
@@ -37,14 +38,13 @@
             <p class="style2">Yours sincerely,</p></td> 
       </tr> 
       <tr> 
-        <td width="50%"><p><%= image_tag 'jorgen_signature.jpg' %> </p> 
+        <td width="50%"><p><%= image_tag 'jorgen_signature.jpg', :style => "border-bottom: 1px solid black", :width => "160"%> </p> 
           <p>J&oslash;rgen Westrum Thorsen<br> 
           President, ISFiT 2011    </p></td> 
-        <td width="50%" align="right"><p><%= image_tag 'eivind_signature.png',:height=> "40", :style => "border-bottom: 1px solid black", :width => "160" %></p> 
+        <td width="50%" align="right"><p><%= image_tag 'eivind_signature.png', :style => "border-bottom: 1px solid black", :width => "160" %></p> 
           <p>Eivind H&oslash;ib&oslash;<br> 
           Chairman, the ISFiT foundation</p></td> 
       </tr> 
     </table> 
-    <div style="page-break-after:always"></div> 
   </body>
 </html>

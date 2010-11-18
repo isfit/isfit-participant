@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :participant, :to => [:show, :edit, :update, :travel_support]
+    allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
   # GET /participants
@@ -32,23 +32,32 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      if current_user == @participant.user || !current_user.has_role?(:participant)
-        format.pdf { send_data render_to_pdf({ :action => "show.rpdf"})}
-      else
-        raise Acl9::AccessDenied
+    end
+  end
+
+  def invitation
+    @participant = Participant.find(params[:id])
+    if current_user == @participant.user || !current_user.has_role?(:participant)
+      respond_to do |f|
+        f.html {render 'invitation', :layout=>false}
       end
+    else
+      raise Acl9::AccessDenied
     end
   end
 
   def travel_support
     @participant = Participant.find(params[:id])
     if @participant.travel_support < 1
+      raise Acl9::AccessDenied
       return
     end
     if current_user.id == @participant.user.id
       respond_to do |format|
-        format.pdf { send_data render_to_pdf({ :action => "travel.rpdf"})}
+        format.html {render 'travel_support', :layout=>false}
       end
+    else
+      raise Acl9::AccessDenied
     end
   end
 

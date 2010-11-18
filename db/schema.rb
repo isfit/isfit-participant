@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101108173633) do
+ActiveRecord::Schema.define(:version => 20101116003240) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(:version => 20101108173633) do
   create_table "countries", :force => true do |t|
     t.string  "name",      :null => false
     t.integer "region_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "deadlines", :force => true do |t|
@@ -113,6 +111,13 @@ ActiveRecord::Schema.define(:version => 20101108173633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "functionaries_participants", :id => false, :force => true do |t|
+    t.integer  "functionary_id"
+    t.integer  "participant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "information_categories", :force => true do |t|
@@ -387,9 +392,12 @@ ActiveRecord::Schema.define(:version => 20101108173633) do
     t.integer  "deadline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
   create_table "workshops", :force => true do |t|
-    t.string "name"
-    t.text   "description"
+    t.string "name",        :limit => 64, :null => false
+    t.text   "description",               :null => false
+    t.string "location",                  :null => false
   end
 
 end

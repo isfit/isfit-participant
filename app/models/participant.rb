@@ -1,7 +1,7 @@
 class Participant < ActiveRecord::Base
   belongs_to :user
   belongs_to :arrival_place
-  belongs_to :functionary
+  has_and_belongs_to_many :functionaries
   has_many :questions
   belongs_to :transport_type
   belongs_to :country
