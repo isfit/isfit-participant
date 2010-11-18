@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
    #   parent = Question.new
    #   parent.participant_id = -1
    # end
-    @prev_questions = @question.participant.questions.order("created_at DESC")
+    @prev_questions = @question.participant.questions.order("created_at DESC").all
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
     if @question.participant.user == current_user || !current_user.is_participant?# || parent.participant.user == current_user
       respond_to do |format|
