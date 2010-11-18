@@ -43,7 +43,8 @@ module IsfitParticipant
 
     config.middleware.use PDFKit::Middleware
     PDFKit.configure do |c|
-      c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
+      #c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
+      c.wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
     end
   end
 end
