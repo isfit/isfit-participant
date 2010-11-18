@@ -30,3 +30,9 @@ Deadline.create(:name=>"Past deadline....", :deadline=>Time.now)
 QuestionStatus.create(:name=>"New")
 QuestionStatus.create(:name=>"Open")
 QuestionStatus.create(:name=>"Resolved")
+#Functionary.all.each do |f|
+#  f.participants.each do |p|
+#    p.functionaries << f
+#    p.save
+#  end
+#end

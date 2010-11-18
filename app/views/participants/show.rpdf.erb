@@ -17,7 +17,7 @@ text-align:justify;
 <td colspan="2"><div align="right"><%= pdf_image_tag('logo_ny_blacyan.png')%></div></td> 
 </tr> 
 <tr> 
-<td colspan="2"><span class="style2">Dear <%= @participant.last_name%>, <%= @participant.first_name %> <%= @participant.middle_name%></span></td> 
+<td colspan="2"><span class="style2">Dear <%= replace_UTF8(@participant.last_name)%>, <%= replace_UTF8(@participant.first_name) %> <%= replace_UTF8(@participant.middle_name)%></span></td> 
 </tr> 
 <tr> <td colspan="2">&nbsp;</td></tr> 
 <tr> 
@@ -27,7 +27,7 @@ The International Student Festival in Trondheim (ISFiT) 2011 and the ISFiT Found
 that you are invited to participate in ISFiT 2011<%if @participant.workshop != nil%>, in workshop <%= @participant.workshop.name %><%end%>. The conference takes place in Trondheim, 
 Norway, from 11 February to 20 Februrary 2011.</p> 
 <p class="style2">ISFiT 2011 has received about 4300 applications from 147 nations. All applications have gone through a thorough selection process, where only the most motivated and dedicated students were selected. On this basis you are one of the 450 students who we look forward to meeting in February.</p> 
-<p class="style2">The title of ISFiT 2011 is "Globalize This: Health". Health is more than the absence of illness. Global health includes all people and the way they interact with each other, their living conditions, and their life quality. ISFiT 2011 wants to put health back on the international agenda. ISFiT is a meeting place where future leaders are given a chance to be heard, establish networks and learn from each other.</p> 
+<p class="style2">The title of ISFiT 2011 is "Globalize This: Health". Health is more than the absence of illness. Global health  all people and the way they interact with each other, their living conditions, and their life quality. ISFiT 2011 wants to put health back on the international agenda. ISFiT is a meeting place where future leaders are given a chance to be heard, establish networks and learn from each other.</p> 
 <p class="style2">ISFiT 2011 is able to provide travel support for only a few of the participants. Those who are granted travel support will receive a separate letter concerning this. Food and accommodation in Trondheim is free of charge for the participants, and will be taken care of by ISFiT.</p> 
 <p class="style2">The ISFiT Foundation consists of the Norwegian University of Science and Technology (NTNU), S&oslash;r-Tr&oslash;ndelag University College (HiST), the Student Society of Trondheim, "Studentsamskipnaden i Trondheim" (SiT), Trondheim local authority and S&oslash;r-Tr&oslash;ndelag County Authority. Representing the city of Trondheim and its institutions for higher education, the ISFiT Foundation proudly welcomes you to Trondheim and ISFiT 2011.</p> 
 <p class="style2">We consider it most important that all those who are invited are able to attend ISFiT 2011. We therefore hope that universities, companies and embassies will do their best to help the selected participants.<br> 
