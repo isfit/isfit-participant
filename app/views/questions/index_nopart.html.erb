@@ -44,9 +44,7 @@
     </tr>
   <%end %>
 </table>
-<%if !current_user.has_role?(:admin)%>
-  <%= will_paginate @questions %>
-<%end%>
+<%= will_paginate @questions %>
 <%if current_user.has_role?(:admin)%>
   <% content_for :sidebar_right do %>
     <table style="font-size:0.8em">
