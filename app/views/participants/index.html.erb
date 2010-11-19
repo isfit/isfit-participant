@@ -27,11 +27,11 @@ $(document).ready(function (){
   <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
   <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
-    <li><b>Workshop: </b></li><li><%= f.text_field :workshop %></li>
+<!--  <li><b>Workshop: </b></li><li><%= f.text_field :workshop, :name=>:workshop %></li>-->
   </ul>
 
   <br />
-  <%= submit_tag 'Search' %><br>
+  <%= f.submit 'Search' %><br>
   <% end %>
 <% end %>
 

@@ -107,7 +107,6 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop
-
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
