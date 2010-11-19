@@ -4,11 +4,6 @@
     <p class="info">Private information can only be seen by you and the functionaries of ISFiT.</p>
   <% end %>
   
-  <% content_for :sidebar_left do %>
-    <b>left <b/>
-    <%= raw(event_calendar) %>
-  <% end %>
-  
 <% end %>
 <h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%></h1>
 <h2>Public informationi </h2>
