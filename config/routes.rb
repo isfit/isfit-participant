@@ -5,21 +5,16 @@ IsfitParticipant::Application.routes.draw do
   resources :information_categories
   resources :information_pages
 
-
   resources :articles
   post "search/index"
   devise_for :users
 
-
   resources :events
-
-  match 'questions/follow_new/:id' => 'questions#follow_new', :as => :follow_new
   
   resources :deadlines
   
   match 'change_password' => 'changepasswords#edit_password', :as => :change_password
   match 'change_password/update_password' => 'changepasswords#update_password', :as => :update_password
-
 
   resources :roles do
     member do

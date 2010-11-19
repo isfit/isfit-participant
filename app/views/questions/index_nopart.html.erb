@@ -20,64 +20,28 @@
   <tr>
     <th>Subject</th>
     <th class="full">Participant</th>
+    <th>Created at</th>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-  <%if !current_user.has_role?(:admin)%>
-     <%@followquestions.each do |follow| %>
-        <%if Question.find(follow.question_id).question_status != follow.question_status%>
-          <tr>
-            <td><%= follow.subject %></td>
-            <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
-            <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-            <td><%=pluralize(follow.answers.size, "answer")%></td>
-            <td><%= link_to image_tag('icons/comments.png'), follow %></td>
-            <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
-          </tr>    
-        <%end%>
-      <%end%> 
-  <%end%>
   <% last_func = Functionary.new %>
   <% @questions.each do |question| %>
     <% p = question.participant%>
     <% if p.functionaries.index(last_func) == nil && current_user.has_role?(:admin)%>
       <%last_func = p.functionaries.first %>
       </table><h3><%= last_func.first_name %> <%=last_func.last_name %></h3><table>
-      <%@followquestions.each do |follow| %>
-        <%if Question.find(follow.question_id).question_status != follow.question_status && follow.participant.functionaries.index(last_func) != nil%>
-          <tr>
-            <td><%= follow.subject %></td>
-            <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
-            <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-            <td><%=pluralize(follow.answers.size, "answer")%></td>
-            <td><%= link_to image_tag('icons/comments.png'), follow %></td>
-            <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
-          </tr>    
-        <%end%>
-      <%end%>
     <%end%>
     <tr>
-      <td><%if question.question_id != nil%> |_ <%end%> <%= question.subject %></td>
+      <td><%= question.subject %></td>
       <td><%=p.first_name %> <%= p.last_name %></td>
+      <td><%=question.created_at%></td>
       <td><%if question.dialogue == 1%>Dialogue<%end%></td>
       <td><%=pluralize(question.answers.size, "answer")%></td>
       <td><%= link_to image_tag('icons/comment.png'), question %></td>
       <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
     </tr>
-    <%@followquestions.each do |follow| %>
-      <%if follow.question_id == question.id %>
-        <tr>
-          <td><%if Question.find(follow.question_id).question_status == follow.question_status%> |_ <%end%><%= follow.subject %></td>
-          <td><%=follow.participant.first_name %> <%= follow.participant.last_name %></td>
-          <td><%if follow.dialogue == 1 %>Dialogue<%end%></td>
-          <td><%=pluralize(follow.answers.size, "answer")%></td>
-          <td><%= link_to image_tag('icons/comments.png'), follow %></td>
-          <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(follow) %></td>
-        </tr>    
-      <%end%>
-    <%end%>
   <%end %>
 </table>
 <%if current_user.has_role?(:admin)%>
