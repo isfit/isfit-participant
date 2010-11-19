@@ -25,14 +25,14 @@ class QuestionsController < ApplicationController
       statusq = "question_status_id = 1"
     end
     if current_user.has_role?(:admin)
-      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq, :order=>"fp.functionary_id")
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq, :order=>"fp.functionary_id").paginate(:per_page => 10)
       @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id = fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
       render :index_nopart
     elsif current_user.has_role?(:dialogue)
-      @questions = Question.all(:conditions=>"dialogue = 1"+statusq)
+      @questions = Question.all(:conditions=>"dialogue = 1"+statusq).paginate(:per_page => 10, :page=>params[:page])
       render :index_nopart
     elsif current_user.has_role?(:functionary)
-      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq+" AND fp.functionary_id = "+current_user.functionary.id.to_s)
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq+" AND fp.functionary_id = "+current_user.functionary.id.to_s).paginate(:per_page => 10, :page => params[:page])
       render :index_nopart
     else
       @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s)

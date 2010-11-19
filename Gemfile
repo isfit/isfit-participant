@@ -18,6 +18,7 @@ gem "paperclip"
 gem "princely"
 gem "pdfkit"
 gem "wkhtmltopdf"
+gem "will_paginate", "3.0.pre2"
 #gem 'rmagick'
 
 # Use unicorn as the web server

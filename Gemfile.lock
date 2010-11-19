@@ -86,6 +86,7 @@ GEM
     tzinfo (0.3.23)
     warden (0.10.7)
       rack (>= 1.0.0)
+    will_paginate (3.0.pre2)
     wkhtmltopdf (0.1.2)
 
 PLATFORMS
@@ -105,4 +106,5 @@ DEPENDENCIES
   rails (= 3.0.0)
   sqlite3-ruby
   tabs_on_rails
+  will_paginate (= 3.0.pre2)
   wkhtmltopdf
