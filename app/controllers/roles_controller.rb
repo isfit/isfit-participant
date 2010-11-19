@@ -12,7 +12,7 @@ class RolesController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.all.paginate(:per_page => 25, :page=>params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }

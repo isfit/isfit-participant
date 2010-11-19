@@ -13,9 +13,9 @@ class ParticipantsController < ApplicationController
   def index
     search_participant
     if current_user.has_role?(:admin)
-      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query)
+      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query).paginate(:per_page => 25, :page=>params[:page])
     else
-      @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)
+      @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction).paginate(:per_page => 25, :page=>params[:page])
     end
  
     respond_to do |format|
