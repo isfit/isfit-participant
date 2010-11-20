@@ -4,6 +4,7 @@
     <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
     <% if (@question.question_status_id < 3) %>
       <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
+      <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
     <% end %>
     <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
 <% end %>
