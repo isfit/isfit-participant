@@ -1,22 +1,39 @@
-<h1>Listing all Users</h1>
+<script>
+$(document).ready(function (){  
+  jQuery.ajaxSetup({  
+    'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
+  });  
+  $('.search').submit(function (){  
+    //$.get($(this).attr('action'), $(this).serialize(), null, "script");
+    $.get($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;  
+  });
+  $('.search').keyup(function (){
+    setTimeout(function() { $('.search').submit(); }, 500);
+  });
+  $('.sendmail').submit(function (){
+    var res = $('.search').serialize();
+    var res2 = $(this).serialize();
+    var res3 = res + res2;
+    $.get($(this).attr('action'), res3, null, "script");
+    return false;  
+  });
+}); 
+</script>
+<% content_for :sidebar_left do %>
+<% form_for :user, @search_role, :url => { :controller=> :roles, :action => :index },
+:html => {:method => "get", :class => "search"} do |f| %>
+  <ul class="vlist">
+  <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
+  </ul>
 
-<table class="full">
-  <tr>
-    <th>Email</th>
-    <th>Last signed in</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%if user.last_sign_in_at %><%= user.last_sign_in_at %><%else%>Never signed in<%end%></td>
-    <td><%= link_to 'Show', role_path(user) %></td>
-    <td><%= link_to 'Edit', edit_role_path(user) %></td>
-    <td><%= link_to 'Impersonate', impersonate_role_path(user) %></td>
-  </tr>
+  <br />
+  <%= f.submit 'Search' %><br>
+  <% end %>
 <% end %>
-</table>
-<%=will_paginate @users%>
+
+<div id="index_table">
+  <%= render :partial => "roles" %>
+  <%= will_paginate @users%>
+</div>
+

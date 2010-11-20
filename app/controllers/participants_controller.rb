@@ -19,7 +19,7 @@ class ParticipantsController < ApplicationController
     end
  
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.erb 
       format.js
     end
   end
