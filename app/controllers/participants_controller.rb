@@ -85,6 +85,9 @@ class ParticipantsController < ApplicationController
           if @participant.applied_for_visa == 1 && !Deadline.deadline_done?("Apply for a visa", current_user)
             d = Deadline.find(4)
             d.users << current_user
+          elsif @participant.applied_for_visa == 0 && Deadline.deadline_done?("Apply for a visa", current_user)
+            d = Deadline.find(4)
+            d.users.delete(current_user)
           end
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
         else
