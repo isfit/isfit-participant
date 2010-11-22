@@ -9,7 +9,7 @@
       <li><b>Resolved</b> - questions that are viewed as resolved by a functionary</li>
     </ul>
 <% end %>
-<%= form_for Question.new, :url=> q_status_questions_path do |f| %>
+<%= form_for Question.new, :html => {:method => "get"}, :url=> q_status_questions_path do |f| %>
   <div class="type-text">
     <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @status.id)) %>
     <%= f.submit "Show"%>
