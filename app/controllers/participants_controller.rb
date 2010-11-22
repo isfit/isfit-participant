@@ -89,6 +89,13 @@ class ParticipantsController < ApplicationController
             d = Deadline.find(4)
             d.users.delete(current_user)
           end
+          if @participant.accepted == 1 && Deadline.find(5).users.index(current_user) == nil
+            d = Deadline.find(5)
+            d.users << current_user
+          elsif @participant.accepted == 0 && Deadline.find(5).users.index(current_user) != nil
+            d = Deadline.find(5)
+            d.users.delete(current_user)
+          end
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
         else
           format.html { render :action => "edit" }
