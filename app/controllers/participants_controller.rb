@@ -13,10 +13,12 @@ class ParticipantsController < ApplicationController
   def index
     search_participant
     if current_user.has_role?(:admin)
-      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query).paginate(:per_page => 25, :page=>params[:page])
+      @partici = Participant.order(sort_column + ' ' + sort_direction).where(@query)
     else
-      @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction).paginate(:per_page => 25, :page=>params[:page])
+      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)    
     end
+    @participants = @partici.paginate(:per_page => 25, :page=>params[:page])
+ 
  
     respond_to do |format|
       format.html # index.html.erb 
@@ -117,6 +119,10 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop
+       visa = @search_participant.visa
+       accepted = @search_participant.accepted
+       has_passport = @search_participant.has_passport
+       applied_for_visa = @search_participant.applied_for_visa
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -146,7 +152,11 @@ class ParticipantsController < ApplicationController
           @query += " AND workshop LIKE 'workshop'"
         end
       end 
-
+      if @query == ""
+        @query = "visa = "+visa.to_s+" AND accepted = "+accepted.to_s+" AND applied_for_visa = "+applied_for_visa.to_s+" AND has_passport = "+has_passport.to_s
+      else
+        @query += " AND visa = "+visa.to_s+" AND accepted = "+accepted.to_s+" AND applied_for_visa = "+applied_for_visa.to_s+" AND has_passport = "+has_passport.to_s
+      end
     end
   end
 

@@ -27,6 +27,10 @@ $(document).ready(function (){
   <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
   <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
+  <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
+  <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
+  <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
+  <li><b>Applied for visa?: </b></li><li><%= f.check_box :applied_for_visa %></li>
 <!--  <li><b>Workshop: </b></li><li><%= f.text_field :workshop, :name=>:workshop %></li>-->
   </ul>
 
