@@ -21,7 +21,6 @@ $(document).ready(function (){
 }); 
 </script>-->
 <% content_for :sidebar_left do %>
-<%=@partici.to_sql%>
 <% form_for :participant, @search_participant, :url => { :action => "index" },
 :html => {:method => "get", :class => "search"} do |f| %>
   <ul class="vlist">
