@@ -21,13 +21,13 @@ $(document).ready(function (){
 }); 
 </script>-->
 <% content_for :sidebar_left do %>
+<%=@partici.to_sql%>
 <% form_for :participant, @search_participant, :url => { :action => "index" },
 :html => {:method => "get", :class => "search"} do |f| %>
   <ul class="vlist">
   <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
   <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
-  <li><b>Search with checkboxes:<b><li><%= check_box_tag :requirements, params[:requirements], params[:requirements]%></li></li><ul>
   <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
   <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
   <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
