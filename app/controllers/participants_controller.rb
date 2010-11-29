@@ -152,10 +152,12 @@ class ParticipantsController < ApplicationController
           @query += " AND workshop LIKE 'workshop'"
         end
       end 
+      if params[:requirements] == 'on'
       if @query == ""
         @query = "visa = "+visa.to_s+" AND accepted = "+accepted.to_s+" AND applied_for_visa = "+applied_for_visa.to_s+" AND has_passport = "+has_passport.to_s
       else
         @query += " AND visa = "+visa.to_s+" AND accepted = "+accepted.to_s+" AND applied_for_visa = "+applied_for_visa.to_s+" AND has_passport = "+has_passport.to_s
+      end
       end
     end
   end
