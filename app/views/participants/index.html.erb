@@ -1,4 +1,4 @@
-<script>
+<!--<script>
 $(document).ready(function (){  
   jQuery.ajaxSetup({  
     'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
@@ -19,7 +19,7 @@ $(document).ready(function (){
     return false;  
   });
 }); 
-</script>
+</script>-->
 <% content_for :sidebar_left do %>
 <% form_for :participant, @search_participant, :url => { :action => "index" },
 :html => {:method => "get", :class => "search"} do |f| %>
@@ -27,11 +27,16 @@ $(document).ready(function (){
   <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
   <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
+  <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
+  <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
+  <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
+  <li><b>Applied for visa?: </b></li><li><%= f.check_box :applied_for_visa %></li>
+  <li><b>Refnumber?: </b></li><li><%= f.check_box :flightnumber %></li>
 <!--  <li><b>Workshop: </b></li><li><%= f.text_field :workshop, :name=>:workshop %></li>-->
-  </ul>
+  </ul></ul>
 
   <br />
-  <%= f.submit 'Search' %><br>
+  <%= f.submit 'Search' %> <%= link_to (submit_tag 'Show all', :type => 'button'), :action=>:index %><br>
   <% end %>
 <% end %>
 

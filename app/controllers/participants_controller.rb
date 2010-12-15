@@ -13,10 +13,12 @@ class ParticipantsController < ApplicationController
   def index
     search_participant
     if current_user.has_role?(:admin)
-      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query).paginate(:per_page => 100, :page=>params[:page])
+      @partici = Participant.order(sort_column + ' ' + sort_direction).where(@query)
     else
-      @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction).paginate(:per_page => 25, :page=>params[:page])
+      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)    
     end
+    @participants = @partici.paginate(:per_page => 50, :page=>params[:page])
+ 
  
     respond_to do |format|
       format.html # index.html.erb 
@@ -117,7 +119,15 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop
+<<<<<<< HEAD:app/controllers/participants_controller.rb
        accepted = @search_partcipant.accepted
+=======
+       visa = @search_participant.visa
+       accepted = @search_participant.accepted
+       has_passport = @search_participant.has_passport
+       applied_for_visa = @search_participant.applied_for_visa
+       flightnumber = @search_participant.flightnumber
+>>>>>>> 928649727a64b786dbcc66f949715632941c64db:app/controllers/participants_controller.rb
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -155,7 +165,41 @@ class ParticipantsController < ApplicationController
           @query += " AND accepted = 1"
         end
       end 
-
+      if visa == 1
+        if @query == ""
+          @query = "visa = "+visa.to_s
+        else
+          @query += " AND visa = "+visa.to_s
+        end
+      end
+      if accepted == 1
+        if @query == ""
+          @query = "accepted = "+accepted.to_s
+        else
+          @query += " AND accepted = "+accepted.to_s
+        end
+      end
+      if applied_for_visa == 1
+        if @query == ""
+          @query = "applied_for_visa = "+applied_for_visa.to_s
+        else
+          @query += " AND applied_for_visa = "+applied_for_visa.to_s
+        end
+      end
+      if has_passport == 1
+        if @query == ""
+          @query = "has_passport = "+has_passport.to_s
+        else
+          @query += " AND has_passport = "+has_passport.to_s
+        end
+      end
+      if flightnumber == "1"
+        if @query == ""
+          @query = "flightnumber is not null and flightnumber <> ''"
+        else
+          @query += " AND flightnumber is not null and flightnumber <> ''"
+        end
+      end
     end
   end
 
