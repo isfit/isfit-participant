@@ -13,7 +13,7 @@ class ParticipantsController < ApplicationController
   def index
     search_participant
     if current_user.has_role?(:admin)
-      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query).paginate(:per_page => 25, :page=>params[:page])
+      @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query).paginate(:per_page => 100, :page=>params[:page])
     else
       @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction).paginate(:per_page => 25, :page=>params[:page])
     end
@@ -117,6 +117,7 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop
+       accepted = @search_partcipant.accepted
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -141,9 +142,17 @@ class ParticipantsController < ApplicationController
       if workshop == nil
       elsif workshop !=""
         if @query == ""
-           @query = "workshop LIKE 'workshop'"
+           @query = "workshop LIKE '#{workshop}'"
         else
-          @query += " AND workshop LIKE 'workshop'"
+          @query += " AND workshop LIKE '#{workshop}'"
+        end
+      end
+      if accepted == 0
+      elsif accepted == 1
+        if @query == ""
+           @query = "accepted = 1"
+        else
+          @query += " AND accepted = 1"
         end
       end 
 
