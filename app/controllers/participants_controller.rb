@@ -123,6 +123,7 @@ class ParticipantsController < ApplicationController
        accepted = @search_participant.accepted
        has_passport = @search_participant.has_passport
        applied_for_visa = @search_participant.applied_for_visa
+       flightnumber = @search_participant.flightnumber
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -178,6 +179,13 @@ class ParticipantsController < ApplicationController
           @query = "has_passport = "+has_passport.to_s
         else
           @query += " AND has_passport = "+has_passport.to_s
+        end
+      end
+      if flightnumber == "1"
+        if @query == ""
+          @query = "flightnumber is not null and flightnumber <> ''"
+        else
+          @query += " AND flightnumber is not null and flightnumber <> ''"
         end
       end
     end
