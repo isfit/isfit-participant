@@ -138,9 +138,14 @@ $(function() {
         <%= f.check_box :media_consent %>
         <%= f.label "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
       </div>
-      <div class="type-check">
+       <div class="type-check">
         <%= f.check_box :subscribe_consent %>
         <%= f.label "I want to subscribe to NTNU's research magazine Gemini - two issues a year, without any cost" %>
+      </div>
+      <p class="info">ISFiT 2011 is in contact with your embassies to try and make your visa application process as easy as possible. In order to do this we need to use your contact information. According to the Norwegian Privacy Committee, we need you to confirm that we are allowed to use your personal contact information.</p>
+     <div class="type-check">
+        <%= f.check_box :embassy_confirmation %>
+        <%= f.label "I allow ISFiT to use my contact information" %>
       </div>
   </fieldset>
   <div class="type-button">
