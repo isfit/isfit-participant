@@ -119,15 +119,11 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop
-<<<<<<< HEAD:app/controllers/participants_controller.rb
-       accepted = @search_partcipant.accepted
-=======
        visa = @search_participant.visa
        accepted = @search_participant.accepted
        has_passport = @search_participant.has_passport
        applied_for_visa = @search_participant.applied_for_visa
        flightnumber = @search_participant.flightnumber
->>>>>>> 928649727a64b786dbcc66f949715632941c64db:app/controllers/participants_controller.rb
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
