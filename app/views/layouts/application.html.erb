@@ -75,7 +75,16 @@
                 <% elsif current_user.is_participant? or current_user.is_functionary? %>
                   <%= tab.information 'Information', information_page_path(InformationPage.first.id) %>
                 <% end %>
-                <%= tab.question 'Questions', questions_path %>
+                <% if current_user.is_functionary? %>
+                  <% @new_count = Question.find(:all, :joins=>"JOIN participants p  ON p.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = p.id JOIN functionaries f ON f.id = fp.functionary_id", :conditions=>"questions.question_status_id = 1 AND fp.functionary_id ="+current_user.functionary.id.to_s, :order=>"created_at DESC").count %>
+                  <% if @new_count > 0 %>
+                    <%= tab.question "Questions (#{@new_count})", questions_path %>
+                  <% else %>
+                    <%= tab.question 'Questions', questions_path %>
+                  <% end %>
+                <% else %>
+                  <%= tab.question 'Questions', questions_path %>
+                <% end %>
               <% end %>
             <% else %>
               <%= tabs_tag do |tab| %>

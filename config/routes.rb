@@ -4,7 +4,7 @@ IsfitParticipant::Application.routes.draw do
 
   resources :information_categories
   resources :information_pages
-
+  resources :workshops
   resources :articles
   post "search/index"
   devise_for :users
