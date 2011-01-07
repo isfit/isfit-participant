@@ -27,11 +27,15 @@ $(document).ready(function (){
   <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
   <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
-  <%if @search_participant.workshop != nil%>
+  <%unless ( @search_participant.nil? )%>
+		<%unless @search_participant.workshop.nil? %>
     <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop", :selected=>@search_participant.workshop_id.to_s}) %></li>
-  <%else%>
-    <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
-  <%end%>
+ 		<%else%>
+    	<li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
+  	<% end %>
+		<% else %>
+    	<li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
+	<%end%>
   <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
   <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
   <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
