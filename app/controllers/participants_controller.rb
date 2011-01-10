@@ -119,6 +119,7 @@ class ParticipantsController < ApplicationController
        last_name = @search_participant.last_name
        email = @search_participant.email
        workshop = @search_participant.workshop_id
+       country = @search_participant.country_id
        visa = @search_participant.visa
        accepted = @search_participant.accepted
        has_passport = @search_participant.has_passport
@@ -145,6 +146,14 @@ class ParticipantsController < ApplicationController
           @query += " AND email LIKE '%"+email+"%'"
         end
       end 
+      if country == nil
+      elsif country != ""
+        if @query == ""
+          @query = "country_id = " + country.to_s
+        else
+          @query += " AND country_id = "+ country.to_s
+        end
+      end
       if workshop == nil
       elsif workshop !=""
         if @query == ""
