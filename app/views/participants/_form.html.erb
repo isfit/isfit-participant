@@ -82,6 +82,28 @@ $(function() {
       <%= f.label :address %>
       <%= f.text_area :next_of_kin_address, :rows => 4 %>
     </div>
+    <legend>Food and allergies</legend>
+    <div class="type-check">
+      <%= f.check_box :vegetarian %>
+      <%= f.label :vegetarian %>
+    </div>
+    <p class="info">Below some allergies are listed. Please check whatever allergies you might have, or specify important allergies not listed here in the "other" box</p>
+    <div class="type-check">
+      <%= f.check_box :allergy_lactose %>
+      <%= f.label :lactose %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :allergy_gluten %>
+      <%= f.label :gluten %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :allergy_nuts %>
+      <%= f.label :nuts %>
+    </div>
+    <div class="type-text">
+      <%= f.label :other %>
+      <%= f.text_field :allergy_other%>
+    </div>
     <legend>Travel information</legend>
     <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
     <div class="type-select">

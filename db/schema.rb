@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101116003240) do
+ActiveRecord::Schema.define(:version => 20110110142028) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(:version => 20101116003240) do
   end
 
   create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "functionary_id"
     t.integer  "participant_id"
+    t.integer  "functionary_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(:version => 20101116003240) do
     t.string   "next_of_kin_name"
     t.string   "next_of_kin_phone"
     t.text     "next_of_kin_address"
-    t.integer  "flightnumber"
+    t.string   "flightnumber"
     t.integer  "has_passport"
     t.integer  "accepted"
     t.integer  "visa"
@@ -169,6 +169,12 @@ ActiveRecord::Schema.define(:version => 20101116003240) do
     t.string   "middle_name"
     t.boolean  "media_consent"
     t.boolean  "subscribe_consent"
+    t.integer  "embassy_confirmation", :default => 0, :null => false
+    t.boolean  "allergy_lactose"
+    t.boolean  "allergy_gluten"
+    t.boolean  "allergy_nuts"
+    t.string   "allergy_other"
+    t.boolean  "vegetarian"
   end
 
   create_table "participants_bak", :force => true do |t|

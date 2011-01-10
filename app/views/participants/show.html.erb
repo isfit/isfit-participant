@@ -75,6 +75,27 @@
   <p>
   <b>Address:</b></p>
   <%= raw format(@participant.next_of_kin_address) %>
+  <h3>Food and allergies</h3>
+  <p>
+    <b>Vegetarian:</b> 
+    <%= @participant.vegetarian ? "Yes":"No" %>
+  </p>
+  <p>
+    <b>Lactose intolerant:</b> 
+    <%= @participant.allergy_lactose ? "Yes":"No" %>
+  </p>
+  <p>
+    <b>Gluten intolerant:</b> 
+    <%= @participant.allergy_gluten ? "Yes":"No" %>
+  </p>
+  <p>
+    <b>Allergic to nuts:</b> 
+    <%= @participant.allergy_nuts ? "Yes":"No" %>
+  </p>
+  <p>
+    <b>Other allergies:</b> 
+    <%= @participant.allergy_other %>
+  </p>
   <h3>Travel Information</h3>
   <p>
   <b>Flightnumber:</b>
