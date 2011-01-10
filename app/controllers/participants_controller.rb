@@ -118,7 +118,7 @@ class ParticipantsController < ApplicationController
        first_name = @search_participant.first_name
        last_name = @search_participant.last_name
        email = @search_participant.email
-       workshop = @search_participant.workshop
+       workshop = @search_participant.workshop_id
        visa = @search_participant.visa
        accepted = @search_participant.accepted
        has_passport = @search_participant.has_passport
@@ -148,9 +148,9 @@ class ParticipantsController < ApplicationController
       if workshop == nil
       elsif workshop !=""
         if @query == ""
-           @query = "workshop LIKE '#{workshop}'"
+           @query = "workshop_id = "+workshop.to_s
         else
-          @query += " AND workshop LIKE '#{workshop}'"
+          @query += " AND workshop_id = "+workshop.to_s
         end
       end
       if accepted == 0
