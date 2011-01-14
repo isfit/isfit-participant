@@ -63,7 +63,7 @@
     });
   });
 </script>
-<a id="toggle-stat">Toggle statistics</a>
+<a id="toggle-stat" style="cursor: pointer;">Toggle statistics</a>
 <div id="statistics">
   <p class="info">
     All info below are from the active search.
@@ -76,7 +76,7 @@
       });
     });
   </script>
-  <h3><a id="country-dist-toggle">Total country distribution</a></h3>
+  <h3><a id="country-dist-toggle" style="cursor: pointer;">Total country distribution</a></h3>
   <div id="country-dist">
     <p class="info"><%= @partici.count %> total</p>
     <table id="datatable-country">
@@ -179,7 +179,7 @@
 </script>
 
 
-<h3><a id="workshop<%= w.id %>-dist-toggle">Workshop <%= w.id %> distribution (<%= @workshop_count[w.id] %> total)</a></h3>
+<h3><a id="workshop<%= w.id %>-dist-toggle" style="cursor: pointer;">Workshop <%= w.id %> distribution (<%= @workshop_count[w.id] %> total)</a></h3>
 <div id="workshop<%= w.id %>-dist">
     <script>
       $(function() {
@@ -192,7 +192,7 @@
     </script>
  
 
-  <a id="workshop<%=w.id%>-bar-toggle">Toggle graphic</a>
+  <a id="workshop<%=w.id%>-bar-toggle" style="cursor: pointer;">Toggle graphic</a>
   <div id="workshop<%= w.id %>-container" style="width: 400px; height: 800px; margin: 0;"></div>
   <table id="datatable<%= w.id %>">
     <thead>
