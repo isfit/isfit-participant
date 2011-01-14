@@ -13,11 +13,18 @@ class ParticipantsController < ApplicationController
   def index
     search_participant
     if current_user.has_role?(:admin)
-      @partici = Participant.order(sort_column + ' ' + sort_direction).where(@query)
+      @partici = Participant.where(@query)
     else
-      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)    
+      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
     end
-    @participants = @partici.paginate(:per_page => 50, :page=>params[:page])
+    @participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+    @workshop_group = @partici.group(:workshop_id)
+    @workshop_count = @workshop_group.count
+    @workshops = Workshop.order(:id).all
+    @countries = Country.all
+    @country_group = @partici.group(:country_id)
+    @country_count = @country_group.count.sort_by{|k,v| v}.reverse
+
  
  
     respond_to do |format|
@@ -125,6 +132,9 @@ class ParticipantsController < ApplicationController
        has_passport = @search_participant.has_passport
        applied_for_visa = @search_participant.applied_for_visa
        flightnumber = @search_participant.flightnumber
+       if params[:participant][:travel_support]
+         travel_support = true
+       end
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -203,6 +213,13 @@ class ParticipantsController < ApplicationController
           @query = "flightnumber is not null and flightnumber <> ''"
         else
           @query += " AND flightnumber is not null and flightnumber <> ''"
+        end
+      end
+      if travel_support
+        if @query = ""
+          @query = "travel_support IS NOT null AND travel_support > 0"
+        else
+          @query = " AND travel_support is not null AND travel_support > 0"
         end
       end
     end

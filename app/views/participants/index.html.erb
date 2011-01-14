@@ -1,25 +1,3 @@
-<!--<script>
-  $(document).ready(function (){  
-  jQuery.ajaxSetup({  
-  'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
-  });  
-  $('.search').submit(function (){  
-  //$.get($(this).attr('action'), $(this).serialize(), null, "script");
-  $.get($(this).attr('action'), $(this).serialize(), null, "script");
-  return false;  
-  });
-  $('.search').keyup(function (){
-  setTimeout(function() { $('.search').submit(); }, 500);
-  });
-  $('.sendmail').submit(function (){
-  var res = $('.search').serialize();
-  var res2 = $(this).serialize();
-  var res3 = res + res2;
-  $.get($(this).attr('action'), res3, null, "script");
-  return false;  
-  });
-  }); 
-</script>-->
 <% content_for :sidebar_left do %>
   <% form_for :participant, @search_participant, :url => { :action => "index" },
     :html => {:method => "get", :class => "search"} do |f| %>
@@ -47,12 +25,110 @@
         <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
         <li><b>Applied for visa?: </b></li><li><%= f.check_box :applied_for_visa %></li>
         <li><b>Refnumber?: </b></li><li><%= f.check_box :flightnumber %></li>
+        <li><b>Travel support?: </b></li><li><%= f.check_box :travel_support %></li>
     </ul></ul>
 
     <br />
     <%= f.submit 'Search' %> <%= link_to (submit_tag 'Show all', :type => 'button'), :action=>:index %><br>
   <% end %>
 <% end %>
+<% content_for :sidebar_right do %>
+  <h2>Transport</h2>
+  <h4>Trondheim</h4>
+  <p class="info">
+    <% @trondheim = @partici.where(:arrival_place_id => 1) %>
+    Total: <%= @trondheim.count %><br>
+    Arrivals by plane: <%= @trondheim.where(:transport_type_id => 1).count %><br>
+    Arrivals by train: <%= @trondheim.where(:transport_type_id => 2).count %><br>
+    Arrivals by bus: <%= @trondheim.where(:transport_type_id => 3).count %><br>
+  </p>
+  <h4>Oslo</h4>
+  <p class="info">
+    <% @oslo = @partici.where(:arrival_place_id => 2) %>
+    Total: <%= @oslo.count %><br>
+    Arrivals by plane: <%= @oslo.where(:transport_type_id => 1).count %><br>
+    Arrivals by train: <%= @oslo.where(:transport_type_id => 2).count %><br>
+    Arrivals by bus: <%= @oslo.where(:transport_type_id => 3).count %><br>
+    Needs transport from Oslo: <%= @oslo.where(:need_transport => 1).count %><br>
+  </p>
+<% end %>
+<script>
+  $(function() {
+    $("div#statistics").hide();
+    $("#toggle-stat").click(function() {
+      $("div#statistics").toggle("slow");
+    });
+  });
+</script>
+<a id="toggle-stat">Toggle statistics</a>
+<div id="statistics">
+  <p class="info">
+    All info below are from the active search.
+  </p>
+  <script>
+    $(function() {
+      $("#country-dist").hide();
+      $("#country-dist-toggle").click(function() {
+        $("#country-dist").toggle("slow");
+      });
+    });
+  </script>
+  <h3><a id="country-dist-toggle">Total country distribution</a></h3>
+  <div id="country-dist">
+    <p class="info"><%= @partici.count %> total</p>
+    <table id="datatable-country">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @country_count.each do |c| %>
+          <tr>
+            <td><%= @countries[c[0]].name %></td><td><%= c[1] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% @workshops.each do |w| %>
+    <% @w_part_count = @partici.where(:workshop_id => w.id).group(:country_id).count.sort_by{|k,v| v}.reverse %>
+    <script>
+      $(function() {
+        $("#workshop<%= w.id %>-dist").hide();
+        $("#workshop<%= w.id %>-dist-toggle").click(function() {
+          $("#workshop<%= w.id %>-dist").toggle("slow");
+        });
+      });
+    </script>
+    <% if @w_part_count.nil?
+    next
+  end
+%>
+<h3><a id="workshop<%= w.id %>-dist-toggle">Workshop <%= w.id %> distribution</a></h3>
+<div id="workshop<%= w.id %>-dist">
+  <p class="info"><%= @workshop_count[w.id] %> participants in this workshop</p>
+  <table id="datatable<%= w.id %>">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Participants</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @w_part_count.each do |c| %>
+        <tr>
+          <td><%= @countries[c[0]].name %></td><td><%= c[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <% end %>
+
+</div>
+
 
 <div id="index_table">
   <%= render :partial => "participants" %>
