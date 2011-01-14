@@ -132,9 +132,7 @@ class ParticipantsController < ApplicationController
        has_passport = @search_participant.has_passport
        applied_for_visa = @search_participant.applied_for_visa
        flightnumber = @search_participant.flightnumber
-       if params[:participant][:travel_support]
-         travel_support = true
-       end
+       travel_support = @search_participant.travel_support
        if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -215,11 +213,11 @@ class ParticipantsController < ApplicationController
           @query += " AND flightnumber is not null and flightnumber <> ''"
         end
       end
-      if travel_support
-        if @query = ""
+      if travel_support == 1
+        if @query == ""
           @query = "travel_support IS NOT null AND travel_support > 0"
         else
-          @query = " AND travel_support is not null AND travel_support > 0"
+          @query += " AND travel_support is not null AND travel_support > 0"
         end
       end
     end
