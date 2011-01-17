@@ -11,11 +11,22 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   def index
+    if params[:participant]
+      if params[:participant][:region_id]
+       region = params[:participant][:region_id]
+      else
+        region = nil
+      end
+       params[:participant].delete("region_id")
+    end
     search_participant
     if current_user.has_role?(:admin)
       @partici = Participant.where(@query)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
+    end
+    if region
+      @partici = @partici.joins(:country => :region).where("regions.id = #{region}")
     end
     @participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
     @workshop_group = @partici.group(:workshop_id)
@@ -121,6 +132,12 @@ class ParticipantsController < ApplicationController
     @query = ""
     
     if params[:participant]
+      if params[:participant][:region_id]
+       region = params[:participant][:region_id]
+      else
+        region = nil
+      end
+       params[:participant].delete("region_id")
        @search_participant = Participant.new(params[:participant])
        first_name = @search_participant.first_name
        last_name = @search_participant.last_name

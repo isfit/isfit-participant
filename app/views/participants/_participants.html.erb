@@ -16,7 +16,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
-    <td><%= link_to participant.workshop_id < 18 ? participant.workshop.name : "dialogue", workshop_path(participant.workshop) %></td>
+    <td><%= participant.workshop_id < 18 ? participant.workshop.name : "dialogue" %></td>
     <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
     <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>

@@ -144,6 +144,15 @@
 <% if current_user.has_role?(:admin, nil) %>
   <h2>Admin info</h2>
   <p>
+    <b>Belongs to the following functionaries</b>
+    <ul>
+      <% @participant.functionaries.each do |f| %>
+        <li><%= link_to f.user.name, f %></li>
+      <% end %>
+    </ul>
+  </p>
+        
+  <p>
   <b>User id:</b>
   <%= @participant.user_id %>
   </p>

@@ -19,9 +19,16 @@
           <%else%>
             <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
           <% end %>
+          <%unless @search_participant.country.nil? %>
+            <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region", :selected=>@search_participant.country.region.name}) %></li>
+          <%else%>
+            <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
+          <% end %>
+
         <% else %>
           <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
           <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
+          <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
         <%end%>
         <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
         <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
