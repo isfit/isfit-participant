@@ -13,11 +13,11 @@ class ParticipantsController < ApplicationController
   def index
     if params[:participant]
       if params[:participant][:region_id].to_i > 0
-       region = params[:participant][:region_id]
+        region = params[:participant][:region_id]
       else
         region = nil
       end
-       params[:participant].delete("region_id")
+      params[:participant].delete("region_id")
     end
     search_participant
     if current_user.has_role?(:admin)
@@ -36,8 +36,8 @@ class ParticipantsController < ApplicationController
     @country_group = @partici.group(:country_id)
     @country_count = @country_group.count.sort_by{|k,v| v}.reverse
 
- 
- 
+
+
     respond_to do |format|
       format.html # index.html.erb 
       format.js
@@ -78,6 +78,22 @@ class ParticipantsController < ApplicationController
       end
     else
       raise Acl9::AccessDenied
+    end
+  end
+
+  def secure
+    @participant = Participant.find(params[:id])
+    @participant.guaranteed = 1
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant secured"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Participant not secured, something went wrong"
+        format.html {redirect_to(@participant)}
+      end
     end
   end
 
@@ -130,27 +146,28 @@ class ParticipantsController < ApplicationController
 
   def search_participant
     @query = ""
-    
+
     if params[:participant]
       if params[:participant][:region_id]
-       region = params[:participant][:region_id]
+        region = params[:participant][:region_id]
       else
         region = nil
       end
-       params[:participant].delete("region_id")
-       @search_participant = Participant.new(params[:participant])
-       first_name = @search_participant.first_name
-       last_name = @search_participant.last_name
-       email = @search_participant.email
-       workshop = @search_participant.workshop_id
-       country = @search_participant.country_id
-       visa = @search_participant.visa
-       accepted = @search_participant.accepted
-       has_passport = @search_participant.has_passport
-       applied_for_visa = @search_participant.applied_for_visa
-       flightnumber = @search_participant.flightnumber
-       travel_support = @search_participant.travel_support
-       if first_name != ""
+      params[:participant].delete("region_id")
+      @search_participant = Participant.new(params[:participant])
+      first_name = @search_participant.first_name
+      last_name = @search_participant.last_name
+      email = @search_participant.email
+      workshop = @search_participant.workshop_id
+      country = @search_participant.country_id
+      visa = @search_participant.visa
+      accepted = @search_participant.accepted
+      has_passport = @search_participant.has_passport
+      applied_for_visa = @search_participant.applied_for_visa
+      flightnumber = @search_participant.flightnumber
+      travel_support = @search_participant.travel_support
+      guaranteed = @search_participant.guaranteed
+      if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
         else
@@ -182,7 +199,7 @@ class ParticipantsController < ApplicationController
       if workshop == nil
       elsif workshop !=""
         if @query == ""
-           @query = "workshop_id = "+workshop.to_s
+          @query = "workshop_id = "+workshop.to_s
         else
           @query += " AND workshop_id = "+workshop.to_s
         end
@@ -190,7 +207,7 @@ class ParticipantsController < ApplicationController
       if accepted == 0
       elsif accepted == 1
         if @query == ""
-           @query = "accepted = 1"
+          @query = "accepted = 1"
         else
           @query += " AND accepted = 1"
         end
@@ -207,6 +224,13 @@ class ParticipantsController < ApplicationController
           @query = "accepted = "+accepted.to_s
         else
           @query += " AND accepted = "+accepted.to_s
+        end
+      end
+      if guaranteed
+        if @query == ""
+          @query = "guaranteed = "+guaranteed.to_s
+        else
+          @query += " AND guaranteed = "+guaranteed.to_s
         end
       end
       if applied_for_visa == 1
@@ -242,29 +266,29 @@ class ParticipantsController < ApplicationController
 
   def mail_to_search_results
 
-     search_participant
-     if current_user.has_role?(:admin)
+    search_participant
+    if current_user.has_role?(:admin)
       @participants = Participant.order(sort_column + ' ' + sort_direction).where(@query)
-     else
+    else
       @participants = Participant.where(:functionary_id => current_user.functionary.id).where(@query).order(sort_column + ' ' + sort_direction)
-     end
+    end
 
 
-     if params[:mailform]
+    if params[:mailform]
 
-       subject = params[:mailform][:subject]
-       text = params[:mailform][:text]
-       
-       respond_to do |format|
-          format.js
-       end
+      subject = params[:mailform][:subject]
+      text = params[:mailform][:text]
 
- 
-       @participants.each do |a|
-         sleep(0.5)
-         ParticipantsMailer.send_mail(a, subject, text) 
-       end
-     end
+      respond_to do |format|
+        format.js
+      end
+
+
+      @participants.each do |a|
+        sleep(0.5)
+        ParticipantsMailer.send_mail(a, subject, text) 
+      end
+    end
   end
 
   private

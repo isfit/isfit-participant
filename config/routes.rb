@@ -40,6 +40,7 @@ IsfitParticipant::Application.routes.draw do
     member do
       get "travel_support"
       get "invitation"
+      get "secure"
     end
   end
 
