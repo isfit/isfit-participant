@@ -12,7 +12,7 @@ class ParticipantsController < ApplicationController
   # GET /participants.xml
   def index
     if params[:participant]
-      if params[:participant][:region_id]
+      if params[:participant][:region_id].to_i > 0
        region = params[:participant][:region_id]
       else
         region = nil
