@@ -170,6 +170,17 @@ namespace :participant do
 		end
 	end
 
+	task :guaranteed => :environment do
+		participants = Participant.where(:visa => 1).where(:accepted => 1).where(:has_passport => 1).where("flightnumber is not null").where("flightnumber <> ''")
+		p participants.count
+		p "Cancel now if wrong"
+		sleep 5
+		participants.each do |p|
+			p.guaranteed = 1
+			p.save
+			p "Participant #{p.id} saved"
+		end
+	end
 
   task :create => :environment do
     func = {
