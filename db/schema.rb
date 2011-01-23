@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(:version => 20110117195427) do
   end
 
   create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "participant_id"
     t.integer  "functionary_id"
+    t.integer  "participant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
