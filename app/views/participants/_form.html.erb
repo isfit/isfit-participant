@@ -100,9 +100,24 @@ $(function() {
       <%= f.check_box :allergy_nuts %>
       <%= f.label :nuts %>
     </div>
+    <div class="type-check">
+      <%= f.check_box :allergy_pets %>
+      <%= f.label :pets %>
+    </div>
     <div class="type-text">
       <%= f.label :other %>
       <%= f.text_field :allergy_other%>
+    </div>
+    <legend>Host information</legend>
+    <p class="info">Below some preferences in hosts are listed</p>
+    <div class="type-check">
+      <%= f.check_box :smoke %>
+      <%= f.label "I prefer a non-smoking host" %>
+    </div>
+    <div class="type-text">
+      <p class="info">Please list handicaps ISFiT must consider when choosing your host.</p>
+      <%= f.label :handicap %>
+      <%= f.text_field :handicap %>
     </div>
     <legend>Travel information</legend>
     <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
