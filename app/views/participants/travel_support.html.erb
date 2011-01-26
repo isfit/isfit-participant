@@ -1,7 +1,12 @@
+<html> 
+  <head>
+      <meta charset="UTF-8">
+
+
 <style> 
 body, td {
-font-family: 'BellGothic BT';
-font-size: 10pt;
+font-family: 'Times New Roman';
+font-size: 9pt;
 }
 body {
 padding-left: 50px;
@@ -13,7 +18,8 @@ text-align:justify;
 </style> 
 
 
-
+</head>
+<body>
 <table width="100%" border="0"> 
 <tr> 
 <td width="50%"><div align="left" class="style2"> 
@@ -21,12 +27,13 @@ ISFiT<br>
 Hovedbygget, NTNU<br> 
 H&oslash;gskoleringen 1<br> 
 7491 Trondheim<br> 
-NORWAY</div></td> 
-<td width="395"><div align="right"> <%= pdf_image_tag('logo_ny_blacyan.png')%></div></td> 
+NORWAY</div>
+</td> 
+<td><div align="right"> <%= image_tag 'logo_ny_blacyan.png', :width=>"150" %></div></td> 
 </tr> 
 <tr> 
-<td colspan="2" class="style2"><p align="right">&nbsp;</p> 
-<p align="right">Trondheim, 01.11.10<br> 
+<td colspan="2" class="style2">
+<p align="right">Trondheim, 01.11.10 
 </p> 
 <p>Dear <%= @participant.last_name %>, <%= @participant.first_name %></p> 
 <p>You have been granted travel support in the amount of: <%= @participant.travel_support %> USD</p> 
@@ -38,10 +45,11 @@ NORWAY</div></td>
 </p> 
 <p>&nbsp;      </p> 
 <p>Yours sincerely, </p> 
-<p><%= pdf_image_tag('jorgen_signature.jpg') %></p> 
+<p><%= image_tag'jorgen_signature.jpg', :style => "border-bottom: 1px solid black" , :width=>"160" %></p> 
 <p>J&oslash;rgen Westrum Thorsen<br> 
 President, ISFiT 2011    </p> 
-<p>&nbsp;</p></td> 
+</td>
 </tr> 
 </table> 
-<div style="page-break-after:always"></div> 
+</body>
+</html>

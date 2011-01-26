@@ -8,13 +8,23 @@ module ApplicationHelper
   def sortable(column, title = nil)
     title ||= column.titleize
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    link_to title, :sort => column, :direction => direction
+    link_to title, params.merge(:sort => column, :direction => direction)
   end
   
   def pdf_image_tag(image, options = {})
     options[:src] = File.expand_path(RAILS_ROOT) + '/public/images/' + image
     tag(:img, options)
   end
+require 'iconv'
+
+  def replace_UTF8(field)
+    ic_ignore = Iconv.new('ISO-8859-15//IGNORE//TRANSLIT', 'UTF-8')
+    field = ic_ignore.iconv(field)
+    ic_ignore.close
+        
+    field
+  end
+
 end
 
 # Custom tab builder made to work with yaml

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101101190657) do
+ActiveRecord::Schema.define(:version => 20110125181251) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -54,6 +54,48 @@ ActiveRecord::Schema.define(:version => 20101101190657) do
     t.datetime "updated_at"
   end
 
+  create_table "dialogue_participants", :force => true do |t|
+    t.datetime "registered_time",                                            :null => false
+    t.string   "first_name",                                                 :null => false
+    t.string   "middle_name",              :limit => 64
+    t.string   "last_name",                                                  :null => false
+    t.string   "address1",                                :default => "",    :null => false
+    t.string   "address2"
+    t.string   "zipcode",                  :limit => 10,  :default => "",    :null => false
+    t.string   "city",                                    :default => "",    :null => false
+    t.integer  "country_id",                              :default => 0,     :null => false
+    t.string   "phone",                    :limit => 20,  :default => "",    :null => false
+    t.string   "email",                    :limit => 100, :default => "",    :null => false
+    t.string   "fax",                      :limit => 20
+    t.string   "nationality",                             :default => "",    :null => false
+    t.string   "passport",                                :default => "",    :null => false
+    t.date     "birthdate",                                                  :null => false
+    t.string   "sex",                      :limit => 2,   :default => "",    :null => false
+    t.string   "university",                              :default => "",    :null => false
+    t.string   "field_of_study",                                             :null => false
+    t.string   "org_name"
+    t.string   "org_function"
+    t.string   "hear_about_isfit"
+    t.string   "hear_about_isfit_other"
+    t.text     "essay1",                                                     :null => false
+    t.text     "essay2",                                                     :null => false
+    t.text     "essay3",                                                     :null => false
+    t.text     "essay4",                                                     :null => false
+    t.integer  "travel_apply",             :limit => 1,   :default => 0
+    t.text     "travel_essay"
+    t.string   "travel_amount",            :limit => 20
+    t.integer  "travel_nosupport_other",   :limit => 1,   :default => 0
+    t.integer  "travel_nosupport_cancome", :limit => 1,   :default => 0
+    t.integer  "apply_workshop",           :limit => 1,   :default => 0
+    t.integer  "invited",                  :limit => 1,   :default => 0,     :null => false
+    t.string   "password"
+    t.datetime "last_login"
+    t.boolean  "notified_invited",                        :default => false, :null => false
+    t.boolean  "notified_rejected",                       :default => false, :null => false
+  end
+
+  add_index "dialogue_participants", ["email"], :name => "email", :unique => true
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.datetime "start_at"
@@ -71,6 +113,13 @@ ActiveRecord::Schema.define(:version => 20101101190657) do
     t.integer  "user_id"
   end
 
+  create_table "functionaries_participants", :id => false, :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "functionary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "information_categories", :force => true do |t|
     t.string "title"
   end
@@ -85,6 +134,54 @@ ActiveRecord::Schema.define(:version => 20101101190657) do
   end
 
   create_table "participants", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.date     "date_of_birth"
+    t.string   "address1"
+    t.string   "address2"
+    t.integer  "zipcode"
+    t.string   "city"
+    t.integer  "country_id"
+    t.integer  "sex"
+    t.string   "field_of_study"
+    t.integer  "workshop_id"
+    t.integer  "user_id"
+    t.integer  "functionary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "arrives_at"
+    t.datetime "departs_at"
+    t.integer  "arrival_place_id"
+    t.integer  "need_transport"
+    t.string   "next_of_kin_name"
+    t.string   "next_of_kin_phone"
+    t.text     "next_of_kin_address"
+    t.string   "flightnumber"
+    t.integer  "has_passport"
+    t.integer  "accepted"
+    t.integer  "visa"
+    t.integer  "transport_type_id"
+    t.integer  "travel_support"
+    t.integer  "applied_for_visa"
+    t.integer  "notified"
+    t.boolean  "dialogue"
+    t.string   "middle_name"
+    t.boolean  "media_consent"
+    t.boolean  "subscribe_consent"
+    t.integer  "embassy_confirmation", :default => 0, :null => false
+    t.boolean  "allergy_lactose"
+    t.boolean  "allergy_gluten"
+    t.boolean  "allergy_nuts"
+    t.string   "allergy_other"
+    t.boolean  "vegetarian"
+    t.boolean  "guaranteed"
+    t.boolean  "smoke"
+    t.string   "handicap"
+    t.boolean  "allergy_pets"
+  end
+
+  create_table "participants_bak", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -116,6 +213,8 @@ ActiveRecord::Schema.define(:version => 20101101190657) do
     t.integer  "travel_support"
     t.integer  "applied_for_visa"
     t.integer  "notified"
+    t.boolean  "dialogue"
+    t.string   "middle_name"
   end
 
   create_table "participants_reals", :force => true do |t|
@@ -274,11 +373,41 @@ ActiveRecord::Schema.define(:version => 20101101190657) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "users_bak", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "first_password"
+  end
+
+  add_index "users_bak", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users_bak", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
   create_table "users_deadlines", :force => true do |t|
     t.integer  "user_id"
     t.integer  "deadline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "workshops", :force => true do |t|
+    t.string "name",        :limit => 64, :null => false
+    t.text   "description",               :null => false
+    t.string "location",                  :null => false
   end
 
 end

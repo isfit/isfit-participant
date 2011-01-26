@@ -3,136 +3,229 @@
     <p class="info">Your public information can be seen by anyone that's logged in.</p>
     <p class="info">Private information can only be seen by you and the functionaries of ISFiT.</p>
   <% end %>
+
 <% end %>
-<h1><%= "#{@participant.first_name} #{@participant.last_name}"%></h1>
+<h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%></h1>
 <h2>Public information</h2>
-<p>
-<b>Date of birth:</b>
-<%= @participant.date_of_birth %>
-</p>
-<p>
-<b>Field of study:</b>
-<%= @participant.field_of_study %>
-</p>
+<table class="full">
+  <tbody>
+    <tr>
+      <th>Date of birth</th><td><%= @participant.date_of_birth %></td>
+    </tr>
+
+    <tr>
+      <th>Field of study</th>
+      <td><%= @participant.field_of_study %></td>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <% if @participant.sex %>
+        <td><%= @participant.sex > 0 ? "Male" : "Female"  %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 <% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
   <h2>Private information</h2>
-  <p>
-  <b>Email:</b>
-  <%= @participant.email %>
-  </p>
+  <table class="full">
+    <tbody>
+      <tr>
+        <th>Email</th>
+        <td><%= @participant.email %></td>
+      </tr>
 
-  <p>
-  <b>Address1:</b>
-  <%= @participant.address1 %>
-  </p>
+      <tr>
+        <th>Address1</th>
+        <td><%= @participant.address1 %></td>
+      </tr>
 
-  <p>
-  <b>Address2:</b>
-  <%= @participant.address2 %>
-  </p>
+      <tr>
+        <th>Address2</th>
+        <td><%= @participant.address2 %></td>
+      </tr>
 
-  <p>
-  <b>Zipcode:</b>
-  <%= @participant.zipcode %>
-  </p>
+      <tr>
+        <th>Zipcode</th>
+        <td><%= @participant.zipcode %></td>
+      </tr>
 
-  <p>
-  <b>City:</b>
-  <%= @participant.city %>
-  </p>
+      <tr>
+        <th>City</th>
+        <td><%= @participant.city %></td>
+      </tr>
 
-  <p>
-  <b>Country:</b>
-  <%= @participant.country_id %>
-  </p>
+      <tr>
+        <th>Country</th>
+        <td><%= @participant.country ? @participant.country.name : "Not selected, please contact your functionary" %></td>
+      </tr>
 
-  <p>
-  <b>Sex:</b>
-  <%= @participant.sex %>
-  </p>
-  <p>
-  <b>Workshop:</b>
-  <%= @participant.workshop %>
-  </p>
-  <h3>Next of kin information</h3>
-  <p>
-  <b>Name:</b>
-  <%= @participant.next_of_kin_name %>
-  </p>
-  <p>
-  <b>Phone:</b>
-  <%= @participant.next_of_kin_phone %>
-  </p>
-  <p>
-  <b>Address:</b></p>
-  <%= raw format(@participant.next_of_kin_address) %>
-  <h3>Travel Information</h3>
-  <p>
-  <b>Flightnumber:</b>
-  <%= @participant.flightnumber %>
-  </p>
-  <p>
-  <b>Arrival place:</b>
-  <%if @participant.arrival_place != nil%>
-    <%= @participant.arrival_place.name %>
-  <%end%>
-  </p>
-  <p>
-  <b>Arrives at (time):</b>
-  <%= @participant.arrives_at %>
-  </p>
-  <p>
-  <b>Departs at (time):</b>
-  <%= @participant.departs_at %>
-  </p>
-  <p>
-  <b>Has passport in order?:</b>
-  <%= @participant.has_passport == 1 ? "Yes":"No" %>
-  </p>
-  <p>
-  <b>Applied for Visa?:</b>
-  <%= @participant.applied_for_visa == 1 ? "Yes":"No" %>
-  </p>
-  <p>
-  <b>Has Visa in order or don't need Visa?:</b>
-  <%= @participant.visa == 1 ? "Yes":"No" %>
-  </p>
-  <p>
-  <b>Needs transportation by ISFiT from Oslo to Trondheim:</b>
-  <%= @participant.need_transport == 1 ? "Yes":"No" %>
-  </p>
-  <h3>ISFiT specific information</h3>
-  <p>
-  <b>Accepted invitation:</b>
-  <%= @participant.accepted == 1 ? "Yes":"No" %>
-  </p>
-  <p>
-  <b>Travel support amount:</b>
-  <%= @participant.travel_support ? @participant.travel_support : "0" %> USD
-  </p>
+      <% if @participant.workshop_id < 18 %>
+        <tr>
+          <th>Workshop</th>
+          <td><%= @participant.workshop.name %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <th>Dialogue:</th><td>Yes</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Next of kin information</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <td><%= @participant.next_of_kin_name %></td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= @participant.next_of_kin_phone %></td>
+      </tr>
+      <tr>
+        <th>Address:</th>
+        <td><%= raw format(@participant.next_of_kin_address) %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Food and allergies</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Vegetarian</th> 
+        <td><%= @participant.vegetarian ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Lactose intolerant</th> 
+        <td><%= @participant.allergy_lactose ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Gluten intolerant</th> 
+        <td><%= @participant.allergy_gluten ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Allergic to nuts:</th> 
+        <td><%= @participant.allergy_nuts ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Other allergies</th> 
+        <td><%= @participant.allergy_other %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Travel Information</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Flightnumber</th>
+        <td><%= @participant.flightnumber %></td>
+      </tr>
+      <tr>
+        <th>Arrival place:</th>
+        <%if @participant.arrival_place != nil%>
+          <td><%= @participant.arrival_place.name %></td>
+        <%end%>
+      </tr>
+      <tr>
+        <th>Arrives at (time):</th>
+        <td><%= @participant.arrives_at %></td>
+      </tr>
+      <tr>
+        <th>Departs at (time):</th>
+        <td><%= @participant.departs_at %></td>
+      </tr>
+      <tr>
+        <th>Has passport in order?:</th>
+        <td><%= @participant.has_passport == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Applied for Visa?:</th>
+        <td><%= @participant.applied_for_visa == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Has Visa in order or don't need Visa?:</th>
+        <td><%= @participant.visa == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Needs transportation by ISFiT from Oslo to Trondheim:</th>
+        <td><%= @participant.need_transport == 1 ? "Yes":"No" %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>ISFiT specific information</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Accepted invitation</th>
+        <td><%= @participant.accepted == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Travel support amount:</th>
+        <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
 <% if current_user.has_role?(:admin, nil) %>
   <h2>Admin info</h2>
   <p>
-  <b>User id:</b>
-  <%= @participant.user_id %>
+    <b>Belongs to the following functionaries</b>
+    <ul>
+      <% @participant.functionaries.each do |f| %>
+        <li><%= link_to f.user.name, f %></li>
+      <% end %>
+    </ul>
+  </p>
+
+  <p>
+    <b>User id:</b>
+    <%= @participant.user_id %>
   </p>
   <p>
-  <b>Primary role:</b>
-  <%= @participant.user.roles.first.name %>
+    <b>Secure?:</b>
+    <%= @participant.guaranteed ? "Yes":"No" %>
+  </p>
+
+
+  <p>
+    <b>Primary role:</b>
+    <%= @participant.user.roles.first.name %>
   </p>
 <% end %>
 <% content_for :sidebar_left do %>
   <% if current_user == @participant.user || !current_user.has_role?(:participant)%>
-  <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
-  <ul class="vlist">
-    <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
-    <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitationletter',  :controller=>:participants, :format => :pdf, :action=> :show, :id => @participant.id%></li>
-    <% if @participant.travel_support > 0 %>
-    <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
-    <% end %>
-    <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%>
-    <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%>
-  </ul>
+    <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
+    <ul class="vlist">
+      <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
+      <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitationletter',  :controller=>:participants, :format => :pdf, :action=> :invitation, :id => @participant.id%></li>
+      <% if @participant.travel_support > 0 %>
+        <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
+      <% end %>
+      <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
+      <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
+      <% if current_user.has_role?(:admin) %>
+        <li><%= link_to image_tag('icons/accept.png') + " Secure participant (admin only)", secure_participant_path(@participant) %></li>
+      <% end %>
+    </ul>
   <%end%>
 <% end %>

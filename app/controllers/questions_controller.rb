@@ -3,8 +3,8 @@ class QuestionsController < ApplicationController
   set_tab :question
   access_control do
     allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :q_status]
-    allow :participant, :to => [:index, :show, :edit, :update, :new, :create, :follow_new]
+    allow :functionary, :to => [:index, :show, :edit, :update, :q_status, :resolve]
+    allow :participant, :to => [:index, :show, :edit, :update, :new, :create]
   end
 
   def q_status
@@ -19,26 +19,23 @@ class QuestionsController < ApplicationController
     @status = QuestionStatus.first
     @statuses = QuestionStatus.all
     if selected_status != nil
-      statusq = " AND question_status_id = "+selected_status
+      statusq = "question_status_id = "+selected_status
       @status = QuestionStatus.find(selected_status)
     else
-      statusq = " AND question_status_id = 1"
+      statusq = "question_status_id = 1"
     end
     if current_user.has_role?(:admin)
-      @questions = Question.all(:conditions=>"question_id IS NULL"+statusq)
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL"+statusq)
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq, :order=>"fp.functionary_id, questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
+      @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id = fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
       render :index_nopart
     elsif current_user.has_role?(:dialogue)
-      @questions = Question.all(:conditions=>"question_id IS NULL AND dialogue = 1"+statusq)
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL AND dialogue = 1"+statusq)
+      @questions = Question.all(:conditions=>"dialogue = 1"+statusq, :order=>"questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
       render :index_nopart
     elsif current_user.has_role?(:functionary)
-      @questions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
-      @followquestions = Question.all(:joins=>"JOIN participants ON participants.id = questions.participant_id", :conditions=>"question_id IS NOT NULL AND participants.functionary_id = "+current_user.functionary.id.to_s+statusq)
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq+" AND fp.functionary_id = "+current_user.functionary.id.to_s, :order=>"questions.created_at DESC").paginate(:per_page => 10, :page => params[:page])
       render :index_nopart
     else
-      @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s+" AND question_id IS NULL")
-      @followquestions = Question.all(:conditions=>"question_id IS NOT NULL")
+      @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s)
       respond_to do |format|
         format.html # index.html.erb
         format.xml  { render :xml => @questions }
@@ -56,6 +53,7 @@ class QuestionsController < ApplicationController
    #   parent = Question.new
    #   parent.participant_id = -1
    # end
+    @prev_questions = @question.participant.questions.order("created_at DESC").all
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
     if @question.participant.user == current_user || !current_user.is_participant?# || parent.participant.user == current_user
       respond_to do |format|
@@ -107,6 +105,20 @@ class QuestionsController < ApplicationController
     end
   end
 
+  #
+  def resolve
+  @question = Question.find(params[:id])
+  @question.question_status = QuestionStatus.find(3)
+    if !current_user.is_participant? || @question.participant.user == current_user
+	@question.save!
+        flash[:notice] = "Question status has been updated to resolved"
+        redirect_to(@question)
+    else
+     raise Acl9:AccessDenied
+    end
+    
+  end
+
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
@@ -140,15 +152,4 @@ class QuestionsController < ApplicationController
     end
   end
   
-  # GET /questions/follow_new/1
-  def follow_new
-    @question = Question.new
-    @question.question_id = params[:id]
-    respond_to do |format|
-      format.html # follow_new.html.erb
-      format.xml  { render :xml => @question }
-    end
-  end
-    
-
 end

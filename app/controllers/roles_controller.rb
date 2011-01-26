@@ -10,12 +10,12 @@ class RolesController < ApplicationController
   end
 
   # GET /users
-  # GET /users.xml
   def index
-    @users = User.all
+    search_role
+    @users = User.where(@query).paginate(:per_page => 25, :page=>params[:page])
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
+      format.js
     end
   end
 
@@ -98,6 +98,22 @@ class RolesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def search_role
+    @query = ""
+    
+    if params[:user]
+       @search_role = User.new(params[:user])
+       email = @search_role.email
+      if email !=""
+        if @query == ""
+          @query = "email LIKE '%"+email+"%'"
+        else
+          @query += " AND email LIKE '%"+email+"%'"
+        end
+      end 
     end
   end
 end

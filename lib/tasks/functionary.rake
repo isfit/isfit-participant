@@ -28,6 +28,16 @@ namespace :functionary do
         Functionary.create(:email => email, :user_id => user.id,:first_name => first, :last_name => last)
     end
   end
+
+	task :make_multiple_relations => :environment do
+		Functionary.all.each do |f|
+			f.participants.each do |p|
+				p.functionaries << f
+				p.save
+			end
+		end
+	end
+
 namespace :facilitator do
 
   task :create => :environment do
@@ -131,9 +141,46 @@ namespace :admin do
         Functionary.create(:email => email, :user_id => user.id,:first_name => first, :last_name => last)
     end   
   end
+
+	task :transport => :environment do
+		password = generate_password.to_s
+		puts password
+		user = User.new(:email => "magnua@isfit.org", :first_password => password, :password => password)
+		user.roles << Role.find(1)
+		user.save
+		Functionary.create(:email => "magnua@isfit.org", :user_id => user.id, :first_name => "Magnus", :last_name => "Arnhus")
+	end
+
+
 end
 
+
+
 namespace :participant do
+	task :middle_name_fix => :environment do
+		@participants = ParticipantsReal.where(:invited => 1)
+		@participants.each do |app|
+			@participant = Participant.where(:email => app.email).first
+			if @participant
+				@participant.middle_name = app.middle_name
+				@participant.save
+			else
+				puts app.id
+			end
+		end
+	end
+
+	task :guaranteed => :environment do
+		participants = Participant.where(:visa => 1).where(:accepted => 1).where(:has_passport => 1).where("flightnumber is not null").where("flightnumber <> ''")
+		p participants.count
+		p "Cancel now if wrong"
+		sleep 5
+		participants.each do |p|
+			p.guaranteed = 1
+			p.save
+			p "Participant #{p.id} saved"
+		end
+	end
 
   task :create => :environment do
     func = {

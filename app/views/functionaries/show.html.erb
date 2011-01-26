@@ -3,5 +3,19 @@
 <b>Email:</b>
   <%= @functionary.email %>
 </p>
+<%if current_user.has_role?(:admin) && !@participants.empty?%>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  <%@participants.each do |p|%>
+    <tr>
+      <td><%=p.first_name%> <%=p.last_name%></td>
+      <td><%=p.email%></td>
+    </tr>
+  <%end%>
+</table>
+<%end%>
 
 <%if (current_user.has_role?(:functionary) && current_user.functionary == @functionary) || current_user.has_role?(:admin)%><%= link_to 'Edit', edit_functionary_path(@functionary) %><%end%>

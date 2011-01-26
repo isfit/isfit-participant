@@ -2,8 +2,27 @@
   <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
   <ul class="vlist">
     <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
+    <% if (@question.question_status_id < 3) %>
+      <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
+      <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
+    <% end %>
     <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
 <% end %>
+<%= content_for :sidebar_right do %>
+  <% if !current_user.has_role?(:participant) %>
+  <table class="full">
+    <th>Previous questions by this participant</th>
+    <th></th>
+    <% @prev_questions.each do |q| %>
+      <tr>
+        <td><%= q.subject %></td>
+        <td><%= link_to image_tag('icons/comment.png'), q %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% end%>
+<% end %>
+
 
 <h2><%= @question.subject %></h2>
 <p>
@@ -27,41 +46,3 @@
     <%= f.submit :class => "submit", :value=>"Add message" %>
   </div>
 <% end %>
-<br />
-<% if @question.questions != []%>
-<b>There are <%= @question.questions.size %> followup questions<b>
-<table>
-  <tr>
-    <th>
-      Subject
-    </th>
-    <th>
-      Date
-    </th>
-    <th>
-    </th>
-  </tr>
-<% @question.questions.each do |q| %>
-  <tr>
-    <td>
-      <%= q.subject %>
-    </td>
-    <td>
-      <%= q.created_at %>
-    </td>
-    <td>
-      <%= link_to 'Show', q %>
-    </td>
-  </tr>
-<% end %>
-<table>
-<% end %>
-<%if !current_user.has_role?(:participant)%>
-
-<%elsif @question.question_id == nil%>
-  <%= link_to 'New followup question', :controller=>:questions, :action=>:follow_new, :id => @question.id  %>
-<%else%>
-  Do you want more followup questions you have to start with a new question<br />
-  <%= link_to 'New question', new_question_path %>
-<%end%>
-</p>
