@@ -5,7 +5,7 @@
   <% end %>
 
 <% end %>
-<h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%></h1>
+<h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %></h1>
 <h2>Public information</h2>
 <table class="full">
   <tbody>
@@ -223,8 +223,10 @@
       <% end %>
       <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
       <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
-      <% if current_user.has_role?(:admin) %>
+      <% if current_user.has_role?(:admin) and not @participant.guaranteed %>
         <li><%= link_to image_tag('icons/accept.png') + " Secure participant (admin only)", secure_participant_path(@participant) %></li>
+      <% else %>
+        <li><%= link_to image_tag('icons/delete.png') + " Remove guarantee (admin only)", desecure_participant_path(@participant) %></li>
       <% end %>
     </ul>
   <%end%>

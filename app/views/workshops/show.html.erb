@@ -1,13 +1,13 @@
 <% content_for :sidebar_left do %>
-  <h6 class="vlist"><%= image_tag('icons/wrench.png') %> Tools</h6>
-  <ul class="vlist">
-    <% if not current_user.is_participant? %>
+  <% if not current_user.is_participant? %>
+    <h6 class="vlist"><%= image_tag('icons/wrench.png') %> Tools</h6>
+    <ul class="vlist">
       <li><%= link_to image_tag('icons/page_white_stack.png') + ' Show all workshops', workshops_path %></li>
-    <% end %>
-    <% if current_user.has_role?(:admin) %>
-      <li><%= link_to image_tag('icons/page_edit.png') + ' Edit workshop', edit_workshop_path(@workshop) %></li>
-    <% end %>
-  </ul>
+      <% if current_user.has_role?(:admin) %>
+        <li><%= link_to image_tag('icons/page_edit.png') + ' Edit workshop', edit_workshop_path(@workshop) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <%end%>
 <h1>Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
 <p>

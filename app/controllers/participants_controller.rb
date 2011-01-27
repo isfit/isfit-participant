@@ -96,6 +96,22 @@ class ParticipantsController < ApplicationController
       end
     end
   end
+  
+  def desecure
+    @participant = Participant.find(params[:id])
+    @participant.guaranteed = 0
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant guarantee removed"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Participant still secured, something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
 
   # GET /participants/1/edit
   def edit

@@ -4,8 +4,8 @@ Found <%= pluralize @partici.size, "participant"%>
     <th><%= sortable "first_name", "First name" %></th>
     <th><%= sortable "last_name", "Last name" %></th>
     <th><%= sortable "country_id", "Country" %></th>
-    <th><%= sortable "workshop_id", "Workshop" %></th>
-    <th><%= sortable "accepted" %></th>
+    <th><%= sortable "flightnumber", "ref.nr." %></th>
+    <th><%= sortable "guaranteed" %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,8 +16,8 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
-    <td><%= participant.workshop_id < 18 ? participant.workshop.name : "dialogue" %></td>
-    <td><%= participant.accepted == 1 ? "Yes":"No" %></td>
+    <td><%= participant.flightnumber %></td>
+    <td><%= participant.guaranteed ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
     <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
   </tr>
