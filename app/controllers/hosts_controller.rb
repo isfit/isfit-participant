@@ -1,8 +1,10 @@
 class HostsController < ApplicationController
   before_filter :authenticate_user!
+  set_tab :host
 
   access_control do
     allow :admin
+    allow :sec
   end
 
   def index
@@ -19,7 +21,7 @@ class HostsController < ApplicationController
       p.save
     end
     @host = Host.find(params[:id])
-    @participants = Participant.where("1=1").where("accepted = 1 AND flightnumber IS NOT NULL AND flightnumber <> '' AND visa = 1 AND host_id IS NULL")
+    @participants = Participant.where("checked_in = 1 AND host_id IS NULL")
     @search_participant = Participant.new(params[:participant])
     unless params[:participant]
       @search_participant.vegetarian = true
