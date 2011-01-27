@@ -20,7 +20,11 @@
     <%= f.submit 'Search' %><br>
   <% end %>
 <% end %>
+<% content_for :sidebar_right do %>
 
+  <h2>Problems?</h2>
+  Call Dag-Inge: 92491526
+<% end %>
 <h1><%=@host.first_name + " " + @host.last_name%></h1>
 <table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
 	<tr>
