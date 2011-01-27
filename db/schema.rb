@@ -10,7 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD:db/schema.rb
 ActiveRecord::Schema.define(:version => 20110125222216) do
+=======
+ActiveRecord::Schema.define(:version => 20110125181251) do
+>>>>>>> 05bb1a473ad3786ec75c907da2ad4f6c3c42c815:db/schema.rb
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -208,8 +212,11 @@ ActiveRecord::Schema.define(:version => 20110125222216) do
     t.boolean  "smoke"
     t.string   "handicap"
     t.boolean  "allergy_pets"
+<<<<<<< HEAD:db/schema.rb
     t.integer  "host_id"
     t.boolean  "checked_in"
+=======
+>>>>>>> 05bb1a473ad3786ec75c907da2ad4f6c3c42c815:db/schema.rb
   end
 
   create_table "participants_bak", :force => true do |t|

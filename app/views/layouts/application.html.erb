@@ -61,11 +61,13 @@
                 <% end %>
                 <% if current_user.is_participant? %>
                   <%= tab.profile 'Profile', participant_path(current_user.participant.id) %>
+                  <%= tab.workshop 'Workshop', workshop_path(current_user.participant.workshop) %>
                 <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
                   <%= tab.profile 'Participants', participants_path %>
                   <%= tab.host 'Hosts', hosts_path %>
                   <% if !current_user.has_role?(:sec) %>
                     <%= tab.functionaries 'Functionaries', functionaries_path %>
+                    <%= tab.workshop 'Workshops', workshops_path %>
                   <%end%>
                 <% end %>
                 <% if current_user.is_functionary? && !current_user.has_role?(:sec)%>
