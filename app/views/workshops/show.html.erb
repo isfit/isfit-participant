@@ -13,5 +13,5 @@
 <%end%>
 <h1>Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
 <p>
-  <%= raw @workshop.description %>
+  <%= raw format(@workshop.description) %>
 </p>
