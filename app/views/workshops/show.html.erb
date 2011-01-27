@@ -1,8 +1,6 @@
 <% content_for :sidebar_left do %>
   <h6 class="vlist"><%= image_tag('icons/wrench.png') %> Tools</h6>
   <ul class="vlist">
-    <li><%= link_to image_tag('icons/page_white_acrobat') + ' Information brochure', '/workshop/info' + @workshop.id.to_s + '.pdf'%></li>
-    <li><%= link_to image_tag('icons/page_white_acrobat') + ' Welcome brochure', '/workshop/welcome' + @workshop.id.to_s + '.pdf'%></li>
     <% if not current_user.is_participant? %>
       <li><%= link_to image_tag('icons/page_white_stack.png') + ' Show all workshops', workshops_path %></li>
     <% end %>
