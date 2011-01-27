@@ -21,7 +21,6 @@
   <% end %>
 <% end %>
 
-<%=@participants.to_sql%>
 <h1><%=@host.first_name + " " + @host.last_name%></h1>
 <table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
 	<tr>
@@ -133,6 +132,7 @@ Found <%= pluralize @participants.size, "participant"%>
   <tr>
     <th>First name</th>
     <th>Last name</th>
+    <th>Sex</th>
     <th>Country</th>
     <th></th>
     <th></th>
@@ -142,8 +142,8 @@ Found <%= pluralize @participants.size, "participant"%>
   <tr>
     <td><%= p.first_name %></td>
     <td><%= p.last_name %></td>
+    <td><%= (p.sex == 1)?"M":"F"%></td>
     <td><%= p.country.name %></td>
-    <td><%= link_to image_tag('icons/user_go.png'), p %></td>
     <td><%= link_to image_tag('icons/cart_add.png'), :participant_id => p.id %></td>
   </tr>
 <% end %>
