@@ -11,6 +11,8 @@ IsfitParticipant::Application.routes.draw do
 
   resources :events
   
+  resources :hosts
+
   resources :deadlines
   
   match 'change_password' => 'changepasswords#edit_password', :as => :change_password

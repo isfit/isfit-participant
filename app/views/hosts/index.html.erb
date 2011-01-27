@@ -1,0 +1,19 @@
+Found <%= pluralize @hosts.size, "host"%> 
+<table class="full">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Number of participants</th>
+    <th></th>
+  </tr>
+
+<% @hosts.each do |host| %>
+  <tr>
+    <td><%= host.first_name %></td>
+    <td><%= host.last_name %></td>
+    <td><%= host.participants.count %>/<%= host.number %></td>
+    <td><%= link_to image_tag('icons/user_go.png'), host %></td>
+  </tr>
+<% end %>
+</table>
+

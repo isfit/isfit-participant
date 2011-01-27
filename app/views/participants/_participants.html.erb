@@ -1,5 +1,5 @@
 Found <%= pluralize @partici.size, "participant"%> 
-<table class="full">
+<table class="full" style="font-size:75%">
   <tr>
     <th><%= sortable "first_name", "First name" %></th>
     <th><%= sortable "last_name", "Last name" %></th>
@@ -20,6 +20,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.guaranteed ? "Yes":"No" %></td>
     <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
     <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
+    <td><%= link_to image_tag('icons/door_in.png', :alt=>"Check in"), :check_in_participant_id => participant.id %></td>
   </tr>
 <% end %>
 </table>

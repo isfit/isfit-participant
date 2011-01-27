@@ -16,6 +16,8 @@ class HomeController < ApplicationController
         render :template => 'home/index2'
       elsif current_user.has_role?(:participant)
         render :template => 'home/index3'
+      elsif current_user.has_role?(:sec)
+        redirect_to participants_path
       else
         render :template => 'home/index'
       end

@@ -5,6 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
+    allow :sec, :to => [:index]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
@@ -19,8 +20,13 @@ class ParticipantsController < ApplicationController
       end
       params[:participant].delete("region_id")
     end
+    if params[:check_in_participant_id]
+      a = Participant.find(params[:check_in_participant_id])
+      a.checked_in = 1
+      a.save
+    end
     search_participant
-    if current_user.has_role?(:admin)
+    if current_user.has_role?(:admin) || current_user.has_role?(:sec)
       @partici = Participant.where(@query)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
@@ -36,8 +42,14 @@ class ParticipantsController < ApplicationController
     @country_group = @partici.group(:country_id)
     @country_count = @country_group.count.sort_by{|k,v| v}.reverse
 
-
-
+    if current_user.has_role?(:sec)
+      @partici = @partici.where("checked_in = 0 OR checked_in IS NULL AND guaranteed = 1")
+    	@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+      respond_to do |f|
+        f.html {render 'index_sec'}
+      end
+      return
+    end
     respond_to do |format|
       format.html # index.html.erb 
       format.js
@@ -197,7 +209,7 @@ class ParticipantsController < ApplicationController
           @query += " AND last_name LIKE '%"+last_name+"%'"
         end
       end
-      if email !=""
+      unless email.blank?
         if @query == ""
           @query = "email LIKE '%"+email+"%'"
         else
