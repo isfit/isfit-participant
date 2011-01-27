@@ -119,6 +119,8 @@ $(function() {
       <%= f.label :handicap %>
       <%= f.text_field :handicap %>
     </div>
+<% if not current_user.is_participant? %>
+  <!-- Stop users from changing information -->
     <legend>Travel information</legend>
     <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
     <div class="type-select">
@@ -159,7 +161,41 @@ $(function() {
       <%= f.check_box :visa %>
       <%= f.label "Visa in order" %>
     </div>
-  </fieldset>
+<% else %>
+     <legend>Travel information</legend>
+    <p class="info"><%= image_tag('icons/information.png')%> Your travel information has been freezed after the 26th of January. If you need to make changes, please contact your functionary</p>
+    <div class="type-text">
+      <%= f.label :refnumber %>
+      <%= f.text_field :flightnumber, :disabled => 'disabled' %>
+    </div>
+    <div class="type-text">
+      <%= f.label "Arrives at (time)" %>
+      <%= f.text_field :arrives_at, :disabled => 'disabled'   %>
+    </div>
+    <div class="type-text">
+      <%= f.label "Departs at (time)" %>
+      <%= f.text_field :departs_at, :disabled => 'disabled' %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :has_passport , :disabled => 'disabled' %>
+      <%= f.label "I have my passport in order" %>
+    </div>
+    <div class="type-check">
+      <p class="info">Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NOK ($25 USD).</p>
+      <%= f.check_box :need_transport , :disabled => 'disabled' %>
+      <%= f.label "I need transportation" %>
+    </div>
+    <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
+    <div class="type-check">
+      <%= f.check_box :applied_for_visa , :disabled => 'disabled' %>
+      <%= f.label "Applied for VISA" %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :visa , :disabled => 'disabled' %>
+      <%= f.label "Visa in order" %>
+    </div>
+<% end %>
+  </fieldset>   
   <fieldset>
     <legend>ISFiT related information</legend>
     <% if (not @accepted or @accepted < 1) || current_user.has_role?(:admin) %>
