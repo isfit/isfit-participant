@@ -18,9 +18,9 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.country.name %></td>
     <td><%= participant.flightnumber %></td>
     <td><%= participant.guaranteed ? "Yes":"No" %></td>
-    <td><%= link_to image_tag('icons/user_go.png'), participant %></td>
-    <td><%= link_to image_tag('icons/user_edit.png'), edit_participant_path(participant) %></td>
-    <td><%= link_to image_tag('icons/door_in.png', :alt=>"Check in"), :check_in_participant_id => participant.id %></td>
+    <td><%= link_to image_tag('icons/user_go.png', :title=>"Show participant"), participant %></td>
+    <td><%= link_to image_tag('icons/user_edit.png', :title=>"Edit participant"), edit_participant_path(participant) %></td>
+    <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in"), :check_in_participant_id => participant.id %></td>
   </tr>
 <% end %>
 </table>
