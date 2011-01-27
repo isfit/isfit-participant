@@ -34,7 +34,7 @@ class ParticipantsController < ApplicationController
     if region
       @partici = @partici.joins(:country => :region).where("regions.id = #{region}")
     end
-    @participants = @partici.where("checked_in = 0 OR checked_in IS NULL AND guaranteed = 1").order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+    @participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
     @workshop_group = @partici.group(:workshop_id)
     @workshop_count = @workshop_group.count
     @workshops = Workshop.order(:id).all
@@ -44,6 +44,7 @@ class ParticipantsController < ApplicationController
 
     if current_user.has_role?(:sec)
       @partici = @partici.where("checked_in = 0 OR checked_in IS NULL AND guaranteed = 1")
+    	@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
       respond_to do |f|
         f.html {render 'index_sec'}
       end
