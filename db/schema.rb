@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110117195427) do
+ActiveRecord::Schema.define(:version => 20110125222216) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at"
@@ -114,10 +114,39 @@ ActiveRecord::Schema.define(:version => 20110117195427) do
   end
 
   create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "functionary_id"
     t.integer  "participant_id"
+    t.integer  "functionary_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "hosts", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "address"
+    t.integer  "zipcode"
+    t.string   "place"
+    t.integer  "age"
+    t.boolean  "before"
+    t.text     "why"
+    t.string   "where"
+    t.integer  "number"
+    t.integer  "skies"
+    t.boolean  "arrival_before"
+    t.boolean  "leave_late"
+    t.text     "preference"
+    t.string   "pet"
+    t.text     "know_isfit"
+    t.string   "member_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "vegetarian"
+    t.boolean  "smoker"
+    t.string   "animal"
+    t.integer  "animal_number"
+    t.string   "language_speak"
   end
 
   create_table "information_categories", :force => true do |t|
@@ -176,6 +205,11 @@ ActiveRecord::Schema.define(:version => 20110117195427) do
     t.string   "allergy_other"
     t.boolean  "vegetarian"
     t.boolean  "guaranteed"
+    t.boolean  "smoke"
+    t.string   "handicap"
+    t.boolean  "allergy_pets"
+    t.integer  "host_id"
+    t.boolean  "checked_in"
   end
 
   create_table "participants_bak", :force => true do |t|
