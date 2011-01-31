@@ -9,6 +9,20 @@ class ParticipantsController < ApplicationController
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
+  def check_in
+    p = Participant.find(params[:id])
+    p.checked_in = Time.now()
+    p.save
+    redirect_to participants_path
+  end
+
+  def check_out
+    p = Participant.find(params[:id])
+    p.checked_out = Time.now()
+    p.save
+    redirect_to participants_path
+  end
+
   # GET /participants
   # GET /participants.xml
   def index

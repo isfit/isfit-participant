@@ -21,7 +21,7 @@ class HostsController < ApplicationController
       p.save
     end
     @host = Host.find(params[:id])
-    @participants = Participant.where("checked_in = 1 AND host_id IS NULL")
+    @participants = Participant.where("checked_in IS NOT NULL AND host_id IS NULL")
     @search_participant = Participant.new(params[:participant])
     unless params[:participant]
       @search_participant.vegetarian = true
