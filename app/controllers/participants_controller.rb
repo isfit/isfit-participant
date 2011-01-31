@@ -143,6 +143,7 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1.xml
   def update
     @participant = Participant.find(params[:id])
+    params[:participant].delete("guaranteed")
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
@@ -183,6 +184,7 @@ class ParticipantsController < ApplicationController
       end
       params[:participant].delete("region_id")
       @search_participant = Participant.new(params[:participant])
+      @search_participant.arrives_at = nil
       first_name = @search_participant.first_name
       last_name = @search_participant.last_name
       email = @search_participant.email
@@ -195,6 +197,13 @@ class ParticipantsController < ApplicationController
       flightnumber = @search_participant.flightnumber
       travel_support = @search_participant.travel_support
       guaranteed = @search_participant.guaranteed
+      transport_type = @search_participant.transport_type_id
+      arrival_place = @search_participant.arrival_place_id
+      unless params[:participant][:arrives_at].blank?
+        @arrives_at = params[:participant][:arrives_at]
+      else
+        @arrives_at = ""
+      end
       if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -254,11 +263,34 @@ class ParticipantsController < ApplicationController
           @query += " AND accepted = "+accepted.to_s
         end
       end
+      if transport_type == nil
+      elsif
+        if @query == ""
+          @query = "transport_type_id = "+transport_type.to_s
+        else
+          @query += " AND transport_type_id = "+transport_type.to_s
+        end
+      end
+      if arrival_place == nil
+      elsif
+        if @query == ""
+          @query = "arrival_place_id = "+arrival_place.to_s
+        else
+          @query += " AND arrival_place_id = "+arrival_place.to_s
+        end
+      end
       if guaranteed
         if @query == ""
           @query = "guaranteed = "+guaranteed.to_s
         else
           @query += " AND guaranteed = "+guaranteed.to_s
+        end
+      end
+      unless @arrives_at.blank?
+        if @query == ""
+          @query = "arrives_at LIKE '"+@arrives_at+"%'"
+        else
+          @query += " AND arrives_at LIKE '"+@arrives_at+"%'"
         end
       end
       if applied_for_visa == 1
