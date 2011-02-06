@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :sec, :to => [:index, :match]
+    allow :sec, :to => [:index, :match, :match_host]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
@@ -30,9 +30,11 @@ class ParticipantsController < ApplicationController
     if @participant.arrives_at <= DateTime.civil(2011,02,11)
       @hosts = @hosts.where(:arrival_before => 1)
     end
-    #if @participant.departs_at >= DateTime.civil(2011-02-22) && @participants.departs_at <= DateTime.civil(2010-02-23)
-    #   @hosts = @hosts.where(:leave_late => 1) 
-    #end
+    if @participant.departs_at != nil
+    if @participant.departs_at >= DateTime.civil(2011-02-22) && @participant.departs_at <= DateTime.civil(2010-02-23)
+       @hosts = @hosts.where(:leave_late => 1) 
+    end
+    end
     if @participant.allergy_pets
       @hosts = @hosts.where("animal_number > 0")
     end
