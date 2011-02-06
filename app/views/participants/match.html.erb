@@ -16,7 +16,6 @@
     </tr>
   </tbody>
 </table>
-<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
   <h2>Private information</h2>
   <table class="full">
     <tbody>
@@ -158,7 +157,6 @@
       </tr>
     </tbody>
   </table>
-<% end %>
 <h2>Current host</h2>
 <h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
 <h2>Possible hosts</h2>
