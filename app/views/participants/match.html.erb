@@ -16,27 +16,6 @@
     </tr>
   </tbody>
 </table>
-<h2>Current host</h2>
-<h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
-<h2>Possible hosts</h2>
-<table class="full">
-  <thead>
-    <tr>
-      <th>Host name</th>
-      <th>Info</th>
-      <th>Add as host</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @hosts.each do |host| %>
-      <tr>
-        <td><%= host.full_name %></td>
-        <td><%= link_to "View host", host_path(host), :target => "_blank" %></td>
-        <td><%= link_to "Add host", add_host_path(@participant.id, host) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 <% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
   <h2>Private information</h2>
   <table class="full">
@@ -180,3 +159,25 @@
     </tbody>
   </table>
 <% end %>
+<h2>Current host</h2>
+<h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
+<h2>Possible hosts</h2>
+<table class="full">
+  <thead>
+    <tr>
+      <th>Host name</th>
+      <th>Info</th>
+      <th>Add as host</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hosts.each do |host| %>
+      <tr>
+        <td><%= host.full_name %></td>
+        <td><%= link_to "View host", host_path(host), :target => "_blank" %></td>
+        <td><%= link_to "Add host", add_host_path(@participant.id, host) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
