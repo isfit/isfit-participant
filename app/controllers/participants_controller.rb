@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :sec, :to => [:index]
+    allow :sec, :to => [:index, :host, :check_in, :check_out]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
@@ -23,6 +23,25 @@ class ParticipantsController < ApplicationController
     redirect_to participants_path
   end
 
+  def host
+    @participant = Participant.find(params[:id])
+    if current_user.has_role?(:sec) || current_user.has_role?(:admin)
+      @hosts = Host.all
+      if @participant.vegetarian 
+        @hosts = @hostss.where("vegetarian = 1")
+      end
+      if @participant.smoke
+        @hosts = @hosts.where("smoker = 1")
+      end
+      if @participant.allergy_pets
+        @hosts = @hosts.where("animal_number = 0")
+      end
+    end
+    respond_to do |format|
+      format.html # show.html.erb
+    end
+
+  end
   # GET /participants
   # GET /participants.xml
   def index

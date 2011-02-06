@@ -40,6 +40,7 @@ IsfitParticipant::Application.routes.draw do
       get "mail_to_search_results"
     end
     member do
+      get "host"
       get "check_in"
       get "check_out"
       get "travel_support"
