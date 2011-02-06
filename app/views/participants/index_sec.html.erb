@@ -12,6 +12,11 @@ $(function() {
       <ul class="vlist">
         <li><b>First name: </b></li><li><%= f.text_field :first_name, :size=>25 %></li>
         <li><b>Last name: </b></li><li><%= f.text_field :last_name, :size=>25%></li>
+        <%unless @search_participant.arrival_place.nil?%>
+          <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place", :selected=>@search_participant.arrival_place_id.to_s}) %></li>
+        <%else%>
+          <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
+        <%end%>
         <%if @arrives_at.blank?%>
           <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at %></li>
         <%else%>
@@ -25,6 +30,7 @@ $(function() {
 <% end %>
 
 <div id="index_table">
+<%=@partici.to_sql%>
 Found <%= pluralize @partici.size, "participant"%> 
 <table class="full">
   <tr>
