@@ -22,6 +22,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <th><%= sortable "last_name", "Last name" %></th>
     <th><%= sortable "country_id", "Country" %></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @participants.each do |participant| %>
@@ -29,6 +30,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
+    <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
     <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), :check_in_participant_id => participant.id %></td>
   </tr>
 <% end %>
