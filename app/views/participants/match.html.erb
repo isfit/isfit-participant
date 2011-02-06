@@ -1,0 +1,183 @@
+<h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %></h1>
+<table class="full">
+  <tbody>
+    <tr>
+      <th>Date of birth</th><td><%= @participant.date_of_birth %></td>
+    </tr>
+    <tr>
+      <th>Field of study</th>
+      <td><%= @participant.field_of_study %></td>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <% if @participant.sex %>
+        <td><%= @participant.sex > 0 ? "Male" : "Female"  %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
+  <h2>Private information</h2>
+  <table class="full">
+    <tbody>
+      <tr>
+        <th>Email</th>
+        <td><%= @participant.email %></td>
+      </tr>
+
+      <tr>
+        <th>Address1</th>
+        <td><%= @participant.address1 %></td>
+      </tr>
+
+      <tr>
+        <th>Address2</th>
+        <td><%= @participant.address2 %></td>
+      </tr>
+
+      <tr>
+        <th>Zipcode</th>
+        <td><%= @participant.zipcode %></td>
+      </tr>
+
+      <tr>
+        <th>City</th>
+        <td><%= @participant.city %></td>
+      </tr>
+
+      <tr>
+        <th>Country</th>
+        <td><%= @participant.country ? @participant.country.name : "Not selected, please contact your functionary" %></td>
+      </tr>
+
+      <% if @participant.workshop_id < 18 %>
+        <tr>
+          <th>Workshop</th>
+          <td><%= @participant.workshop.name %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <th>Dialogue:</th><td>Yes</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Next of kin information</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <td><%= @participant.next_of_kin_name %></td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= @participant.next_of_kin_phone %></td>
+      </tr>
+      <tr>
+        <th>Address:</th>
+        <td><%= raw format(@participant.next_of_kin_address) %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Food and allergies</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Vegetarian</th> 
+        <td><%= @participant.vegetarian ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Lactose intolerant</th> 
+        <td><%= @participant.allergy_lactose ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Gluten intolerant</th> 
+        <td><%= @participant.allergy_gluten ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Allergic to nuts:</th> 
+        <td><%= @participant.allergy_nuts ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Other allergies</th> 
+        <td><%= @participant.allergy_other %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="full">
+    <thead>
+      <tr>
+        <th>Travel Information</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Flightnumber</th>
+        <td><%= @participant.flightnumber %></td>
+      </tr>
+      <tr>
+        <th>Arrival place:</th>
+        <%if @participant.arrival_place != nil%>
+          <td><%= @participant.arrival_place.name %></td>
+        <%end%>
+      </tr>
+      <tr>
+        <th>Arrives at (time):</th>
+        <td><%= @participant.arrives_at %></td>
+      </tr>
+      <tr>
+        <th>Departs at (time):</th>
+        <td><%= @participant.departs_at %></td>
+      </tr>
+      <tr>
+        <th>Has passport in order?:</th>
+        <td><%= @participant.has_passport == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Applied for Visa?:</th>
+        <td><%= @participant.applied_for_visa == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Has Visa in order or don't need Visa?:</th>
+        <td><%= @participant.visa == 1 ? "Yes":"No" %></td>
+      </tr>
+      <tr>
+        <th>Needs transportation by ISFiT from Oslo to Trondheim:</th>
+        <td><%= @participant.need_transport == 1 ? "Yes":"No" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+<h2>Current host</h2>
+<h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
+<h2>Possible hosts</h2>
+<table class="full">
+  <thead>
+    <tr>
+      <th>Host name</th>
+      <th>Info</th>
+      <th>Add as host</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hosts.each do |host| %>
+      <tr>
+        <td><%= host.full_name %></td>
+        <td><%= link_to "View host", host_path(host), :target => "_blank" %></td>
+        <td><%= link_to "Add host", add_host_path(@participant.id, host) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -35,18 +35,19 @@ IsfitParticipant::Application.routes.draw do
     resources :answers
   end
   resources :functionaries
+  match 'participants/:id/host/:host_id' => 'participants#match_host', :as => :add_host
   resources :participants do
     collection do
       get "mail_to_search_results"
     end
     member do
-      get "host"
       get "check_in"
       get "check_out"
       get "travel_support"
       get "invitation"
       get "secure"
       get "desecure"
+      get :match
     end
   end
 
