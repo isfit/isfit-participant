@@ -9,6 +9,37 @@ class ParticipantsController < ApplicationController
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
+  def match_host
+    @participant = Participant.find(params[:id])
+    @host = Host.find(params[:host_id])
+    @participant.host = @host
+    @participant.save
+    redirect_to match_participant_path(@participant)
+  end
+
+  def match
+    @participant = Participant.find(params[:id])
+    @hosts = Host.where("number > 0")
+
+    if @participant.vegetarian
+      @hosts = @hosts.where(:vegetarian => 1)
+    end
+    if @participant.smoke
+      @hosts = @hosts.where(:smoker => 0)
+    end
+    if @participant.arrives_at <= DateTime.civil(2011,02,11)
+      @hosts = @hosts.where(:arrival_before => 1)
+    end
+    #if @participant.departs_at >= DateTime.civil(2011-02-22) && @participants.departs_at <= DateTime.civil(2010-02-23)
+    #   @hosts = @hosts.where(:leave_late => 1) 
+    #end
+    if @participant.allergy_pets
+      @hosts = @hosts.where("animal_number > 0")
+    end
+
+    @hosts = @hosts.delete_if {|h| h.full? }
+  end
+
   def check_in
     p = Participant.find(params[:id])
     p.checked_in = Time.now()

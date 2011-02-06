@@ -1,0 +1,39 @@
+<h1><%= "#{@participant.first_name} #{@participant.middle_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %></h1>
+<table class="full">
+  <tbody>
+    <tr>
+      <th>Date of birth</th><td><%= @participant.date_of_birth %></td>
+    </tr>
+    <tr>
+      <th>Field of study</th>
+      <td><%= @participant.field_of_study %></td>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <% if @participant.sex %>
+        <td><%= @participant.sex > 0 ? "Male" : "Female"  %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<h2>Current host</h2>
+<h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
+<h2>Possible hosts</h2>
+<table class="full">
+  <thead>
+    <tr>
+      <th>Host name</th>
+      <th>Info</th>
+      <th>Add as host</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hosts.each do |host| %>
+      <tr>
+        <td><%= host.full_name %></td>
+        <td><%= link_to "View host", host_path(host), :target => "_blank" %></td>
+        <td><%= link_to "Add host", add_host_path(@participant.id, host) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
