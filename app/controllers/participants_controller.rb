@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :sec, :to => [:index, :match, :match_host]
+    allow :sec, :to => [:index, :match, :match_host, :check_in, :check_out]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 
@@ -36,7 +36,7 @@ class ParticipantsController < ApplicationController
     end
     end
     if @participant.allergy_pets
-      @hosts = @hosts.where("animal_number > 0")
+      @hosts = @hosts.where("animal_number = 0")
     end
 
     @hosts = @hosts.delete_if {|h| h.full? }
