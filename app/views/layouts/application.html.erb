@@ -47,6 +47,7 @@
           <!-- Project Inga was made by ISFiT IT 2011. Proud fathers are Dag-Inge, Stian, Nikolaia (Inga-Instant) and Amr. Project Inga will remain in our hearts forever.
           <h1><%= link_to "Project Inga", root_url %></h1>
           <p>A participantweb made by ISFiT IT</p>
+					Version 2.0 officially pushed 27.01.2011. Feature stop ISFiT 2011.
           -->
         </div>
         <div id="nav">
@@ -56,14 +57,21 @@
             <!-- main navigation: horizontal list -->
             <% if current_user %>
               <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
-                <%= tab.home 'Home', root_path %>
+                <% if !current_user.has_role?(:sec)%>
+                  <%= tab.home 'Home', root_path %>
+                <% end %>
                 <% if current_user.is_participant? %>
                   <%= tab.profile 'Profile', participant_path(current_user.participant.id) %>
+                  <%= tab.workshop 'Workshop', workshop_path(current_user.participant.workshop) %>
                 <% elsif current_user.is_functionary? or current_user.has_role?(:admin) %>
                   <%= tab.profile 'Participants', participants_path %>
-                  <%= tab.functionaries 'Functionaries', functionaries_path %> 
+                  <%= tab.host 'Hosts', hosts_path %>
+                  <% if !current_user.has_role?(:sec) %>
+                    <%= tab.functionaries 'Functionaries', functionaries_path %>
+                    <%= tab.workshop 'Workshops', workshops_path %>
+                  <%end%>
                 <% end %>
-                <% if current_user.is_functionary? %>
+                <% if current_user.is_functionary? && !current_user.has_role?(:sec)%>
                   <%= tab.functionary_profile 'Profile', functionary_path(current_user.functionary) %>
                 <%end%>
                 <% if current_user.has_role?(:admin) %>
@@ -72,17 +80,17 @@
                 <% end %>
                 <% if current_user.has_role?(:admin) %>
                   <%= tab.information 'Information', information_pages_path %>
-                <% elsif current_user.is_participant? or current_user.is_functionary? %>
+                <% elsif current_user.is_participant? or current_user.is_functionary? && !current_user.has_role?(:sec)%>
                   <%= tab.information 'Information', information_page_path(InformationPage.first.id) %>
                 <% end %>
-                <% if current_user.is_functionary? %>
+                <% if current_user.is_functionary? && !current_user.has_role?(:sec)%>
                   <% @new_count = Question.find(:all, :joins=>"JOIN participants p  ON p.id = questions.participant_id JOIN functionaries_participants fp ON fp.participant_id = p.id JOIN functionaries f ON f.id = fp.functionary_id", :conditions=>"questions.question_status_id = 1 AND fp.functionary_id ="+current_user.functionary.id.to_s, :order=>"created_at DESC").count %>
                   <% if @new_count > 0 %>
                     <%= tab.question "Questions (#{@new_count})", questions_path %>
                   <% else %>
                     <%= tab.question 'Questions', questions_path %>
                   <% end %>
-                <% else %>
+                <% elsif !current_user.has_role?(:sec) %>
                   <%= tab.question 'Questions', questions_path %>
                 <% end %>
               <% end %>

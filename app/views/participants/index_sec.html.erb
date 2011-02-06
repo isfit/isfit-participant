@@ -1,0 +1,44 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'highcharts' %>
+<% end %>
+<% content_for :sidebar_left do %>
+  <% form_for :participant, @search_participant, :url => { :action => "index" },
+    :html => {:method => "get", :class => "search"} do |f| %>
+      <ul class="vlist">
+        <li><b>First name: </b></li><li><%= f.text_field :first_name, :size=>25 %></li>
+        <li><b>Last name: </b></li><li><%= f.text_field :last_name, :size=>25%></li>
+      </ul>
+
+    <br />
+    <%= f.submit 'Search' %> <%= link_to (submit_tag 'Show all', :type => 'button'), :action=>:index %><br>
+  <% end %>
+<% end %>
+
+<div id="index_table">
+Found <%= pluralize @partici.size, "participant"%> 
+<table class="full">
+  <tr>
+    <th><%= sortable "first_name", "First name" %></th>
+    <th><%= sortable "last_name", "Last name" %></th>
+    <th><%= sortable "country_id", "Country" %></th>
+    <th></th>
+  </tr>
+
+<% @participants.each do |participant| %>
+  <tr>
+    <td><%= participant.first_name %></td>
+    <td><%= participant.last_name %></td>
+    <td><%= participant.country.name %></td>
+    <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), :check_in_participant_id => participant.id %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @participants%>
+</div>
+<% content_for :sidebar_right do %>
+  <h2>Check in</h2>
+  There are <%= pluralize Participant.where(:checked_in => 1).count, "participant" %> checked in
+
+  <h2>Problems?</h2>
+  Call Dag-Inge: 92491526
+<% end %>

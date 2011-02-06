@@ -1,3 +1,8 @@
+<script type="text/javascript">
+$(function() {
+  $('#participant_arrives_at').datepicker({ dateFormat: 'yy-mm-dd' });
+});
+</script>
 <% content_for :head do %>
   <%= javascript_include_tag 'highcharts' %>
 <% end %>
@@ -24,11 +29,27 @@
           <%else%>
             <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
           <% end %>
-
+          <%unless @search_participant.transport_type.nil?%>
+            <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type", :selected=>@search_participant.transport_type_id.to_s}) %></li>
+          <%else%>
+            <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type"}) %></li>
+          <%end%>
+          <%unless @search_participant.arrival_place.nil?%>
+            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place", :selected=>@search_participant.arrival_place_id.to_s}) %></li>
+          <%else%>
+            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
+          <%end%>
         <% else %>
           <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
           <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
           <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
+          <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type"}) %></li>
+          <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
+        <%end%>
+        <%if @arrives_at.blank?%>
+          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at %></li>
+        <%else%>
+          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at, :value=> @arrives_at %></li>
         <%end%>
         <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
         <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>

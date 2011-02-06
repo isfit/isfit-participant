@@ -11,6 +11,8 @@ IsfitParticipant::Application.routes.draw do
 
   resources :events
   
+  resources :hosts
+
   resources :deadlines
   
   match 'change_password' => 'changepasswords#edit_password', :as => :change_password
@@ -38,9 +40,12 @@ IsfitParticipant::Application.routes.draw do
       get "mail_to_search_results"
     end
     member do
+      get "check_in"
+      get "check_out"
       get "travel_support"
       get "invitation"
       get "secure"
+      get "desecure"
     end
   end
 

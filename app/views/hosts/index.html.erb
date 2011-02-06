@@ -1,0 +1,23 @@
+Found <%= pluralize @hosts.size, "host"%> 
+<table class="full">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Number of participants</th>
+    <th></th>
+  </tr>
+
+<% @hosts.each do |host| %>
+  <tr>
+    <td><%= host.first_name %></td>
+    <td><%= host.last_name %></td>
+    <td><%= host.participants.count %>/<%= host.number %></td>
+    <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
+  </tr>
+<% end %>
+</table>
+<% content_for :sidebar_right do %>
+
+  <h2>Problems?</h2>
+  Call Dag-Inge: 92491526
+<% end %>

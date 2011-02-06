@@ -1,0 +1,155 @@
+<% content_for :sidebar_left do %>
+  <% form_for :participant, @search_participant, :url => { :action => "show" },
+    :html => {:method => "get", :class => "search"} do |f| %>
+      <ul class="vlist">
+        <%unless ( @search_participant.nil? )%>
+          <%unless @search_participant.country.nil? %>
+            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country", :selected=>@search_participant.country_id.to_s}) %></li>
+          <% else %>
+            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
+          <% end %>
+        <% else %>
+          <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
+        <%end%>
+        <li><b>Search on vegetarian?: </b></li><li><%= f.check_box :vegetarian %></li>
+        <li><b>Search on smoker?: </b></li><li><%= f.check_box :smoke %></li>
+
+    </ul></ul>
+
+    <br />
+    <%= f.submit 'Search' %><br>
+  <% end %>
+<% end %>
+<% content_for :sidebar_right do %>
+
+  <h2>Problems?</h2>
+  Call Dag-Inge: 92491526
+<% end %>
+<h1><%=@host.first_name + " " + @host.last_name%></h1>
+<table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
+	<tr>
+		<th>Number of participants:</th>
+		<td><%=@host.participants.count%>/<%=@host.number%></td>
+	</tr>	
+	<tr>
+		<th>E-mail</th>
+		<td><%=@host.email%></td>
+	</tr>	
+	<tr>
+		<th>Phone</th>
+		<td><%=@host.phone%></td>
+	</tr>	
+	<tr>
+		<th>Address</th>
+		<td><%=@host.address%></td>
+	</tr>	
+	<tr>
+		<th>Zip Code</th>
+		<td><%=@host.zipcode%></td>
+	</tr>	
+	<tr>
+		<th>Place</th>
+		<td><%=@host.place%></td>
+	</tr>	
+	<tr>
+		<th>Age</th>
+		<td><%=@host.age%></td>
+	</tr>
+  <tr>
+    <th>Spoken languages</th>
+    <td><%=@host.language_speak%></td>
+	<tr>
+		<th>Have been a host before?</th>
+		<td><%=@host.before ? "Yes" : "No"%></td>
+	</tr>
+  <tr>
+    <th>Number and what kind of pets</th>
+    <td><%=@host.animal_number%> <%=@host.pet%></td>
+	<tr>
+		<th>Number of skies</th>
+		<td><%=@host.skies%></td>
+	</tr>
+  <tr>
+    <th>Preferences</th>
+    <td><%=@host.preference%></td>
+	</tr>
+  <tr>
+		<th>Where can participants sleep?</th>
+		<td><%=@host.where%></td>
+	</tr>
+		
+	<tr>
+		<th>Participants can arrive one day before?</th>
+		<td><%=@host.arrival_before ? "Yes" : "No"%></td>
+	</tr>	
+	<tr>
+		<th>Participants can arrive one day late?</th>
+		<td><%=@host.leave_late ? "Yes" : "No"%></td>
+	</tr>	
+  <tr>
+    <th>Participants can smoke?</th>
+		<td><%=@host.smoker ? "Yes" : "No"%></td>
+  </tr>
+  <tr>
+    <th>Participants can be a vegetarian</th>
+		<td><%=@host.vegetarian ? "Yes" : "No"%></td>
+  </tr>
+	<tr>
+		<th>How he/she heard about ISFiT</th>
+		<td><%if @host.know_isfit == "Medlemmer av ISFiT organisasjonen"%><%=@host.member_name%><%else%><%=@host.know_isfit%><%end%></td>
+	</tr>	
+</table>
+<table border="0" cellspacing="4" cellpadding="5"  style="text-align: left">
+	<tr>
+		<th>Why you want to become a host?</th>
+	</tr>
+	<tr>
+		<td><%=@host.why%></td>
+	</tr>	
+</table>
+<h3>Selected participants</h3>
+Selected <%= pluralize @host.participants.size, "participant"%> 
+<table class="full">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Country</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @host.participants.each do |p| %>
+  <tr>
+    <td><%= p.first_name %></td>
+    <td><%= p.last_name %></td>
+    <td><%= (p.sex == 1)?"M":"F"%></td>
+    <td><%= p.country.name %></td>
+    <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), :remove_participant_id => p.id %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<h3>Possible participants</h3>
+Found <%= pluralize @participants.size, "participant"%> 
+<table class="full">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Sex</th>
+    <th>Country</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @participants.each do |p| %>
+  <tr>
+    <td><%= p.first_name %></td>
+    <td><%= p.last_name %></td>
+    <td><%= (p.sex == 1)?"M":"F"%></td>
+    <td><%= p.country.name %></td>
+    <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), :participant_id => p.id %></td>
+  </tr>
+<% end %>
+</table>
+

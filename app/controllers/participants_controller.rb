@@ -5,7 +5,22 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
+    allow :sec, :to => [:index]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
+  end
+
+  def check_in
+    p = Participant.find(params[:id])
+    p.checked_in = Time.now()
+    p.save
+    redirect_to participants_path
+  end
+
+  def check_out
+    p = Participant.find(params[:id])
+    p.checked_out = Time.now()
+    p.save
+    redirect_to participants_path
   end
 
   # GET /participants
@@ -19,8 +34,13 @@ class ParticipantsController < ApplicationController
       end
       params[:participant].delete("region_id")
     end
+    if params[:check_in_participant_id]
+      a = Participant.find(params[:check_in_participant_id])
+      a.checked_in = 1
+      a.save
+    end
     search_participant
-    if current_user.has_role?(:admin)
+    if current_user.has_role?(:admin) || current_user.has_role?(:sec)
       @partici = Participant.where(@query)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
@@ -36,8 +56,14 @@ class ParticipantsController < ApplicationController
     @country_group = @partici.group(:country_id)
     @country_count = @country_group.count.sort_by{|k,v| v}.reverse
 
-
-
+    if current_user.has_role?(:sec)
+      @partici = @partici.where("checked_in = 0 OR checked_in IS NULL AND guaranteed = 1")
+    	@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+      respond_to do |f|
+        f.html {render 'index_sec'}
+      end
+      return
+    end
     respond_to do |format|
       format.html # index.html.erb 
       format.js
@@ -96,6 +122,22 @@ class ParticipantsController < ApplicationController
       end
     end
   end
+  
+  def desecure
+    @participant = Participant.find(params[:id])
+    @participant.guaranteed = 0
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant guarantee removed"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Participant still secured, something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
 
   # GET /participants/1/edit
   def edit
@@ -115,6 +157,7 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1.xml
   def update
     @participant = Participant.find(params[:id])
+    params[:participant].delete("guaranteed")
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
@@ -155,6 +198,7 @@ class ParticipantsController < ApplicationController
       end
       params[:participant].delete("region_id")
       @search_participant = Participant.new(params[:participant])
+      @search_participant.arrives_at = nil
       first_name = @search_participant.first_name
       last_name = @search_participant.last_name
       email = @search_participant.email
@@ -167,6 +211,13 @@ class ParticipantsController < ApplicationController
       flightnumber = @search_participant.flightnumber
       travel_support = @search_participant.travel_support
       guaranteed = @search_participant.guaranteed
+      transport_type = @search_participant.transport_type_id
+      arrival_place = @search_participant.arrival_place_id
+      unless params[:participant][:arrives_at].blank?
+        @arrives_at = params[:participant][:arrives_at]
+      else
+        @arrives_at = ""
+      end
       if first_name != ""
         if @query == ""
           @query = "first_name LIKE '%"+first_name+"%'"
@@ -181,7 +232,7 @@ class ParticipantsController < ApplicationController
           @query += " AND last_name LIKE '%"+last_name+"%'"
         end
       end
-      if email !=""
+      unless email.blank?
         if @query == ""
           @query = "email LIKE '%"+email+"%'"
         else
@@ -226,11 +277,34 @@ class ParticipantsController < ApplicationController
           @query += " AND accepted = "+accepted.to_s
         end
       end
+      if transport_type == nil
+      elsif
+        if @query == ""
+          @query = "transport_type_id = "+transport_type.to_s
+        else
+          @query += " AND transport_type_id = "+transport_type.to_s
+        end
+      end
+      if arrival_place == nil
+      elsif
+        if @query == ""
+          @query = "arrival_place_id = "+arrival_place.to_s
+        else
+          @query += " AND arrival_place_id = "+arrival_place.to_s
+        end
+      end
       if guaranteed
         if @query == ""
           @query = "guaranteed = "+guaranteed.to_s
         else
           @query += " AND guaranteed = "+guaranteed.to_s
+        end
+      end
+      unless @arrives_at.blank?
+        if @query == ""
+          @query = "arrives_at LIKE '"+@arrives_at+"%'"
+        else
+          @query += " AND arrives_at LIKE '"+@arrives_at+"%'"
         end
       end
       if applied_for_visa == 1
