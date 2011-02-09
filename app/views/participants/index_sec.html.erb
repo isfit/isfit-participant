@@ -50,7 +50,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
-    <td><%= participant.arrives_at.strftime("%F %H:%M")%></td>
+    <td><%= participant.arrives_at.strftime("%F %H:%M") unless participant.arrives_at.nil? %> </td>
     <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
     <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), :check_in_participant_id => participant.id %></td>
   </tr>
