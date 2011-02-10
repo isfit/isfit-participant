@@ -181,6 +181,13 @@ namespace :participant do
 			p "Participant #{p.id} saved"
 		end
 	end
+	
+	task :extract => :environment do
+		parts = Participant.where(:workshop_id => 15).where(:guaranteed => 1)
+		parts.each do |p|
+			p p.email
+		end
+	end
 
   task :create => :environment do
     func = {
