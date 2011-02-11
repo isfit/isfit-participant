@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   access_control do
     allow :admin
     allow :functionary, :to => [:index, :show]
-    allow :sec, :to => [:index, :match, :match_host, :check_in, :check_out]
+    allow :sec, :to => [:index, :match, :match_host, :check_in, :check_out, :show]
     allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
   end
 

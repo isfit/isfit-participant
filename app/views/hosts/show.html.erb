@@ -126,6 +126,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <th>Country</th>
     <th>Workshop</th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @host.participants.each do |p| %>
@@ -135,6 +136,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <td><%= (p.sex == 1)?"M":"F"%></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
+    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p) %></td>
     <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), :remove_participant_id => p.id %></td>
   </tr>
 <% end %>
@@ -160,6 +162,7 @@ Found <%= pluralize @participants.size, "participant"%>
     <td><%= p.last_name %></td>
     <td><%= (p.sex == 1)?"M":"F"%></td>
     <td><%= p.country.name %></td>
+    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p) %></td>
     <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), :participant_id => p.id %></td>
   </tr>
 <% end %>

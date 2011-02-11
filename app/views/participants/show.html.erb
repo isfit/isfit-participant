@@ -25,7 +25,7 @@
     </tr>
   </tbody>
 </table>
-<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) %>
+<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) or current_user.has_role?(:sec,nil) %>
   <h2>Private information</h2>
   <table class="full">
     <tbody>
