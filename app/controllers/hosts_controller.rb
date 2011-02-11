@@ -11,9 +11,18 @@ class HostsController < ApplicationController
     @host = Host.find(params[:id])
     @host.number += 1
     @host.save
-    flash[:notice] = "Number of available beds for host updated successfully"
+    flash[:notice] = "Added 1 bed for host successfully"
     redirect_to(host_path(@host))
   end
+
+  def remove_bed
+    @host = Host.find(params[:id])
+    @host.number -= 1
+    @host.save
+    flash[:notice] = "Removed 1 bed for host successfully"
+    redirect_to(host_path(@host))
+  end
+
 
   def index
     @hosts = Host.all

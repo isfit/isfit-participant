@@ -14,6 +14,7 @@ IsfitParticipant::Application.routes.draw do
   resources :hosts do
     member do
       get "add_bed"
+      get "remove_bed"
     end
   end
 
