@@ -9,4 +9,8 @@ class Host < ActiveRecord::Base
   def full?
     participants.count >= number
   end
+
+  def number_left
+    number - participants.count
+  end
 end

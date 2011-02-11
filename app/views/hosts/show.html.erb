@@ -21,7 +21,8 @@
   <% end %>
 <% end %>
 <% content_for :sidebar_right do %>
-
+  <h2>Free beds</h2>
+    <%= Host.all.inject(0) {|sum,host| sum + host.number_left } %>
   <h2>Problems?</h2>
   Call Dag-Inge: 92491526
 <% end %>
@@ -113,9 +114,9 @@ Selected <%= pluralize @host.participants.size, "participant"%>
   <tr>
     <th>First name</th>
     <th>Last name</th>
+    <th>Sex</th>
     <th>Country</th>
     <th>Workshop</th>
-    <th></th>
     <th></th>
   </tr>
 
