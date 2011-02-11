@@ -131,6 +131,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
 
 
 <h3>Possible participants</h3>
+<%if @showall%><b>Couldn't find any matches, shows all, choose with care!</b><%end%>
 Found <%= pluralize @participants.size, "participant"%> 
 <table class="full">
   <tr>

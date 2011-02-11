@@ -20,6 +20,7 @@ class HostsController < ApplicationController
       p.host_id = nil
       p.save
     end
+    @showall = false
     @host = Host.find(params[:id])
     @participants = Participant.where("checked_in IS NOT NULL AND host_id IS NULL")
     @search_participant = Participant.new(params[:participant])
@@ -44,6 +45,10 @@ class HostsController < ApplicationController
     end
     if @search_participant.country
       @participants = @participants.where(:country_id => @search_participant.country_id)
+    end
+    if @participants.empty?
+      @participants = Participant.where("checked_in IS NOT NULL AND host_id IS NULL")
+      @showall = true
     end
   end
 

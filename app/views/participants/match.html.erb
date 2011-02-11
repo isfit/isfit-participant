@@ -160,6 +160,7 @@
 <h2>Current host</h2>
 <h4><%= (link_to @participant.host.full_name, host_path(@participant.host), :target => "_blank") if @participant.host %></h4>
 <h2>Possible hosts</h2>
+<%if @showall%><b>Couldn't find matching hosts, shows all, choose with care!</b><%end%>
 <table class="full">
   <thead>
     <tr>

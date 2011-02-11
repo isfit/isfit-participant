@@ -20,7 +20,7 @@ class ParticipantsController < ApplicationController
   def match
     @participant = Participant.find(params[:id])
     @hosts = Host.where("number > 0")
-
+    @showall = false
     if @participant.vegetarian
       @hosts = @hosts.where(:vegetarian => 1)
     end
@@ -38,7 +38,10 @@ class ParticipantsController < ApplicationController
     if @participant.allergy_pets
       @hosts = @hosts.where("animal_number = 0")
     end
-
+    if @hosts.empty?
+     @hosts = Host.where("number > 0")
+     @showall = true
+    end 
     @hosts = @hosts.delete_if {|h| h.full? }
   end
 
