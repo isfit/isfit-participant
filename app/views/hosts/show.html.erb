@@ -114,6 +114,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <th>First name</th>
     <th>Last name</th>
     <th>Country</th>
+    <th>Workshop</th>
     <th></th>
     <th></th>
   </tr>
@@ -124,6 +125,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <td><%= p.last_name %></td>
     <td><%= (p.sex == 1)?"M":"F"%></td>
     <td><%= p.country.name %></td>
+    <td><%= p.workshop_id %></td>
     <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), :remove_participant_id => p.id %></td>
   </tr>
 <% end %>

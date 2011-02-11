@@ -18,14 +18,18 @@ $(function() {
           <%else%>
             <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
           <%end%>
+          <li><b>Checked in: </b></li><li><%= f.check_box :checked_in, :checked => @checked_in == "1" %></li>
+          <li><b>Checked out: </b></li><li><%= f.check_box :checked_out, :checked => @checked_out == "1"  %></li>
         <%else%>
           <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
+          <li><b>Checked in: </b></li><li><%= f.check_box :checked_in %></li>
+          <li><b>Checked out: </b></li><li><%= f.check_box :checked_out %></li>
         <%end%>
         <%if @arrives_at.blank?%>
           <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at %></li>
         <%else%>
           <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at, :value=> @arrives_at %></li>
-        <%end%>
+        <%end%> 
       </ul>
 
     <br />
@@ -40,6 +44,7 @@ Found <%= pluralize @partici.size, "participant"%>
     <th><%= sortable "first_name", "First name" %></th>
     <th><%= sortable "last_name", "Last name" %></th>
     <th><%= sortable "country_id", "Country" %></th>
+    <th><%= sortable "arrives_at", "Arrives at" %></th>
     <th></th>
     <th></th>
   </tr>
@@ -49,8 +54,13 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.first_name %></td>
     <td><%= participant.last_name %></td>
     <td><%= participant.country.name %></td>
+    <td><%= participant.arrives_at.strftime("%F %H:%M") unless participant.arrives_at.nil? %> </td>
     <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
-    <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), :check_in_participant_id => participant.id %></td>
+    <% if participant.checked_in.nil? %>
+      <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), check_in_participant_path(participant)  %></td>
+    <% else %>
+      <td></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
@@ -58,7 +68,7 @@ Found <%= pluralize @partici.size, "participant"%>
 </div>
 <% content_for :sidebar_right do %>
   <h2>Check in</h2>
-  There are <%= pluralize Participant.where(:checked_in => 1).count, "participant" %> checked in
+  There are <%= pluralize Participant.where("checked_in IS NOT NULL").count, "participant" %> checked in
 
   <h2>Problems?</h2>
   Call Dag-Inge: 92491526

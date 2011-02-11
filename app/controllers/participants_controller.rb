@@ -27,8 +27,10 @@ class ParticipantsController < ApplicationController
     if @participant.smoke
       @hosts = @hosts.where(:smoker => 0)
     end
+    if @participant.arrives_at != nil
     if @participant.arrives_at <= DateTime.civil(2011,02,11)
       @hosts = @hosts.where(:arrival_before => 1)
+    end
     end
     if @participant.departs_at != nil
     if @participant.departs_at >= DateTime.civil(2011-02-22) && @participant.departs_at <= DateTime.civil(2010-02-23)
@@ -49,6 +51,7 @@ class ParticipantsController < ApplicationController
     p = Participant.find(params[:id])
     p.checked_in = Time.now()
     p.save
+    flash[:notice] = "#{p.last_name}, #{p.first_name} is checked in"
     redirect_to participants_path
   end
 
@@ -70,11 +73,6 @@ class ParticipantsController < ApplicationController
       end
       params[:participant].delete("region_id")
     end
-    if params[:check_in_participant_id]
-      a = Participant.find(params[:check_in_participant_id])
-      a.checked_in = 1
-      a.save
-    end
     search_participant
     if current_user.has_role?(:admin) || current_user.has_role?(:sec)
       @partici = Participant.where(@query)
@@ -93,7 +91,7 @@ class ParticipantsController < ApplicationController
     @country_count = @country_group.count.sort_by{|k,v| v}.reverse
 
     if current_user.has_role?(:sec)
-      @partici = @partici.where("checked_in = 0 OR checked_in IS NULL AND guaranteed = 1")
+      @partici = @partici.where("guaranteed = 1")
     	@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
       respond_to do |f|
         f.html {render 'index_sec'}
@@ -225,8 +223,9 @@ class ParticipantsController < ApplicationController
 
   def search_participant
     @query = ""
-
     if params[:participant]
+      @checked_in = params[:participant][:checked_in]
+      @checked_out = params[:participant][:checked_out]
       if params[:participant][:region_id]
         region = params[:participant][:region_id]
       else
@@ -249,6 +248,9 @@ class ParticipantsController < ApplicationController
       guaranteed = @search_participant.guaranteed
       transport_type = @search_participant.transport_type_id
       arrival_place = @search_participant.arrival_place_id
+
+      need_transport = @search_participant.need_transport
+
       unless params[:participant][:arrives_at].blank?
         @arrives_at = params[:participant][:arrives_at]
       else
@@ -371,6 +373,29 @@ class ParticipantsController < ApplicationController
           @query += " AND travel_support is not null AND travel_support > 0"
         end
       end
+      if need_transport == 1
+        if @query == ""
+          @query = "need_transport IS NOT null AND need_transport > 0"
+        else
+          @query += " AND need_transport is not null AND need_transport > 0"
+        end
+      end
+
+     if @checked_in == "1"
+        if @query == ""
+          @query = "checked_in IS NOT NULL"
+        else
+          @query += " AND checked_in IS NOT NULL"
+        end
+      end
+      if @checked_out == "1"
+        if @query == ""
+          @query = "checked_out IS NOT NULL"
+        else
+          @query += " AND checked_out IS NOT NULL"
+        end
+      end
+ 
     end
   end
 
