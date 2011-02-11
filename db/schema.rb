@@ -114,13 +114,14 @@ ActiveRecord::Schema.define(:version => 20110211074803) do
   end
 
   create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "participant_id"
     t.integer  "functionary_id"
+    t.integer  "participant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "hosts", :force => true do |t|
+  create_table "hosts", :id => false, :force => true do |t|
+    t.integer  "id",             :default => 0, :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"

@@ -215,10 +215,6 @@
   </p>
 
 
-  <p>
-    <b>Primary role:</b>
-    <%= @participant.user.roles.first.name %>
-  </p>
 <% end %>
 <% content_for :sidebar_left do %>
   <% if current_user == @participant.user || !current_user.has_role?(:participant)%>
