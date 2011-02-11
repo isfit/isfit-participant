@@ -48,7 +48,7 @@ class ParticipantsController < ApplicationController
     p = Participant.find(params[:id])
     p.checked_in = Time.now()
     p.save
-    flash[:notice] = "#{p.last_name}, #{p.firstname} is checked in"
+    flash[:notice] = "#{p.last_name}, #{p.first_name} is checked in"
     redirect_to participants_path
   end
 
