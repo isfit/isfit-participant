@@ -12,9 +12,16 @@ class ParticipantsController < ApplicationController
   def match_host
     @participant = Participant.find(params[:id])
     @host = Host.find(params[:host_id])
-    @participant.host = @host
-    @participant.save
-    redirect_to match_participant_path(@participant)
+    if not @participant.host.nil?
+      @participant.host = @host
+      @participant.save
+      flash[:notice] = "Participant matched"
+      redirect_to match_participant_path(@participant)
+    else
+      flash[:warning] = "Participant taken"
+      redirect_to match_participant_path(@participant)
+    end
+
   end
 
   def match
