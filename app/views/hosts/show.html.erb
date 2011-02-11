@@ -26,8 +26,11 @@
   <% end %>
 <% end %>
 <% content_for :sidebar_right do %>
-  <h2>Free beds</h2>
-    <%= Host.all.inject(0) {|sum,host| sum + host.number_left } %>
+  <h2>Information</h2>
+  <p class="info">
+    <b><%= Host.all.inject(0) {|sum,host| sum + host.number_left } %></b> free beds.<br>
+    <b><%= Participant.where(:host_id => nil).where("checked_in IS NOT NULL").count %></b> unmatched participants.
+  </p>
   <h2>Problems?</h2>
   Call Dag-Inge: 92491526
 <% end %>
