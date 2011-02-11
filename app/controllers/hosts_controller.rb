@@ -7,6 +7,14 @@ class HostsController < ApplicationController
     allow :sec
   end
 
+  def add_bed
+    @host = Host.find(params[:id])
+    @host.number += 1
+    @host.save
+    flash[:notice] = "Number of available beds for host updated successfully"
+    redirect_to(host_path(@host))
+  end
+
   def index
     @hosts = Host.all
   end

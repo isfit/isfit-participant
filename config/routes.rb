@@ -11,7 +11,12 @@ IsfitParticipant::Application.routes.draw do
 
   resources :events
   
-  resources :hosts
+  resources :hosts do
+    member do
+      get "add_bed"
+    end
+  end
+
 
   resources :deadlines
   

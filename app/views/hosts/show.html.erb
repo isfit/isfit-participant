@@ -38,7 +38,7 @@
 <table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
 	<tr>
 		<th>Number of participants:</th>
-		<td><%=@host.participants.count%>/<%=@host.number%></td>
+                <td><%=@host.participants.count%>/<%=@host.number%> <%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %> </td>
 	</tr>	
 	<tr>
 		<th>E-mail</th>
