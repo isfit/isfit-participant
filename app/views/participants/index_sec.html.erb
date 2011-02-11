@@ -56,7 +56,11 @@ Found <%= pluralize @partici.size, "participant"%>
     <td><%= participant.country.name %></td>
     <td><%= participant.arrives_at.strftime("%F %H:%M") unless participant.arrives_at.nil? %> </td>
     <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
-    <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), check_in_participant_path(participant)  %></td>
+    <% if participant.checked_in.nil? %>
+      <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), check_in_participant_path(participant)  %></td>
+    <% else %>
+      <td></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
