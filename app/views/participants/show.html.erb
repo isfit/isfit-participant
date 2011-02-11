@@ -183,6 +183,14 @@
         <th>Travel support amount:</th>
         <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
       </tr>
+      <tr>
+        <th>Checked in:</th>
+        <td><%= @participant.checked_in %></td>
+      </tr>
+      <tr>
+        <th>Host:</th>
+        <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
+      </tr>
     </tbody>
   </table>
 <% end %>
