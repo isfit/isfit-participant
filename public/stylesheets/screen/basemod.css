@@ -27,7 +27,7 @@ body { overflow-y: scroll; }
 
 /* (en) Marginal areas & page background */
 /* (de) Randbereiche & Seitenhintergrund */
-body { background: #4d87c7 url("../../bg.jpg") top left fixed;  padding: 10px 0; }
+body { background: #00394A;  padding: 10px 0; }
 
 /* Layout Alignment | Layout-Ausrichtung */
 .page_margins { margin: 0 auto; }
