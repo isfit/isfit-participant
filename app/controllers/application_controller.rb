@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  # rescue_from 'Acl9::AccessDenied', :with => :access_denied
   
   private
 

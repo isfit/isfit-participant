@@ -1,9 +1,9 @@
 class DeadlinesController < ApplicationController
   before_filter :authenticate_user!
   set_tab :deadline
-  access_control do
-    allow :admin
-  end
+  # access_control do
+  #   allow :admin
+  # end
 
   # GET /deadlines
   # GET /deadlines.xml

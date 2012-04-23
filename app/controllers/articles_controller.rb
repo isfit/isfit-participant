@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate_user!
   set_tab :article
-  access_control do
-    allow :admin
-    allow :functionary, :to => [:show]
-    allow :participant, :to => [:show]
-  end
+  # access_control do
+  #   allow :admin
+  #   allow :functionary, :to => [:show]
+  #   allow :participant, :to => [:show]
+  # end
 
   # GET /articles
   # GET /articles.xml

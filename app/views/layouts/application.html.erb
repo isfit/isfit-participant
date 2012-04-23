@@ -71,11 +71,11 @@
                   <% if !current_user.has_role?(:sec) %>
                     <%= tab.functionaries 'Functionaries', functionaries_path %>
                     <%= tab.workshop 'Workshops', workshops_path %>
-                  <%end%>
+                  <% end%>
                 <% end %>
                 <% if current_user.is_functionary? && !current_user.has_role?(:sec)%>
                   <%= tab.functionary_profile 'Profile', functionary_path(current_user.functionary) %>
-                <%end%>
+                <% end%>
                 <% if current_user.has_role?(:admin) %>
                   <%= tab.article 'Articles', articles_path %>
                   <%= tab.deadline 'Deadlines', deadlines_path %>

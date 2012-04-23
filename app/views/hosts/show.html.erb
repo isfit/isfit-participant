@@ -4,7 +4,7 @@
     <li><%= link_to image_tag('icons/house.png') + ' Show all', hosts_path %></li>
   </ul>
 
-  <% form_for :participant, @search_participant, :url => { :action => "show" },
+  <% form_for (@search_participant.nil? ? Participant.new : @search_participant), :url => { :action => "show" },
     :html => {:method => "get", :class => "search"} do |f| %>
       <ul class="vlist">
         <%unless ( @search_participant.nil? )%>

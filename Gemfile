@@ -1,25 +1,26 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
-gem 'acl9'
+gem "cancan"
+# gem 'acl9'
 gem 'meta_search'
 gem 'foreigner'
 gem "tabs_on_rails"
 gem "bluecloth"
 gem "htmldoc"
-gem 'mysql'
+gem 'mysql2'
 gem "paperclip"
 gem "princely"
 gem "pdfkit"
 gem "wkhtmltopdf"
-gem "will_paginate", "3.0.pre2"
-#gem 'rmagick'
+gem "will_paginate"
+# gem 'rmagick'
 
 # Use unicorn as the web server
 # gem 'unicorn'

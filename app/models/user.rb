@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_password
   
   # roles
-  acts_as_authorization_subject  :association_name => :roles
+  #acts_as_authorization_subject  :association_name => :roles
   
   #relations
   has_one :participant
@@ -42,4 +42,9 @@ class User < ActiveRecord::Base
       false
     end
   end
+
+  def has_role?(role)
+    true
+  end
+
 end

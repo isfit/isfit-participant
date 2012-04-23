@@ -1,5 +1,5 @@
 module ApplicationHelper
-  include Acl9Helpers
+  # include Acl9Helpers
   def format(str)
     bc = BlueCloth.new(h(str))
     bc.to_html
