@@ -6,15 +6,15 @@ namespace :functionary do
     :hannagri => {:first =>"Hanna", :last => "Grimsrud Husum"},
     :kennej => {:first => "Kenneth", :last => "Johansen"},
     :krisdjup => {:first =>"Kristina", :last => "Djup"},
-    :toftoyan => {:first =>"Tor", :last => "Toftøy"},
-    :karisyj => {:first => "Kari Synnøve", :last => "Johansen"},
-    :marierts => {:first =>"Mari", :last => "Ertsås Øverli"},
+#    :toftoyan => {:first =>"Tor", :last => "Toftøy"},
+#    :karisyj => {:first => "Kari Synnøve", :last => "Johansen"},
+#    :marierts => {:first =>"Mari", :last => "Ertsås Øverli"},
     :sophridd => {:first => "Sophie", :last => "Riddervold"},
     :helgasyn => {:first => "Helga", :last => "Kjos-Hanssen"},
     :sofielys => {:first => "Sofie", :last => "Lian"},
     :ullern => {:first => "Eli", :last => "Fyhn Ullern"},
     :kristaf => {:first => "Kristine", :last => "Kjeldstad"},
-    :oystf => {:first => "Øysten Bøyum", :last => "Fossum"}
+#    :oystf => {:first => "Øysten Bøyum", :last => "Fossum"}
     }
  
     func.each do |username,value|
@@ -43,11 +43,11 @@ namespace :facilitator do
   task :create => :environment do
     func = {
       :siljemat => {:first => "Silje", :last => "Mathisen"},
-      :krisover => {:first => "Kristian", :last => "Bøhle Overrein"},
+#      :krisover => {:first => "Kristian", :last => "Bøhle Overrein"},
       :ragnmoln => {:first => "Ragnhild", :last => "Molnes"},
       :henrisi => {:first => "Henrik", :last => "Sigstad"},
-      :kristokj => {:first => "Kristoffer", :last => "Kjærnes"},
-      :ingvnyg => {:first => "Ingvild", :last => "Tanke Nygård"}
+#      :kristokj => {:first => "Kristoffer", :last => "Kjærnes"},
+#      :ingvnyg => {:first => "Ingvild", :last => "Tanke Nygård"}
     }
     func.each do |username,value|
       password = generate_password.to_s
@@ -125,9 +125,9 @@ namespace :admin do
   task :create => :environment do
      func = {
     :hannah => {:first  => "Hanna", :last => "Haaland"},
-    :tuvajako => {:first =>"Tuva", :last => "Rønnes"},
+#    :tuvajako => {:first =>"Tuva", :last => "Rønnes"},
     :malenehu => {:first => "Malene Huse", :last => "Eikrem"},
-    :andhaugs => {:first =>"Anders Grønning", :last => "Haugseth"},
+#    :andhaugs => {:first =>"Anders Grønning", :last => "Haugseth"},
     }
  
     func.each do |username,value|

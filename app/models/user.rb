@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :deadlines
+  has_many :user_roles
+  has_many :roles, :through => :user_roles
+
   validates_uniqueness_of :email
   
   validates_presence_of :email
@@ -44,7 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(role)
-    true
+    roles.any? { |r| r[:name] == role.to_s }
   end
 
 end

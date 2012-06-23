@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate_user!
   set_tab :article
+
+  load_and_authorize_resource
   # access_control do
   #   allow :admin
   #   allow :functionary, :to => [:show]
