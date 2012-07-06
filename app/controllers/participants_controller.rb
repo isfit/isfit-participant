@@ -125,14 +125,14 @@ class ParticipantsController < ApplicationController
         f.html {render 'invitation', :layout=>false}
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 
   def travel_support
     @participant = Participant.find(params[:id])
     if @participant.travel_support < 1
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
       return
     end
     if current_user.id == @participant.user.id
@@ -140,7 +140,7 @@ class ParticipantsController < ApplicationController
         format.html {render 'travel_support', :layout=>false}
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 
@@ -186,7 +186,7 @@ class ParticipantsController < ApplicationController
         format.xml  { render :xml => @participant }
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 
@@ -218,7 +218,7 @@ class ParticipantsController < ApplicationController
         end
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 

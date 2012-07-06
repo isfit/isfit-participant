@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
         format.xml  { render :xml => @question }
       end
     else
-      raise Acl9::AccessDenied 
+      raise CanCan::AccessDenied 
     end
   end
 
@@ -80,7 +80,7 @@ class QuestionsController < ApplicationController
     if !current_user.is_participant? || @question.participant.user == current_user
       
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end 
   end
 
@@ -111,7 +111,7 @@ class QuestionsController < ApplicationController
         flash[:notice] = "Question status has been updated to resolved"
         redirect_to(@question)
     else
-     raise Acl9:AccessDenied
+     raise CanCan::AccessDenied
     end
     
   end
@@ -132,7 +132,7 @@ class QuestionsController < ApplicationController
         end
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 

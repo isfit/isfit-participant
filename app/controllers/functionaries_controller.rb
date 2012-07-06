@@ -55,7 +55,7 @@ class FunctionariesController < ApplicationController
         format.xml  { render :xml => @functionary }
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
 
@@ -78,7 +78,7 @@ class FunctionariesController < ApplicationController
         end
       end
     else
-      raise Acl9::AccessDenied
+      raise CanCan::AccessDenied
     end
   end
   private
