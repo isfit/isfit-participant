@@ -1,11 +1,8 @@
 class WorkshopsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :workshop
-  access_control do
-    allow :admin
-    allow :functionary, :to => [:index, :show]
-    allow :participant, :to => [:show]
-  end
+
+  load_and_authorize_resource
 
   def index
    @workshops = Workshop.all

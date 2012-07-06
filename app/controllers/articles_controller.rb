@@ -3,11 +3,6 @@ class ArticlesController < ApplicationController
   set_tab :article
 
   load_and_authorize_resource
-  # access_control do
-  #   allow :admin
-  #   allow :functionary, :to => [:show]
-  #   allow :participant, :to => [:show]
-  # end
 
   # GET /articles
   # GET /articles.xml

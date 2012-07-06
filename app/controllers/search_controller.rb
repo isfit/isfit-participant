@@ -1,7 +1,6 @@
 class SearchController < ApplicationController
-  access_control do
-    allow :admin
-  end
+  load_and_authorize_resource
+  
   def index
     @participants = Participant.search(params[:query])
   end

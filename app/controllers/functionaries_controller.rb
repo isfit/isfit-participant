@@ -2,11 +2,8 @@ class FunctionariesController < ApplicationController
   before_filter :authenticate_user!
   set_tab :functionaries
   helper_method :sort_column, :sort_direction
-  access_control do
-    allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update]
-  end
-
+  load_and_authorize_resource
+  
   # GET /functionaries
   # GET /functionaries.xml
   def index

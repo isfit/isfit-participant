@@ -1,14 +1,7 @@
 class ChangepasswordsController < ApplicationController
 
-  access_control do
-    allow :admin
-    allow :functionary
-    allow :participants
-  end
-
-
-
   def edit_password
+    #TODO: Redirect user to login, if not logged in
     @user = current_user
   end
 

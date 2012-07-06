@@ -1,11 +1,8 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :question
-  access_control do
-    allow :admin
-    allow :functionary, :to => [:index, :show, :edit, :update, :q_status, :resolve]
-    allow :participant, :to => [:index, :show, :edit, :update, :new, :create]
-  end
+
+  load_and_authorize_resource
 
   def q_status
     index  

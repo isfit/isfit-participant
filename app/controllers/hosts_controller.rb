@@ -2,10 +2,7 @@ class HostsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :host
 
-  # access_control do
-  #   allow :admin
-  #   allow :sec
-  # end
+  load_and_authorize_resource
 
   def add_bed
     @host = Host.find(params[:id])

@@ -1,9 +1,9 @@
 class RolesController < ApplicationController
   before_filter :authenticate_user!
   set_tab :users
-  access_control do
-    allow :admin
-  end
+  
+  load_and_authorize_resource
+
   def impersonate
     sign_in(:user, User.find(params[:id]))
     redirect_to root_path

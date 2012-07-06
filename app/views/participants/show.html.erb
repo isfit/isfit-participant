@@ -25,7 +25,8 @@
     </tr>
   </tbody>
 </table>
-<% if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) or current_user.has_role?(:sec,nil) %>
+<%# if current_user == @participant.user or current_user.has_role?(:admin, nil) or current_user.has_role?(:functionary,nil) or current_user.has_role?(:sec,nil) %>
+<% if can? :show, @participant %>
   <h2>Private information</h2>
   <table class="full">
     <tbody>
@@ -194,7 +195,7 @@
     </tbody>
   </table>
 <% end %>
-<% if current_user.has_role?(:admin, nil) %>
+<% if current_user.has_role?(:admin) %>
   <h2>Admin info</h2>
   <p>
     <b>Belongs to the following functionaries</b>

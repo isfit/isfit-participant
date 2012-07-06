@@ -2,12 +2,8 @@ class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :profile
   helper_method :sort_column, :sort_direction
-  # access_control do
-  #   allow :admin
-  #   allow :functionary, :to => [:index, :show]
-  #   allow :sec, :to => [:index, :match, :match_host, :check_in, :check_out, :show]
-  #   allow :participant, :to => [:show, :edit, :update, :travel_support, :invitation]
-  # end
+
+  load_and_authorize_resource
 
   def match_host
     @participant = Participant.find(params[:id])
