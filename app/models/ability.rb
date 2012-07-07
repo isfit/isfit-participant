@@ -12,6 +12,7 @@ class Ability
       can :update, Functionary
       can :show, InformationPage
       can :read, Participant
+      can [:index, :show, :update, :q_status, :resolve], Question
       can :read, Workshop
     end
     if user.has_role? :participant
@@ -27,7 +28,6 @@ class Ability
     if user.has_role? :sec
       can :manage, Host
       can [:index, :match, :match_host, :check_in, :check_out, :show], Participant
-      can [:index, :show, :update, :q_status, :resolve], Question
     end
   end
 
