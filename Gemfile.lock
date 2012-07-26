@@ -40,6 +40,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.1.1)
     erubis (2.7.0)
+    event-calendar (2.3.3)
     foreigner (1.1.6)
       activerecord (>= 3.0.0)
     hike (1.2.1)
@@ -122,6 +123,7 @@ DEPENDENCIES
   bluecloth
   cancan
   devise
+  event-calendar
   foreigner
   htmldoc
   meta_search

@@ -8,7 +8,7 @@ gem 'rails', '3.2.2'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
 gem "cancan"
-# gem 'acl9'
+gem 'event-calendar', :require => 'event_calendar'
 gem 'meta_search'
 gem 'foreigner'
 gem "tabs_on_rails"
