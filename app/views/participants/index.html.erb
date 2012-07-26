@@ -7,7 +7,8 @@ $(function() {
   <%= javascript_include_tag 'highcharts' %>
 <% end %>
 <% content_for :sidebar_left do %>
-  <% form_for :participant, @search_participant, :url => { :action => "index" },
+  <% form_for (@search_participant.nil? ? Participant.new : @search_participant), 
+    :url => { :action => "index" },
     :html => {:method => "get", :class => "search"} do |f| %>
       <ul class="vlist">
         <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
