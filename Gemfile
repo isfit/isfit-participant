@@ -18,8 +18,15 @@ gem 'mysql2'
 gem "paperclip"
 gem "princely"
 gem "pdfkit"
+gem "simple_form"
+gem "tabulous"
 gem "wkhtmltopdf"
 gem "will_paginate"
+
+group :assets do
+  gem 'twitter-bootstrap-rails'
+end
+
 # gem 'rmagick'
 
 # Use unicorn as the web server
