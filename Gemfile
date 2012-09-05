@@ -1,24 +1,24 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
-gem 'devise'
-gem "cancan"
-gem 'event-calendar', :require => 'event_calendar'
-gem 'meta_search'
-gem 'foreigner'
-gem "tabs_on_rails"
 gem "bluecloth"
+gem "cancan"
+gem 'devise'
+gem 'event-calendar', :require => 'event_calendar'
+gem 'foreigner'
 gem "htmldoc"
+gem 'meta_search'
 gem 'mysql2'
 gem "paperclip"
-gem "princely"
 gem "pdfkit"
+gem "princely"
 gem "simple_form"
+gem 'sqlite3-ruby', :require => 'sqlite3'
+gem "tabs_on_rails"
 gem "tabulous"
 gem "wkhtmltopdf"
 gem "will_paginate"
