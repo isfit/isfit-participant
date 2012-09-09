@@ -46,5 +46,7 @@ module IsfitParticipant
       #c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
       c.wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
     end
+
+    config.assets.enabled = true
   end
 end

@@ -20,11 +20,14 @@ gem "simple_form"
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "tabs_on_rails"
 gem "tabulous"
+gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
 gem "will_paginate"
 
 group :assets do
-  gem 'twitter-bootstrap-rails'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 # gem 'rmagick'
