@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424173804) do
+ActiveRecord::Schema.define(:version => 20120911172113) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(:version => 20120424173804) do
     t.datetime "publish_at"
     t.integer  "user_id"
     t.integer  "sticky"
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.integer  "region_id"
+    t.string   "code",       :limit => 4
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "deadlines", :force => true do |t|
