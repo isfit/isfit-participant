@@ -1,0 +1,32 @@
+<%= simple_form_for(@application) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :address %>
+    <%= f.input :zipcode %>
+    <%= f.input :city %>
+    <%= f.input :country_id %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :birthdate %>
+    <%= f.input :sex %>
+    <%= f.input :university %>
+    <%= f.input :field_of_study %>
+    <%= f.input :workshop1 %>
+    <%= f.input :workshop2 %>
+    <%= f.input :workshop3 %>
+    <%= f.input :essay1 %>
+    <%= f.input :essay2 %>
+    <%= f.input :travel_apply %>
+    <%= f.input :travel_essay %>
+    <%= f.input :travel_amount %>
+    <%= f.input :travel_nosupport_other %>
+    <%= f.input :travel_nosupport_cancome %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

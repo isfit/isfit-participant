@@ -1,5 +1,11 @@
 IsfitParticipant::Application.routes.draw do
 
+  resources :applications do
+    collection do
+      get "grade"
+    end
+  end
+
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 
   resources :information_categories
