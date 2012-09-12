@@ -20,7 +20,7 @@ class CreateApplications < ActiveRecord::Migration
       t.text :essay2, :null => false
       t.integer :travel_apply, :limit => 1, :default => 0
       t.text :travel_essay
-      t.string :travel_amount, :limit => 20
+      t.string :travel_amount, :limit => 20, :default => ""
       t.integer :travel_nosupport_other, :limit => 1, :default => 0
       t.integer :travel_nosupport_cancome, :limit => 1, :default => 0
       t.integer :grade1_functionary_id, :default => 0, :null => false
