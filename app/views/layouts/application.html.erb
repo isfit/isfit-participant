@@ -5,12 +5,13 @@
     <title>ISFiT 2013 - participantweb</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= stylesheet_link_tag :all %>
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %> 
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" %> 
     <%= javascript_include_tag 'rails' %>
     <%= javascript_include_tag 'event_calendar' %>
     <%= javascript_include_tag 'jquery-ui' %>
     <%= javascript_include_tag 'jquery-ui-timepicker-addon' %>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'bootstrap.min' %>
     <%= yield :head %>
     <script type="text/javascript">
 
@@ -39,10 +40,12 @@
      <div class="container">
        <div class="row">
          <div class="span12">
-           <% if user_signed_in? %>
-             Hi <%=current_user.name%> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %> <% else %>
-             <%= link_to "Login", new_user_session_url %>
-           <% end %>
+           <div class="pull-right">
+             <% if user_signed_in? %>
+               Hi <%=current_user.name%> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %> <% else %>
+               <%= link_to "Login", new_user_session_url %>
+             <% end %>
+           </div>
          </div>
        </div>
      </div>

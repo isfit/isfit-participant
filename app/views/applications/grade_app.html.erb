@@ -1,0 +1,36 @@
+<%= render 'show' %> 
+
+<% if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0 %>
+  <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
+    <%= f.error_notification %>
+    <% @application.grade1 = "" %>
+    <div class="form_inputs">
+      <%= f.input :grade1, :input_html => { :class => "span4" } %>
+      <%= f.input :grade1_comment, :input_html => { :class => "span4", :rows => 5 } %>
+      <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+    </div>
+  <% end %>
+<% elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 %>
+  <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
+    <%= f.error_notification %>
+    <% @application.grade2 = "" %>
+    <div class="form_inputs">
+      <%= f.input :grade2, :input_html => { :class => "span4" } %>
+      <%= f.input :grade2_comment, :input_html => { :class => "span4", :rows => 5 } %>
+      <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+    </div>
+  <% end %>
+<% elsif @application.grade3_functionary_id == current_user.id && @application.grade3 == 0 %>
+  <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
+    <%= f.error_notification %>
+    <% @application.grade3 = "" %>
+    <div class="form_inputs">
+      <%= f.input :grade3, :input_html => { :class => "span4" } %>
+      <%= f.input :grade3_comment, :input_html => { :class => "span4", :rows => 5 } %>
+      <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>You are not able to set a grade for this application</p>
+<% end %>
+

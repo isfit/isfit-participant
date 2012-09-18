@@ -58,6 +58,7 @@ Tabulous.setup do |config|
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    true        ,    true        ],
+      [    :application_tab               ,    'Applications'              ,    applications_path              ,    true        ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    true        ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    true        ,    true        ],
       [    :information_pages_tab         ,    'Information Pages'         ,    information_pages_path         ,    true        ,    true        ],
@@ -65,6 +66,7 @@ Tabulous.setup do |config|
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    true        ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    true        ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    true        ,    true        ],
+      [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    true        ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    true        ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
@@ -92,6 +94,8 @@ Tabulous.setup do |config|
       #    CONTROLLER                 |    ACTION          |    TAB                            #
       #----------------------------------------------------------------------------------------#
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
+      [    :control_panel             ,    :all_actions    ,    :control_panel_tab             ],
+      [    :application               ,    :all_actions    ,    :application_tab               ],
       [    :information_categories    ,    :all_actions    ,    :information_categories_tab    ],
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
       [    :workshops                 ,    :all_actions    ,    :workshops_tab                 ],

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911183320) do
+ActiveRecord::Schema.define(:version => 20120913120045) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -77,6 +77,14 @@ ActiveRecord::Schema.define(:version => 20120911183320) do
     t.datetime "publish_at"
     t.integer  "user_id"
     t.integer  "sticky"
+  end
+
+  create_table "control_panels", :force => true do |t|
+    t.boolean  "app_grade1", :default => false
+    t.boolean  "app_grade2", :default => false
+    t.boolean  "app_grade3", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "countries", :force => true do |t|

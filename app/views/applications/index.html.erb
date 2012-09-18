@@ -1,18 +1,16 @@
-<div class="pull-right">
-  <%= link_to 'New Application', new_application_path, :class => "btn btn-primary"%>
-</div>
-<h1>applications</h1>
+<%= content_for :sidebar_left do %>
+abd
+<% end %>
+
+<h1>Applications</h1>
 
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>First</th>
+      <th>Last</th>
       <th>Country</th>
-      <th>Sex</th>
-      <th>Workshop1</th>
-      <th>Workshop2</th>
-      <th>Workshop3</th>
+      <th>E-mail</th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,15 +21,12 @@
     <tr>
       <td><%= application.first_name %></td>
       <td><%= application.last_name %></td>
-      <td><%= application.country_id %></td>
-      <td><%= application.sex %></td>
-      <td><%= application.workshop1 %></td>
-      <td><%= application.workshop2 %></td>
-      <td><%= application.workshop3 %></td>
-      <td><%= link_to 'Show', application, :class => "btn-primary btn" %></td>
+      <td><%= application.country.name %></td>
+      <td><%= application.email %></td>
+      <td><%= link_to 'Show', application, :class => "btn btn-info" %></td>
       <td><%= link_to 'Edit', edit_application_path(application), :class => "btn" %></td>
       <td><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %></td>
     </tr>
-    <% end %>
-  </table>
+  <% end %>
+</table>
 

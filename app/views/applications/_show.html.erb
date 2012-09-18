@@ -1,0 +1,106 @@
+<p>
+<b>Name:</b>
+<%= "#{@application.first_name} #{@application.last_name}" %>
+</p>
+
+<p>
+<b>Address:</b>
+<%= @application.address %>
+</p>
+
+<p>
+<b>Zipcode:</b>
+<%= @application.zipcode %>
+</p>
+
+<p>
+<b>City:</b>
+<%= @application.city %>
+</p>
+
+<p>
+<b>Country:</b>
+<%= @application.country.name %>
+</p>
+
+<p>
+<b>Phone:</b>
+<%= @application.phone %>
+</p>
+
+<p>
+<b>Email:</b>
+<%= @application.email %>
+</p>
+
+<p>
+<b>Birthdate:</b>
+<%= @application.birthdate %>
+</p>
+
+<p>
+<b>Sex:</b>
+<%= @application.sex == "m" ? "male" : "female"  %>
+</p>
+
+<p>
+<b>University:</b>
+<%= @application.university %>
+</p>
+
+<p>
+<b>Field of study:</b>
+<%= @application.field_of_study %>
+</p>
+
+<p>
+<b>Workshop 1:</b>
+<%= Workshop.find_by_id(@application.workshop1).name %>
+</p>
+
+<p>
+<b>Workshop 2:</b>
+<%= Workshop.find_by_id(@application.workshop2).name %>
+</p>
+
+<p>
+<b>Workshop 3:</b>
+<%= Workshop.find_by_id(@application.workshop3).name %>
+</p>
+
+<p>
+<b>General essay:</b>
+<%= @application.essay1 %>
+</p>
+
+<p>
+<b>Workshop essay:</b>
+<%= @application.essay2 %>
+</p>
+
+<p>
+<b>Travel apply:</b>
+<%= @application.travel_apply == 1 ? "Yes" : "No" %>
+</p>
+
+<p>
+<b>Travel essay:</b>
+<%= @application.travel_essay %>
+</p>
+
+<p>
+<b>Travel amount:</b>
+<%= @application.travel_amount %>
+</p>
+
+<p>
+<b>Other travel support:</b>
+<%= @application.travel_nosupport_other == 1 ? "Yes" : "No" %>
+</p>
+
+<p>
+<b>Can attend without travel support:</b>
+<%= @application.travel_nosupport_cancome == 1 ? "Yes" : "No" %>
+</p>
+
+

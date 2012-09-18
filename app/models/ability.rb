@@ -14,6 +14,10 @@ class Ability
       can :read, Participant
       can [:index, :show, :update, :q_status, :resolve], Question
       can :read, Workshop
+      can [:index, :show, :update, :grade1, :grade2, :search], Application
+    end
+    if user.has_role? :theme
+      can [:index, :show, :grade2], Application
     end
     if user.has_role? :participant
       can :read, Article

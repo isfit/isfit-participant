@@ -2,9 +2,18 @@ IsfitParticipant::Application.routes.draw do
 
   resources :applications do
     collection do
-      get "grade"
+      get "grade1"
+      get "grade2"
+      get "grade3"
+    end
+    member do
+      post "select_app"
+      get "grade_app"
+      post "set_grade"
     end
   end
+
+  resources :control_panels, :only => [:index, :edit, :update]
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 

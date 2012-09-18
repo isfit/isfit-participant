@@ -1,0 +1,66 @@
+<%= content_for :sidebar_left do %>
+abd
+<% end %>
+
+<h1>Applications</h1>
+
+<h3>Applications you have selected</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Country</th>
+      <th>Sex</th>
+      <th>Workshop 1</th>
+      <th>Workshop 2</th>
+      <th>Workshop 3</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @selected_applications.each do |application| %>
+    <tr>
+      <td><%= application.first_name %></td>
+      <td><%= application.last_name %></td>
+      <td><%= application.country.name %></td>
+      <td><%= application.sex == "m" ? "male" : "female" %></td>
+      <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+      <td><%= link_to 'Grade', grade_app_application_path(application), :class => "btn btn-primary" %></td>
+    </tr>
+    <% end %>
+  </table>
+
+<h3>Applications that are not selected</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Country</th>
+      <th>Sex</th>
+      <th>Workshop 1</th>
+      <th>Workshop 2</th>
+      <th>Workshop 3</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @applications.each do |application| %>
+    <tr>
+      <td><%= application.first_name %></td>
+      <td><%= application.last_name %></td>
+      <td><%= application.country.name %></td>
+      <td><%= application.sex == "m" ? "male" : "female" %></td>
+      <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+      <td><%= link_to "Select", select_app_application_path(application, :grade => @grade), :method => "POST", :class => "btn btn-primary" %></td>
+    </tr>
+    <% end %>
+  </table>
+
