@@ -5,6 +5,8 @@ IsfitParticipant::Application.routes.draw do
       get "grade1"
       get "grade2"
       get "grade3"
+      get "search"
+      get "stats"
     end
     member do
       post "select_app"

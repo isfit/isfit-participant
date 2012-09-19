@@ -1,0 +1,23 @@
+<% content_for :sidebar_left do %>
+  <% if can? :index, Application %>
+    <%= link_to "Index", applications_path %><br>
+  <% end %>
+  <% if can? :grade1, Application && ControlPanel.first.app_grade1 %>
+    <%= link_to "1st grade", grade1_applications_path %><br>
+  <% end %>
+  <% if can? :grade2, Application && ControlPanel.first.app_grade2 %>
+    <%= link_to "2nd grade", grade1_applications_path %><br>
+  <% end %>
+  <% if can? :grade3, Application && ControlPanel.first.app_grade3 %>
+    <%= link_to "3rd grade", grade1_applications_path %><br>
+  <% end %>
+  <% if can? :search, Application %>
+    <%= link_to "Search", search_applications_path %><br>
+  <% end %>
+  <% if can? :stats, Application %>
+    <%= link_to "Stats", stats_applications_path %><br>
+  <% end %>
+  <% if can? :new, Application %>
+    <%= link_to "New", new_application_path %><br>
+  <% end %>
+<% end %>
