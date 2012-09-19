@@ -11,6 +11,9 @@ class ApplicationsController < ApplicationController
   end
 
   def grade1
+    if !ControlPanel.first.app_grade1
+      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
+    end
     @selected_applications = Application.where("deleted = 0 AND (grade1_functionary_id = ? AND grade1 = 0)", current_user.id)
     @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0")
     @grade = 1
@@ -22,6 +25,9 @@ class ApplicationsController < ApplicationController
   end
 
   def grade2
+    if !ControlPanel.first.app_grade2
+      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
+    end 
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
     @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0") # Add only access for workshop leader
     @grade = 2 
@@ -33,6 +39,9 @@ class ApplicationsController < ApplicationController
   end
 
   def grade3
+    if !ControlPanel.first.app_grade3
+      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
+    end
     @selected_applications = Application.where("deleted = 0 AND (grade3_functionary_id = ? AND grade3 = 0)", current_user.id)
     @applications = Application.where("deleted = 0 AND grade3_functionary_id = 0")
     @grade = 3
@@ -54,19 +63,19 @@ class ApplicationsController < ApplicationController
   def select_app
     @application = Application.find(params[:id])
     puts params[:grade] == 1
-    if current_user.has_role?(:functionary) && params[:grade].to_i == 1
+    if current_user.has_role?(:functionary) && params[:grade].to_i == 1 && ControlPanel.first.app_grade1
       if @application.grade1_functionary_id == 0 
         @application.grade1_functionary_id = current_user.id
       else
         return redirect_to grade1_application_path, notice: "Application is allready selected."
       end
-    elsif current_user.has_role?(:theme) && params[:grade].to_i == 2
+    elsif current_user.has_role?(:theme) && params[:grade].to_i == 2 && ControlPanel.first.app_grade2 
       if @application.grade2_functionary_id == 0
         @application.grade2_functionary_id = current_user.id
       else
         return redirect_to applications_path, notice: "Application is allready selected."
       end
-    elsif current_user.has_role?(:functionary) && params[:grade].to_i == 3
+    elsif current_user.has_role?(:functionary) && params[:grade].to_i == 3 && ControlPanel.first.app_grade3 
       if @application.grade3_functionary_id == 0
         @application.grade3_functionary_id = current_user.id
       else
@@ -90,7 +99,7 @@ class ApplicationsController < ApplicationController
 
   def set_grade
     @application = Application.find(params[:id])
-    if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0
+    if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0 && ControlPanel.first.app_grade1
       @application.grade1 = params[:application][:grade1]
       @application.grade1_comment = params[:application][:grade1_comment]
       if @application.save
@@ -98,7 +107,7 @@ class ApplicationsController < ApplicationController
       else
         redirect_to grade1_application_path, warning: 'Something went wrong.'
       end
-    elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0
+    elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
       @application.grade2_comment = params[:application][:grade2_comment]
       if @application.save
@@ -106,7 +115,7 @@ class ApplicationsController < ApplicationController
       else
         redirect_to grade2_application_path, warning: 'Something went wrong.'
       end
-    elsif @application.grade3_functionary_id == current_user.id && @application.grade3 == 0
+    elsif @application.grade3_functionary_id == current_user.id && @application.grade3 == 0 && ControlPanel.first.app_grade3 
       @application.grade3 = params[:application][:grade3]
       @application.grade3_comment = params[:application][:grade3_comment]
       if @application.save
