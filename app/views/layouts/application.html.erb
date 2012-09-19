@@ -71,12 +71,13 @@
        <div role="main" class="row">
          <div class="span3">
            <%= yield :sidebar_left %>
+           <br>
+           <br>
+           <br>
+          <%= yield :sidebar_right %>
          </div>
-         <div id="content" class="span6">
+         <div id="content" class="span9">
            <%= yield %>
-         </div>
-         <div class="span3">
-           <%= yield :sidebar_right %>
          </div>
        </div>
        <div class="row">
