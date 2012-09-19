@@ -16,6 +16,7 @@ gem 'mysql2'
 gem "paperclip"
 gem "pdfkit"
 gem "princely"
+gem "ransack"
 gem "simple_form"
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "tabs_on_rails"

@@ -1,3 +1,46 @@
 <%= render 'menu' %>
 
-Not implemented!
+<h1>Search for application</h1>
+<p>
+  Below there is possible to specify different options for search.
+</p>
+<%= search_form_for @search, url: search_applications_path, method: :post do |f| %>
+  <%= f.condition_fields do |c| %>
+    <%= render "condition_fields", f: c %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+  <div class="field">
+    Sort:
+    <%= f.sort_fields do |s| %>
+      <%= s.sort_select %>
+    <% end %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<table
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Country</th>
+      <th>Sex</th>
+      <th>Workshop 1</th>
+      <th>Workshop 2</th>
+      <th>Workshop 3</th>  
+      <th>Options</th>
+    </tr>
+  </thead>
+  <% @applications.each do |application| %>
+    <tr>
+      <td><%= application.first_name %></td>
+      <td><%= application.last_name %></td>
+      <td><%= application.country.name %></td>
+      <td><%= application.sex == "m" ? "male" : "female" %></td>
+      <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+      <td><%= link_to 'Show', application_path(application), :class => "btn btn-primary" %></td>
+    </tr>
+  <% end %>
+</table>

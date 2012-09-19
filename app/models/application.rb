@@ -11,6 +11,15 @@ class Application < ActiveRecord::Base
   belongs_to :country
   has_and_belongs_to_many :functionaries
 
+  UNRANSACKABLE_ATTRIBUTES = ["id", "address", "essay1", "essay2", "field_of_study", 
+    "phone", "grade1_functionary_id","grade1_comment", "grade2_functionary_id", 
+    "grade2_comment", "grade3_functionary_id", "grade3_comment", 
+    "created_at", "updated_at", "deleted", "university"]
+
+  def self.ransackable_attributes auth_object = nil
+    (column_names - UNRANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
+
   def total_grade
     grade1 + grade2 + grade3
   end

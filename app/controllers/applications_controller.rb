@@ -180,4 +180,15 @@ class ApplicationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def search
+    @search = Application.search(params[:q])
+    @applications = @search.result
+    @search.build_condition if @search.conditions.empty?
+    @search.build_sort if @search.sorts.empty?
+  end
+
+  def stats
+
+  end
 end
