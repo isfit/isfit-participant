@@ -57,15 +57,15 @@ Tabulous.setup do |config|
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
-      [    :home_tab                      ,    'Home'                      ,    root_path                      ,    true        ,    true        ],
+      [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false        ,    true        ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    true        ,    true        ],
-      [    :participants_tab              ,    'Participants'              ,    participants_path              ,    true        ,    true        ],
-      [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    true        ,    true        ],
-      [    :information_pages_tab         ,    'Information Pages'         ,    information_pages_path         ,    true        ,    true        ],
+      [    :participants_tab              ,    'Participants'              ,    participants_path              ,    false       ,    true        ],
+      [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
+      [    :information_pages_tab         ,    'Information'               ,    information_pages_path         ,    true        ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    true        ,    true        ],
-      [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    true        ,    true        ],
-      [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    true        ,    true        ],
-      [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    true        ,    true        ],
+      [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    false       ,    true        ],
+      [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
+      [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
       [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    true        ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    true        ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
