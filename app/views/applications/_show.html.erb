@@ -32,11 +32,3 @@
 <h2>Workshop essay</h2>
 <%= format @application.essay2 %>
 
-<h2>Travel apply? => <%= @application.travel_apply == 1 ? "Yes" : "No" %></h2>
-<p>
-	<b>This applicant applied for: <%= @application.travel_amount %></b><br>
-	<b>Can this applicant get support elsewhere? <%= @application.travel_nosupport_other == 1 ? "Yes" : "No" %></b><br>
-	<b>Can this applicant come without support? <%= @application.travel_nosupport_cancome == 1 ? "Yes" : "No" %></b>
-<%= format @application.travel_essay %>
-
-
