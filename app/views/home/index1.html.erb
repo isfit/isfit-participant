@@ -1,9 +1,8 @@
 <% content_for :sidebar_left do %>
-  <h4>Admin shortcuts</h4>
-  <ul class="vlist">
+  <ul class="well nav nav-list">
+    <li class="nav-header">Admin shortcuts</li>
     <li><%=link_to image_tag('icons/page_white_add.png')  + " Write article", new_article_path %></li>
     <li><%=link_to image_tag('icons/report_add.png') + " Write Information page", new_information_page_path %></li>
-    <li><%=link_to image_tag('icons/hourglass.png')  + " Create new deadline", new_deadline_path %></li>
   </ul>
 <% end %>
 <% content_for :sidebar_right do  %>
