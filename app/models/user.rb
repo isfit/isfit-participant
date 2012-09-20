@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     if user == nil
       user = self.participant
     end
-    user.first_name
+    user.first_name + " " + user.last_name
   end
   def is_functionary?
     if self.functionary
