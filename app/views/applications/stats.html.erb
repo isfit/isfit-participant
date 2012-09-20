@@ -1,3 +1,40 @@
 <%= render 'menu' %>
 
-Not implemented!
+<h1>Participants Stats</h1>
+<p><b>Applications: </b><%= Application.count %></p>
+
+<p><b>Travel support needed: </b><%= number_to_currency(Application.where("travel_amount < 10000 AND travel_amount > 0").sum(:travel_amount), :unit =>"$") %></p>
+
+<p><b>Different countries: </b><%= @country_count.count %></p>
+
+<h2>World map</h2>
+
+<%= render 'shared/participant_map' %>
+
+<h2>Workshop stats</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>1st choice</th>
+      <th>2nd choice</th>
+      <th>3rd choice</th>
+    </tr>
+  </thead>
+  <% @workshops.each do |workshop| %>
+    <tr>
+      <td><%= workshop.name %></td>
+      <td><%= @workshop1_count[workshop.number] %></td>
+      <td><%= @workshop2_count[workshop.number] %></td>
+      <td><%= @workshop3_count[workshop.number] %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<h2>Participants gender</h2>
+<%= render 'shared/participant_gender_chart' %>
+
+<h2>Participants age</h2>
+<%= render 'shared/participant_age' %>
+

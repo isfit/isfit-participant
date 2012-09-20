@@ -17,7 +17,7 @@ class Application < ActiveRecord::Base
     "created_at", "updated_at", "deleted", "university"]
 
   def self.ransackable_attributes auth_object = nil
-    (column_names - UNRANSACKABLE_ATTRIBUTES) + _ransackers.keys
+    (column_names - UNRANSACKABLE_ATTRIBUTES + ["total_grade"]) + _ransackers.keys
   end
 
   def total_grade

@@ -188,13 +188,23 @@ class ApplicationsController < ApplicationController
   end
 
   def search
-    @search = Application.search(params[:q])
+    @search = Application.where("deleted = 0").search(params[:q])
     @applications = @search.result
     @search.build_condition if @search.conditions.empty?
     @search.build_sort if @search.sorts.empty?
   end
 
   def stats
-
+    @participants_per_day = Application.count(:group => "date(created_at)")
+    @participants_gender = Application.group("sex").count
+    @participants_age = Application.count(:group => "year(birthdate)")
+    @workshops = Workshop.all
+    @country_count = Application.group("country_id").count
+    @workshop1_count = Application.group("workshop1").count
+    @workshop2_count = Application.group("workshop2").count
+    @workshop3_count = Application.group("workshop3").count
+    @countries = Country.where("code IS NOT NULL")
+    @sum = 0
+    @sum_expected = 0
   end
 end
