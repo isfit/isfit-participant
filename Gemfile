@@ -24,6 +24,7 @@ gem "tabulous"
 gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
 gem "will_paginate"
+gem 'jquery-rails'
 
 group :assets do
   gem 'sass-rails'
