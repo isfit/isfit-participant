@@ -57,7 +57,7 @@ Tabulous.setup do |config|
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
-      [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false        ,    true        ],
+      [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    true        ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    false       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
@@ -67,7 +67,7 @@ Tabulous.setup do |config|
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
       [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    true        ,    true        ],
-      [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    true        ,    true        ],
+      [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    false       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
