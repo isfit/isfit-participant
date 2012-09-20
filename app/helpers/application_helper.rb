@@ -1,8 +1,8 @@
 module ApplicationHelper
   # include Acl9Helpers
   def format(str)
-    bc = BlueCloth.new(h(str))
-    bc.to_html
+    bc = BlueCloth.new(str)
+    bc.to_html.html_safe
   end
 
   def sortable(column, title = nil)

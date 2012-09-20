@@ -4,8 +4,6 @@ class CreateCountries < ActiveRecord::Migration
       t.string :name
       t.belongs_to :region
       t.string :code, :limit => 4
-
-      t.timestamps
     end
   end
 end
