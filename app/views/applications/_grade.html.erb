@@ -2,6 +2,11 @@
 
 <h1>Applications</h1>
 
+<div class="progress">
+  <div class="bar bar-success" style="width: <%= @app_graded %>%;"><%= @app_graded %>%</div>
+  <div class="bar bar-danger" style="width: <%= @app_not_graded %>%;"><%= @app_not_graded %>%</div>
+</div>
+
 <h3>Applications you have selected</h3>
 
 <table class="table table-bordered table-striped">
