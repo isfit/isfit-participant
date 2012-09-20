@@ -195,16 +195,17 @@ class ApplicationsController < ApplicationController
   end
 
   def stats
-    @participants_per_day = Application.count(:group => "date(created_at)")
-    @participants_gender = Application.group("sex").count
-    @participants_age = Application.count(:group => "year(birthdate)")
+    @q = Application.search(params[:q])
+    @applications = @q.result
+    @countries = Country.all
     @workshops = Workshop.all
-    @country_count = Application.group("country_id").count
-    @workshop1_count = Application.group("workshop1").count
-    @workshop2_count = Application.group("workshop2").count
-    @workshop3_count = Application.group("workshop3").count
+
+    @participants_gender = @applications.group("sex").count
+    @participants_age = @applications.count(:group => "year(birthdate)")
+    @country_count = @applications.group("country_id").count
+    @workshop1_count = @applications.group("workshop1").count
+    @workshop2_count = @applications.group("workshop2").count
+    @workshop3_count = @applications.group("workshop3").count
     @countries = Country.where("code IS NOT NULL")
-    @sum = 0
-    @sum_expected = 0
   end
 end

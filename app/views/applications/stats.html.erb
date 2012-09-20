@@ -1,9 +1,25 @@
 <%= render 'menu' %>
 
-<h1>Participants Stats</h1>
-<p><b>Applications: </b><%= Application.count %></p>
+<h1>Search</h1>
 
-<p><b>Travel support needed: </b><%= number_to_currency(Application.where("travel_amount < 10000 AND travel_amount > 0").sum(:travel_amount), :unit =>"$") %></p>
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: stats_applications_path, method: :post do |f| %>
+  <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
+    :label => "Country", :input_html => { :class => "span4" } %>
+  <%= f.input :sex_eq, :as => :radio_buttons, 
+    :label => "Sex", :collection => [["female", "f"], ["male", "m"]]  %>
+  <%= f.input :workshop1_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 1", :input_html => { :class => "span4" } %>
+  <%= f.input :workshop2_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 2", :input_html => { :class => "span4" } %>
+  <%= f.input :workshop3_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 3", :input_html => { :class => "span4" } %>
+  <%= f.submit %> 
+<% end %>
+
+<h1>Participants Stats</h1>
+<p><b>Applications: </b><%= @applications.count %></p>
+
+<p><b>Travel support needed: </b><%= number_to_currency(@applications.where("travel_amount < 10000 AND travel_amount > 0").sum(:travel_amount), :unit =>"$") %></p>
 
 <p><b>Different countries: </b><%= @country_count.count %></p>
 
@@ -25,9 +41,9 @@
   <% @workshops.each do |workshop| %>
     <tr>
       <td><%= workshop.name %></td>
-      <td><%= @workshop1_count[workshop.number] %></td>
-      <td><%= @workshop2_count[workshop.number] %></td>
-      <td><%= @workshop3_count[workshop.number] %></td>
+      <td><%= @workshop1_count[workshop.number].to_i > 0 ? @workshop1_count[workshop.number] : "0" %></td>
+      <td><%= @workshop2_count[workshop.number].to_i > 0 ? @workshop2_count[workshop.number] : "0" %></td>
+      <td><%= @workshop3_count[workshop.number].to_i > 0 ? @workshop3_count[workshop.number] : "0" %></td>
     </tr>
   <% end %>
 </table>
