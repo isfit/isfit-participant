@@ -111,7 +111,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade1_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade1_application_path, warning: 'Something went wrong.'
+        redirect_to grade_app_application_path, warning: 'Something went wrong.'
       end
     elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
