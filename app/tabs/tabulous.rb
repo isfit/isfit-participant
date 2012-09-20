@@ -96,7 +96,6 @@ Tabulous.setup do |config|
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
       [    :control_panel             ,    :all_actions    ,    :control_panel_tab             ],
       [    :application               ,    :all_actions    ,    :application_tab               ],
-      [    :information_categories    ,    :all_actions    ,    :information_categories_tab    ],
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
       [    :workshops                 ,    :all_actions    ,    :workshops_tab                 ],
       [    :articles                  ,    :all_actions    ,    :articles_tab                  ],
