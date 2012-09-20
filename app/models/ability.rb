@@ -14,7 +14,7 @@ class Ability
       can :read, Participant
       can [:index, :show, :update, :q_status, :resolve], Question
       can :read, Workshop
-      can [:index, :show, :update, :grade1, :grade3, :search, :stats, :select_app, :grade_app, :set_grade], Application
+      can [:index, :show, :update, :grade1, :grade3, :select_app, :grade_app, :set_grade], Application
     end
     if user.has_role? :theme
       can [:index, :show, :grade2, :select_app, :grade_app, :set_grade], Application
