@@ -13,10 +13,9 @@
     <%= f.input :email, :input_html => { :class => "span4" } %>
     <%= f.input :birthdate, :as => :date, :start_year => Date.today.year - 100,
       :end_year => Date.today.year - 17, :order =>  [:year, :month, :day], 
-      :input_html => { :class => "span4" } %>
+      :input_html => { :class => "span2" } %>
     <%= f.input :sex, :as => :radio_buttons, 
-      :collection => [["female", "f"], ["male", "m"]] , 
-      :input_html => { :class => "span4" } %>
+      :collection => [["female", "f"], ["male", "m"]]  %>
     <%= f.input :university, :input_html => { :class => "span4" } %>
     <%= f.input :field_of_study, :input_html => { :class => "span4" } %>
     <%= f.input :workshop1, :collection => @workshops, :as => :select, 

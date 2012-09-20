@@ -1,23 +1,26 @@
 <% content_for :sidebar_left do %>
+<ul class="nav nav-list well">
+  <li class="nav-header">Menu</li>
+  <% if can? :new, Application %>
+    <li><%= link_to "Create new applicant", new_application_path %></li>
+  <% end %>
   <% if can? :index, Application %>
-    <%= link_to "Index", applications_path %><br>
+    <li><%= link_to "View all applicants", applications_path %></li>
   <% end %>
   <% if (can? :grade1, Application) && ControlPanel.first.app_grade1 %>
-    <%= link_to "1st grade", grade1_applications_path %><br>
+    <li><%= link_to "Participant grade", grade1_applications_path %></li>
   <% end %>
   <% if (can? :grade2, Application) && ControlPanel.first.app_grade2 %>
-    <%= link_to "2nd grade", grade2_applications_path %><br>
+    <li><%= link_to "Theme grade", grade2_applications_path %></li>
   <% end %>
   <% if (can? :grade3, Application) && ControlPanel.first.app_grade3 %>
-    <%= link_to "3rd grade", grade3_applications_path %><br>
+    <li><%= link_to "Final grade", grade3_applications_path %></li>
   <% end %>
   <% if can? :search, Application %>
-    <%= link_to "Search", search_applications_path %><br>
+    <li><%= link_to "Search applicants", search_applications_path %></li>
   <% end %>
   <% if can? :stats, Application %>
-    <%= link_to "Stats", stats_applications_path %><br>
+    <li><%= link_to "Stats", stats_applications_path %></li>
   <% end %>
-  <% if can? :new, Application %>
-    <%= link_to "New", new_application_path %><br>
-  <% end %>
+
 <% end %>
