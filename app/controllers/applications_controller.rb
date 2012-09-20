@@ -18,6 +18,8 @@ class ApplicationsController < ApplicationController
     @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0")
     @grade = 1
     @workshops = Workshop.all
+    @app_not_graded = ((Application.where("deleted = 0 AND grade1 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_graded = 100 - @app_not_graded
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,6 +34,8 @@ class ApplicationsController < ApplicationController
     @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0") # Add only access for workshop leader
     @grade = 2 
     @workshops = Workshop.all
+    @app_not_graded = ((Application.where("deleted = 0 AND grade2 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_graded = 100 - @app_not_graded
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,6 +50,8 @@ class ApplicationsController < ApplicationController
     @applications = Application.where("deleted = 0 AND grade3_functionary_id = 0")
     @grade = 3
     @workshops = Workshop.all
+    @app_not_graded = ((Application.where("deleted = 0 AND grade3 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_graded = 100 - @app_not_graded
 
     respond_to do |format|
       format.html # index.html.erb
