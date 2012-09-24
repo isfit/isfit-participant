@@ -1,13 +1,16 @@
 class CreateWorkshops < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :workshops do |t|
       t.string :name
-      t.text :description
+      t.text :ingress
+      t.text :body
+      t.integer :number
+      t.references :user
+      t.boolean :published
+      t.boolean :got_comments
 
+      t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :workshops
+    add_index :workshops, :user_id
   end
 end
