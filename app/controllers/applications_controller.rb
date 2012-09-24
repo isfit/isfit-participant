@@ -15,7 +15,7 @@ class ApplicationsController < ApplicationController
       return redirect_to applications_path, notice: "You are not able to view this page at the moment"
     end
     @selected_applications = Application.where("deleted = 0 AND (grade1_functionary_id = ? AND grade1 = 0)", current_user.id)
-    @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0")
+    @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0").order("rand()").limit(30)
     @grade = 1
     @workshops = Workshop.all
     @app_not_graded = ((Application.where("deleted = 0 AND grade1 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
@@ -31,7 +31,7 @@ class ApplicationsController < ApplicationController
       return redirect_to applications_path, notice: "You are not able to view this page at the moment"
     end 
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
-    @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0") # Add only access for workshop leader
+    @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0").order("rand()").limit(30)
     @grade = 2 
     @workshops = Workshop.all
     @app_not_graded = ((Application.where("deleted = 0 AND grade2 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
