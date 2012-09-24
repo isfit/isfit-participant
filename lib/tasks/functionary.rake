@@ -1,3 +1,23 @@
+namespace :admin do
+  
+  task :create_admin_users => :environment do
+    func = {
+      :dagingaa => { :first => "Dag-Inge", :last => "Aas" }
+    }
+
+    func.each do |username,value|
+      password = generate_password.to_s
+      email = username.to_s + "@isfit.org"
+      first = value[:first]
+      last = value[:last]
+      user = User.new(:email => email, :first_password => password, :password => password)
+      user.save
+      UserRole.create(:user_id => user.id, :role_id => 1)
+      Functionary.create(:email => email, :user_id => user.id, :first_name => first, :last_name => last)
+    end
+  end
+end
+
 namespace :functionary do
 
   task :create => :environment do
@@ -6,15 +26,11 @@ namespace :functionary do
     :hannagri => {:first =>"Hanna", :last => "Grimsrud Husum"},
     :kennej => {:first => "Kenneth", :last => "Johansen"},
     :krisdjup => {:first =>"Kristina", :last => "Djup"},
-#    :toftoyan => {:first =>"Tor", :last => "Toftøy"},
-#    :karisyj => {:first => "Kari Synnøve", :last => "Johansen"},
-#    :marierts => {:first =>"Mari", :last => "Ertsås Øverli"},
     :sophridd => {:first => "Sophie", :last => "Riddervold"},
     :helgasyn => {:first => "Helga", :last => "Kjos-Hanssen"},
     :sofielys => {:first => "Sofie", :last => "Lian"},
     :ullern => {:first => "Eli", :last => "Fyhn Ullern"},
     :kristaf => {:first => "Kristine", :last => "Kjeldstad"},
-#    :oystf => {:first => "Øysten Bøyum", :last => "Fossum"}
     }
  
     func.each do |username,value|
