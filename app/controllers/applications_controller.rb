@@ -58,6 +58,10 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def selection
+
+  end
+
   def show
     @application = Application.find(params[:id])
 
@@ -196,7 +200,7 @@ class ApplicationsController < ApplicationController
 
   def stats
     @q = Application.search(params[:q])
-    @applications = @q.result
+    @applications = @q.result.where("deleted = 0")
     @countries = Country.all
     @workshops = Workshop.all
 
