@@ -58,7 +58,7 @@ Tabulous.setup do |config|
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
-      [    :application_tab               ,    'Applications'              ,    applications_path              ,    true        ,    true        ],
+      [    :application_tab               ,    'Applications'              ,    applications_path              ,    (can? :index, Application)   ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    false       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_pages_path         ,    false       ,    true        ],
@@ -66,7 +66,7 @@ Tabulous.setup do |config|
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    false       ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
-      [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    true        ,    true        ],
+      [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    (can? :index, ControlPanel)        ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    false       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #

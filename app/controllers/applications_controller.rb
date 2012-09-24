@@ -111,7 +111,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade1_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade1_application_path, warning: 'Something went wrong.'
+        redirect_to grade_app_application_path, warning: 'Something went wrong.'
       end
     elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
@@ -188,13 +188,24 @@ class ApplicationsController < ApplicationController
   end
 
   def search
-    @search = Application.search(params[:q])
+    @search = Application.where("deleted = 0").search(params[:q])
     @applications = @search.result
     @search.build_condition if @search.conditions.empty?
     @search.build_sort if @search.sorts.empty?
   end
 
   def stats
+    @q = Application.search(params[:q])
+    @applications = @q.result
+    @countries = Country.all
+    @workshops = Workshop.all
 
+    @participants_gender = @applications.group("sex").count
+    @participants_age = @applications.count(:group => "year(birthdate)")
+    @country_count = @applications.group("country_id").count
+    @workshop1_count = @applications.group("workshop1").count
+    @workshop2_count = @applications.group("workshop2").count
+    @workshop3_count = @applications.group("workshop3").count
+    @countries = Country.where("code IS NOT NULL")
   end
 end

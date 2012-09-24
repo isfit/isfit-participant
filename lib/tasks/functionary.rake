@@ -154,7 +154,36 @@ namespace :admin do
 
 end
 
-
+namespace :application do
+  task :move_from_part => :environment do
+    participants = ParticipantsTemp.all
+    participants.each do |p|
+      application = Application.create(:first_name => p.first_name,
+                                         :last_name => p.last_name,
+                                         :address => p.address1,
+                                         :zipcode => p.zipcode,
+                                         :city => p.city,
+                                         :country_id => p.country_id,
+                                         :phone => p.phone,
+																				 :email => p.email,
+                                         :birthdate => p.birthdate,
+                                         :sex => p.sex,
+                                         :university => p.university,
+																				 :field_of_study => p.field_of_study,
+                                         :workshop1 => p.workshop1,
+                                         :workshop2 => p.workshop2,
+                                         :workshop3 => p.workshop3,
+                                         :essay1 => p.essay1,
+                                         :essay2 => p.essay2,
+                                         :travel_apply => p.travel_apply,
+                                         :travel_essay => p.travel_essay,
+                                         :travel_amount => p.travel_amount,
+                                         :travel_nosupport_other => p.travel_nosupport_other,
+                                         :travel_nosupport_cancome => p.travel_nosupport_cancome,
+                                         :created_at => p.registered_time)
+    end
+  end
+end
 
 namespace :participant do
 	task :middle_name_fix => :environment do

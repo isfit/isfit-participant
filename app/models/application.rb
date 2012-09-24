@@ -17,7 +17,7 @@ class Application < ActiveRecord::Base
     "created_at", "updated_at", "deleted", "university"]
 
   def self.ransackable_attributes auth_object = nil
-    (column_names - UNRANSACKABLE_ATTRIBUTES) + _ransackers.keys
+    (column_names - UNRANSACKABLE_ATTRIBUTES + ["total_grade"]) + _ransackers.keys
   end
 
   def total_grade
@@ -80,4 +80,12 @@ class Application < ActiveRecord::Base
     :tokenizer => lambda { |str| str.scan(/\s+|$/) },
     :too_long  => "too long, maximum 200 words"
   }
+
+  validates_numericality_of :grade1, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
+    :message => "must be a number between 0-10"
+  validates_numericality_of :grade2, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
+    :message => "must be a number between 0-10"
+  validates_numericality_of :grade3, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
+    :message => "must be a number between 0-10"
+ 
 end
