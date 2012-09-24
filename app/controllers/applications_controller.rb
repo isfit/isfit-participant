@@ -175,6 +175,10 @@ class ApplicationsController < ApplicationController
     @applications = @q.result.where("deleted = 0")
     @countries = Country.all
     @workshops = Workshop.all
+    @status = { "Not processed" => 0,
+      "Accepted" => 1,
+      "Not accepted" => 2,
+      "Waiting list" => 3}
 
     @participants_gender = @applications.group("sex").count
     @participants_age = @applications.count(:group => "year(birthdate)")
