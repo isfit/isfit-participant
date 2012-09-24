@@ -42,22 +42,6 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def grade3
-    if !ControlPanel.first.app_grade3
-      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
-    end
-    @selected_applications = Application.where("deleted = 0 AND (grade3_functionary_id = ? AND grade3 = 0)", current_user.id)
-    @applications = Application.where("deleted = 0 AND grade3_functionary_id = 0")
-    @grade = 3
-    @workshops = Workshop.all
-    @app_not_graded = ((Application.where("deleted = 0 AND grade3 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
-    @app_graded = 100 - @app_not_graded
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
-  end
-
   def selection
 
   end
@@ -85,12 +69,6 @@ class ApplicationsController < ApplicationController
       else
         return redirect_to applications_path, notice: "Application is allready selected."
       end
-    elsif current_user.has_role?(:functionary) && params[:grade].to_i == 3 && ControlPanel.first.app_grade3 
-      if @application.grade3_functionary_id == 0
-        @application.grade3_functionary_id = current_user.id
-      else
-        return redirect_to grade3_application_path, notice: "Application is allready selected."
-      end
     else
       return redirect_to applications_path, notice: "You don't have permission to select applications."
     end
@@ -112,6 +90,7 @@ class ApplicationsController < ApplicationController
     if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0 && ControlPanel.first.app_grade1
       @application.grade1 = params[:application][:grade1]
       @application.grade1_comment = params[:application][:grade1_comment]
+      @application.total_grade = @application.grade1 + @application.grade2
       if @application.save
         redirect_to grade1_applications_path, notice: 'Grade was successfully set.'
       else
@@ -120,18 +99,11 @@ class ApplicationsController < ApplicationController
     elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
       @application.grade2_comment = params[:application][:grade2_comment]
+      @application.total_grade = @application.grade1 + @application.grade2
       if @application.save
         redirect_to grade2_applications_path, notice: 'Grade was successfully set.'
       else
         redirect_to grade2_application_path, warning: 'Something went wrong.'
-      end
-    elsif @application.grade3_functionary_id == current_user.id && @application.grade3 == 0 && ControlPanel.first.app_grade3 
-      @application.grade3 = params[:application][:grade3]
-      @application.grade3_comment = params[:application][:grade3_comment]
-      if @application.save
-        redirect_to grade3_applications_path, notice: 'Grade was successfully set.'
-      else
-        redirect_to grade3_application_path, warning: 'Something went wrong.'
       end
     else
 

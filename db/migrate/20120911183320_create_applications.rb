@@ -29,9 +29,9 @@ class CreateApplications < ActiveRecord::Migration
       t.integer :grade2_functionary_id, :default => 0, :null => false
       t.integer :grade2, :limit => 2, :default => 0, :null => false
       t.text :grade2_comment
-      t.integer :grade3_functionary_id, :default => 0, :null => false
-      t.integer :grade3, :limit => 2, :default => 0, :null => false
-      t.text :grade3_comment
+      t.integer :total_grade, :limit => 2, :default => 0, :null => false
+      t.integer :selection_functionary_id, :default => 0, :null => false
+      t.text :selection_comment
       t.integer :travel_functionary_id, :default => 0, :null => false
       t.integer :travel_approved, :limit => 1, :default => 0, :null => false
       t.string :travel_amount_given, :default => 0, :null => false
