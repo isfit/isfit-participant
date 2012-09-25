@@ -1,8 +1,14 @@
+# encoding: UTF-8
+
 namespace :admin do
   
   task :create_admin_users => :environment do
     func = {
-      :dagingaa => { :first => "Dag-Inge", :last => "Aas" }
+      :karies => { :first => "Kari Eline", :last => "Strandjord" },
+      :borgemy => { :first => "Børge", :last => "Myran" },
+      :almasato => { :first => "Alma", :last => "Sator" },
+      :kasperth => { :first => "Kasper", :last => "Husefest" },
+      :skaran => { :first => "Anja Myreng", :last => "Skaran" }
     }
 
     func.each do |username,value|
