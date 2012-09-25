@@ -12,7 +12,7 @@ class ApplicationsController < ApplicationController
 
   def grade1
     if !ControlPanel.first.app_grade1
-      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
+      return redirect_to applications_path, alert: "You are not able to view this page at the moment"
     end
     @selected_applications = Application.where("deleted = 0 AND (grade1_functionary_id = ? AND grade1 = 0)", current_user.id)
     @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0").order("rand()").limit(30)
@@ -28,7 +28,7 @@ class ApplicationsController < ApplicationController
 
   def grade2
     if !ControlPanel.first.app_grade2
-      return redirect_to applications_path, notice: "You are not able to view this page at the moment"
+      return redirect_to applications_path, alert: "You are not able to view this page at the moment"
     end 
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
     @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0").order("rand()").limit(30)
@@ -56,27 +56,26 @@ class ApplicationsController < ApplicationController
 
   def select_app
     @application = Application.find(params[:id])
-    puts params[:grade] == 1
-    if current_user.has_role?(:functionary) && params[:grade].to_i == 1 && ControlPanel.first.app_grade1
+    if can?(:grade1, Application) && params[:grade].to_i == 1 && ControlPanel.first.app_grade1
       if @application.grade1_functionary_id == 0 
         @application.grade1_functionary_id = current_user.id
       else
-        return redirect_to grade1_application_path, notice: "Application is allready selected."
+        return redirect_to grade1_applications_path, alert: "Application is allready selected."
       end
-    elsif current_user.has_role?(:theme) && params[:grade].to_i == 2 && ControlPanel.first.app_grade2 
+    elsif can?(:grade2, Application) && params[:grade].to_i == 2 && ControlPanel.first.app_grade2 
       if @application.grade2_functionary_id == 0
         @application.grade2_functionary_id = current_user.id
       else
-        return redirect_to applications_path, notice: "Application is allready selected."
+        return redirect_to grade2_applications_path, alert: "Application is allready selected."
       end
     else
-      return redirect_to applications_path, notice: "You don't have permission to select applications."
+      return redirect_to root_path, alert: "You don't have permission to select applications."
     end
     respond_to do |format|
       if @application.save
         format.html { redirect_to grade_app_application_path, notice: 'Application was successfully selected.' }
       else
-        format.html { redirect_to @application, notice: 'Something went wrong :(' }
+        format.html { redirect_to @application, alert: 'Something went wrong.' }
       end
     end
   end
@@ -94,7 +93,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade1_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade_app_application_path, warning: 'Something went wrong.'
+        redirect_to grade_app_application_path, alert: 'Something went wrong.'
       end
     elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
@@ -103,10 +102,10 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade2_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade2_application_path, warning: 'Something went wrong.'
+        redirect_to grade2_application_path, alert: 'Something went wrong.'
       end
     else
-
+      redirect_to applications_path, alert: "You was not able to set a grade for this application."
     end
   end
   
