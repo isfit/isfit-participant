@@ -4,18 +4,30 @@
 <p>
   Below there is possible to specify different options for search.
 </p>
-<%= search_form_for @search, url: search_applications_path, method: :post do |f| %>
-  <%= f.condition_fields do |c| %>
-    <%= render "condition_fields", f: c %>
-  <% end %>
-  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
-  <div class="field">
-    Sort:
-    <%= f.sort_fields do |s| %>
-      <%= s.sort_select %>
-    <% end %>
-  </div>
-  <div class="actions"><%= f.submit "Search" %></div>
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: stats_applications_path, method: :post do |f| %>
+  <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
+    :label => "Country", :input_html => { :class => "span4" } %>
+  <%= f.input :sex_eq, :as => :radio_buttons, 
+    :label => "Sex", :collection => [["female", "f"], ["male", "m"]]  %>
+  <%= f.input :workshop1_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 1", :input_html => { :class => "span4" } %>
+  <%= f.input :workshop2_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 2", :input_html => { :class => "span4" } %>
+  <%= f.input :workshop3_eq, :collection => @workshops, :as => :select, 
+    :label => "Workshop 3", :input_html => { :class => "span4" } %>
+  <% if ControlPanel.first.app_grade3 %>
+    <%= f.input :status_eq, :collection => @status, :as => :select, 
+      :label => "Status", :input_html => { :class => "span4" } %>
+    <%= f.input :final_workshop_eq, :collection => @workshops, :as => :select, 
+      :label => "Final workshop", :input_html => { :class => "span4" } %>
+    <%= f.input :total_grade_gt, :label => "Total grade(greater than)", 
+      :input_html => { :class => "span4" } %>
+    <%= f.input :travel_apply_eq, :as => :radio_buttons, 
+      :label => "Applied for travel support", :collection => [["Yes", 1], ["No", 0]]  %>
+    <%= f.input :travel_nosupport_cancome_eq, :as => :radio_buttons, 
+      :label => "Can come without travel support", :collection => [["Yes", 1], ["No", 0]]  %>
+<% end %>
+  <%= f.submit "Search" %> 
 <% end %>
 
 <table class="table table-bordered table-striped">

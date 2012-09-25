@@ -164,10 +164,14 @@ class ApplicationsController < ApplicationController
   end
 
   def search
-    @search = Application.where("deleted = 0").search(params[:q])
-    @applications = @search.result
-    @search.build_condition if @search.conditions.empty?
-    @search.build_sort if @search.sorts.empty?
+    @q = Application.search(params[:q])
+    @applications = @q.result.where("deleted = 0")
+    @countries = Country.all
+    @workshops = Workshop.all
+    @status = { "Not processed" => 0,
+      "Accepted" => 1,
+      "Not accepted" => 2,
+      "Waiting list" => 3}
   end
 
   def stats
