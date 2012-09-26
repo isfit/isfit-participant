@@ -7,7 +7,7 @@ class AddInformationToParticipant < ActiveRecord::Migration
     add_column :participants, :next_of_kin_name, :string
     add_column :participants, :next_of_kin_phone, :string
     add_column :participants, :next_of_kin_address, :text
-    add_column :participants, :flightnumber, :integer
+    add_column :participants, :flightnumber, :string
     add_column :participants, :has_passport, :integer
   end
 

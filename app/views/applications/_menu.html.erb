@@ -14,7 +14,7 @@
     <li><%= link_to "Theme grade", grade2_applications_path %></li>
   <% end %>
   <% if (can? :grade3, Application) && ControlPanel.first.app_grade3 %>
-    <li><%= link_to "Final grade", grade3_applications_path %></li>
+    <li><%= link_to "Participant selection", selection_applications_path %></li>
   <% end %>
   <% if can? :search, Application %>
     <li><%= link_to "Search applicants", search_applications_path %></li>

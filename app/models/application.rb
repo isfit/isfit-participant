@@ -4,8 +4,8 @@ class Application < ActiveRecord::Base
     :travel_amount, :travel_apply, :travel_essay, :travel_nosupport_cancome, 
     :travel_nosupport_other, :university, :workshop1, :workshop2, :workshop3, 
     :zipcode, :grade1_functionary_id, :grade1, :grade1_comment, 
-    :grade2_functionary_id, :grade2, :grade2_comment, :grade3_functionary_id, 
-    :grade3, :grade3_comment, :travel_functionary_id, :travel_approved, 
+    :grade2_functionary_id, :grade2, :grade2_comment, :selection_functionary_id, 
+    :total_grade, :selection_comment, :travel_functionary_id, :travel_approved, 
     :travel_amount_given, :travel_comment, :status, :final_workshop, :deleted
 
   belongs_to :country
@@ -13,15 +13,10 @@ class Application < ActiveRecord::Base
 
   UNRANSACKABLE_ATTRIBUTES = ["id", "address", "essay1", "essay2", "field_of_study", 
     "phone", "grade1_functionary_id","grade1_comment", "grade2_functionary_id", 
-    "grade2_comment", "grade3_functionary_id", "grade3_comment", 
-    "created_at", "updated_at", "deleted", "university"]
+    "grade2_comment", "created_at", "updated_at", "deleted", "university"]
 
   def self.ransackable_attributes auth_object = nil
-    (column_names - UNRANSACKABLE_ATTRIBUTES + ["total_grade"]) + _ransackers.keys
-  end
-
-  def total_grade
-    grade1 + grade2 + grade3
+    (column_names - UNRANSACKABLE_ATTRIBUTES) + _ransackers.keys
   end
 
   #Validations
@@ -85,7 +80,5 @@ class Application < ActiveRecord::Base
     :message => "must be a number between 0-10"
   validates_numericality_of :grade2, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
     :message => "must be a number between 0-10"
-  validates_numericality_of :grade3, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
-    :message => "must be a number between 0-10"
- 
+
 end
