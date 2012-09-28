@@ -1,15 +1,18 @@
 <%= render 'menu' %>
 
 <%= content_for :sidebar_left do %>
-  <li class="nav-header">Stats menu</li>
-  <% if @applications.count > 0 %>
-    <li><a href="#part-stats">Participants stats</a></li>
-    <li><a href="#world-map">World map</a></li>
-    <li><a href="#workshop-stats">Workshop stats</a></li>
-    <li><a href="#part-gender">Participants gender</a></li>
-    <li><a href="#part-age">Participants age</a></li>
-    <li><a href="#results">Results</a></li>
-  <% end %>
+  <br>
+  <ul class="nav nav-list well">
+    <li class="nav-header">Stats menu</li>
+    <% if @applications.count > 0 %>
+      <li><%= link_to image_tag('icons/server_chart.png') + " Participants stats", "#part-stats" %></li>
+      <li><%= link_to image_tag('icons/world.png') + " World map", "#world-map" %></li>
+      <li><%= link_to image_tag('icons/table.png') + " Workshop stats", "#workshop-stats" %></li>
+      <li><%= link_to image_tag('icons/chart_pie.png') + " Participants gender", "#part-gender" %></li>
+      <li><%= link_to image_tag('icons/chart_bar.png') + " Participants age", "#part-age" %></li>
+      <li><%= link_to image_tag('icons/page_white_stack.png') + " Results", "#results" %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <h1>Search</h1>
