@@ -1,69 +1,65 @@
 <%= render 'menu' %>
+<div class ="well">
+  <h1>Applications</h1>
 
-<h1>Applications</h1>
+  <div class="progress">
+    <div class="bar bar-success" style="width: <%= @app_graded %>%;"><%= @app_graded %>%</div>
+    <div class="bar bar-danger" style="width: <%= @app_not_graded %>%;"><%= @app_not_graded %>%</div>
+  </div>
 
-<div class="progress">
-  <div class="bar bar-success" style="width: <%= @app_graded %>%;"><%= @app_graded %>%</div>
-  <div class="bar bar-danger" style="width: <%= @app_not_graded %>%;"><%= @app_not_graded %>%</div>
+  <h3>Applications you have selected</h3>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Sex</th>
+        <th>1st Workshop</th>
+        <th>2nd Workshop</th>
+        <th>3rd Workshop</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <% @selected_applications.each do |application| %>
+      <tr>
+        <td><%= "#{application.last_name}, #{application.first_name}" %></td>
+        <td><%= application.country.name %></td>
+        <td><%= application.sex == "m" ? "male" : "female" %></td>
+        <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+        <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+        <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+        <td><%= link_to 'Grade', grade_app_application_path(application), :class => "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h3>Applications that are not selected</h3>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Sex</th>
+        <th>1st Workshop</th>
+        <th>2nd Workshop</th>
+        <th>3rd Workshop</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <% @applications.each do |application| %>
+      <tr>
+        <td><%= "#{application.last_name}, #{application.first_name}" %></td>
+        <td><%= application.country.name %></td>
+        <td><%= application.sex == "m" ? "male" : "female" %></td>
+        <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+        <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+        <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+        <td><%= link_to "Select", select_app_application_path(application, :grade => @grade), :method => "POST", :class => "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
-
-<h3>Applications you have selected</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>First</th>
-      <th>Last</th>
-      <th>Country</th>
-      <th>Sex</th>
-      <th>Workshop 1</th>
-      <th>Workshop 2</th>
-      <th>Workshop 3</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <% @selected_applications.each do |application| %>
-    <tr>
-      <td><%= application.first_name %></td>
-      <td><%= application.last_name %></td>
-      <td><%= application.country.name %></td>
-      <td><%= application.sex == "m" ? "male" : "female" %></td>
-      <td><%= Workshop.find_by_id(application.workshop1).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
-      <td><%= link_to 'Grade', grade_app_application_path(application), :class => "btn btn-primary" %></td>
-    </tr>
-    <% end %>
-  </table>
-
-<h3>Applications that are not selected</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>First</th>
-      <th>Last</th>
-      <th>Country</th>
-      <th>Sex</th>
-      <th>Workshop 1</th>
-      <th>Workshop 2</th>
-      <th>Workshop 3</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <% @applications.each do |application| %>
-    <tr>
-      <td><%= application.first_name %></td>
-      <td><%= application.last_name %></td>
-      <td><%= application.country.name %></td>
-      <td><%= application.sex == "m" ? "male" : "female" %></td>
-      <td><%= Workshop.find_by_id(application.workshop1).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
-      <td><%= link_to "Select", select_app_application_path(application, :grade => @grade), :method => "POST", :class => "btn btn-primary" %></td>
-    </tr>
-    <% end %>
-  </table>
-

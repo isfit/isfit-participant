@@ -7,8 +7,7 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>First</th>
-      <th>Last</th>
+      <th>Name</th>
       <th>Country</th>
       <th>Sex</th>
       <th>Workshop 1</th>
@@ -19,8 +18,7 @@
   </thead>
   <% @applications.each do |application| %>
     <tr>
-      <td><%= application.first_name %></td>
-      <td><%= application.last_name %></td>
+      <td><%= "#{application.last_name}, #{application.first_name}" %></td>
       <td><%= application.country.name %></td>
       <td><%= application.sex == "m" ? "male" : "female" %></td>
       <td><%= Workshop.find_by_id(application.workshop1).name %></td>
