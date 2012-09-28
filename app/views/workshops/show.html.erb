@@ -1,15 +1,16 @@
-<% content_for :sidebar_left do %>
-  <% if not current_user.is_participant? %>
-    <h6 class="vlist"><%= image_tag('icons/wrench.png') %> Tools</h6>
-    <ul class="vlist">
-      <li><%= link_to image_tag('icons/page_white_stack.png') + ' Show all workshops', workshops_path %></li>
-      <% if current_user.has_role?(:admin) %>
-        <li><%= link_to image_tag('icons/page_edit.png') + ' Edit workshop', edit_workshop_path(@workshop) %></li>
-      <% end %>
-    </ul>
-  <% end %>
-<%end%>
-<h1>Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
-<p>
-  <%= format(@workshop.body) %>
-</p>
+<%= render 'menu' %>
+
+<div class="pull-right">
+  <%= link_to 'Edit', edit_workshop_path(@workshop), :class => "btn" %>
+  <%= link_to 'Back', workshops_path, :class => "btn" %>
+</div>
+
+<div class="well">
+  <h1>Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
+  
+  <%= image_tag "https://internal.isfit.org" + @workshop.workshop_image.url(:original) %>
+
+  <p>
+    <%= format(@workshop.body) %>
+  </p>
+</div>

@@ -1,32 +1,21 @@
-<% content_for :sidebar_left do %>
-  <h6 class="vlist"><%= image_tag('icons/wrench.png') %> Navigation</h6>
-  <ul class="vlist">
-    <li><%= link_to image_tag('icons/page_white_stack.png') + ' Show all workshops', workshops_path %></li>
-    <li><%= link_to image_tag('icons/cancel.png') + ' Discard changes', @workshop %></li>
-  </ul>
-<% end %>
-<h1>Editing Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
-<%= form_for(@workshop, :html => { :class => "yform full"}) do |f| %>
-  <% if @workshop.errors.any? %>
-    <div id="error_explanation" class="warning">
-      <h2><%= pluralize(@workshop.errors.count, "error") %> prohibited this information_page from being saved:</h2>
+<%= render 'menu' %>
 
-      <ul>
-        <% @workshop.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="pull-right">
+  <%= link_to 'Show', @workshop, confirm: 'This will cancel all changes. Are you sure?', method: :get, :class => "btn" %>
+  <%= link_to 'Back', workshops_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn" %>
+</div>
+
+<div class="well">
+  <h1><%= "Editing Workshop #{@workshop.id}: #{@workshop.name}" %></h1>
+  <%= simple_form_for(@workshop, :html => { :class => "form"}) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :name, :input_html => { :class => "span6" } %><br>
+      <%= f.input :body, :input_html => { :class => "span6", :rows => 10 } %><br>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, :class => "btn-primary" %>
     </div>
   <% end %>
-  <div class="type-text">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="type-text">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="type-button">
-    <%= f.submit :class => "submit" %>
-  </div>
-<% end %>
+</div>

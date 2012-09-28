@@ -62,7 +62,7 @@ Tabulous.setup do |config|
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    false       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_pages_path         ,    false       ,    true        ],
-      [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    false       ,    true        ],
+      [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    false       ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
