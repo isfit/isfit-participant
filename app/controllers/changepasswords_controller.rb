@@ -1,11 +1,17 @@
 class ChangepasswordsController < ApplicationController
 
   def edit_password
-    #TODO: Redirect user to login, if not logged in
+    if current_user.nil?
+      return redirect_to root_path
+    end
     @user = current_user
   end
 
   def update_password
+    if current_user.nil?
+      return redirect_to root_path
+    end
+    
     @user = current_user
     password = params[:password]
     if password != params[:password_confirmation] or password == ""
