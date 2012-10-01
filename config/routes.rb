@@ -4,11 +4,12 @@ IsfitParticipant::Application.routes.draw do
     collection do
       get "grade1"
       get "grade2"
-      get "selection"
       match 'search' => 'applications#search', :via => [:get, :post], :as => :search
       match 'stats' => 'applications#stats', :via => [:get, :post], :as => :stats
     end
     member do
+      get "selection"
+      post "save_selection"
       post "select_app"
       get "grade_app"
       post "set_grade"

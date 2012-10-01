@@ -43,7 +43,35 @@ class ApplicationsController < ApplicationController
   end
 
   def selection
+    if !ControlPanel.first.app_grade3
+      return redirect_to applications_path, alert: "Selection of applications is not open at the moment"
+    end
+    @application = Application.find(params[:id])
+    @workshops = Workshop.all
+    @status = { "Not processed" => 0,
+      "Accepted" => 1,
+      "Not accepted" => 2,
+      "Waiting list" => 3}
+  end
 
+  def save_selection
+    if !ControlPanel.first.app_grade3
+      return redirect_to applications_path, alert: "Selection of applications is not open at the moment"
+    end
+
+    @application.selection_functionary_id = current_user.id
+    @application.status = params[:application][:status]
+    @application.final_workshop = params[:application][:final_workshop]
+    @application.selection_comment = params[:application][:selection_comment]
+    @application.travel_approved = params[:application][:travel_approved]
+    @application.travel_amount_given = params[:application][:travel_amount_given]
+    @application.travel_comment = params[:application][:travel_comment]
+ 
+    if @application.save
+      redirect_to stats_applications_path, notice: 'Application was successfully saved.'
+    else
+      redirect_to selection_application_path, alert: 'Something went wrong.'
+    end
   end
 
   def show
@@ -181,7 +209,7 @@ class ApplicationsController < ApplicationController
     @status = { "Not processed" => 0,
       "Accepted" => 1,
       "Not accepted" => 2,
-      "Waiting list" => 3}
+      "Waiting list" => 3 }
 
     @participants_gender = @applications.group("sex").count
     @participants_age = @applications.count(:group => "year(birthdate)")

@@ -1,3 +1,30 @@
 <%= render 'menu' %>
 
+<%= render 'show' %>
+
+<%= render 'travel' %>
+
+<h2>1st grade</h2>
+<b>Grade:</b> <%= @application.grade1 %><br>
+<%= format @application.grade1_comment %>
+
+<h2>2nd grade</h2>
+<b>Grade:</b> <%= @application.grade2 %><br>
+<%= format @application.grade2_comment %>
+
+<h2>Application selection</h2>
+<%= simple_form_for(@application, :url => save_selection_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
+  <%= f.error_notification %>
+  <div class="form_inputs">
+    <%= f.input :status, :collection => @status, :as => :select, 
+      :label => "Status", :input_html => { :class => "span4" } %>
+    <%= f.input :final_workshop, :collection => @workshops, :as => :select, 
+      :input_html => { :class => "span4" } %>
+    <%= f.input :selection_comment, :input_html => { :class => "span4", :rows => 5 } %>
+    <%= f.input :travel_approved, :as => :boolean, :label => "Travel support granted" %>
+    <%= f.input :travel_amount_given %>
+    <%= f.input :travel_comment, :input_html => { :class => "span4", :rows => 5 } %>
+    <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+  </div>
+<% end %>
 

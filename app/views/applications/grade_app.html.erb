@@ -1,6 +1,9 @@
 <%= render 'show' %> 
 
 <% if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0 %>
+
+  <%= render 'travel' %>
+
   <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
     <%= f.error_notification %>
     <% @application.grade1 = "" %>

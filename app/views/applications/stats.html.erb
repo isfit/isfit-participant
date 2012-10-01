@@ -82,6 +82,7 @@
         <th>Name</th>
         <th>Country</th>
         <th>1st Workshop</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -90,7 +91,18 @@
         <td><%= "#{application.last_name}, #{application.first_name}" %></td>
         <td><%= application.country.name %></td>
         <td><%= Workshop.find_by_id(application.workshop1).name %></td>
-        <td><%= "N/A" %></td>
+        <td>
+          <% if application.status == 0 %>
+            <%= image_tag ('icons/information.png') %>
+          <% elsif application.status == 1 %>
+            <%= image_tag ('icons/accept.png') %>
+          <% elsif application.status == 2 %>
+            <%= image_tag ('icons/delete.png') %>
+          <% elsif application.status == 3 %>
+            <%= image_tag ('icons/time.png') %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %></td>
       </tr>
     <% end %>
   </table>

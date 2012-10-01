@@ -13,9 +13,6 @@
   <% if (can? :grade2, Application) && ControlPanel.first.app_grade2 %>
     <li><%= link_to image_tag('icons/book_add.png') + " Theme grade", grade2_applications_path %></li>
   <% end %>
-  <% if (can? :grade3, Application) && ControlPanel.first.app_grade3 %>
-    <li><%= link_to image_tag('icons/world_go.png') + " Participant selection", selection_applications_path %></li>
-  <% end %>
   <% if can? :search, Application %>
     <li><%= link_to image_tag('icons/find.png') + " Search applicants", search_applications_path %></li>
   <% end %>
