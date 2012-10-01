@@ -1,17 +1,25 @@
-<table class="full">
-  <tr>
-    <th><%= sortable "first_name", "First name" %></th>
-    <th><%= sortable "last_name", "Last name" %></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= content_for :sidebar_left do %>
 
-<% @functionaries.each do |functionary| %>
-  <tr>
-    <td><%= functionary.first_name %></td>
-    <td><%= functionary.last_name %></td>
-    <td><%= link_to image_tag('icons/user_go.png'), functionary %></td>
-    <td><% if can? :update, @functionaries %><%= link_to image_tag('icons/user_edit.png'), edit_functionary_path(functionary) %><%end%></td>
-  </tr>
+  meny opplegg?
+
 <% end %>
-</table>
+
+<div class="well">
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th><%= sortable "first_name", "First name" %></th>
+      <th><%= sortable "last_name", "Last name" %></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @functionaries.each do |functionary| %>
+      <tr>
+        <td><%= functionary.first_name %></td>
+        <td><%= functionary.last_name %></td>
+        <td><%= link_to 'Show', functionary, :class => "btn btn-primary" %></td>
+        <td><% if can? :update, @functionaries %><%= link_to 'Edit', edit_functionary_path(functionary), :class => "btn" %><%end%></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -49,7 +49,7 @@ class FunctionariesController < ApplicationController
         @selected_participants.push(p.id)
       end
     end
-    if current_user == @functionary.user or current_user.has_role?(:admin, nil)
+    if current_user == @functionary.user or current_user.has_role?(:admin)
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @functionary }
