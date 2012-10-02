@@ -3,7 +3,7 @@
 <% if @application.grade1_functionary_id == current_user.id && @application.grade1 == 0 %>
 
   <%= render 'travel' %>
-
+  <h2>Grade application</h2>
   <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
     <%= f.error_notification %>
     <% @application.grade1 = "" %>
@@ -14,6 +14,7 @@
     </div>
   <% end %>
 <% elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 %>
+  <h2>Grade application</h2>
   <%= simple_form_for(@application, :url => set_grade_application_path, :method => "post", :html => { :class => "form" })  do |f| %>
     <%= f.error_notification %>
     <% @application.grade2 = "" %>
