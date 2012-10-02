@@ -173,6 +173,8 @@ class ApplicationsController < ApplicationController
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
       else
+        @countries = Country.all
+        @workshops = Workshop.all
         format.html { render action: "new" }
       end
     end
