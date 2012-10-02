@@ -40,9 +40,9 @@ class Application < ActiveRecord::Base
   validates_inclusion_of :birthdate, :in => Date.new(1911)..Date.new(1995,2,7), 
     :message => "You need to be 18 years old when the festival starts"
 
-  validates_numericality_of :workshop1,:greater_than => 0, :message => "not selected"
-  validates_numericality_of :workshop2,:greater_than => 0, :messageessage => "not selected"
-  validates_numericality_of :workshop3,:greater_than_than => 0, :message => "not selected"
+  validates_numericality_of :workshop1, :greater_than => 0, :message => "not selected"
+  validates_numericality_of :workshop2, :greater_than => 0, :message => "not selected"
+  validates_numericality_of :workshop3, :greater_than => 0, :message => "not selected"
   validates_exclusion_of :workshop1, :in => lambda { |p| [p.workshop2, p.workshop3] }, :message => "Please choose different workshops"
   validates_exclusion_of :workshop2, :in => lambda { |p| [p.workshop1, p.workshop3] }, :message => "Please choose different workshops"
   validates_exclusion_of :workshop3, :in => lambda { |p| [p.workshop1, p.workshop2] }, :message => "Please choose different workshops"
