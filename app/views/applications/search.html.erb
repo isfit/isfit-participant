@@ -24,7 +24,11 @@
       <td><%= Workshop.find_by_id(application.workshop1).name %></td>
       <td><%= Workshop.find_by_id(application.workshop2).name %></td>
       <td><%= Workshop.find_by_id(application.workshop3).name %></td>
-      <td><%= link_to 'Show', application_path(application), :class => "btn btn-primary" %></td>
+      <% if ControlPanel.first.app_grade3 %>
+        <td><%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %></td>
+      <% else %>
+        <td><%= link_to 'Show', application_path(application), :class => "btn btn-primary" %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

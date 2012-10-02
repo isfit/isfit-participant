@@ -51,7 +51,7 @@ class ApplicationsController < ApplicationController
     @status = { "Not processed" => 0,
       "Accepted" => 1,
       "Not accepted" => 2,
-      "Waiting list" => 3}
+      "Waiting list" => 3 }
   end
 
   def save_selection
@@ -61,16 +61,29 @@ class ApplicationsController < ApplicationController
 
     @application.selection_functionary_id = current_user.id
     @application.status = params[:application][:status]
-    @application.final_workshop = params[:application][:final_workshop]
+    if @application.status == 1 or @application.status == 3
+      @application.final_workshop = params[:application][:final_workshop]
+    end
     @application.selection_comment = params[:application][:selection_comment]
-    @application.travel_approved = params[:application][:travel_approved]
-    @application.travel_amount_given = params[:application][:travel_amount_given]
-    @application.travel_comment = params[:application][:travel_comment]
- 
+    if @application.status == 1
+      @application.travel_approved = params[:application][:travel_approved]
+      if params[:application][:travel_amount_given].empty?
+        @application.travel_amount_given = 0
+      else
+        @application.travel_amount_given = params[:application][:travel_amount_given]
+      end
+      @application.travel_comment = params[:application][:travel_comment]
+    end
+
     if @application.save
       redirect_to stats_applications_path, notice: 'Application was successfully saved.'
     else
-      redirect_to selection_application_path, alert: 'Something went wrong.'
+     @workshops = Workshop.all
+     @status = { "Not processed" => 0,
+        "Accepted" => 1,
+        "Not accepted" => 2,
+        "Waiting list" => 3 }
+      render 'selection'
     end
   end
 
@@ -217,6 +230,7 @@ class ApplicationsController < ApplicationController
     @workshop1_count = @applications.group("workshop1").count
     @workshop2_count = @applications.group("workshop2").count
     @workshop3_count = @applications.group("workshop3").count
+    @workshop_final_count = @applications.group("final_workshop").count
     @countries = Country.where("code IS NOT NULL")
   end
 end

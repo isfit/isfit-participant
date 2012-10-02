@@ -53,9 +53,10 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>1st choice</th>
-        <th>2nd choice</th>
-        <th>3rd choice</th>
+        <th>1st</th>
+        <th>2nd</th>
+        <th>3rd</th>
+        <th>Final</th>
       </tr>
     </thead>
     <% @workshops.each do |workshop| %>
@@ -64,6 +65,7 @@
         <td><%= @workshop1_count[workshop.number].to_i > 0 ? @workshop1_count[workshop.number] : "0" %></td>
         <td><%= @workshop2_count[workshop.number].to_i > 0 ? @workshop2_count[workshop.number] : "0" %></td>
         <td><%= @workshop3_count[workshop.number].to_i > 0 ? @workshop3_count[workshop.number] : "0" %></td>
+        <td><%= @workshop_final_count[workshop.number].to_i > 0 ? @workshop_final_count[workshop.number] : "0" %></td>
       </tr>
     <% end %>
   </table>
