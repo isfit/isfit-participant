@@ -1,15 +1,21 @@
-<h1>Control panel</h1>
+<div class="well">
+  <h1>Control panel</h1>
 
-<%= simple_form_for(@cp, :html => { :class => "form" }) do |f| %>
+  <%= simple_form_for(@cp, :html => { :class => "form" }) do |f| %>
 
-  <h3>Applications</h3>
-  <p>
-    Options for applications.
-  </p>
-  <%= f.input :app_grade1, :as => :boolean, :label => "1st round of grading open" %>
-  <%= f.input :app_grade2, :as => :boolean, :label => "2nd round of grading open" %>
-  <%= f.input :app_grade3, :as => :boolean, :label => "3rd round of grading open" %>
- 
+    <h3>Applications</h3>
+    <p>
+    Options for applications. Each of the options activates functionality 
+    for different phases of the application reading. "Selection of participants" 
+    should only be open after the two first phases is finished.
+    </p>
+    <%= f.input :app_grade1, :as => :boolean, :label => "Participant grade open" %>
+    <%= f.input :app_grade2, :as => :boolean, :label => "Theme grade open" %>
+    <%= f.input :app_grade3, :as => :boolean, :label => "Selection of participants open" %>
+    <p>
+    The field below set the minimum grade from the first round, to be graded in the second round. NOT IMPLEMENTED!
+    </p>
 
-  <%= f.button :submit, :class => "btn-primary" %>
-<% end %>
+    <%= f.button :submit, :class => "btn-primary" %>
+  <% end %>
+</div>
