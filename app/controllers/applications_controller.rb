@@ -134,7 +134,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade1_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade_app_application_path, alert: 'Something went wrong.'
+        redirect_to grade_app_application_path, alert: 'Something went wrong, was the given grade valid?'
       end
     elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 && ControlPanel.first.app_grade2 
       @application.grade2 = params[:application][:grade2]
@@ -143,7 +143,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         redirect_to grade2_applications_path, notice: 'Grade was successfully set.'
       else
-        redirect_to grade2_application_path, alert: 'Something went wrong.'
+        redirect_to grade_app_application_path, alert: 'Something went wrong, was the given grade valid?'
       end
     else
       redirect_to applications_path, alert: "You was not able to set a grade for this application."
