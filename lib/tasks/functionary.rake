@@ -218,7 +218,7 @@ namespace :application do
   task :move_from_part => :environment do
     participants = ParticipantsTemp.all
     participants.each do |p|
-      application = Application.create(:first_name => p.first_name,
+      application = Application.create!(:first_name => p.first_name,
                                          :last_name => p.last_name,
                                          :address => p.address1,
                                          :zipcode => p.zipcode,
