@@ -26,6 +26,44 @@ end
 
 namespace :functionary do
 
+  task :create_functionary_users => :environment do
+    func = {
+      :xuanhuon => { :first => "Anna Xuan Huong Thi", :last => "Nguyen" },
+      :juliebb => { :first => "Julie Benedicte", :last => "Bøye" },
+      :jkbui => { :first => "Kieu Van", :last => "Bui" },
+      :martgjer => { :first => "Marte", :last => "Gjerde" },
+      :bettinag => { :first => "Bettina Qiang", :last => "Grande" },
+      :karinny => { :first => "Karin", :last => "Nybru" },
+      :wanda => { :first => "Wanda", :last => "Kleiven" },
+      :ayansebo => { :first => "Ayanda", :last => "Seboko" },
+      :marleide => { :first => "Marlen", :last => "Eide" },
+      :annambe => { :first => "Anna Margareta", :last => "Berg" },
+      :einarsu => { :first => "Einar", :last => "Ueland" },
+      :egille => { :first => "Egill", :last => "Eide" },
+      :martgies => { :first => "Martha", :last => "Gieselmann" },
+      :monalock => { :first => "Mona Lock", :last => "Skålevik" },
+      :pernilss => { :first => "Pernille Sofie", :last => "Sørensen" },
+      :natharma => { :first => "Nathalie Susana Armas", :last => "Schrøder" },
+    }
+
+    func.each do |username,value|
+      password = generate_password.to_s
+      email = username.to_s + "@isfit.org"
+      puts "#{email} #{password}"
+      first = value[:first]
+      last = value[:last]
+      user = User.new(:email => email, :first_password => password, :password => password)
+      
+      if user.save
+        UserMailer.functionary_mail(user).deliver
+      end
+      
+      UserRole.create(:user_id => user.id, :role_id => 3)
+      Functionary.create(:email => email, :user_id => user.id, :first_name => first, :last_name => last)
+    end
+  end
+
+
   task :create => :environment do
     func = {
     :tanita => {:first  => "Tanita", :last => "Hansen"},
