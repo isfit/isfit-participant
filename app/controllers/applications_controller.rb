@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @applications = Application.where("deleted = 0")
+    @applications = Application.where("deleted = 0").paginate(:page => params[:page])
     
     respond_to do |format|
       format.html # index.html.erb
@@ -212,7 +212,7 @@ class ApplicationsController < ApplicationController
 
   def search
     @q = Application.search(params[:q])
-    @applications = @q.result.where("deleted = 0")
+    @applications = @q.result.where("deleted = 0").limit(30)
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,
@@ -224,6 +224,7 @@ class ApplicationsController < ApplicationController
   def stats
     @q = Application.search(params[:q])
     @applications = @q.result.where("deleted = 0")
+    @applications_results = @q.result.where("deleted = 0").limit(30)
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,

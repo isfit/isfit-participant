@@ -23,7 +23,7 @@ gem "tabs_on_rails"
 gem "tabulous"
 gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
-gem "will_paginate"
+gem "bootstrap-will_paginate"
 gem 'jquery-rails'
 
 group :assets do

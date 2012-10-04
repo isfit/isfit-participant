@@ -31,6 +31,8 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bluecloth (2.2.0)
+    bootstrap-will_paginate (0.0.7)
+      will_paginate
     builder (3.0.3)
     cancan (1.6.8)
     capistrano (2.13.4)
@@ -182,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth
+  bootstrap-will_paginate
   cancan
   capistrano
   coffee-rails
@@ -204,5 +207,4 @@ DEPENDENCIES
   tabulous
   twitter-bootstrap-rails
   uglifier
-  will_paginate
   wkhtmltopdf
