@@ -1,0 +1,20 @@
+<h1>Duplicates</h1>
+<p>These are applicants that have submitted duplicate entries</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+     <th>First name</th>
+     <th>Last name</th>
+     <th></th>
+    <tr>
+  </thead>
+<% @duplicates.each do |duplicate| %>
+  <tr>
+    <td><%= duplicate.id %></td>
+    <td><%= duplicate.first_name %></td>
+    <td><%= duplicate.last_name %></td>
+    <td><%= link_to "Show duplicates", duplicates_application_path(duplicate.id) %></td>
+  </tr>
+<% end %>
+</table>

@@ -6,6 +6,7 @@ IsfitParticipant::Application.routes.draw do
       get "grade2"
       match 'search' => 'applications#search', :via => [:get, :post], :as => :search
       match 'stats' => 'applications#stats', :via => [:get, :post], :as => :stats
+      match "duplicates" => "applications#duplicates_index", via: :get, :as => "duplicates"
     end
     member do
       get "selection"
@@ -13,6 +14,7 @@ IsfitParticipant::Application.routes.draw do
       post "select_app"
       get "grade_app"
       post "set_grade"
+      get "duplicates"
     end
   end
 
