@@ -232,6 +232,8 @@ class ApplicationsController < ApplicationController
       "Not accepted" => 2,
       "Waiting list" => 3 }
 
+    @grade1 = @applications.where("grade1 > 0").group("grade1").count
+    @grade2 = @applications.where("grade2 > 0").group("grade2").count
     @participants_gender = @applications.group("sex").count
     @participants_age = @applications.count(:group => "year(birthdate)")
     @country_count = @applications.group("country_id").count

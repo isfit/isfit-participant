@@ -8,6 +8,7 @@
       <li><%= link_to image_tag('icons/server_chart.png') + " Participants stats", "#part-stats" %></li>
       <li><%= link_to image_tag('icons/world.png') + " World map", "#world-map" %></li>
       <li><%= link_to image_tag('icons/table.png') + " Workshop stats", "#workshop-stats" %></li>
+      <li><%= link_to image_tag('icons/chart_bar.png') + " Participants grade", "#part-grade" %></li>
       <li><%= link_to image_tag('icons/chart_pie.png') + " Participants gender", "#part-gender" %></li>
       <li><%= link_to image_tag('icons/chart_bar.png') + " Participants age", "#part-age" %></li>
       <li><%= link_to image_tag('icons/page_white_stack.png') + " Results", "#results" %></li>
@@ -94,6 +95,10 @@
     <% end %>
   </table>
   <br />
+
+  <div id="part-grade"><h2>Participants grade</h2></div>
+  <%= render 'shared/participant_grade' %>
+
   <div id="part-gender"><h2>Participants gender</h2></div>
   <%= render 'shared/participant_gender_chart' %>
   

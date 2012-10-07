@@ -26,6 +26,9 @@ class Ability
       can [:show, :update, :travel_support, :invitation], Participant
       can [:index, :show, :update, :new, :create], Question
     end
+    if user.has_role? :functionary_support
+      can  [:search, :create], Application
+    end
     if user.has_role? :dialogue
       #
     end

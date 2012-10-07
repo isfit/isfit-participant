@@ -1,0 +1,80 @@
+<%= content_for :script do %>
+
+  <script>
+    $(function () {
+      var chart;
+      $(document).ready(function() {
+        chart = new Highcharts.Chart({
+          chart: {
+            renderTo: 'participant-grade',
+            type: 'column'
+          },
+          title: {
+            text: 'Grade Distribution'
+          },
+          subtitle: {
+            text: 'Grade'
+          },
+          xAxis: {
+            categories: [
+            <% (1..10).each do |i| %>
+              <%= i %>,
+            <% end %>
+            ]
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of grades'
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            backgroundColor: '#FFFFFF',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            shadow: true
+          },
+          tooltip: {
+            formatter: function() {
+              return ''+
+              this.x +': '+ this.y;
+            }
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+          },
+          series: [{
+            name: 'Grade1',
+            data: [
+            <% (1..10).each do |i| %>
+              <%= @grade1[i].nil? ? 0 : @grade1[i] %>,
+            <% end %>           
+            ]
+
+          },
+          {
+            name: 'Grade2',
+            data: [
+            <% (1..10).each do |i| %>
+              <%= @grade2[i].nil? ? 0 : @grade2[i] %>,
+            <% end %>           
+            ]
+
+          }]
+        });
+      });
+
+    });
+  </script>
+
+<% end %>
+
+<div id="participant-grade" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<br />

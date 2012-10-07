@@ -3,10 +3,10 @@
 <h1>Search for application</h1>
 
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_applications_path, method: :post do |f| %>
-  <% unless ControlPanel.first.app_grade3 %>
-    <%= f.input :first_name_cont, :input_html => { :class => "span4" } %>
-    <%= f.input :last_name_cont, :input_html => { :class => "span4" } %>
-    <%= f.input :email_eq, :input_html => { :class => "span4" } %>
+  <% unless ControlPanel.first.app_grade3 and can?(:stats, Application) %>
+    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" } %>
+    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" } %>
+    <%= f.input :email_eq, :label => "Email", :input_html => { :class => "span4" } %>
   <% end %>
   <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
     :label => "Country", :input_html => { :class => "span4" } %>
@@ -18,7 +18,7 @@
     :label => "Workshop 2", :input_html => { :class => "span4" } %>
   <%= f.input :workshop3_eq, :collection => @workshops, :as => :select, 
     :label => "Workshop 3", :input_html => { :class => "span4" } %>
-  <% if ControlPanel.first.app_grade3 %>
+  <% if ControlPanel.first.app_grade3 and can?(:stats, Application) %>
     <%= f.input :status_eq, :collection => @status, :as => :select, 
       :label => "Status", :input_html => { :class => "span4" } %>
     <%= f.input :final_workshop_eq, :collection => @workshops, :as => :select, 
@@ -55,7 +55,7 @@ A maximum of 30 applications will be listed below.<br>
       <td><%= Workshop.find_by_id(application.workshop2).name %></td>
       <td><%= Workshop.find_by_id(application.workshop3).name %></td>
       <td>
-        <% if ControlPanel.first.app_grade3 %>
+        <% if ControlPanel.first.app_grade3 and can?(:stats, Application) %>
           <%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %>
         <% else %>
           <div class="btn-group">
