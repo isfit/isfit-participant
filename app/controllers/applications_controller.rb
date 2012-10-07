@@ -244,12 +244,12 @@ class ApplicationsController < ApplicationController
 
   def duplicates_index
     # SELECT id, first_name, last_name, COUNT(*) AS count_all FROM `applications` GROUP BY first_name, last_name HAVING count_all > 1 ORDER BY count_all DESC 
-    @duplicates = Application.select("id, first_name, last_name, COUNT(*) as count_all").group("first_name, last_name").having("count_all > 1").order("count_all DESC")
+    @duplicates = Application.select("id, first_name, last_name, COUNT(*) as count_all").where(deleted: 0).group("first_name, last_name").having("count_all > 1").order("count_all DESC")
   end
 
   def duplicates
     @duplicate = Application.find(params[:id])
-    @duplicates = Application.where(first_name: @duplicate.first_name).where(last_name: @duplicate.last_name).order("id ASC")
+    @duplicates = Application.where(first_name: @duplicate.first_name).where(last_name: @duplicate.last_name).where(deleted: 0).order("id ASC")
   end
 
 end
