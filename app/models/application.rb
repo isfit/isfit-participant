@@ -37,8 +37,8 @@ class Application < ActiveRecord::Base
   validates_confirmation_of :email, :message => "address should match confirmation."
   validates_uniqueness_of :email, :message => " address is already in user_role."
 
-  validates_inclusion_of :birthdate, :in => Date.new(1911)..Date.new(1995,2,7), 
-    :message => "You need to be 18 years old when the festival starts"
+#  validates_inclusion_of :birthdate, :in => Date.new(1911)..Date.new(1995,2,7), 
+#    :message => "You need to be 18 years old when the festival starts"
 
   validates_numericality_of :workshop1, :greater_than => 0, :message => "not selected"
   validates_numericality_of :workshop2, :greater_than => 0, :message => "not selected"
@@ -84,9 +84,9 @@ class Application < ActiveRecord::Base
     :message => "Status is invalid"
   validates_numericality_of :final_workshop, :greater_than_or_equal_to => 0,
     :message => "Workshop is invalid"
-  validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 3000, :greater_than => 0,
-    :if => Proc.new { |n| n.travel_approved > 0 },
-    :message => "Travel amount be greater than 0 and below 3000"
+#  validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 3000, :greater_than => 0,
+#    :if => Proc.new { |n| n.travel_approved > 0 },
+#    :message => "Travel amount be greater than 0 and below 3000"
   validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 0,
     :if => Proc.new { |n| n.travel_approved == 0 },
     :message => "Travel amount should not be specified, when travel support not is granted."
