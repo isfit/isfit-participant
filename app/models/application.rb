@@ -67,9 +67,9 @@ class Application < ActiveRecord::Base
     :if => Proc.new { |n| n.travel_apply > 0 }
   validates_presence_of :travel_amount, 
     :if => Proc.new { |n| n.travel_apply > 0 }
-  validates_numericality_of :travel_amount, :less_than_or_equal_to => 3000, :greater_than => 0,
-    :if => Proc.new { |n| n.travel_apply > 0 || !n.travel_amount.empty? },
-    :message => "must be a number, between 0 and 3000"
+#  validates_numericality_of :travel_amount, :less_than_or_equal_to => 3000, :greater_than => 0,
+#    :if => Proc.new { |n| n.travel_apply > 0 || !n.travel_amount.empty? },
+#    :message => "must be a number, between 0 and 3000"
   validates :travel_essay, :length => {
     :maximum   => 210,
     :tokenizer => lambda { |str| str.scan(/\s+|$/) },
@@ -84,9 +84,9 @@ class Application < ActiveRecord::Base
     :message => "Status is invalid"
   validates_numericality_of :final_workshop, :greater_than_or_equal_to => 0,
     :message => "Workshop is invalid"
-#  validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 3000, :greater_than => 0,
-#    :if => Proc.new { |n| n.travel_approved > 0 },
-#    :message => "Travel amount be greater than 0 and below 3000"
+  validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 3000, :greater_than => 0,
+    :if => Proc.new { |n| n.travel_approved > 0 },
+    :message => "Travel amount be greater than 0 and below 3000"
   validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 0,
     :if => Proc.new { |n| n.travel_approved == 0 },
     :message => "Travel amount should not be specified, when travel support not is granted."
