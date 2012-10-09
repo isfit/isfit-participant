@@ -18,8 +18,8 @@ class ApplicationsController < ApplicationController
     @applications = Application.where("deleted = 0 AND grade1_functionary_id = 0").order("rand()").limit(30)
     @grade = 1
     @workshops = Workshop.all
-    @app_not_graded = ((Application.where("deleted = 0 AND grade1 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
-    @app_graded = 100 - @app_not_graded
+    @app_graded = ((Application.where("deleted = 0 AND grade1 > 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_not_graded = 100 - @app_graded
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,8 +34,8 @@ class ApplicationsController < ApplicationController
     @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0").order("rand()").limit(30)
     @grade = 2 
     @workshops = Workshop.all
-    @app_not_graded = ((Application.where("deleted = 0 AND grade2 = 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
-    @app_graded = 100 - @app_not_graded
+    @app_graded = ((Application.where("deleted = 0 AND grade2 > 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_not_graded = 100 - @app_graded
 
     respond_to do |format|
       format.html # index.html.erb
