@@ -14,9 +14,9 @@
     <%= f.input :app_grade3, :as => :boolean, :label => "Selection of participants open" %>
     
     <p>
-    The field below set the minimum grade from the first round, to be graded in the second round.
+    The field below set the limit for which application that will be graded in the second round. 
     </p>
-    <%= f.input :app_grade2_scope, :label => "Remove application with grade below" %>
+    <%= f.input :app_grade2_scope, :label => "Grade applications with grade above" %>
 
     <%= f.button :submit, :class => "btn-primary" %>
   <% end %>
