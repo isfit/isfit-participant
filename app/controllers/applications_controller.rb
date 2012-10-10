@@ -31,10 +31,10 @@ class ApplicationsController < ApplicationController
       return redirect_to applications_path, alert: "You are not able to view this page at the moment"
     end 
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
-    @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0").order("rand()").limit(30)
+    @applications = Application.where("deleted = 0 AND grade2_functionary_id = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).order("rand()").limit(30)
     @grade = 2 
     @workshops = Workshop.all
-    @app_graded = ((Application.where("deleted = 0 AND grade2 > 0").count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
+    @app_graded = ((Application.where("deleted = 0 AND grade2 > 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).count.to_f / Application.where("deleted = 0").count.to_f) * 100).to_i
     @app_not_graded = 100 - @app_graded
 
     respond_to do |format|
