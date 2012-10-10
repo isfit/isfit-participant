@@ -30,7 +30,7 @@ class Ability
       can  [:search, :create], Application
     end
     if user.has_role? :dialogue
-      #
+      can [:read, :search], Application
     end
     if user.has_role? :sec
       can :manage, Host
