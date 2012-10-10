@@ -5,12 +5,10 @@
 <%= render 'travel' %>
 
 <h2>1st grade</h2>
-<b>Graded by:</b> <%= @application.grade1_functionary_id > 0 ? Functionary.find_by_id(@application.grade1_functionary_id).full_name : "Not graded!" %><br>
 <b>Grade:</b> <%= @application.grade1 %><br>
 <b>Comment:</b><%= format @application.grade1_comment %><br>
 
 <h2>2nd grade</h2>
-<b>Graded by:</b> <%= @application.grade1_functionary_id > 0 ? Functionary.find_by_id(@application.grade1_functionary_id).full_name : "Not graded!" %><br>
 <b>Grade:</b> <%= @application.grade2 %><br>
 <b>Comment:</b> <%= format @application.grade2_comment %><br>
 
