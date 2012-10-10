@@ -254,4 +254,11 @@ class ApplicationsController < ApplicationController
     @duplicates = Application.where(first_name: @duplicate.first_name).where(last_name: @duplicate.last_name).where(deleted: 0).order("id ASC")
   end
 
+  def workshop_stats
+    @applications = Application.where("deleted = 0 and grade2 = 0 and grade1 > ?", ControlPanel.first.app_grade2_scope)
+    @workshops = Workshop.all
+    @workshop1_count = @applications.group("workshop1").count
+    @workshop2_count = @applications.group("workshop2").count
+    @workshop3_count = @applications.group("workshop3").count
+  end
 end
