@@ -24,6 +24,102 @@ namespace :admin do
   end
 end
 
+
+namespace :theme do
+  task :create_theme_users => :environment do
+    func = {
+      :martrett => { :first => "Martine", :last => "Retting" },
+      :didriksr => { :first => "Didrik Skibeli", :last => "Rokkones" },
+      :krishoff => { :first => "Kristian", :last => "Hoff" },
+      :nelsonw => { :first => "Nelson", :last => "Wang" },
+      :amalskau => { :first => "Amalie Skau", :last => "Jakobsen" },
+      :sindgarc => { :first => "Sindre Augusto", :last => "Garcia" },
+      :karipaul => { :first => "Kari Evensen", :last => "Paulsrud" },
+      :sanaker => { :first => "Anita", :last => "Sanaker" },
+      :sigurpe => { :first => "Sigurd Solheim", :last => "Pettersen" },
+      :masto => { :first => "Marit", :last => "Stokke" },
+      :marinaeaar => { :first => "Marianne Nårstad", :last => "Jensen" },
+      :mariwae => { :first => "Mari", :last => "Wærnes" },
+      :marieide => { :first => "Mari", :last => "Eide" },
+      :ingrklep => { :first => "Ingrid Kleppenes", :last => "Verne" },
+      :idaar => { :first => "Ida", :last => "Arnesen" },
+      :joriprok => { :first => "Jorinde", :last => "Prokosch" },
+      :ingrvik => { :first => "Ingrid Vik", :last => "Bakken" },
+      :isabnord => { :first => "Isabel Nordli", :last => "Løyning" },
+      :maregulo => { :first => "Maren", :last => "Gulowsen" },
+      :hannsund => { :first => "Hanne", :last => "Sundene" },
+      :tarjeins => { :first => "Tarjei", :last => "Sandal" },
+      :jonahell => { :first => "Jonas", :last => "Helland" },
+      :elissand => { :first => "Elisabeth", :last => "Sandbakken" },
+      :shyaamr => { :first => "Shyaam", :last => "Ramkumar" },
+      :meretefa => { :first => "Merete", :last => "Falck" },
+      :joharogn => { :first => "Johanne", :last => "Rognstad" },
+      :ingvelde => { :first => "Ingvild Fagerheim", :last => "Eldegard" },
+      :karlhenr => { :first => "Karl Shi Xue", :last => "Henriksen" },
+      :ingrkjev => { :first => "Ingrid", :last => "Kjevik-Wycherley" },
+      :sofiande => { :first => "Sofie", :last => "Andelic" },
+      :annefers => { :first => "Anne-Line", :last => "Ferstad" },
+      :norahaal => { :first => "Nora Haaland", :last => "Serigstad" },
+      :noraabra => { :first => "Nora Skarre", :last => "Abrahamsen" },
+      :erlenick => { :first => "Erlend", :last => "Nickelsen" },
+      :'ole-gang' => { :first => "Ole-Jørgen Gangsø", :last => "Bekkevold" },
+      :haeaakgrin => { :first => "Håkon", :last => "Grindheim" },
+      :ingrith => { :first => "Ingrid", :last => "Thorbjørnsen" },
+      :elisabpr => { :first => "Elisabeth", :last => "Prestegård" },
+      :rachels => { :first => "Rachel", :last => "Spiegel" },
+      :susasand => { :first => "Susanne", :last => "Sandell" },
+      :sofifuru => { :first => "Sofie", :last => "Furu" },
+      :mareel => { :first => "Maren", :last => "Eliassen" },
+      :stinhari => { :first => "Stine Mari", :last => "Harildstad" },
+      :kareek => { :first => "Karen Marie Nebb", :last => "Ek" },
+      :alexking => { :first => "Alexander Taranger", :last => "King" },
+      :axeltren => { :first => "Axel", :last => "Trentzsch" },
+      :wagstaff => { :first => "Lindsay K.", :last => "Wagstaff" },
+      :kajafroy => { :first => "Kaja", :last => "Kvåle" },
+      :oyvinsve => { :first => "Øyvind", :last => "Svendsen" },
+      :jenspejo => { :first => "Jens Petter", :last => "Johansen" },
+      :olemagi => { :first => "Ole Magnus Kålås", :last => "Iversen" },
+      :maxeckb => { :first => "Max Eckbo", :last => "Hallqvist" },
+      :hannhenn => { :first => "Hannah", :last => "Henningsen" },
+      :theafors => { :first => "Thea", :last => "Forsén" },
+      :miawall => { :first => "Mia", :last => "Walle-Hansen" },
+      :lenestok => { :first => "Lene", :last => "Stokke" },
+      :toredyre => { :first => "Tore", :last => "Dyrendahl" },
+      :anehegl => { :first => "Ane", :last => "Hegland" },
+      :gunnbjaeoe => { :first => "Gunnar", :last => "Bjørnsson" },
+      :birgskaj => { :first => "Birgitte", :last => "Skajaa" },
+      :mathskyl => { :first => "Mathilde", :last => "Skylstad" },
+      :'trinaas-' => { :first => "Trine", :last => "Aas-Hansen" },
+      :kariej => { :first => "Kari Lien", :last => "Johnsen" },
+      :vildekr => { :first => "Vilde", :last => "Krogsrud" },
+      :fridotte => { :first => "Frida Grønhaug", :last => "Ottemo" },
+      :martraeoen => { :first => "Martin Wang", :last => "Rønningen" },
+      :livekvel => { :first => "Live Margrethe L.", :last => "Kvelland" },
+      :morhaug => { :first => "Morten", :last => "Haugen" },
+      :vildaare => { :first => "Vilde", :last => "Aarethun" },
+      :marierik => { :first => "Marianne", :last => "Eriksen" },
+    }
+
+    func.each do |username,value|
+      password = generate_password.to_s
+      email = username.to_s + "@isfit.org"
+      puts "#{email} #{password}"
+      first = value[:first]
+      last = value[:last]
+      user = User.new(:email => email, :first_password => password, :password => password)
+      
+      if user.save
+        UserMailer.functionary_mail(user).deliver
+      end
+      
+      UserRole.create(:user_id => user.id, :role_id => 2)
+      Functionary.create(:email => email, :user_id => user.id, :first_name => first, :last_name => last)
+    end
+  end
+
+
+end
+
 namespace :functionary do
 
   task :create_functionary_users => :environment do
