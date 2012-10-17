@@ -33,24 +33,27 @@
   <%= f.submit "Search" %> 
 <% end %>
 
-A maximum of 30 applications will be listed below.<br>
-<table class="table table-bordered table-striped">
+A maximum of 200 applications will be listed below.<br>
+<table id="result" class="table table-bordered table-striped tablesorter">
   <thead>
     <tr>
       <th>Name</th>
       <th>Country</th>
       <th>Sex</th>
+      <th>Grade</th>
       <th>Workshop 1</th>
       <th>Workshop 2</th>
       <th>Workshop 3</th>  
       <th>Options</th>
     </tr>
   </thead>
+  <tbody>
   <% @applications.each do |application| %>
     <tr>
       <td><%= "#{application.last_name}, #{application.first_name}" %></td>
       <td><%= application.country.name %></td>
       <td><%= application.sex == "m" ? "male" : "female" %></td>
+      <td><%= application.total_grade %></td>
       <td><%= Workshop.find_by_id(application.workshop1).name %></td>
       <td><%= Workshop.find_by_id(application.workshop2).name %></td>
       <td><%= Workshop.find_by_id(application.workshop3).name %></td>
@@ -72,4 +75,5 @@ A maximum of 30 applications will be listed below.<br>
       </td>
     </tr>
   <% end %>
+</tbody>
 </table>

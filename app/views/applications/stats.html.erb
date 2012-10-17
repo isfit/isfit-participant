@@ -6,12 +6,12 @@
     <li class="nav-header">Stats menu</li>
     <% if @applications.count > 0 %>
       <li><%= link_to image_tag('icons/server_chart.png') + " Participants stats", "#part-stats" %></li>
+      <li><%= link_to image_tag('icons/page_white_stack.png') + " Results", "#results" %></li>
       <li><%= link_to image_tag('icons/world.png') + " World map", "#world-map" %></li>
       <li><%= link_to image_tag('icons/table.png') + " Workshop stats", "#workshop-stats" %></li>
       <li><%= link_to image_tag('icons/chart_bar.png') + " Participants grade", "#part-grade" %></li>
       <li><%= link_to image_tag('icons/chart_pie.png') + " Participants gender", "#part-gender" %></li>
       <li><%= link_to image_tag('icons/chart_bar.png') + " Participants age", "#part-age" %></li>
-      <li><%= link_to image_tag('icons/page_white_stack.png') + " Results", "#results" %></li>
     <% end %>
   </ul>
 <% end %>
@@ -68,6 +68,59 @@
     <%= @country_count.count %>
   </p>
 
+  <div id="results"><h2>Results</h2></div>
+  
+  A maximum of 200 applications will be listed below.<br>
+  <table id="result" class="table table-bordered table-striped tablesorter">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>1st Workshop</th>
+        <th>Grade</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @applications_results.each do |application| %>
+      <tr>
+        <td><%= "#{application.last_name}, #{application.first_name}" %></td>
+        <td><%= application.country.name %></td>
+        <td><%= Workshop.find_by_id(application.workshop1).name %></td>
+        <td><%= application.total_grade %></td>
+        <td>
+          <% if application.status == 0 %>
+            <%= image_tag ('icons/information.png') %>
+          <% elsif application.status == 1 %>
+            <%= image_tag ('icons/accept.png') %>
+          <% elsif application.status == 2 %>
+            <%= image_tag ('icons/delete.png') %>
+          <% elsif application.status == 3 %>
+            <%= image_tag ('icons/time.png') %>
+          <% end %>
+        </td>
+        <td>
+          <% if ControlPanel.first.app_grade3 %>
+            <%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %>
+          <% else %>
+            <div class="btn-group">
+              <%= link_to 'Show', application, :class => "btn btn-info" %>
+              <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Edit', edit_application_path(application) %></li>
+                <li><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete %></li>
+              </ul>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+
   <div id="world-map"><h2>World map</h2></div>
 
   <%= render 'shared/participant_map' %>
@@ -105,53 +158,5 @@
   <div id="part-age"><h2>Participants age</h2></div>
   <%= render 'shared/participant_age' %>
 
-  <div id="results"><h2>Results</h2></div>
-  
-  A maximum of 30 applications will be listed below.<br>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Country</th>
-        <th>1st Workshop</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <% @applications_results.each do |application| %>
-      <tr>
-        <td><%= "#{application.last_name}, #{application.first_name}" %></td>
-        <td><%= application.country.name %></td>
-        <td><%= Workshop.find_by_id(application.workshop1).name %></td>
-        <td>
-          <% if application.status == 0 %>
-            <%= image_tag ('icons/information.png') %>
-          <% elsif application.status == 1 %>
-            <%= image_tag ('icons/accept.png') %>
-          <% elsif application.status == 2 %>
-            <%= image_tag ('icons/delete.png') %>
-          <% elsif application.status == 3 %>
-            <%= image_tag ('icons/time.png') %>
-          <% end %>
-        </td>
-        <td>
-          <% if ControlPanel.first.app_grade3 %>
-            <%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %>
-          <% else %>
-            <div class="btn-group">
-              <%= link_to 'Show', application, :class => "btn btn-info" %>
-              <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to 'Edit', edit_application_path(application) %></li>
-                <li><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete %></li>
-              </ul>
-            </div>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-
 <% end %>
+

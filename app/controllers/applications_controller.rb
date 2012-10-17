@@ -62,7 +62,7 @@ class ApplicationsController < ApplicationController
 
     @application.selection_functionary_id = current_user.id
     @application.status = params[:application][:status]
-    if @application.status == 1 or @application.status == 3
+    if @application.status == 1
       @application.final_workshop = params[:application][:final_workshop]
     end
     @application.selection_comment = params[:application][:selection_comment]
@@ -213,7 +213,7 @@ class ApplicationsController < ApplicationController
 
   def search
     @q = Application.search(params[:q])
-    @applications = @q.result.where("deleted = 0").limit(30)
+    @applications = @q.result.where("deleted = 0").limit(200)
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,
@@ -224,8 +224,8 @@ class ApplicationsController < ApplicationController
 
   def stats
     @q = Application.search(params[:q])
-    @applications = @q.result.where("deleted = 0")
-    @applications_results = @q.result.where("deleted = 0").limit(30)
+    @applications = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope)
+    @applications_results = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,
@@ -253,6 +253,10 @@ class ApplicationsController < ApplicationController
   def duplicates
     @duplicate = Application.find(params[:id])
     @duplicates = Application.where(first_name: @duplicate.first_name).where(last_name: @duplicate.last_name).where(deleted: 0).order("id ASC")
+  end
+
+  def country_stats
+    
   end
 
   def workshop_stats

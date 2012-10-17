@@ -5,6 +5,7 @@ IsfitParticipant::Application.routes.draw do
       get "grade1"
       match 'grade2' => 'applications#grade2', :via => [:get, :post], :as => :grade2
       get "workshop_stats"
+      get "country_stats"
       match 'search' => 'applications#search', :via => [:get, :post], :as => :search
       match 'stats' => 'applications#stats', :via => [:get, :post], :as => :stats
       match "duplicates" => "applications#duplicates_index", via: :get, :as => "duplicates"
