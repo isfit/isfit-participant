@@ -4,8 +4,8 @@ class HomeController < ApplicationController
 
   def index
       @deadlines = Deadline.all 
-      @important_articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky = 1").order("created_at DESC").limit(1)
-      @articles = Article.where("publish_at > #{Time.now.to_i}" ).where("sticky < 1").order("created_at DESC").limit(5)
+      @important_articles = Article.where("publish_at < NOW()" ).where("sticky = 1").order("created_at DESC").limit(1)
+      @articles = Article.where("publish_at < NOW()" ).where("sticky < 1").order("created_at DESC").limit(5)
       if current_user.has_role?(:admin)
         render :template => 'home/index1'
       elsif current_user.has_role?(:functionary) || current_user.has_role?(:theme) || current_user.has_role?(:dialogue)
