@@ -1,37 +1,11 @@
-<% content_for :sidebar_left do %>
-  <% @categories = InformationCategory.all %>
-  <h6 class="vlist">Navigation</h6>
-  <ul class="vlist">
-  <% @categories.each do |c| %>
-    <li><%= c.title %></li>
-    <ul>
-      <% c.information_pages.each do |i| %>
-        <li><%= link_to i.title, information_page_path(i) %></li>
-      <%end%>
-    </ul>
-  <%end%>
-</ul>
-<% end %>
+<%= simple_form_for(@information_category, :html => { :class => "form"}) do |f| %>
+  <%= f.error_notification %>
 
-
-<%= form_for(@information_category, :html => { :class => "yform full"}) do |f| %>
-  <% if @information_category.errors.any? %>
-    <div id="error_explanation" class="warning">
-      <h2><%= pluralize(@information_category.errors.count, "error") %> prohibited this information_category from being saved:</h2>
-
-      <ul>
-      <% @information_category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="type-text">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div class="form-inputs">
+    <%= f.input :title %>
   </div>
-  <div class="type-button">
-    <%= f.submit :class => "submit"%>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => "btn-primary" %>
   </div>
 <% end %>

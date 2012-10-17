@@ -1,10 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @information_category.title %>
-</p>
+<div class="pull-right">
+	<%= link_to 'Edit', edit_information_category_path(@information_category), class: "btn" %>
+	<%= link_to 'Index', information_categories_path, class: "btn btn-primary" %>
+</div>
 
-
-<%= link_to 'Edit', edit_information_category_path(@information_category) %> |
-<%= link_to 'Back', information_categories_path %>
+<div class="row">
+	<div class="span3 offset1">
+		<p>
+		<b>Title:</b>
+  	<%= @information_category.title %>
+  	</p>
+  </div>
+</div>

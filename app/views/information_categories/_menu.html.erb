@@ -1,0 +1,16 @@
+<% content_for :sidebar_left do %>
+<ul class="nav nav-list well">
+	<li class="nav-header">Tools</li>
+  <li><%= link_to image_tag('icons/folder_add.png') + ' New Information category', new_information_category_path %></li>
+  <li><%= link_to image_tag('icons/report.png') + " Information pages", information_pages_path %></li>
+
+  <li class="nav-header">Navigation</li>
+  <% InformationCategory.all.each do |c| %>
+    <li><%= link_to(image_tag('icons/folder.png') + ' ' + c.title, information_category_path(c)) %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to(image_tag('icons/report.png') + ' ' + i.title, information_page_path(i)) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+<% end %>

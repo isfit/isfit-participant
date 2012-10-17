@@ -46,6 +46,7 @@ class InformationPagesController < ApplicationController
   # POST /information_pages.xml
   def create
     @information_page = InformationPage.new(params[:information_page])
+    @information_page.user_id = current_user.id
 
     respond_to do |format|
       if @information_page.save

@@ -1,0 +1,14 @@
+<% content_for :sidebar_left do %>
+<ul class="nav nav-list well">
+  <li class="nav-header">Navigation</li>
+  <% @categories = InformationCategory.all %>
+  <% @categories.each do |c| %>
+    <li><%= link_to c.title, information_category_path(c) %></li>
+    <ul>
+      <% c.information_pages.each do |i| %>
+        <li><%= link_to i.title, information_page_path(i) %></li>
+      <%end%>
+    </ul>
+  <%end%>
+</ul>
+<% end %>

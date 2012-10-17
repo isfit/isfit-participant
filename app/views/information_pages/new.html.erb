@@ -1,5 +1,7 @@
 <h1>New information page</h1>
 
-<%= render 'form' %>
+<div class="pull-right">
+	<%= link_to 'Back', information_pages_path, class: "btn btn-primary" %>
+</div>
 
-<%= link_to 'Back', information_pages_path %>
+<%= render 'form' %>

@@ -1,22 +1,15 @@
-<% content_for :sidebar_left do %>
-  <h6 class="vlist">Navigation</h6>
-  <ul class="vlist">
-  <% @categories.each do |c| %>
-    <li><%=image_tag('icons/folder.png') + ' ' + c.title %></li>
-    <ul>
-      <% c.information_pages.each do |i| %>
-        <li><%= link_to image_tag('icons/report.png') + ' ' + i.title, information_page_path(i) %></li>
-      <%end%>
-    </ul>
-  <%end%>
-</ul>
-<% end %>
+<div class="pull-right">
+  <%= link_to 'Edit', edit_information_page_path(@information_page), class: "btn" %>
+  <%= link_to 'Index', information_pages_path, class: "btn btn-primary" %>
+</div>
+
+<%= render 'menu' %>
 
 <h1><%= @information_page.title %></h1>
 <p>
   <%= raw format(@information_page.content) %>
 </p>
 
-<p class="info">
+<p><em>
 Posted by <%= @information_page.user.name %> <%= time_ago_in_words(@information_page.created_at) %> ago.
-</p>
+</em></p>
