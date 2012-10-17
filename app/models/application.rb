@@ -6,7 +6,7 @@ class Application < ActiveRecord::Base
     :zipcode, :grade1_functionary_id, :grade1, :grade1_comment, 
     :grade2_functionary_id, :grade2, :grade2_comment, :selection_functionary_id, 
     :total_grade, :selection_comment, :travel_functionary_id, :travel_approved, 
-    :travel_amount_given, :travel_comment, :status, :final_workshop, :deleted
+    :travel_amount_given, :travel_status, :travel_comment, :status, :final_workshop, :deleted
 
   belongs_to :country
   has_and_belongs_to_many :functionaries
@@ -82,6 +82,8 @@ class Application < ActiveRecord::Base
     :message => "must be a number between 0-10"
   validates_numericality_of :status, :greater_than_or_equal_to => 0, :less_than => 4,
     :message => "Status is invalid"
+  validates_numericality_of :travel_status, :greater_than_or_equal_to => 0, :less_than => 4,
+    :message => "Travel status is invalid"
   validates_numericality_of :final_workshop, :greater_than_or_equal_to => 0,
     :message => "Workshop is invalid"
   validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 3000, :greater_than => 0,

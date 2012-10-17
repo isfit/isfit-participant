@@ -25,6 +25,8 @@
       :label => "Final workshop", :input_html => { :class => "span4" } %>
     <%= f.input :total_grade_gt, :label => "Total grade(greater than)", 
       :input_html => { :class => "span4" } %>
+    <%= f.input :travel_status_eq, :collection => @travel_status, :as => :select,
+      :label => "Travel status", :input_html => { :class => "span4" } %>
     <%= f.input :travel_apply_eq, :as => :radio_buttons, 
       :label => "Applied for travel support", :collection => [["Yes", 1], ["No", 0]]  %>
     <%= f.input :travel_nosupport_cancome_eq, :as => :radio_buttons, 
@@ -40,10 +42,14 @@ A maximum of 200 applications will be listed below.<br>
       <th>Name</th>
       <th>Country</th>
       <th>Sex</th>
-      <th>Grade</th>
       <th>Workshop 1</th>
-      <th>Workshop 2</th>
-      <th>Workshop 3</th>  
+      <% unless ControlPanel.first.app_grade3 %>
+        <th>Workshop 2</th>
+        <th>Workshop 3</th>  
+      <% else %>
+        <th>Grade</th>
+        <th>Status</th>
+      <% end %>
       <th>Options</th>
     </tr>
   </thead>
@@ -53,10 +59,24 @@ A maximum of 200 applications will be listed below.<br>
       <td><%= "#{application.last_name}, #{application.first_name}" %></td>
       <td><%= application.country.name %></td>
       <td><%= application.sex == "m" ? "male" : "female" %></td>
-      <td><%= application.total_grade %></td>
       <td><%= Workshop.find_by_id(application.workshop1).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop2).name %></td>
-      <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+      <% unless ControlPanel.first.app_grade3 %>
+        <td><%= Workshop.find_by_id(application.workshop2).name %></td>
+        <td><%= Workshop.find_by_id(application.workshop3).name %></td>
+      <% else %>
+        <td><%= application.total_grade %></td>
+        <td>
+          <% if application.status == 0 %>
+            <%= image_tag ('icons/information.png') %>
+          <% elsif application.status == 1 %>
+            <%= image_tag ('icons/accept.png') %>
+          <% elsif application.status == 2 %>
+            <%= image_tag ('icons/delete.png') %>
+          <% elsif application.status == 3 %>
+            <%= image_tag ('icons/time.png') %>
+          <% end %>
+        </td>
+      <% end %>
       <td>
         <% if ControlPanel.first.app_grade3 and can?(:stats, Application) %>
           <%= link_to 'Select', selection_application_path(application.id), :class => "btn btn-primary" %>

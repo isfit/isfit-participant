@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121007132212) do
+ActiveRecord::Schema.define(:version => 20121017211119) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20121007132212) do
     t.boolean  "deleted",                                 :default => false
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
+    t.integer  "travel_status",                           :default => 0,     :null => false
   end
 
   create_table "arrival_places", :force => true do |t|
@@ -80,11 +81,11 @@ ActiveRecord::Schema.define(:version => 20121007132212) do
   end
 
   create_table "control_panels", :force => true do |t|
-    t.boolean  "app_grade1",        :default => false
-    t.boolean  "app_grade2",        :default => false
-    t.boolean  "app_grade3",        :default => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "app_grade1",       :default => false
+    t.boolean  "app_grade2",       :default => false
+    t.boolean  "app_grade3",       :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "app_grade2_scope"
   end
 

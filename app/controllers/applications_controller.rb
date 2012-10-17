@@ -53,6 +53,9 @@ class ApplicationsController < ApplicationController
       "Accepted" => 1,
       "Not accepted" => 2,
       "Waiting list" => 3 }
+    @travel_status = { "Will get travel support" => 1,
+      "Will maybe get travel support" => 2,
+      "Will not get travel support" => 3 }
   end
 
   def save_selection
@@ -62,11 +65,11 @@ class ApplicationsController < ApplicationController
 
     @application.selection_functionary_id = current_user.id
     @application.status = params[:application][:status]
+    @application.selection_comment = params[:application][:selection_comment]
+    
     if @application.status == 1
       @application.final_workshop = params[:application][:final_workshop]
-    end
-    @application.selection_comment = params[:application][:selection_comment]
-    if @application.status == 1
+      @application.travel_status = params[:application][:travel_status]
       @application.travel_approved = params[:application][:travel_approved]
       if params[:application][:travel_amount_given].empty?
         @application.travel_amount_given = 0
@@ -79,11 +82,14 @@ class ApplicationsController < ApplicationController
     if @application.save
       redirect_to stats_applications_path, notice: 'Application was successfully saved.'
     else
-     @workshops = Workshop.all
-     @status = { "Not processed" => 0,
+      @workshops = Workshop.all
+      @status = { "Not processed" => 0,
         "Accepted" => 1,
         "Not accepted" => 2,
         "Waiting list" => 3 }
+      @travel_status = { "Will get travel support" => 1,
+        "Will maybe get travel support" => 2,
+        "Will not get travel support" => 3 }
       flash[:alert] = "Something went wrong, review details in form below." 
       render 'selection'
     end
@@ -220,6 +226,9 @@ class ApplicationsController < ApplicationController
       "Accepted" => 1,
       "Not accepted" => 2,
       "Waiting list" => 3}
+    @travel_status = { "Will get travel support" => 1,
+      "Will maybe get travel support" => 2,
+      "Will not get travel support" => 3 }
   end
 
   def stats
@@ -232,6 +241,9 @@ class ApplicationsController < ApplicationController
       "Accepted" => 1,
       "Not accepted" => 2,
       "Waiting list" => 3 }
+    @travel_status = { "Will get travel support" => 1,
+      "Will maybe get travel support" => 2,
+      "Will not get travel support" => 3 }
 
     @grade1 = @applications.where("grade1 > 0").group("grade1").count
     @grade2 = @applications.where("grade2 > 0").group("grade2").count

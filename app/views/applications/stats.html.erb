@@ -36,6 +36,8 @@
       :label => "Final workshop", :input_html => { :class => "span4" } %>
     <%= f.input :total_grade_gt, :label => "Total grade(greater than)", 
       :input_html => { :class => "span4" } %>
+    <%= f.input :travel_status_eq, :collection => @travel_status, :as => :select,
+      :label => "Travel status", :input_html => { :class => "span4" } %>
     <%= f.input :travel_apply_eq, :as => :radio_buttons, 
       :label => "Applied for travel support", :collection => [["Yes", 1], ["No", 0]]  %>
     <%= f.input :travel_nosupport_cancome_eq, :as => :radio_buttons, 
@@ -76,6 +78,7 @@
       <tr>
         <th>Name</th>
         <th>Country</th>
+        <th>Sex</th>
         <th>1st Workshop</th>
         <th>Grade</th>
         <th>Status</th>
@@ -87,6 +90,7 @@
       <tr>
         <td><%= "#{application.last_name}, #{application.first_name}" %></td>
         <td><%= application.country.name %></td>
+        <td><%= application.sex == "m" ? "male" : "female" %></td>
         <td><%= Workshop.find_by_id(application.workshop1).name %></td>
         <td><%= application.total_grade %></td>
         <td>
