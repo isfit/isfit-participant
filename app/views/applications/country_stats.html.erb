@@ -1,3 +1,27 @@
 <% content_for :sidebar_left do %>
   <%= render 'menu' %>
 <% end %>
+
+<h1>Country Stats</h1>
+<p><b>Countries with accepted applications:</b> <%= @countries.count %></p>
+
+<table id="result" class="table table-bordered table-striped tablesorter">
+  <thead>
+    <tr>
+      <th>Country</th>
+      <th>Male/Female</th>
+      <th>Accepted</th>
+      <th>Search</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @countries.each do |k,v| %>    
+      <tr>
+        <td><%= k %></td>
+        <td><%= ((Application.includes("country").where("deleted = 0 AND status = 1 AND sex = 'm' AND countries.name = ?", k).count.to_f / v.to_f)*100).to_i %>%</td>
+        <td><%= v %></td>
+        <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => Country.find_by_name(k).id}), :method => "POST", :class => "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

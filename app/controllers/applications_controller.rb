@@ -256,7 +256,7 @@ class ApplicationsController < ApplicationController
   end
 
   def country_stats
-    
+    @countries = Application.includes("country").where("deleted = 0 AND status = 1").group("countries.name").count
   end
 
   def workshop_stats
