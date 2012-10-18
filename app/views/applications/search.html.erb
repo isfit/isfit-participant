@@ -2,7 +2,7 @@
 
 <h1>Search for application</h1>
 
-<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_applications_path, method: :post do |f| %>
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_applications_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
   <% unless ControlPanel.first.app_grade3 and can?(:stats, Application) %>
     <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" } %>
     <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" } %>

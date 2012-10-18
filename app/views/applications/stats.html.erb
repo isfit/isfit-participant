@@ -18,7 +18,7 @@
 
 <h1>Stats search</h1>
 
-<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: stats_applications_path, method: :post do |f| %>
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: stats_applications_path, method: :post, :html => { :class => "form-horizontal" }  do |f| %>
   <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
     :label => "Country", :input_html => { :class => "span4" } %>
   <%= f.input :sex_eq, :as => :select, :label => "Sex", 
