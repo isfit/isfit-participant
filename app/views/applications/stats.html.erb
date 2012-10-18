@@ -21,8 +21,8 @@
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: stats_applications_path, method: :post do |f| %>
   <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
     :label => "Country", :input_html => { :class => "span4" } %>
-  <%= f.input :sex_eq, :as => :radio_buttons, 
-    :label => "Sex", :collection => [["female", "f"], ["male", "m"]]  %>
+  <%= f.input :sex_eq, :as => :select, :label => "Sex", 
+    :collection => [["female", "f"], ["male", "m"]], :input_html => { :class => "span4" }  %>
   <%= f.input :workshop1_eq, :collection => @workshops, :as => :select, 
     :label => "Workshop 1", :input_html => { :class => "span4" } %>
   <%= f.input :workshop2_eq, :collection => @workshops, :as => :select, 
@@ -38,10 +38,12 @@
       :input_html => { :class => "span4" } %>
     <%= f.input :travel_status_eq, :collection => @travel_status, :as => :select,
       :label => "Travel status", :input_html => { :class => "span4" } %>
-    <%= f.input :travel_apply_eq, :as => :radio_buttons, 
-      :label => "Applied for travel support", :collection => [["Yes", 1], ["No", 0]]  %>
-    <%= f.input :travel_nosupport_cancome_eq, :as => :radio_buttons, 
-      :label => "Can come without travel support", :collection => [["Yes", 1], ["No", 0]]  %>
+    <%= f.input :travel_apply_eq, :as => :select, 
+      :label => "Applied for travel support", :collection => [["Yes", 1], ["No", 0]],
+      :input_html => { :class => "span4" } %>
+    <%= f.input :travel_nosupport_cancome_eq, :as => :select, 
+      :label => "Can come without travel support", :collection => [["Yes", 1], ["No", 0]],
+      :input_html => { :class => "span4" } %>
   <% end %>
   <%= f.submit "Search" %> 
 <% end %>
