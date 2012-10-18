@@ -220,9 +220,9 @@ class ApplicationsController < ApplicationController
   def search
     @q = Application.search(params[:q])
     if ControlPanel.first.app_grade3
-      @applications = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
+      @applications = @q.result.includes("country").where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
     else
-      @applications = @q.result.where("deleted = 0").limit(200)
+      @applications = @q.result.includes("country").where("deleted = 0").limit(200)
     end
     @countries = Country.all
     @workshops = Workshop.all
@@ -238,7 +238,7 @@ class ApplicationsController < ApplicationController
   def stats
     @q = Application.search(params[:q])
     @applications = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope)
-    @applications_results = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
+    @applications_results = @q.result.includes("country").where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,
