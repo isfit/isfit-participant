@@ -219,7 +219,11 @@ class ApplicationsController < ApplicationController
 
   def search
     @q = Application.search(params[:q])
-    @applications = @q.result.where("deleted = 0").limit(200)
+    if ControlPanel.first.app_grade3
+      @applications = @q.result.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
+    else
+      @applications = @q.result.where("deleted = 0").limit(200)
+    end
     @countries = Country.all
     @workshops = Workshop.all
     @status = { "Not processed" => 0,
