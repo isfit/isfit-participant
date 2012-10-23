@@ -27,7 +27,7 @@
           <td><%= v %></td>
           <td><%= @app.where("travel_apply = 1").count %></td>
           <td><%= @app.where("travel_approved = 1").count %></td>
-          <td><%= number_to_currency(@app.where("travel_approved = 1").sum(:travel_amount_given), :unit => "$") %></td>
+          <td><%= @app.where("travel_approved = 1").sum(:travel_amount_given) %></td>
           <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => Country.find_by_name(k).id}), :method => "POST", :class => "btn btn-primary" %></td>
         </tr>
       <% end %>
