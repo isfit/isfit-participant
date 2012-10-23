@@ -1,27 +1,36 @@
 <% content_for :sidebar_left do %>
   <%= render 'menu' %>
 <% end %>
+<div class="well">
+  <h1>Country Stats</h1>
+  <p><b>Countries with accepted applications:</b> <%= @countries.count %></p>
+  <p>TS = Travel Support</p>
 
-<h1>Country Stats</h1>
-<p><b>Countries with accepted applications:</b> <%= @countries.count %></p>
-
-<table id="result" class="table table-bordered table-striped tablesorter">
-  <thead>
-    <tr>
-      <th>Country</th>
-      <th>Male/Female</th>
-      <th>Accepted</th>
-      <th>Search</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @countries.each do |k,v| %>    
+  <table id="result" class="table table-bordered table-striped tablesorter">
+    <thead>
       <tr>
-        <td><%= k %></td>
-        <td><%= ((Application.includes("country").where("deleted = 0 AND status = 1 AND sex = 'm' AND countries.name = ?", k).count.to_f / v.to_f)*100).to_i %>%</td>
-        <td><%= v %></td>
-        <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => Country.find_by_name(k).id}), :method => "POST", :class => "btn btn-primary" %></td>
+        <th>Country</th>
+        <th>Male/Female</th>
+        <th>Accepted</th>
+        <th>Applied for TS</th>
+        <th>TS Granted</th>
+        <th>TS Amount</th>
+        <th>Search</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @countries.each do |k,v| %>
+        <% @app = Application.includes("country").where("deleted = 0 AND status = 1 AND countries.name = ?", k) %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= ((@app.where("sex = 'm'").count.to_f / v.to_f)*100).to_i %>%</td>
+          <td><%= v %></td>
+          <td><%= @app.where("travel_apply = 1").count %></td>
+          <td><%= @app.where("travel_approved = 1").count %></td>
+          <td><%= number_to_currency(@app.where("travel_approved = 1").sum(:travel_amount_given), :unit => "$") %></td>
+          <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => Country.find_by_name(k).id}), :method => "POST", :class => "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
