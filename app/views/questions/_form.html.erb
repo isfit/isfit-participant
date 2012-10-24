@@ -1,37 +1,24 @@
-<%= form_for(@question, :html => { :class => "yform full"}) do |f| %>
-  <% if @question.errors.any? %>
-    <div class="warning" id="error_explanation">
-      <ul>
-        <% @question.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>                                    
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= f.hidden_field :question_id, :value => @question.question_id %>
+<%= simple_form_for(@question) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
   <fieldset>
-  <% if !current_user.has_role?(:participant)%>
-    <div class="type-text">
-      <%= f.label "Update status"%>
-      <%= select_tag(:status, options_from_collection_for_select(@statuses, :id, :name, @question.question_status.id)) %>
-    </div>
-  <%end%>
-    <div class="type-text">
-      <%= f.label :subject %><br />
-      <%= f.text_field :subject %>
-    </div>
-    <div class="type-text">
-      <%= f.label :content %><br />
-      <%= f.text_area :content %>
-    </div>
+    <% if !current_user.has_role?(:participant) %>
+      <%= f.input :status, as: :select, collection: Question.status_options, default: Question.status_new %>
+    <%end%>
+
+    <%= f.input :subject, input_html: { :class => "span5" } %>
+    <%= f.input :content, input_html: { rows: 10, :class => "span5"} %>
+
     <% if current_user.has_role?(:functionary) %>
       <div class="type-text">
         <%= f.label :dialogue %><br />
         <%= f.check_box :dialogue %>
-      </div>    
+      </div>
     <%end%>
-    <div class="type-button">
-      <%= f.submit :class => "submit" %>
-    </div>
   </fieldset>
+  </div>
+    <div class="form-actions">
+      <%= f.button :submit, :class => "btn btn-primary" %>
+    </div>
 <% end %>

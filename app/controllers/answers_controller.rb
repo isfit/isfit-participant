@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   # POST /questions/1/answers.xml
   def create
     @question = Question.find(params[:question_id])
-    @question.question_status_id = 2
+    @question.status = 2
     
     @answer = @question.answers.create(params[:answer])
     @answer.user_id = current_user.id
