@@ -59,7 +59,7 @@ Tabulous.setup do |config|
       #------------------------------------------------------------------------------------------------------------------------------------------#
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    (can? :index, Application)   ,    true        ],
-      [    :participant_user_tab          ,    'Participant'               ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
+      [    :participant_user_tab          ,    'Profile'               ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
       [    :participants_tab              ,    'participants'              ,    participants_path              ,    false       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_page_path(InformationPage.first)         ,    (can? :show, InformationPage)       ,    true        ],

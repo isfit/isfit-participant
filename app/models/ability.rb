@@ -23,7 +23,7 @@ class Ability
       can :read, Article
       can :show, InformationPage
       can :show, Workshop
-      can [:show, :update, :travel_support, :invitation, :deadlines], Participant
+      can [:show, :update, :travel_support, :invitation, :deadlines, :deadlines_handler], Participant
       can [:index, :show, :update, :new, :create], Question
     end
     if user.has_role? :functionary_support

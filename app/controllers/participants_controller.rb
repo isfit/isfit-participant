@@ -108,7 +108,37 @@ class ParticipantsController < ApplicationController
   end
 
   def deadlines
+    if current_user.has_role?(:admin)
+      redirect_to participants_path
+    end
 
+    
+  end
+
+  def deadlines_handler
+    @participant = Participant.find(params[:id])
+    if current_user.has_role?(:admin) or not current_user == @participant.user
+      redirect_to participants_path
+    end
+
+    #accept invitation
+    if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited 
+      @participant.accepted = params[:participant][:accepted]
+      if @participant.save
+        d = DeadlinesUser.new
+        d.deadline_id = 1
+        d.user_id = current_user.id
+        d.save
+        if @participant.accepted
+          flash[:notice] = "Your invitation was accepted"
+        else
+          flash[:alert] = "Your invitation was rejected"
+        end
+        render 'show'
+      else
+        render 'deadline'
+      end
+    end
   end
 
   # GET /participants/1
@@ -199,19 +229,11 @@ class ParticipantsController < ApplicationController
     if current_user == @participant.user or current_user.has_role?(:admin, nil)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
-          if @participant.applied_for_visa == 1 && !Deadline.deadline_done?("Apply for a visa", current_user)
-            d = Deadline.find(4)
-            d.users << current_user
-          elsif @participant.applied_for_visa == 0 && Deadline.deadline_done?("Apply for a visa", current_user)
-            d = Deadline.find(4)
-            d.users.delete(current_user)
-          end
-          if @participant.accepted == 1 && Deadline.find(5).users.index(current_user) == nil
-            d = Deadline.find(5)
-            d.users << current_user
-          elsif @participant.accepted == 0 && Deadline.find(5).users.index(current_user) != nil
-            d = Deadline.find(5)
-            d.users.delete(current_user)
+          if not Deadline.find_by_id(2).users.include?(current_user)
+            d = DeadlinesUser.new
+            d.deadline_id = 2
+            d.user_id = current_user.id
+            d.save
           end
           format.html { redirect_to(@participant, :notice => 'Participant was successfully updated.') }
         else

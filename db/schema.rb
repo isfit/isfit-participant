@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023225144) do
+ActiveRecord::Schema.define(:version => 20121024163817) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(:version => 20121023225144) do
     t.string   "email"
     t.date     "date_of_birth"
     t.string   "address1"
-    t.string   "address2"
     t.integer  "zipcode"
     t.string   "city"
     t.integer  "country_id"
@@ -167,8 +166,8 @@ ActiveRecord::Schema.define(:version => 20121023225144) do
     t.integer  "workshop_id"
     t.integer  "user_id"
     t.integer  "functionary_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.datetime "arrives_at"
     t.datetime "departs_at"
     t.integer  "arrival_place_id"
@@ -185,10 +184,9 @@ ActiveRecord::Schema.define(:version => 20121023225144) do
     t.integer  "applied_for_visa"
     t.integer  "notified"
     t.boolean  "dialogue"
-    t.string   "middle_name"
     t.boolean  "media_consent"
     t.boolean  "subscribe_consent"
-    t.integer  "embassy_confirmation", :default => 0, :null => false
+    t.integer  "embassy_confirmation", :default => 0,     :null => false
     t.boolean  "allergy_lactose"
     t.boolean  "allergy_gluten"
     t.boolean  "allergy_nuts"
@@ -202,6 +200,10 @@ ActiveRecord::Schema.define(:version => 20121023225144) do
     t.datetime "checked_in"
     t.datetime "checked_out"
     t.boolean  "spp"
+    t.boolean  "invited"
+    t.boolean  "halal",                :default => false
+    t.boolean  "agree_waiting_list"
+    t.string   "visa_number"
   end
 
   create_table "participants_temps", :force => true do |t|
