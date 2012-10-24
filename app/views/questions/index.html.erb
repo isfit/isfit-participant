@@ -1,25 +1,26 @@
-<table class="full">
-  <tr>
+<table class="table table-bordered table-striped">
+  <thead>
     <th>Subject</th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
-
-
-<% @questions.each do |question| %>
-  <tr>
-    <td> <%= question.subject %></td>
-    <td><%=pluralize(question.answers.size, "answer")%></td>
-    <td><%= link_to image_tag('icons/comment.png'), question %></td>
-    <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
-  </tr>
-<%end %>
+  </thead>
+  <tbody>
+  <% @questions.each do |question| %>
+    <tr>
+      <td> <%= question.subject %></td>
+      <td><%=pluralize(question.answers.size, "answer")%></td>
+      <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
+      <td><%= link_to image_tag('icons/comment_edit.png') + ' Edit', edit_question_path(question) %></td>
+    </tr>
+  <%end %>
+  </tbody>
 </table>
 
-<br />
 <% content_for :sidebar_left do %>
-  <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
-  <ul class="vlist">
-    <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
+  <div class="well">
+    <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
+    <ul>
+      <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
+  </div>
 <% end %>

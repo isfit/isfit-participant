@@ -1,12 +1,14 @@
 <%= content_for :sidebar_left do %>
-  <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
-  <ul class="vlist">
-    <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
-    <% if (@question.status < Question.status_resolved) %>
-      <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
-      <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
-    <% end %>
-    <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
+  <div class="well">
+    <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
+    <ul>
+      <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
+      <% if (@question.status < Question.status_resolved) %>
+        <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
+        <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
+      <% end %>
+      <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
+  </div>
 <% end %>
 <%= content_for :sidebar_right do %>
   <% if !current_user.has_role?(:participant) %>
@@ -28,21 +30,20 @@
 <p>
 <%= raw format(@question.content) %>
 </p>
-<p class="info">
-  Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.
+<p>
+  <em>Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
 <p>
 <% @answers.each do |answer|%>
   <p><%=raw format(answer.content)%></p>
-  <p class="info">Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</p>
+  <p><em>Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>
 <%end%>
 </p>
 
-<%= form_for([@question, @question.answers.build], :html => {:class => "yform full"}) do |f| %>
-  <div class="type-text">
-    <%= f.label :answer %><br />
-    <%= f.text_area :content %>
+<%= simple_form_for([@question, @question.answers.build], :html => {:class => "yform full"}) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :content, label: "Answer:", input_html: { rows: 10, :class => "span6" } %>
   </div>
-  <div class="type-button">
-    <%= f.submit :class => "submit", :value=>"Add message" %>
+  <div class="form-actions">
+    <%= f.button :submit, "Add message", :class => "btn btn-primary" %>
   </div>
 <% end %>

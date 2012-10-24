@@ -1,59 +1,50 @@
-<% content_for :sidebar_left do %>
-  <p class="info">
-    Questions can now easily be resolved by viewing a question and pressing "resolve question". A resolved question will be reopened if a participant adds corresponence to it.
-  </p>
-  <h4>Statuses</h4>
-    <ul>
-      <li><b>New</b> - questions that have not been answered by a functionary</li>
-      <li><b>Open</b> - questions that have been answered by a functionary, but not resolved</li>
-      <li><b>Resolved</b> - questions that are viewed as resolved by a functionary</li>
-    </ul>
-<% end %>
+<%= render 'menu_index' %>
+
 <%= simple_form_for Question.new, :html => {:method => "get"}, :url=> q_status_questions_path do |f| %>
-  <div class="type-text">
-    <%= f.input :status, as: :select, collection: @statuses, default: @status %>
-    <%= f.submit "Show"%>
+  <div class="form-inputs">
+    <h4>Choose status:</h4>
+    <%= f.select :status, @statuses, selected: @status %>
+    <%= f.button :submit, "Show", :class => "btn btn-primary" %>
   </div>
-  <br />
 <%end%>
-<table class="full">
-  <tr>
-    <th>Subject</th>
-    <th class="full">Participant</th>
-    <th>Created at</th>
-    <th><%= @questions.size %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% last_func = Functionary.new %>
-  <% @questions.each do |question| %>
-    <% p = question.participant%>
-    <% if p.functionaries.index(last_func) == nil && current_user.has_role?(:admin)%>
-      <%last_func = p.functionaries.first %>
-      </table><h3><%= last_func.first_name %> <%=last_func.last_name %></h3><table>
-    <%end%>
-    <tr>
-      <td><%= question.subject %></td>
-      <td><%=p.first_name %> <%= p.last_name %></td>
-      <td><%=question.created_at%></td>
-      <td><%if question.dialogue == 1%>Dialogue<%end%></td>
-      <td><%=pluralize(question.answers.size, "answer")%></td>
-      <td><%= link_to image_tag('icons/comment.png'), question %></td>
-      <td><%= link_to image_tag('icons/comment_edit.png'), edit_question_path(question) %></td>
-    </tr>
-  <%end %>
-</table>
-<%= will_paginate @questions %>
-<%if current_user.has_role?(:admin)%>
-  <% content_for :sidebar_right do %>
-    <table style="font-size:0.8em">
+<fieldset>
+  <legend>Questions</legend>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>Subject</th>
+      <th class="full">Participant</th>
+      <th>Created at</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </thead>
+    <% @questions.each do |question| %>
+      <% p = question.participant%>
       <tr>
+        <td><%= question.subject %></td>
+        <td><%=p.first_name %> <%= p.last_name %></td>
+        <td><%=question.created_at%></td>
+        <td><%if question.dialogue == 1%>Dialogue<%end%></td>
+        <td><%=pluralize(question.answers.size, "answer")%></td>
+        <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
+        <td><%= link_to image_tag('icons/comment_edit.png') + ' Edit', edit_question_path(question) %></td>
+      </tr>
+    <%end %>
+  </table>
+</fieldset>
+<%= will_paginate @questions %>
+
+<%if current_user.has_role?(:admin)%>
+  <fieldset>
+    <legend>Functionaries</legend>
+    <table class="table table-bordered table-striped">
+      <thead>
         <th>Functionary</th>
         <th>New</th>
         <th>Open</th>
         <th>Resolved</th>
-      </tr>
+      </thead>
       <%last_id = -1%>
       <% @static.each do |s| %>
         <tr>
@@ -64,5 +55,5 @@
         </tr>
       <%end%> 
     </table>
-  <%end%>
+  </fieldset>
 <%end%>
