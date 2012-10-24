@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  require 'will_paginate/array'
   before_filter :authenticate_user!
   set_tab :question
 
@@ -12,21 +13,22 @@ class QuestionsController < ApplicationController
   # GET /questions.xml
   def index
     selected_status = params[:status]
-    statusq = ""
-    @status = QuestionStatus.first
-    @statuses = QuestionStatus.all
+    status_query = ""
+    @status = Question.status_new
+    @statuses = Question.status_options
     if selected_status != nil
-      statusq = "question_status_id = "+selected_status
-      @status = QuestionStatus.find(selected_status)
+      status_query = "status = " + selected_status
+      @status = selected_status
     else
-      statusq = "question_status_id = 1"
+      status_query = "status = " + Question.status_new
     end
     if current_user.has_role?(:admin)
-      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq, :order=>"fp.functionary_id, questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
-      @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.question_status_id = 1 THEN f.id END) as new, count(CASE WHEN q.question_status_id = 2 THEN f.id END) as opened, count(CASE WHEN q.question_status_id = 3 THEN f.id END) as resolved FROM functionaries f JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id = fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
+      @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>status_query, :order=>"fp.functionary_id, questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
+      #@questions = Question.all.paginate(:per_page => 10, :page => params[:page])
+      @static = Functionary.find_by_sql("SELECT f.first_name as first_name, f.last_name as last_name, count(CASE WHEN q.status = 1 THEN f.id END) as new, count(CASE WHEN q.status = 2 THEN f.id END) as opened, count(CASE WHEN q.status = 3 THEN f.id END) as resolved FROM functionaries f JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id = fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id");
       render :index_nopart
     elsif current_user.has_role?(:dialogue)
-      @questions = Question.all(:conditions=>"dialogue = 1"+statusq, :order=>"questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
+      @questions = Question.all(:conditions=>"dialogue = 1"+status_query, :order=>"questions.created_at DESC").paginate(:per_page => 10, :page=>params[:page])
       render :index_nopart
     elsif current_user.has_role?(:functionary)
       @questions = Question.joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id", :conditions=>statusq+" AND fp.functionary_id = "+current_user.functionary.id.to_s, :order=>"questions.created_at DESC").paginate(:per_page => 10, :page => params[:page])
@@ -76,7 +78,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    @statuses = QuestionStatus.all
+    @statuses = Question.status_options
     if !current_user.is_participant? || @question.participant.user == current_user
       
     else
@@ -90,7 +92,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(params[:question])
     @question.dialogue = 0
     @question.participant = current_user.participant
-    @question.question_status = QuestionStatus.find(:first, :conditions=>{:name=>:New})
+    @question.status = Question.status_new
     respond_to do |format|
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
@@ -105,7 +107,7 @@ class QuestionsController < ApplicationController
   #
   def resolve
   @question = Question.find(params[:id])
-  @question.question_status = QuestionStatus.find(3)
+  @question.status = Question.status_resolved
     if !current_user.is_participant? || @question.participant.user == current_user
 	@question.save!
         flash[:notice] = "Question status has been updated to resolved"
@@ -120,7 +122,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    @question.question_status = QuestionStatus.find(params[:status])
+    #@question.question_status = QuestionStatus.find(params[:question_status])
     if !current_user.is_participant? || @question.participant.user == current_user
       respond_to do |format|
         if @question.update_attributes(params[:question])
