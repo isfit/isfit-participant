@@ -59,15 +59,17 @@ Tabulous.setup do |config|
       #------------------------------------------------------------------------------------------------------------------------------------------#
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    (can? :index, Application)   ,    true        ],
-      [    :participants_tab              ,    'Participants'              ,    participants_path              ,    false       ,    true        ],
+      [    :participant_user_tab          ,    'Participant'               ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
+      [    :participants_tab              ,    'participants'              ,    participants_path              ,    false       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
-      [    :information_pages_tab         ,    'Information'               ,    information_pages_path         ,    false       ,    true        ],
+      [    :information_pages_tab         ,    'Information'               ,    information_page_path(InformationPage.first)         ,    (can? :show, InformationPage)       ,    true        ],
+      [    :workshops_user_tab            ,    'Workshop'                  ,    (current_user.nil? or current_user.is_functionary? or current_user.participant.workshop.nil?) ? root_path : workshop_path(current_user.participant.workshop)                 ,    ((can? :show, Workshop) and not current_user.is_functionary? and not current_user.participant.workshop.nil?)      ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    false       ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
       [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    (can? :index, ControlPanel)        ,    true        ],
-      [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    false       ,    true        ],
+      [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017211119) do
+ActiveRecord::Schema.define(:version => 20121023225144) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -105,8 +105,9 @@ ActiveRecord::Schema.define(:version => 20121017211119) do
   create_table "deadlines_users", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "deadline_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "approved",    :default => false
   end
 
   create_table "events", :force => true do |t|
@@ -284,20 +285,14 @@ ActiveRecord::Schema.define(:version => 20121017211119) do
 
   add_index "participants_temps", ["email"], :name => "email", :unique => true
 
-  create_table "question_statuses", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "questions", :force => true do |t|
     t.string   "subject"
     t.text     "content"
     t.integer  "dialogue"
     t.integer  "participant_id"
-    t.integer  "question_status_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer  "status"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "question_id"
   end
 

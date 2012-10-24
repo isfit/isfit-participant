@@ -71,6 +71,7 @@ IsfitParticipant::Application.routes.draw do
     member do
       get "check_in"
       get "check_out"
+      get "deadlines"
       get "travel_support"
       get "invitation"
       get "secure"

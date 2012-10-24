@@ -1,93 +1,43 @@
-<script type="text/javascript">
-$(function() {
-  $('#participant_departs_at').datetimepicker();
-  $('#participant_arrives_at').datetimepicker();
-});
-</script>
-<%= form_for(@participant,:html => {:class => "yform columnar"} ) do |f| %>
-  <% if @participant.errors.any? %>
-    <div id="error_explanation" class="warning">
-      <h2><%= pluralize(@participant.errors.count, "error") %> prohibited this participant from being saved:</h2>
+<%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-        <% @participant.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <fieldset>
-    <legend>Public information</legend>
-    <% if current_user.has_role?(:admin) %>
-    <div class="type-text">
-      <%= f.label :first_name %>
-      <%= f.text_field :first_name %>
-    </div>
-    <div class="type-text">
-      <%= f.label :middle_name %>
-      <%= f.text_field :middle_name %>
-    </div>
-    <div class="type-text">
-      <%= f.label :last_name %>
-      <%= f.text_field :last_name %>
-    </div>
-  <% end %>
-    <div class="type-check">
-      <%= f.label :sex %>  
-      <%= f.radio_button :sex,  1 %><%= f.label "Male" %>
-      <%= f.radio_button :sex, 0 %><%= f.label "Female" %>
-    </div>
-    <div class="type-text">
-      <%= f.label :date_of_birth %>
-      <%= f.text_field :date_of_birth, :class => "select-date" %>
-    </div>
-    <div class="type-text">
-      <%= f.label :field_of_study %>
-      <%= f.text_field :field_of_study %>
-    </div>
-  </fieldset>
   <fieldset>
     <legend>Private information</legend>
-    <div class="type-text">
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-    </div>
-    <div class="type-text">
-      <%= f.label :address1 %>
-      <%= f.text_field :address1 %>
-    </div>
-    <div class="type-text">
-      <%= f.label :address2 %>
-      <%= f.text_field :address2 %>
-    </div>
-    <div class="type-text">
-      <%= f.label :zipcode %>
-      <%= f.text_field :zipcode %>
-    </div>
-    <div class="type-text">
-      <%= f.label :city %>
-      <%= f.text_field :city %>
-    </div>
+    <% if current_user.has_role?(:admin) %>
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+    <% end %>
+    <%= f.input :sex, :as => :radio_buttons,
+      :collection => [["female", 0], ["male", 1]] %>  
+    <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 100,
+      :end_year => Date.today.year - 17, :order =>  [:year, :month, :day], 
+      :input_html => { :class => "span2" } %>
+    <%= f.input :field_of_study %>
+    <%= f.input :email %>
+    <%= f.input :address1 %>
+    <%= f.input :zipcode %>
+    <%= f.input :city %>
+  </fieldset>
+
+  <fieldset>
     <legend>Next of kin</legend>
-    <p class="info"><%=image_tag('icons/information.png')%>  Your next of kin is contacted in case of emergency</p>
-    <div class="type-text">
-      <%= f.label :name %>
-      <%= f.text_field :next_of_kin_name %>
+    <div class="alert alert-info">
+      Your next of kin is contacted in case of emergency 
     </div>
-    <div class="type-text">
-      <%= f.label :phone %>
-      <%= f.text_field :next_of_kin_phone %>
-    </div>
-    <div class="type-text">
-      <%= f.label :address %>
-      <%= f.text_area :next_of_kin_address, :rows => 4 %>
-    </div>
+    <%= f.input :next_of_kin_name %>
+    <%= f.input :next_of_kin_phone %>
+    <%= f.input :next_of_kin_address, :input_html => { :rows => 4 } %>
+  </fieldset>
+
+  <fieldset>
     <legend>Food and allergies</legend>
     <div class="type-check">
       <%= f.check_box :vegetarian %>
       <%= f.label :vegetarian %>
     </div>
-    <p class="info">Below some allergies are listed. Please check whatever allergies you might have, or specify important allergies not listed here in the "other" box</p>
+    <div class="alert alert-info">
+      Below some allergies are listed. Please check whatever allergies you might have, or specify important allergies not listed here in the "other" box
+    </div>
     <div class="type-check">
       <%= f.check_box :allergy_lactose %>
       <%= f.label :lactose %>
@@ -109,117 +59,38 @@ $(function() {
       <%= f.text_field :allergy_other%>
     </div>
     <legend>Host information</legend>
-    <p class="info">Below some preferences in hosts are listed</p>
+    <div class="alert alert-info">
+      Below some preferences in hosts are listed
+    </div>
     <div class="type-check">
       <%= f.check_box :smoke %>
       <%= f.label "I prefer a non-smoking host" %>
     </div>
     <div class="type-text">
-      <p class="info">Please list handicaps ISFiT must consider when choosing your host.</p>
+      <div class="alert alert-info">
+        Please list handicaps ISFiT must consider when choosing your host.
+      </div>
       <%= f.label :handicap %>
       <%= f.text_field :handicap %>
     </div>
-<% if not current_user.is_participant? %>
-  <!-- Stop users from changing information -->
-    <legend>Travel information</legend>
-    <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
-    <div class="type-select">
-      <%= f.label "Transport type" %>
-      <%= f.select :transport_type_id, TransportType.all.to_select_name %>
-    </div>
-    <div class="type-text">
-      <%= f.label :refnumber %>
-      <%= f.text_field :flightnumber %>
-    </div>
-    <div class="type-text">
-      <%= f.label "Arrives at (time)" %>
-      <%= f.text_field :arrives_at%>
-    </div>
-    <div class="type-text">
-      <%= f.label "Departs at (time)" %>
-      <%= f.text_field :departs_at%>
-    </div>
-    <div class="type-select">
-      <%= f.label "Arrives at (place)" %>
-      <%= f.select :arrival_place_id, ArrivalPlace.all.to_select_name %>
-    </div>
-    <div class="type-check">
-      <%= f.check_box :has_passport %>
-      <%= f.label "I have my passport in order" %>
-    </div>
-    <div class="type-check">
-      <p class="info">Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NOK ($25 USD).</p>
-      <%= f.check_box :need_transport %>
-      <%= f.label "I need transportation" %>
-    </div>
-    <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
-    <div class="type-check">
-      <%= f.check_box :applied_for_visa %>
-      <%= f.label "Applied for VISA" %>
-    </div>
-    <div class="type-check">
-      <%= f.check_box :visa %>
-      <%= f.label "Visa in order" %>
-    </div>
-<% else %>
-     <legend>Travel information</legend>
-    <p class="info"><%= image_tag('icons/information.png')%> Your travel information has been freezed after the 26th of January. If you need to make changes, please contact your functionary</p>
-    <div class="type-text">
-      <%= f.label :refnumber %>
-      <%= f.text_field :flightnumber, :disabled => 'disabled' %>
-    </div>
-    <div class="type-text">
-      <%= f.label "Arrives at (time)" %>
-      <%= f.text_field :arrives_at, :disabled => 'disabled'   %>
-    </div>
-    <div class="type-text">
-      <%= f.label "Departs at (time)" %>
-      <%= f.text_field :departs_at, :disabled => 'disabled' %>
-    </div>
-    <div class="type-check">
-      <%= f.check_box :has_passport , :disabled => 'disabled' %>
-      <%= f.label "I have my passport in order" %>
-    </div>
-    <div class="type-check">
-      <p class="info">Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NOK ($25 USD).</p>
-      <%= f.check_box :need_transport , :disabled => 'disabled' %>
-      <%= f.label "I need transportation" %>
-    </div>
-    <p class="info">Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.</p>
-    <div class="type-check">
-      <%= f.check_box :applied_for_visa , :disabled => 'disabled' %>
-      <%= f.label "Applied for VISA" %>
-    </div>
-    <div class="type-check">
-      <%= f.check_box :visa , :disabled => 'disabled' %>
-      <%= f.label "Visa in order" %>
-    </div>
-<% end %>
   </fieldset>   
   <fieldset>
     <legend>ISFiT related information</legend>
-    <% if (not @accepted or @accepted < 1) || current_user.has_role?(:admin) %>
-      <div class="type-check">
-        <p class="info">Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of Desember. <span class="highlight">This cannot be undone.</span></p>
-        <%= f.check_box :accepted %>
-        <%= f.label "I hereby accept my invitation to ISFiT." %>
-      </div>
-    <% else %>
-      <p class="info"><%= image_tag('icons/accept.png') %> You have accepted your invitation to participate in ISFiT</p>
-    <% end %>
-      <div class="type-check">
-        <%= f.check_box :media_consent %>
-        <%= f.label "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
-      </div>
-       <div class="type-check">
-        <%= f.check_box :subscribe_consent %>
-        <%= f.label "I want to subscribe to NTNU's research magazine Gemini - two issues a year, without any cost" %>
-      </div>
-      <p class="info">ISFiT 2011 is in contact with your embassies to try and make your visa application process as easy as possible. In order to do this we need to use your contact information. According to the Norwegian Privacy Committee, we need you to confirm that we are allowed to use your personal contact information.</p>
-     <div class="type-check">
-        <%= f.check_box :embassy_confirmation %>
-        <%= f.label "I allow ISFiT to use my contact information" %>
-      </div>
+    <div class="type-check">
+      <%= f.check_box :media_consent %>
+      <%= f.label "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
+    </div>
+    <div class="type-check">
+      <%= f.check_box :subscribe_consent %>
+      <%= f.label "I want to subscribe to NTNU's research magazine Gemini - two issues a year, without any cost" %>
+    </div>
+    <div class="alert alert-info">
+      ISFiT 2011 is in contact with your embassies to try and make your visa application process as easy as possible. In order to do this we need to use your contact information. According to the Norwegian Privacy Committee, we need you to confirm that we are allowed to use your personal contact information.
+    </div>
+    <div class="type-check">
+      <%= f.check_box :embassy_confirmation %>
+      <%= f.label "I allow ISFiT to use my contact information" %>
+    </div>
   </fieldset>
   <div class="type-button">
     <%= f.submit :class => "submit" %>

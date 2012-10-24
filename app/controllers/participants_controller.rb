@@ -107,11 +107,12 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def deadlines
+
+  end
+
   # GET /participants/1
   def show
-    if !Deadline.deadline_done?("Visit profile page", current_user)
-      Deadline.first.users << current_user
-    end
     @participant = Participant.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb

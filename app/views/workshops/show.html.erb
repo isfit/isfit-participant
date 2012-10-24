@@ -1,16 +1,16 @@
 <%= render 'menu' %>
-
-<div class="pull-right">
-  <%= link_to 'Edit', edit_workshop_path(@workshop), :class => "btn" %>
-  <%= link_to 'Back', workshops_path, :class => "btn" %>
-</div>
-
+<% if can? :edit, Workshop %>
+  <div class="pull-right">
+    <%= link_to 'Edit', edit_workshop_path(@workshop), :class => "btn" %>
+    <%= link_to 'Back', workshops_path, :class => "btn" %>
+  </div>
+<% end %>
 <div class="well">
   <h1>Workshop <%= @workshop.id %>: <%= @workshop.name %></h1>
-  
+
   <%= image_tag "https://internal.isfit.org" + @workshop.workshop_image.url(:original) %>
 
   <p>
-    <%= format(@workshop.body) %>
+  <%= format(@workshop.body) %>
   </p>
 </div>

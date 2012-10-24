@@ -11,8 +11,10 @@ class WorkshopsController < ApplicationController
   def show
     if not current_user.is_participant?
       @workshop = Workshop.find(params[:id])
-    else
+    elsif not current_user.participant.workshop.nil?
       @workshop = current_user.participant.workshop
+    else
+      raise CanCan::AccessDenied
     end
   end
 

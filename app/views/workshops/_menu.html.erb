@@ -4,12 +4,8 @@
   <% if can? :index, Workshop %>
     <li><%= link_to image_tag('icons/page_white_stack.png') + ' Show all workshops', workshops_path %></li>
   <% end %>
+  <% if current_user.is_participant? and not current_user.participant.workshop.nil? %>
+    <li><%= link_to image_tag('icons/arrow_right.png') + ' Workshop', workshop_path(current_user.participant.workshop) %></li>
+  <% end %>
 </ul>
-
-<p>
-  This page can only be viewed by functionaries and administrators. Only 
-  administrators can edit workshop info. Please contact an administrator if you 
-  find any mistakes in the workshop-pages
-</p>
-
 <% end %>

@@ -1,0 +1,102 @@
+<div class="well">
+  <% if not Deadline.find_by_id(1).users.include?(current_user) %>
+
+    <%= render 'form' %>
+
+  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and false %>
+
+    Form deadline 2, accepted(Invitation)
+    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= f.error_notification %>
+    <div class="alert alert-info">
+      Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of Desember. <strong>This cannot be undone.</strong>
+    </div>
+        <%= f.check_box :accepted %>
+        <%= f.label "I hereby accept my invitation to ISFiT." %>
+ 
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and false %>
+
+    Form deadline 2, waiting list(Agree waiting-list)
+    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= f.error_notification %>
+ 
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(3).users.include?(current_user) and false %>
+
+    Form deadline 3, accepted(Visa)
+    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+      <%= f.error_notification %>
+      <div class="alert alert-info">
+        Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.
+      </div>
+      <%= f.check_box :has_passport %>
+
+      <%= f.check_box :applied_for_visa %>
+ 
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(4).users.include?(current_user) and false and DeadlinesUser.where("deadline_id = 3 AND user_id = ?", current_user.id).first.approved %>
+
+    Form deadline 4, accepted(visa in order)
+    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= f.error_notification %>
+      <%= f.check_box :visa %>
+ 
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(5).users.include?(current_user) and false and DeadlinesUser.where("deadline_id = 4 AND user_id = ?", current_user.id).first.approved %>
+
+    Form deadline 5, accepted(travel information)
+    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= f.error_notification %>
+      <legend>Travel information</legend>
+      <p class="info"><%= image_tag('icons/information.png')%> Your travel information is used by ISFiT to know when you arrive, and if you need further transport</p>
+      <div class="type-select">
+        <%= f.label "Transport type" %>
+        <%= f.select :transport_type_id, TransportType.all.to_select_name %>
+      </div>
+      <div class="type-text">
+        <%= f.label :refnumber %>
+        <%= f.text_field :flightnumber %>
+      </div>
+      <div class="type-text">
+        <%= f.label "Arrives at (time)" %>
+        <%= f.text_field :arrives_at%>
+      </div>
+      <div class="type-text">
+        <%= f.label "Departs at (time)" %>
+        <%= f.text_field :departs_at%>
+      </div>
+      <div class="type-select">
+        <%= f.label "Arrives at (place)" %>
+        <%= f.select :arrival_place_id, ArrivalPlace.all.to_select_name %>
+      </div>
+      <div class="type-check">
+        <p class="info">Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NOK ($25 USD).</p>
+        <%= f.check_box :need_transport %>
+        <%= f.label "I need transportation" %>
+      </div>
+ 
+    <% end %>
+
+  <% elsif false and DeadlinesUser.where("deadline_id = 5 AND user_id = ?", current_user.id).first.approved %>
+
+    <legend>Finished</legend>
+    <p>
+    
+    </p>
+
+  <% else %>
+
+    <legend>Please wait</legend>
+    <p>
+    There are currently no deadlines you can complete.
+    </p>
+
+  <% end %>
+</div>
+
+<%= render 'menu' %>

@@ -5,7 +5,6 @@
     <th>Deadline</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 
@@ -15,7 +14,6 @@
       <td><%=d.deadline%></td>
       <td><%= link_to 'Show', d %></td>
       <td><%= link_to 'Edit', edit_deadline_path(d) %></td>
-      <td><%= link_to 'Delete', d, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <%end %>
 </table>

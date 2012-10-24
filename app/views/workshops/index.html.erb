@@ -1,5 +1,13 @@
 <%= render 'menu' %>
 
+<% content_for :sidebar_left do %>
+<p>
+  This page can only be viewed by functionaries and administrators. Only 
+  administrators can edit workshop info. Please contact an administrator if you 
+  find any mistakes in the workshop-pages
+</p>
+<% end %>
+
 <div class="well">
   <table class="table table-bordered table-striped">
     <tr>
