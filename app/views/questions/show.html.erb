@@ -1,49 +1,27 @@
-<%= content_for :sidebar_left do %>
-  <div class="well">
-    <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
-    <ul>
-      <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
-      <% if (@question.status < Question.status_resolved) %>
-        <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
-        <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
-      <% end %>
-      <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
-  </div>
-<% end %>
-<%= content_for :sidebar_right do %>
-  <% if !current_user.has_role?(:participant) %>
-  <table class="full">
-    <th>Previous questions by this participant</th>
-    <th></th>
-    <% @prev_questions.each do |q| %>
-      <tr>
-        <td><%= q.subject %></td>
-        <td><%= link_to image_tag('icons/comment.png'), q %></td>
-      </tr>
-    <% end %>
-  </table>
-  <% end%>
-<% end %>
-
+<%= render 'menu_show' %>
+<%= render 'menu_previous' %>
 
 <h2><%= @question.subject %></h2>
-<p>
-<%= raw format(@question.content) %>
-</p>
-<p>
-  <em>Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
-<p>
-<% @answers.each do |answer|%>
-  <p><%=raw format(answer.content)%></p>
-  <p><em>Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>
-<%end%>
-</p>
+<div class="well well-small">
+	<p><%= raw format(@question.content) %></p>
+	<p><em>Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
+</div>
 
-<%= simple_form_for([@question, @question.answers.build], :html => {:class => "yform full"}) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :content, label: "Answer:", input_html: { rows: 10, :class => "span6" } %>
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit, "Add message", :class => "btn btn-primary" %>
-  </div>
+<% @answers.each do |answer|%>
+	<div class="well well-small">
+		<p><%=raw format(answer.content)%></p>
+		<p><em>Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>
+	</div>
+<%end%>
+
+<%= simple_form_for([@question, @question.answers.build]) do |f| %>
+	<fieldset>
+		<legend>Add correspondence to question</legend>
+	  <div class="form-inputs">
+	    <%= f.input :content, label: "Answer", input_html: { rows: 10, :class => "span6" } %>
+	  </div>
+	  <div class="form-actions">
+	    <%= f.button :submit, "Add message", :class => "btn btn-primary" %>
+	  </div>
+	</fieldset>
 <% end %>

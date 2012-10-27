@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
     elsif current_user.has_role?(:functionary)
       @questions = Question
         .joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id",
-          :conditions=>statusq+" AND fp.functionary_id = "+current_user.functionary.id.to_s,
+          :conditions=>status_query+" AND fp.functionary_id = "+current_user.functionary.id.to_s,
           :order=>"questions.created_at DESC")
         .paginate(:per_page => 10, :page => params[:page])
 
@@ -58,15 +58,10 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   def show
     @question = Question.find(params[:id])
-   # if @question.question_id != nil
-   #   parent = Question.find(@question.question_id)
-   # else
-   #   parent = Question.new
-   #   parent.participant_id = -1
-   # end
+
     @prev_questions = @question.participant.questions.order("created_at DESC").all
     @answers = Answer.find(:all, :conditions=>{:question_id=>params[:id]})
-    if @question.participant.user == current_user || !current_user.is_participant?# || parent.participant.user == current_user
+    if @question.participant.user == current_user || !current_user.is_participant?
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @question }
@@ -91,9 +86,6 @@ class QuestionsController < ApplicationController
   def edit
     @question = Question.find(params[:id])
     @statuses = Question.status_options
-    if current_user.is_participant? || @question.participant.user != current_user
-      raise CanCan::AccessDenied
-    end 
   end
 
   # POST /questions
@@ -132,19 +124,15 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     @question = Question.find(params[:id])
-    #@question.question_status = QuestionStatus.find(params[:question_status])
-    if !current_user.is_participant? || @question.participant.user == current_user
-      respond_to do |format|
-        if @question.update_attributes(params[:question])
-          format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
-          format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-        end
+
+    respond_to do |format|
+      if @question.update_attributes(params[:question])
+        format.html { redirect_to(@question, :notice => 'Question was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end
-    else
-      raise CanCan::AccessDenied
     end
   end
 
