@@ -10,7 +10,7 @@ class Participant < ActiveRecord::Base
 
   has_attached_file :visum
 
-  validates_attachment :avatar,
+  validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
 
   #validations

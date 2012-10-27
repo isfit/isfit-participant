@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024163817) do
+ActiveRecord::Schema.define(:version => 20121024235202) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -98,8 +98,9 @@ ActiveRecord::Schema.define(:version => 20121024163817) do
   create_table "deadlines", :force => true do |t|
     t.datetime "deadline"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "participant_type", :default => 0
   end
 
   create_table "deadlines_users", :id => false, :force => true do |t|

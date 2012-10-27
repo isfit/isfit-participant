@@ -9,6 +9,11 @@
 </div>
 
 <% content_for :sidebar_left do %>
+  <% if current_user.participant.invited %>
+    <% @deadlines = Deadline.where("participant_type < 2") %>
+  <% else %>
+    <% @deadlines = Deadline.where("participant_type = 0 OR participant_type = 2") %>
+  <% end %>
   <% if @deadlines %>
     <ul class="nav nav-list well">
     <li class="nav-header">Deadlines</li>

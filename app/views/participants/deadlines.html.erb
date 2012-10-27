@@ -6,82 +6,139 @@
       <fieldset>
         <legend>Accept invitation</legend>
         <div class="alert alert-info">
-          Please check this box if you accept your invitation to ISFiT. You need to do this before the 15th of Desember. <strong>This cannot be undone.</strong>
+          Do you wish to accept your invitation to attend ISFiT 2013?
         </div>
         <%= f.input :accepted, :as => :boolean, :label =>  "I hereby accept my invitation to ISFiT." %>
       </fieldset>
       <%= f.button :submit %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(2).users.include?(current_user) %>
+  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= render 'form' %>
-
-  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and false %>
-
-    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
-        <legend>Accept waiting-list</legend>
+        <legend>Have you applied for a Visa?</legend>
         <div class="alert alert-info">
-          bla bla bla...
+          For more information: [link til Visa informasjon]
+          Here is a list over the countries that do not need a Visa: [link til visa-free countries]
         </div>
-        <%= f.input :agree_waiting_list, :label => "I hereby accept to be on the waiting-list to ISFiT." %>
+        <%= f.input :applied_for_visa, :label => "Have you applied for a Visa?", 
+          :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]] %>
       </fieldset>
       <%= f.button :submit %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(3).users.include?(current_user) and false %>
+  <% elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
-        <legend>Applied for visa</legend>
+        <legend>Give ISFiT permission to use my contact information</legend>
         <div class="alert alert-info">
-          Visa is only neccessary for certain participants. Please check if you need a Visa or not. This option should only be checked if you have a Visa, or don't need it.
+          ISFiT 2013 is in contact with your embassy in order to make your Visa application process as
+          easy as possible. In order to do this we need to use your contact information. According to
+          the Norwegian Privacy Committee, we need you to confirm that we are allowed to use your
+          personal contact information.
+        </div>
+        <%= f.input :embassy_confirmation, :as => :boolean, :label => "I give ISFiT permission to use my contact information" %>
+      </fieldset>
+      <%= f.button :submit %>
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited %>
+
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+      <%= f.error_notification %>
+      <fieldset>
+        <legend>Do you have a valid passport?</legend>
+        <div class="alert alert-info">
+          Please note that your passport must also be valid at least 90 days after your arrival to
+          Norway.
         </div>
         <%= f.input :has_passport, :as => :boolean %>
-
-        <%= f.input :applied_for_visa, :as => :boolean %>
       </fieldset>
       <%= f.button :submit %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(4).users.include?(current_user) and false and DeadlinesUser.where("deadline_id = 3 AND user_id = ?", current_user.id).first.approved %>
-    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(5).users.include?(current_user) and current_user.participant.invited %>
+      <fieldset>
+        <legend>Have you updated your profile?</legend>
+        <div class="alert alert-info">
+          All the fields must be filled out to be able to continue.
+        </div>
+
+        <%= link_to 'Edit profile', edit_participant_path(@participant) %>
+
+      </fieldset>
+
+  <% elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited %>
+
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
-        <legend>Visa in order</legend>
         <div class="alert alert-info">
-          Ja, jeg har fått innvilget visum, eller trenger ikke visum. Skriv inn visanummer, eller last opp...
+          No missing.
         </div>
-        <%= f.input :visa, :as => :boolean, :label => "Yes, I have got a visa or do not need a visa" %>
-        <%= f.input :visa_number %>
 
-        Skjema for å laste opp skannet versjon av visum
+        <legend>Have you been granted a Visa?</legend>
+        <%= f.input :visa_number, :label => "Please enter your Visa number in the field below" %>
+        Upload a scanned version of the Visa.<br>
+        <%= f.file_field :visum %>
 
       </fieldset>
       <%= f.button :submit %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(5).users.include?(current_user) and false and DeadlinesUser.where("deadline_id = 4 AND user_id = ?", current_user.id).first.approved %>
-    <%= simple_form_for(@participant,:html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited %>
+
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+      <%= f.error_notification %>
+      <fieldset>
+        <div class="alert alert-info">
+          The cost will be 200NOK ($35 USD) each way. 
+        </div>
+
+        <legend>Have you been granted a Visa?</legend>
+        <%= f.input :need_transport, :label => "Do you need transportation by ISFiT from Oslo to Trondheim?",
+         :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
+
+      </fieldset>
+      <%= f.button :submit %>
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
       <legend>Travel information</legend>
       <div class="alert alert-info">
-        Your travel information is used by ISFiT to know when you arrive, and if you need further transport
+        It is important to us to have this information so that we can ensure arrival in Trondheim and
+        Oslo for all our participants. It is also crucial to help us coordinate the bus shuttles from Oslo to
+        Trondheim.
       </div>
         <%= f.input :transport_type_id, :as => :select, :label => "Transport type", :collection => TransportType.all.to_select_name %>
         <%= f.input :flightnumber %>
         <%= f.input :arrives_at, :label => "Arrives at (time)", :input_html => { :class => "input-small" } %>
         <%= f.input :departs_at, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
         <%= f.input :arrival_place_id, :as => :select, :label => "Arrival place", :collection => ArrivalPlace.all.to_select_name %>
-        <p class="info"><%= image_tag('icons/information.png')%>Check this if you need transportation by ISFIT from Oslo to Trondheim. This costs 150NOK ($25 USD).</p>
-        <%= f.input :need_transport, :as => :boolean, :label => "I need transportation" %>
       </fieldset>
       <%= f.button :submit %>
     <% end %>
+
+  <% elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited %>
+
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+      <%= f.error_notification %>
+      <fieldset>
+
+        <legend>Media contact</legend>
+        <%= f.input :media_consent, :label => "I agree to be contacted by the Norwegian media prior to and during ISFiT 2013" %>
+
+      </fieldset>
+      <%= f.button :submit %>
+    <% end %>
+
 
   <% elsif false and DeadlinesUser.where("deadline_id = 5 AND user_id = ?", current_user.id).first.approved %>
 

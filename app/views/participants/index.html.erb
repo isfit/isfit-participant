@@ -6,6 +6,9 @@ $(function() {
 <% content_for :head do %>
   <%= javascript_include_tag 'highcharts' %>
 <% end %>
+
+<%= render 'menu' %>
+
 <% content_for :sidebar_left do %>
   <% form_for (@search_participant.nil? ? Participant.new : @search_participant), 
     :url => { :action => "index" },
