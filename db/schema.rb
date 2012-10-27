@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024163817) do
+ActiveRecord::Schema.define(:version => 20121027112630) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -98,8 +98,9 @@ ActiveRecord::Schema.define(:version => 20121024163817) do
   create_table "deadlines", :force => true do |t|
     t.datetime "deadline"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "participant_type", :default => 0
   end
 
   create_table "deadlines_users", :id => false, :force => true do |t|
@@ -204,6 +205,10 @@ ActiveRecord::Schema.define(:version => 20121024163817) do
     t.boolean  "halal",                :default => false
     t.boolean  "agree_waiting_list"
     t.string   "visa_number"
+    t.string   "visum_file_name"
+    t.string   "visum_content_type"
+    t.integer  "visum_file_size"
+    t.datetime "visum_updated_at"
   end
 
   create_table "participants_temps", :force => true do |t|
