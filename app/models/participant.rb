@@ -8,6 +8,8 @@ class Participant < ActiveRecord::Base
   belongs_to :workshop
   belongs_to :host
 
+  has_attached_file :visum
+
   #validations
   #validates_presence_of :first_name, :last_name, :email, :date_of_birth, :address1, :zipcode, :city, :field_of_study
   #validates_uniqueness_of :user_id
