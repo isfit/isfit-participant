@@ -6,21 +6,15 @@
     <th></th>
   </thead>
   <tbody>
-  <% @questions.each do |question| %>
-    <tr>
-      <td> <%= question.subject %></td>
-      <td><%=pluralize(question.answers.size, "answer")%></td>
-      <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
-      <td><%= link_to image_tag('icons/comment_edit.png') + ' Edit', edit_question_path(question) %></td>
-    </tr>
-  <%end %>
+    <% @questions.each do |question| %>
+      <tr>
+        <td> <%= question.subject %></td>
+        <td><%=pluralize(question.answers.size, "answer")%></td>
+        <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
+        <td><%= link_to image_tag('icons/comment_edit.png') + ' Edit', edit_question_path(question) %></td>
+      </tr>
+    <%end %>
   </tbody>
 </table>
 
-<% content_for :sidebar_left do %>
-  <div class="well">
-    <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
-    <ul>
-      <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
-  </div>
-<% end %>
+<%= render 'menu_index' %>
