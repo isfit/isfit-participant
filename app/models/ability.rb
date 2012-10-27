@@ -24,7 +24,10 @@ class Ability
       can :show, InformationPage
       can :show, Workshop
       can [:show, :update, :travel_support, :invitation, :deadlines, :deadlines_handler], Participant
-      can [:index, :show, :update, :new, :create], Question
+      can [:index, :new, :create], Question
+      if user.is_participant?
+        can [:show, :update], Question, participant_id: user.participant.id
+      end
     end
     if user.has_role? :functionary_support
       can  [:search, :create], Application
