@@ -1,162 +1,176 @@
 <h1><%= "#{@participant.first_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %></h1>
-<h4>Personal Information</h4>
-<table class="table table-striped">
-  <tr>
-    <td>Address</td>
-    <td>
-      <address>
-        <%= @participant.address1 %><br>
-        <%= @participant.zipcode %> <%= @participant.city %><br>
-        <%= @participant.country.name %>
-      </address>
-    </td>
-  </tr>
-  <tr>
-    <td>Email:</th>
-    <td> <%= @participant.email %></td>
-  </tr>
-  <tr>
-    <td>Birthdate:</td> 
-    <td><%= @participant.date_of_birth %></td>
-  </tr>
-  <tr>
-    <td>Sex:</td> 
-    <td><%= @participant.sex == "m" ? "Male" : "Female"  %></td>
-  </tr>
-  <tr>
-    <td>Field of study:</td> 
-    <td><%= @participant.field_of_study %></td>
-  </tr>
-</table>
+<fieldset>
+  <legend>Personal Information</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Address</td>
+      <td>
+        <address>
+          <%= @participant.address1 %><br />
+          <%= @participant.zipcode %> <%= @participant.city %><br />
+          <%= @participant.country.name %>
+        </address>
+      </td>
+    </tr>
+    <tr>
+      <td>Email:</th>
+      <td> <%= @participant.email %></td>
+    </tr>
+    <tr>
+      <td>Birthdate:</td> 
+      <td><%= @participant.date_of_birth %></td>
+    </tr>
+    <tr>
+      <td>Sex:</td> 
+      <td><%= @participant.sex == "m" ? "Male" : "Female"  %></td>
+    </tr>
+    <tr>
+      <td>Field of study:</td> 
+      <td><%= @participant.field_of_study %></td>
+    </tr>
+  </table>
+</fieldset>
 
-<h4>Next of kin information</h4>
-<table class="table table-striped">
-  <tr>
-    <td>Name</td>
-    <td><%= @participant.next_of_kin_name %></td>
-  </tr>
-  <tr>
-    <td>Phone</td>
-    <td><%= @participant.next_of_kin_phone %></td>
-  </tr>
-  <tr>
-    <td>Address:</td>
-    <td><%= raw format(@participant.next_of_kin_address) %></td>
-  </tr>
-</table>
+<fieldset>
+  <legend>Next of kin information</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Name</td>
+      <td><%= @participant.next_of_kin_name %></td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td><%= @participant.next_of_kin_phone %></td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td><%= raw format(@participant.next_of_kin_address) %></td>
+    </tr>
+  </table>
+</fieldset>
 
-<h4>Food and allergies</h4>
-<table class="table table-striped">
-  <tr>
-    <td>Vegetarian</td> 
-    <td><%= @participant.vegetarian ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Lactose intolerant</td> 
-    <td><%= @participant.allergy_lactose ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Gluten intolerant</td> 
-    <td><%= @participant.allergy_gluten ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Allergic to nuts:</td> 
-    <td><%= @participant.allergy_nuts ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Other allergies</td> 
-    <td><%= @participant.allergy_other %></td>
-  </tr>
-</table>
+<fieldset>
+  <legend>Food and allergies</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Vegetarian</td> 
+      <td><%= @participant.vegetarian ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Lactose intolerant</td> 
+      <td><%= @participant.allergy_lactose ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Gluten intolerant</td> 
+      <td><%= @participant.allergy_gluten ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Allergic to nuts:</td> 
+      <td><%= @participant.allergy_nuts ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Other allergies</td> 
+      <td><%= @participant.allergy_other %></td>
+    </tr>
+  </table>
+</fieldset>
 
-<h4>Travel Information</h4>
-<table class="table table-striped">
-  <tr>
-    <td>Flightnumber</td>
-    <td><%= @participant.flightnumber %></td>
-  </tr>
-  <tr>
-    <td>Arrival place:</td>
-    <%if @participant.arrival_place != nil%>
-      <td><%= @participant.arrival_place.name %></td>
-    <%end%>
-  </tr>
-  <tr>
-    <td>Arrives at (time):</td>
-    <td><%= @participant.arrives_at %></td>
-  </tr>
-  <tr>
-    <td>Departs at (time):</td>
-    <td><%= @participant.departs_at %></td>
-  </tr>
-  <tr>
-    <td>Has passport in order?:</td>
-    <td><%= @participant.has_passport == 1 ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Applied for Visa?:</td>
-    <td><%= @participant.applied_for_visa == 1 ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Has Visa in order or don't need Visa?:</td>
-    <td><%= @participant.visa == 1 ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Needs transportation by ISFiT from Oslo to Trondheim:</td>
-    <td><%= @participant.need_transport == 1 ? "Yes":"No" %></td>
-  </tr>
-</table>
+<fieldset>
+  <legend>Travel Information</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Flightnumber</td>
+      <td><%= @participant.flightnumber %></td>
+    </tr>
+    <tr>
+      <td>Arrival place:</td>
+      <%if @participant.arrival_place != nil%>
+        <td><%= @participant.arrival_place.name %></td>
+      <%end%>
+    </tr>
+    <tr>
+      <td>Arrives at (time):</td>
+      <td><%= @participant.arrives_at %></td>
+    </tr>
+    <tr>
+      <td>Departs at (time):</td>
+      <td><%= @participant.departs_at %></td>
+    </tr>
+    <tr>
+      <td>Has passport in order?:</td>
+      <td><%= @participant.has_passport == 1 ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Applied for Visa?:</td>
+      <td><%= @participant.applied_for_visa == 1 ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Has Visa in order or don't need Visa?:</td>
+      <td><%= @participant.visa == 1 ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Needs transportation by ISFiT from Oslo to Trondheim:</td>
+      <td><%= @participant.need_transport == 1 ? "Yes":"No" %></td>
+    </tr>
+  </table>
+</fieldset>
 
-<h4>ISFiT specific information</h4>
-<table class="table table-striped">
-  <tr>
-    <% if not Workshop.find_by_id(@participant.workshop_id).nil? %>
-      <td>Workshop:</td> 
-      <td><%= @participant.workshop.name %></td>
-    <% elsif @participant.dialogue %>
-      <td>Workshop:</td>
-      <td>Dialogue</td>
-    <% else %>
-      <td>Workshop:</td>
-      <td>Waitinglist</td>
-    <% end %>
-  </tr>
-  <tr>
-    <td>Accepted invitation</td>
-    <td><%= @participant.accepted == 1 ? "Yes":"No" %></td>
-  </tr>
-  <tr>
-    <td>Travel support amount:</td>
-    <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
-  </tr>
-  <tr>
-    <td>Checked in:</td>
-    <td><%= @participant.checked_in %></td>
-  </tr>
-  <tr>
-    <td>Host:</td>
-    <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
-  </tr>
-</table>
+<fieldset>
+  <legend>ISFiT specific information</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <% if not Workshop.find_by_id(@participant.workshop_id).nil? %>
+        <td class="span5">Workshop:</td> 
+        <td><%= @participant.workshop.name %></td>
+      <% elsif @participant.dialogue %>
+        <td class="span5">Workshop:</td>
+        <td>Dialogue</td>
+      <% else %>
+        <td class="span5">Workshop:</td>
+        <td>Waitinglist</td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Accepted invitation</td>
+      <td><%= @participant.accepted == 1 ? "Yes":"No" %></td>
+    </tr>
+    <tr>
+      <td>Travel support amount:</td>
+      <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
+    </tr>
+    <tr>
+      <td>Checked in:</td>
+      <td><%= @participant.checked_in %></td>
+    </tr>
+    <tr>
+      <td>Host:</td>
+      <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
+    </tr>
+  </table>
+</fieldset>
+
 <% if current_user.has_role?(:admin) %>
-  <h2>Admin info</h2>
-  <p>
-  <b>Belongs to the following functionaries</b>
-  <ul>
-    <% @participant.functionaries.each do |f| %>
-      <li><%= link_to f.user.name, f %></li>
-    <% end %>
-  </ul>
+<fieldset>
+  <legend>Admin info</legend>
+  <div class="well well-small">
+    <p>
+      <b>Belongs to the following functionaries</b>
+      <ul>
+        <% @participant.functionaries.each do |f| %>
+          <li><%= link_to f.user.name, f %></li>
+        <% end %>
+      </ul>
+    </p>
+    <p>
+      <b>User id:</b>
+      <%= @participant.user_id %>
+    </p>
+    <p>
+      <b>Secure?:</b>
+      <%= @participant.guaranteed ? "Yes":"No" %>
   </p>
-
-  <p>
-  <b>User id:</b>
-  <%= @participant.user_id %>
-  </p>
-  <p>
-  <b>Secure?:</b>
-  <%= @participant.guaranteed ? "Yes":"No" %>
-  </p>
+  </div>
+</fieldset>
 <% end %>
 
 <%= render 'menu' %>
