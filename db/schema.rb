@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027112630) do
+ActiveRecord::Schema.define(:version => 20121027142500) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -167,8 +167,8 @@ ActiveRecord::Schema.define(:version => 20121027112630) do
     t.integer  "workshop_id"
     t.integer  "user_id"
     t.integer  "functionary_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.datetime "arrives_at"
     t.datetime "departs_at"
     t.integer  "arrival_place_id"
@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(:version => 20121027112630) do
     t.boolean  "dialogue"
     t.boolean  "media_consent"
     t.boolean  "subscribe_consent"
-    t.integer  "embassy_confirmation", :default => 0,     :null => false
+    t.integer  "embassy_confirmation",    :default => 0,     :null => false
     t.boolean  "allergy_lactose"
     t.boolean  "allergy_gluten"
     t.boolean  "allergy_nuts"
@@ -202,13 +202,17 @@ ActiveRecord::Schema.define(:version => 20121027112630) do
     t.datetime "checked_out"
     t.boolean  "spp"
     t.boolean  "invited"
-    t.boolean  "halal",                :default => false
+    t.boolean  "halal",                   :default => false
     t.boolean  "agree_waiting_list"
     t.string   "visa_number"
     t.string   "visum_file_name"
     t.string   "visum_content_type"
     t.integer  "visum_file_size"
     t.datetime "visum_updated_at"
+    t.boolean  "confirmed_participation"
+    t.string   "nationality"
+    t.integer  "country_citizen_id"
+    t.boolean  "active"
   end
 
   create_table "participants_temps", :force => true do |t|

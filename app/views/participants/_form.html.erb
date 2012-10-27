@@ -58,11 +58,7 @@
   
   <fieldset>
     <legend>ISFiT related information</legend>
-      <%= f.input :media_consent, :label => "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
-    <div class="alert alert-info">
-      ISFiT 2011 is in contact with your embassies to try and make your visa application process as easy as possible. In order to do this we need to use your contact information. According to the Norwegian Privacy Committee, we need you to confirm that we are allowed to use your personal contact information.
-    </div>
-    <%= f.input :embassy_confirmation, :as => :boolean, :label => "I allow ISFiT to use my contact information" %>
+    <%= f.input :media_consent, :label => "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
   </fieldset>
     <%= f.button :submit %>
 <% end %>

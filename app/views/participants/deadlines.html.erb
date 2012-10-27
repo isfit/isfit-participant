@@ -78,7 +78,7 @@
       <%= f.error_notification %>
       <fieldset>
         <div class="alert alert-info">
-          No missing.
+          Fill out the Visa number from the Schengen visa or scan your visa and upload it below.
         </div>
 
         <legend>Have you been granted a Visa?</legend>
@@ -96,10 +96,10 @@
       <%= f.error_notification %>
       <fieldset>
         <div class="alert alert-info">
-          The cost will be 200NOK ($35 USD) each way. 
+          The cost will be 200NOK ($35 USD) each way, for a round-trip 400NOK ($70 USD). 
         </div>
 
-        <legend>Have you been granted a Visa?</legend>
+        <legend>Transport Oslo-Trondheim</legend>
         <%= f.input :need_transport, :label => "Do you need transportation by ISFiT from Oslo to Trondheim?",
          :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
 
@@ -133,14 +133,32 @@
       <fieldset>
 
         <legend>Media contact</legend>
-        <%= f.input :media_consent, :label => "I agree to be contacted by the Norwegian media prior to and during ISFiT 2013" %>
+        <%= f.input :confirmed_participation, :label => "I hereby confirm that I will participate in ISFiT 2013" %>
+
+      </fieldset>
+      <%= f.button :submit %>
+    <% end %>
+
+  <% elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited %>
+
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+      <%= f.error_notification %>
+      <fieldset>
+
+        <legend>Media contact</legend>
+        <div class="alert alert-info">
+          The final results will be available on the 20th of January.
+          If you are granted participation at ISFiT 2013, the final deadline for confirming participation at
+          the festival is the 1st of February. You will not be granted travel support.
+        </div>
+        <%= f.input :agree_waiting_list, :label => "Do you wish to be on a waiting list for participation in ISFiT 2013?" %>
 
       </fieldset>
       <%= f.button :submit %>
     <% end %>
 
 
-  <% elsif false and DeadlinesUser.where("deadline_id = 5 AND user_id = ?", current_user.id).first.approved %>
+  <% elsif false and DeadlinesUser.where("deadline_id = 9 AND user_id = ?", current_user.id).first.approved %>
 
     <legend>Finished</legend>
     <p>

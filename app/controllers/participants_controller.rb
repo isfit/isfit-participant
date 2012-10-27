@@ -227,6 +227,19 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
+    elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited 
+      @participant.confirmed_participation = params[:participant][:confirmed_participation]
+      if @participant.save
+        d = DeadlinesUser.new
+        d.deadline_id = 10
+        d.user_id = current_user.id
+        d.save
+        flash[:notice] = "Participant was successfully updated."
+        render 'show'
+      else
+        render 'deadline'
+      end
+
     else
       redirect_to participant_path(@participant)
     end
