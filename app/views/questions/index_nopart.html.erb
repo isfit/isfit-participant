@@ -1,4 +1,4 @@
-<%= render 'menu_index' %>
+<%= render 'menu_index_nopart' %>
 
 <%= simple_form_for Question.new, :html => {:method => "get"}, :url=> q_status_questions_path do |f| %>
   <div class="form-inputs">
@@ -12,7 +12,7 @@
   <table class="table table-bordered table-striped">
     <thead>
       <th>Subject</th>
-      <th class="full">Participant</th>
+      <th>Participant</th>
       <th>Created at</th>
       <th></th>
       <th></th>
@@ -45,7 +45,6 @@
         <th>Open</th>
         <th>Resolved</th>
       </thead>
-      <%last_id = -1%>
       <% @static.each do |s| %>
         <tr>
           <td><%=s.first_name%> <%=s.last_name%></td>
