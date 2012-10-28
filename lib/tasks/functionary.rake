@@ -24,6 +24,81 @@ namespace :admin do
   end
 end
 
+namespace :participant do
+  task :make_relations => :environment do
+    func = {
+      User.find_by_email("xuanhuon@isfit.org") => [33,7,188,185,13,194,21,62,167,168],
+      User.find_by_email("juliebb@isfit.org") => [164,29,186,146,8,145,11,65,190],
+      User.find_by_email("jkbui@isfit.org") => [198,197,3,181,67,155,158,69,98,27,64],
+      User.find_by_email("martgjer@isfit.org") => [46,49,179,81,31,91,75,170,45,106,109,113,25,36,53,139,124],
+      User.find_by_email("bettinag@isfit.org") => [24,99,166,97,133,74,54],
+      User.find_by_email("karinny@isfit.org") => [20,78,38,88,68,202,101,142,180,193,141],
+      User.find_by_email("wanda@isfit.org") => [189,71,136,43,105,77,126,80,22,123,14,59],
+      User.find_by_email("ayansebo@isfit.org") => [171,79,121,87,96,172,23,103],
+      User.find_by_email("marleide@isfit.org") => [114,169,89,140,120,44,2,17,163,199],
+      User.find_by_email("annambe@isfit.org") => [125,9,174,173,175,28,176,30,154,132,196,39,48,131,58,159,160,150],
+      User.find_by_email("einarsu@isfit.org") => [184,118,37,182,1,26,61,156,34,165,104,119],
+      User.find_by_email("egille@isfit.org") => [16,187,177,128,47,10,19,127],
+      User.find_by_email("martgies@isfit.org") => [90,40,41,110,82,84,85,95,66,144,76,161,116],
+      User.find_by_email("monalock@isfit.org") => [],
+      User.find_by_email("pernilss@isfit.org") => [],
+      User.find_by_email("natharma@isfit.org") => []
+    }
+
+    func.each do |user,countries|
+      countries.each do |id|
+        country = Country.find(id)
+        country.participants.each do |p|
+          user.functionary.participants << p
+        end
+        user.save
+      end
+    end
+    
+  end
+
+  task :make_applicants_into_participants => :environment do
+    invites = Application.invited
+    invites.each do |invited|
+      puts "Processing #{invited.email}"
+      # Create User
+      user = User.new
+      user.email = invited.email.strip
+      user.first_password = generate_password
+      user.password = user.first_password
+      user.roles << Role.find(6)
+      user.save
+
+      # Create Participant
+      participant = Participant.new
+      participant.first_name = invited.first_name.strip
+      participant.last_name = invited.last_name.strip
+      participant.email = invited.email.strip
+      participant.date_of_birth = invited.birthdate
+      participant.address1 = invited.address.strip
+      participant.zipcode = invited.zipcode
+      participant.city = invited.city.strip
+      participant.country_id = invited.country_id
+      participant.country_citizen_id = invited.country_id
+      participant.sex = invited.sex
+      participant.field_of_study = invited.field_of_study
+      if not invited.final_workshop.nil?
+        participant.workshop_id = invited.final_workshop
+      else
+        puts "FINAL WORKSHOP IS NOT SET. USER ID: #{user.id}"
+      end
+      participant.user_id = user.id
+      participant.notified = 0
+      participant.invited = 1
+      participant.active = true
+      participant.travel_support = invited.travel_amount_given.to_i
+      participant.save
+      puts "Finished processing #{participant.email}. \n\n\n"
+
+    end
+  end
+end
+
 
 namespace :theme do
   task :create_theme_users => :environment do

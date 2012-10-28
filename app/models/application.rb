@@ -92,5 +92,6 @@ class Application < ActiveRecord::Base
   validates_numericality_of :travel_amount_given, :less_than_or_equal_to => 0,
     :if => Proc.new { |n| n.travel_approved == 0 },
     :message => "Travel amount should not be specified, when travel support not is granted."
- 
+
+  scope :invited, where(status: 1)
 end
