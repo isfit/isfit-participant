@@ -29,7 +29,7 @@ namespace :participant do
     func = {
       User.find_by_email("xuanhuon@isfit.org") => [33,7,188,185,13,194,21,62,167,168],
       User.find_by_email("juliebb@isfit.org") => [164,29,186,146,8,145,11,65,190],
-      User.find_by_email("jkbui@isfit.org") => [198,197,3,181,67,155,158,69,98,27,64],
+      User.find_by_email("jkbui@isfit.org") => [200,198,197,3,181,67,155,158,69,98,27,64],
       User.find_by_email("martgjer@isfit.org") => [46,49,179,81,31,91,75,170,45,106,109,113,25,36,53,139,124],
       User.find_by_email("bettinag@isfit.org") => [24,99,166,97,133,74,54],
       User.find_by_email("karinny@isfit.org") => [20,78,38,88,68,202,101,142,180,193,141],
@@ -39,7 +39,7 @@ namespace :participant do
       User.find_by_email("annambe@isfit.org") => [125,9,174,173,175,28,176,30,154,132,196,39,48,131,58,159,160,150],
       User.find_by_email("einarsu@isfit.org") => [184,118,37,182,1,26,61,156,34,165,104,119],
       User.find_by_email("egille@isfit.org") => [16,187,177,128,47,10,19,127],
-      User.find_by_email("martgies@isfit.org") => [90,40,41,110,82,84,85,95,66,144,76,161,116],
+      User.find_by_email("martgies@isfit.org") => [90,40,41,110,82,84,135,85,95,66,144,76,161,116],
       User.find_by_email("monalock@isfit.org") => [],
       User.find_by_email("pernilss@isfit.org") => [],
       User.find_by_email("natharma@isfit.org") => []
