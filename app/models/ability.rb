@@ -23,9 +23,9 @@ class Ability
       can :read, Article
       can :show, InformationPage
       can :show, Workshop
-      can [:show, :update, :travel_support, :invitation, :deadlines, :deadlines_handler], Participant
       can [:index, :new, :create], Question
       if user.is_participant?
+        can [:show, :update, :travel_support, :invitation, :deadlines, :deadlines_handler], Participant, id: user.participant.id
         can [:show, :update], Question, participant_id: user.participant.id
       end
     end

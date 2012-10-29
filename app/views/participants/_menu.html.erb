@@ -1,7 +1,7 @@
 <% content_for :sidebar_left do %>
   <ul class="nav nav-list well">
     <li class="nav-header">Menu</li>
-    <% if current_user.has_role?(:admin) %>
+    <% if can? :validate_deadline, Participant %>
       <li><%= link_to image_tag('icons/eye.png') + ' Check deadlines', validate_deadline_participants_path %></li>
     <% end %>
     <% if (current_user.is_functionary? or current_user == @participant.user) and @participant %>
