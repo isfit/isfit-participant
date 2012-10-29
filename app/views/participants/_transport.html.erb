@@ -1,0 +1,22 @@
+<% content_for :sidebar_right do %>
+  <div class="well well-small">
+    <h2>Transport</h2>
+    <h4>Trondheim</h4>
+    <p>
+      <% @trondheim = @partici.where(:arrival_place_id => 1) %>
+      Total: <%= @trondheim.count %><br>
+      Arrivals by plane: <%= @trondheim.where(:transport_type_id => 1).count %><br>
+      Arrivals by train: <%= @trondheim.where(:transport_type_id => 2).count %><br>
+      Arrivals by bus: <%= @trondheim.where(:transport_type_id => 3).count %><br>
+    </p>
+    <h4>Oslo</h4>
+    <p>
+      <% @oslo = @partici.where(:arrival_place_id => 2) %>
+      Total: <%= @oslo.count %><br>
+      Arrivals by plane: <%= @oslo.where(:transport_type_id => 1).count %><br>
+      Arrivals by train: <%= @oslo.where(:transport_type_id => 2).count %><br>
+      Arrivals by bus: <%= @oslo.where(:transport_type_id => 3).count %><br>
+      Needs transport from Oslo: <%= @oslo.where(:need_transport => 1).count %><br>
+    </p>
+  </div>
+<% end %>

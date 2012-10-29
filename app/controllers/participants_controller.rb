@@ -1,7 +1,6 @@
 class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :profile
-  helper_method :sort_column, :sort_direction
 
   load_and_authorize_resource
 
@@ -68,30 +67,22 @@ class ParticipantsController < ApplicationController
   # GET /participants
   # GET /participants.xml
   def index
-    if params[:participant]
-      if params[:participant][:region_id].to_i > 0
-        region = params[:participant][:region_id]
-      else
-        region = nil
-      end
-      params[:participant].delete("region_id")
-    end
-    search_participant
+    @q = Participant.search params[:q]
+    @participants = @q.result(distinct: true).paginate(per_page: 15, page: params[:page])
+
     if current_user.has_role?(:admin) || current_user.has_role?(:sec)
       @partici = Participant.where(@query)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
     end
-    if region
-      @partici = @partici.joins(:country => :region).where("regions.id = #{region}")
-    end
-    @participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+
+    #@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
     @workshop_group = @partici.group(:workshop_id)
     @workshop_count = @workshop_group.count
     @workshops = Workshop.order(:id).all
     @countries = Country.all
     @country_group = @partici.group(:country_id)
-    @country_count = @country_group.count.sort_by{|k,v| v}.reverse
+    @country_count = @country_group.count.sort_by{ |k,v| v }.reverse
 
     if current_user.has_role?(:sec)
       @partici = @partici.where("guaranteed = 1")
@@ -312,6 +303,16 @@ class ParticipantsController < ApplicationController
     @participants = current_user.functionary.participants.includes("user")
   end
 
+  # GET /participants/search
+  def search
+    @q = Participant.search params[:q]
+    @participants = @q.result(distinct: true).paginate(per_page: 15, page: params[:page])
+
+    respond_to do |format|
+      format.html # search.html.erb
+    end
+  end
+
   # GET /participants/1
   def show
     @participant = Participant.find(params[:id])
@@ -421,186 +422,6 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  #NIKOLAI WAS HERE
-
-  def search_participant
-    @query = ""
-    if params[:participant]
-      @checked_in = params[:participant][:checked_in]
-      @checked_out = params[:participant][:checked_out]
-      if params[:participant][:region_id]
-        region = params[:participant][:region_id]
-      else
-        region = nil
-      end
-      params[:participant].delete("region_id")
-      @search_participant = Participant.new(params[:participant])
-      @search_participant.arrives_at = nil
-      first_name = @search_participant.first_name
-      last_name = @search_participant.last_name
-      email = @search_participant.email
-      workshop = @search_participant.workshop_id
-      country = @search_participant.country_id
-      visa = @search_participant.visa
-      accepted = @search_participant.accepted
-      has_passport = @search_participant.has_passport
-      applied_for_visa = @search_participant.applied_for_visa
-      flightnumber = @search_participant.flightnumber
-      travel_support = @search_participant.travel_support
-      guaranteed = @search_participant.guaranteed
-      transport_type = @search_participant.transport_type_id
-      arrival_place = @search_participant.arrival_place_id
-
-      need_transport = @search_participant.need_transport
-
-      unless params[:participant][:arrives_at].blank?
-        @arrives_at = params[:participant][:arrives_at]
-      else
-        @arrives_at = ""
-      end
-      if first_name != ""
-        if @query == ""
-          @query = "first_name LIKE '%"+first_name+"%'"
-        else
-          @query += " AND first_name LIKE '%"+first_name+"%'"
-        end
-      end
-      if last_name != ""
-        if @query == ""
-          @query = "last_name LIKE '%"+last_name+"%'"
-        else
-          @query += " AND last_name LIKE '%"+last_name+"%'"
-        end
-      end
-      unless email.blank?
-        if @query == ""
-          @query = "email LIKE '%"+email+"%'"
-        else
-          @query += " AND email LIKE '%"+email+"%'"
-        end
-      end 
-      if country == nil
-      elsif country != ""
-        if @query == ""
-          @query = "country_id = " + country.to_s
-        else
-          @query += " AND country_id = "+ country.to_s
-        end
-      end
-      if workshop == nil
-      elsif workshop !=""
-        if @query == ""
-          @query = "workshop_id = "+workshop.to_s
-        else
-          @query += " AND workshop_id = "+workshop.to_s
-        end
-      end
-      if accepted == 0
-      elsif accepted == 1
-        if @query == ""
-          @query = "accepted = 1"
-        else
-          @query += " AND accepted = 1"
-        end
-      end 
-      if visa == 1
-        if @query == ""
-          @query = "visa = "+visa.to_s
-        else
-          @query += " AND visa = "+visa.to_s
-        end
-      end
-      if accepted == 1
-        if @query == ""
-          @query = "accepted = "+accepted.to_s
-        else
-          @query += " AND accepted = "+accepted.to_s
-        end
-      end
-      if transport_type == nil
-      elsif
-        if @query == ""
-          @query = "transport_type_id = "+transport_type.to_s
-        else
-          @query += " AND transport_type_id = "+transport_type.to_s
-        end
-      end
-      if arrival_place == nil
-      elsif
-        if @query == ""
-          @query = "arrival_place_id = "+arrival_place.to_s
-        else
-          @query += " AND arrival_place_id = "+arrival_place.to_s
-        end
-      end
-      if guaranteed
-        if @query == ""
-          @query = "guaranteed = "+guaranteed.to_s
-        else
-          @query += " AND guaranteed = "+guaranteed.to_s
-        end
-      end
-      unless @arrives_at.blank?
-        if @query == ""
-          @query = "arrives_at LIKE '"+@arrives_at+"%'"
-        else
-          @query += " AND arrives_at LIKE '"+@arrives_at+"%'"
-        end
-      end
-      if applied_for_visa == 1
-        if @query == ""
-          @query = "applied_for_visa = "+applied_for_visa.to_s
-        else
-          @query += " AND applied_for_visa = "+applied_for_visa.to_s
-        end
-      end
-      if has_passport == 1
-        if @query == ""
-          @query = "has_passport = "+has_passport.to_s
-        else
-          @query += " AND has_passport = "+has_passport.to_s
-        end
-      end
-      if flightnumber == "1"
-        if @query == ""
-          @query = "flightnumber is not null and flightnumber <> ''"
-        else
-          @query += " AND flightnumber is not null and flightnumber <> ''"
-        end
-      end
-      if travel_support == 1
-        if @query == ""
-          @query = "travel_support IS NOT null AND travel_support > 0"
-        else
-          @query += " AND travel_support is not null AND travel_support > 0"
-        end
-      end
-      if need_transport == 1
-        if @query == ""
-          @query = "need_transport IS NOT null AND need_transport > 0"
-        else
-          @query += " AND need_transport is not null AND need_transport > 0"
-        end
-      end
-
-     if @checked_in == "1"
-        if @query == ""
-          @query = "checked_in IS NOT NULL"
-        else
-          @query += " AND checked_in IS NOT NULL"
-        end
-      end
-      if @checked_out == "1"
-        if @query == ""
-          @query = "checked_out IS NOT NULL"
-        else
-          @query += " AND checked_out IS NOT NULL"
-        end
-      end
- 
-    end
-  end
-
   def mail_to_search_results
 
     search_participant
@@ -626,13 +447,5 @@ class ParticipantsController < ApplicationController
         ParticipantsMailer.send_mail(a, subject, text) 
       end
     end
-  end
-
-  private
-  def sort_column
-    Participant.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
-  end
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

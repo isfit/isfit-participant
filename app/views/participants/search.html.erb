@@ -1,0 +1,27 @@
+<%= render 'menu' %>
+
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_participants_path, :html => { :class => "form-horizontal" } do |f| %>
+  <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "span4" }, required: false %>
+  <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "span4" }, required: false %>
+  <%= f.input :email_cont, label: "Email", :input_html => { :class => "span4" }, required: false %>
+  <%= f.input :country_id_eq, label: "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false %>
+  <%= f.input :workshop_id_eq, label: "Workshop", as: :select, collection: Workshop.all.collect { |w| [w.name, w.id] }, required: false %>
+  <%= f.input :transport_type_id_eq, label: "Transport type", as: :select, collection: TransportType.all.collect { |t| [t.name, t.id] }, required: false %>
+  <%= f.input :arrival_place_id_eq, label: "Arrival place", as: :select, collection: ArrivalPlace.all.collect { |a| [a.name, a.id] }, required: false %>
+  <%= f.input :arrives_at_cont, label: "Arrives at", as: :date, start_year: Date.today.year - 1, end_year: Date.today.year + 1, include_blank: true, input_html: { :class => "span2" }, required: false %>
+  <%= f.input :visa_present, label: "Has visa", as: :select, required: false %>
+  <%= f.input :accepted_present, label: "Is accepted", as: :select, required: false %>
+  <%= f.input :has_passport_true, label: "Has passport", as: :select, required: false %>
+  <%= f.input :applied_for_visa_present, label: "Applied for visa", as: :select, required: false %>
+  <%= f.input :flightnumber_present, label: "Has flight", as: :select, required: false %>
+  <%= f.input :travel_support_present, label: "Has travel support", as: :select, required: false %>
+  <%= f.input :need_transport_present, label: "Needs transport", as: :select, required: false %>
+  <%= f.input :guaranteed_present, label: "Guaranteed", as: :select, required: false %>
+
+  <%= f.submit 'search', :class => "btn btn-primary" %>
+<% end %>
+
+<div id="index_table">
+  <%= render :partial => "participants" %>
+  <%= will_paginate @participants %>
+</div>

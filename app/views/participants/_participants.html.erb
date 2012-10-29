@@ -1,17 +1,17 @@
-Found <%= pluralize @partici.size, "participant"%> 
-<table class="full" style="font-size:75%">
-  <tr>
-    <th><%= sortable "first_name", "First name" %></th>
-    <th><%= sortable "last_name", "Last name" %></th>
-    <th><%= sortable "country_id", "Country" %></th>
-    <th><%= sortable "flightnumber", "ref.nr." %></th>
-    <th><%= sortable "guaranteed" %></th>
+Found <%= pluralize @participants.total_entries, "participant"%> 
+<table id="part" class="table table-condensed table-striped">
+  <thead>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Country</th>
+    <th>ref.nr.</th>
+    <th>Guaranteed</th>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
+  </thead>
 
 <% @participants.each do |participant| %>
   <tr>
@@ -27,4 +27,3 @@ Found <%= pluralize @partici.size, "participant"%>
   </tr>
 <% end %>
 </table>
-

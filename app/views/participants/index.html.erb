@@ -1,94 +1,21 @@
-<script type="text/javascript">
-$(function() {
-  $('#participant_arrives_at').datepicker({ dateFormat: 'yy-mm-dd' });
-});
-</script>
-<% content_for :head do %>
-  <%= javascript_include_tag 'highcharts' %>
-<% end %>
-
 <%= render 'menu' %>
+<%= render 'transport' %>
 
-<% content_for :sidebar_left do %>
-  <% form_for (@search_participant.nil? ? Participant.new : @search_participant), 
-    :url => { :action => "index" },
-    :html => {:method => "get", :class => "search"} do |f| %>
-      <ul class="vlist">
-        <li><b>First name: </b></li><li><%= f.text_field :first_name %></li>
-        <li><b>Last name: </b></li><li><%= f.text_field :last_name %></li>
-        <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>
-        <%unless ( @search_participant.nil? )%>
-          <%unless @search_participant.country.nil? %>
-            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country", :selected=>@search_participant.country_id.to_s}) %></li>
-          <% else %>
-            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
-          <% end %>
-          <%unless @search_participant.workshop.nil? %>
-            <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop", :selected=>@search_participant.workshop_id.to_s}) %></li>
-          <%else%>
-            <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
-          <% end %>
-          <%unless @search_participant.country.nil? %>
-            <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region", :selected=>@search_participant.country.region.name}) %></li>
-          <%else%>
-            <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
-          <% end %>
-          <%unless @search_participant.transport_type.nil?%>
-            <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type", :selected=>@search_participant.transport_type_id.to_s}) %></li>
-          <%else%>
-            <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type"}) %></li>
-          <%end%>
-          <%unless @search_participant.arrival_place.nil?%>
-            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place", :selected=>@search_participant.arrival_place_id.to_s}) %></li>
-          <%else%>
-            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
-          <%end%>
-        <% else %>
-          <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
-          <li><b>Workshop: </b></li><li><%= collection_select(:participant, :workshop_id, Workshop.all, :id, :name, {:prompt => "Select a workshop"}) %></li>
-          <li><b>Region: </b></li><li><%= collection_select(:participant, :region_id, Region.all, :id, :name, {:prompt => "Select a region"}) %></li>
-          <li><b>Transport type: </b></li><li><%= collection_select(:participant, :transport_type_id, TransportType.all, :id, :name, {:prompt => "Select transport type"}) %></li>
-          <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
-        <%end%>
-        <%if @arrives_at.blank?%>
-          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at %></li>
-        <%else%>
-          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at, :value=> @arrives_at %></li>
-        <%end%>
-        <li><b>Got visa?: </b></li><li><%= f.check_box :visa %></li>
-        <li><b>Accepted?: </b></li><li><%= f.check_box :accepted %></li>
-        <li><b>Has passport?: </b></li><li><%= f.check_box :has_passport %></li>
-        <li><b>Applied for visa?: </b></li><li><%= f.check_box :applied_for_visa %></li>
-        <li><b>Refnumber?: </b></li><li><%= f.check_box :flightnumber %></li>
-        <li><b>Travel support?: </b></li><li><%= f.check_box :travel_support %></li>
-        <li><b>Need transport?: </b></li><li><%= f.check_box :need_transport %></li>
-        <li><b>Guaranteed spot?: </b></li><li><%= f.check_box :guaranteed %></li>
-    </ul></ul>
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: participants_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
+  <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" } %>
+  <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" } %>
+  <%= f.input :email_cont, :label => "Email", :input_html => { :class => "span4" } %>
+  <%= f.input :country_id_eq, as: :select, collection: Country.all.collect { |c| [c.name, c.id] } %>
+  <%= f.input :workshop_id_eq, as: :select, collection: Workshop.all.collect { |w| [w.name, w.id] } %>
 
-    <br />
-    <%= f.submit 'Search' %> <%= link_to (submit_tag 'Show all', :type => 'button'), :action=>:index %><br>
-  <% end %>
+  <%= f.submit 'search', :class => "btn btn-primary" %>
 <% end %>
-<% content_for :sidebar_right do %>
-  <h2>Transport</h2>
-  <h4>Trondheim</h4>
-  <p class="info">
-    <% @trondheim = @partici.where(:arrival_place_id => 1) %>
-    Total: <%= @trondheim.count %><br>
-    Arrivals by plane: <%= @trondheim.where(:transport_type_id => 1).count %><br>
-    Arrivals by train: <%= @trondheim.where(:transport_type_id => 2).count %><br>
-    Arrivals by bus: <%= @trondheim.where(:transport_type_id => 3).count %><br>
-  </p>
-  <h4>Oslo</h4>
-  <p class="info">
-    <% @oslo = @partici.where(:arrival_place_id => 2) %>
-    Total: <%= @oslo.count %><br>
-    Arrivals by plane: <%= @oslo.where(:transport_type_id => 1).count %><br>
-    Arrivals by train: <%= @oslo.where(:transport_type_id => 2).count %><br>
-    Arrivals by bus: <%= @oslo.where(:transport_type_id => 3).count %><br>
-    Needs transport from Oslo: <%= @oslo.where(:need_transport => 1).count %><br>
-  </p>
-<% end %>
+
+<div id="index_table">
+  <%= render :partial => "participants" %>
+  <%= will_paginate @participants, :params => {:q=>params[:q]} %>
+</div>
+<% content_for :script do %>
 <script>
   $(function() {
     $("div#statistics").hide();
@@ -97,11 +24,13 @@ $(function() {
     });
   });
 </script>
+<% end %>
 <a id="toggle-stat" style="cursor: pointer;">Toggle statistics</a>
 <div id="statistics">
   <p class="info">
     All info below are from the active search.
   </p>
+  <% content_for :script do %>
   <script>
     $(function() {
       $("#country-dist").hide();
@@ -110,10 +39,11 @@ $(function() {
       });
     });
   </script>
+  <% end %>
   <h3><a id="country-dist-toggle" style="cursor: pointer;">Total country distribution</a></h3>
   <div id="country-dist">
     <p class="info"><%= @partici.count %> total</p>
-    <table id="datatable-country">
+    <table id="datatable-country" class="table table-condensed table-striped">
       <thead>
         <tr>
           <th>Country</th>
@@ -123,7 +53,7 @@ $(function() {
       <tbody>
         <% @country_count.each do |c| %>
           <tr>
-            <td><%= @countries[c[0]].name %></td><td><%= c[1] %></td>
+            <td><%= @countries[c[0]-1].name %></td><td><%= c[1] %></td>
           </tr>
         <% end %>
       </tbody>
@@ -131,6 +61,7 @@ $(function() {
   </div>
   <% @workshops.each do |w| %>
     <% @w_part_count = @partici.where(:workshop_id => w.id).group(:country_id).count.sort_by{|k,v| v}.reverse %>
+    <% content_for :script do %>
     <script>
       $(function() {
         $("#workshop<%= w.id %>-dist").hide();
@@ -139,21 +70,20 @@ $(function() {
         });
       });
     </script>
-    <% if @w_part_count.nil?
-    next
-  end
-%>
+    <% end %>
+    <% next if @w_part_count.nil? %>
 
+<% content_for :script do %>
 <!-- Highcharts workshop basic bar from table -->
-<script>
-  /**
-  * Visualize an HTML table using Highcharts. The top (horizontal) header 
-  * is used for series names, and the left (vertical) header is used 
-  * for category names. This function is based on jQuery.
-  * @param {Object} table The reference to the HTML table to visualize
-  * @param {Object} options Highcharts options
-  */
-  Highcharts.visualize = function(table, options) {
+  <script>
+    /**
+    * Visualize an HTML table using Highcharts. The top (horizontal) header 
+    * is used for series names, and the left (vertical) header is used 
+    * for category names. This function is based on jQuery.
+    * @param {Object} table The reference to the HTML table to visualize
+    * @param {Object} options Highcharts options
+    */
+    Highcharts.visualize = function(table, options) {
     // the categories
     options.xAxis.categories = [];
     $('tbody th', table).each( function(i) {
@@ -172,50 +102,51 @@ $(function() {
               data: []
             };
             } else { // add values
-            options.series[j - 1].data.push(parseFloat(this.innerHTML));
+              options.series[j - 1].data.push(parseFloat(this.innerHTML));
+            }
           }
-        }
-      });
+        });
     });
 
     var chart = new Highcharts.Chart(options);
-  }
+    }
 
-  // On document ready, call visualize on the datatable.
-  $(document).ready(function() {         
-    var table = document.getElementById('datatable<%= w.id %>'),
-    options = {
-      chart: {
-        renderTo: 'workshop<%= w.id %>-container',
-        defaultSeriesType: 'bar'
-      },
-      title: {
-        text: 'Participants in workshop by country'
-      },
-      xAxis: {
-      },
-      yAxis: {
+    // On document ready, call visualize on the datatable.
+    $(document).ready(function() {         
+      var table = document.getElementById('datatable<%= w.id %>'),
+      options = {
+        chart: {
+          renderTo: 'workshop<%= w.id %>-container',
+          defaultSeriesType: 'bar'
+        },
         title: {
-          text: 'Units'
+          text: 'Participants in workshop by country'
+        },
+        xAxis: {
+        },
+        yAxis: {
+          title: {
+            text: 'Units'
+          }
+        },
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+            this.y +' '+ this.x.toLowerCase();
+          }
         }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>'+ this.series.name +'</b><br/>'+
-          this.y +' '+ this.x.toLowerCase();
-        }
-      }
-    };
+      };
 
 
-    Highcharts.visualize(table, options);
-  });
-</script>
+      Highcharts.visualize(table, options);
+    });
+  </script>
+<% end %>
 
-
-<h3><a id="workshop<%= w.id %>-dist-toggle" style="cursor: pointer;">Workshop <%= w.id %> distribution (<%= @workshop_count[w.id] %> total)</a></h3>
+<h3><a id="workshop<%= w.id %>-dist-toggle" style="cursor: pointer;">Workshop <%= w.name %> distribution (<%= @workshop_count[w.id] %> total)</a></h3>
 <div id="workshop<%= w.id %>-dist">
-    <script>
+  <% content_for :script do %>
+      <script>
       $(function() {
         $("#workshop<%= w.id %>-container").hide();
         $("#workshop<%= w.id %>-bar-toggle").click(function() {
@@ -224,8 +155,7 @@ $(function() {
         });
       });
     </script>
- 
-
+  <% end %>
   <a id="workshop<%=w.id%>-bar-toggle" style="cursor: pointer;">Toggle graphic</a>
   <div id="workshop<%= w.id %>-container" style="width: 400px; height: 800px; margin: 0;"></div>
   <table id="datatable<%= w.id %>">
@@ -247,10 +177,3 @@ $(function() {
   <% end %>
 
 </div>
-
-
-<div id="index_table">
-  <%= render :partial => "participants" %>
-  <%= will_paginate @participants%>
-</div>
-
