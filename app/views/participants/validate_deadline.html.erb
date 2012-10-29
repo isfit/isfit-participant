@@ -1,0 +1,45 @@
+<%= render 'menu' %>
+
+<h1>Deadlines</h1>
+<p>
+Below is an overview of the deadlines for your participants.
+
+
+</p>
+
+<table class="table table-bordered"
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>#1</th>
+      <th>#2</th>
+      <th>#3</th>
+      <th>#4</th>
+      <th>#5</th>
+      <th>#6</th>
+      <th>#7</th>
+      <th>#8</th>
+      <th>#9</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @participants.each do |participant| %>
+      <tr>
+        <td><%= "#{participant.last_name}, #{participant.first_name}" %></td>
+        <%= participant.user.deadlines.where("id = 1").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 2").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 3").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 4").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 5").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 6").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 7").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 8").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <%= participant.user.deadlines.where("id = 9").count > 0 ? "<td class=deadline-yes>yes".html_safe : "<td class=deadline-no>no".html_safe %></td>
+        <td><%= link_to 'Check', check_deadline_participant_path(participant), :class => "btn btn-primary" %></td>
+        <td><%= link_to 'Show', participant_path(participant), :class => "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

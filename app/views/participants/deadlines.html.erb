@@ -1,7 +1,7 @@
 <div class="well">
   <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post",:html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Accept invitation</legend>
@@ -15,7 +15,7 @@
 
   <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 2), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Have you applied for a Visa?</legend>
@@ -31,7 +31,7 @@
 
   <% elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 3), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Give ISFiT permission to use my contact information</legend>
@@ -48,7 +48,7 @@
 
   <% elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 4), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Do you have a valid passport?</legend>
@@ -74,14 +74,14 @@
 
   <% elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 6), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
+        <legend>Have you been granted a Visa?</legend>
         <div class="alert alert-info">
           Fill out the Visa number from the Schengen visa or scan your visa and upload it below.
         </div>
-
-        <legend>Have you been granted a Visa?</legend>
+        <%= f.input :visa, :as => :boolean, :label => "Have you been granted a Visa?" %>
         <%= f.input :visa_number, :label => "Please enter your Visa number in the field below" %>
         Upload a scanned version of the Visa.<br>
         <%= f.file_field :visum %>
@@ -92,7 +92,7 @@
 
   <% elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 7), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <div class="alert alert-info">
@@ -108,7 +108,7 @@
     <% end %>
 
   <% elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited %>
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 8), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
       <legend>Travel information</legend>
@@ -128,7 +128,7 @@
 
   <% elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 9), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
 
@@ -141,7 +141,7 @@
 
   <% elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited %>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 10), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
 

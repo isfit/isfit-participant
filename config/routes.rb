@@ -66,10 +66,12 @@ IsfitParticipant::Application.routes.draw do
   match 'participants/:id/host/:host_id' => 'participants#match_host', :as => :add_host
   resources :participants do
     collection do
-      get "confirm_deadline"
+      get "validate_deadline"
       get "mail_to_search_results"
     end
     member do
+      post "approve_deadline"
+      get "check_deadline"
       get "check_in"
       get "check_out"
       get "deadlines"

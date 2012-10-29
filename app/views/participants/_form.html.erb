@@ -14,9 +14,13 @@
       :input_html => { :class => "span2" } %>
     <%= f.input :field_of_study %>
     <%= f.input :email %>
-    <%= f.input :address1 %>
+    <%= f.input :address1, :label => "Address" %>
     <%= f.input :zipcode %>
     <%= f.input :city %>
+    <%= f.input :country_id, :as => :select, :collection => Country.all, :label => "Country were you live" %>
+    <%= f.input :country_citizen_id, :as => :select, :collection => Country.all, :label => "Country of citizenship" %>
+    <%= f.input :nationality %>
+
   </fieldset>
 
   <fieldset>
@@ -32,7 +36,7 @@
   <fieldset>
     <legend>Food and allergies</legend>
     <%= f.input :vegetarian %>
-    <%= f.input :halal %>
+    <%= f.input :halal, :label => "Halal food" %>
     <div class="alert alert-info">
       Below some allergies are listed. Please check whatever allergies you might have, or specify important allergies not listed here in the "other" box
     </div>
@@ -41,7 +45,6 @@
       <%= f.input :allergy_nuts %>
       <%= f.input :allergy_pets %>
       <%= f.input :allergy_other %>
-    </div>
   </fieldset>
 
   <fieldset>

@@ -122,8 +122,9 @@ class ParticipantsController < ApplicationController
     end
 
     #accept invitation
-    if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited 
+    if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 1 
       @participant.accepted = params[:participant][:accepted]
+      @participant.active = @participant.accepted == 1 ? true : false
       if @participant.save
         d = DeadlinesUser.new
         d.deadline_id = 1
@@ -138,19 +139,25 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited
+    elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 2
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
       if @participant.save
         d = DeadlinesUser.new
         d.deadline_id = 2
         d.user_id = current_user.id
         d.save
+        if @participant.applied_for_visa != 1
+          d = DeadlinesUser.new
+          d.deadline_id = 6
+          d.user_id = current_user.id
+          d.save
+        end
         flash[:notice] = "You information was successfully updated."
         render 'show'
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited 
+    elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 3 
       @participant.embassy_confirmation = params[:participant][:embassy_confirmation]
       if @participant.save
         d = DeadlinesUser.new
@@ -162,7 +169,7 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited 
+    elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 4 
       @participant.has_passport = params[:participant][:has_passport]
       if @participant.save
         d = DeadlinesUser.new
@@ -174,9 +181,13 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited 
+    elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 6 
+      @participant.visa = params[:participant][:visa]
       @participant.visa_number = params[:participant][:visa_number]
       @participant.visum = params[:participant][:visum]
+      if @participant.visa == 0
+        @participant.active = false
+      end
       if @participant.save
         d = DeadlinesUser.new
         d.deadline_id = 6
@@ -187,7 +198,7 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited 
+    elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 7 
       @participant.need_transport = params[:participant][:need_transport]
       if @participant.save
         d = DeadlinesUser.new
@@ -199,7 +210,7 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited 
+    elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 8 
       @participant.transport_type_id = params[:participant][:transport_type_id]
       @participant.flightnumber = params[:participant][:flightnumber]
       @participant.arrives_at = params[:participant][:arrives_at]
@@ -215,8 +226,8 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited 
-      @participant.media_consent = params[:participant][:media_consent]
+    elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 9
+      @participant.confirmed_participation = params[:participant][:confirmed_participation]
       if @participant.save
         d = DeadlinesUser.new
         d.deadline_id = 9
@@ -227,8 +238,8 @@ class ParticipantsController < ApplicationController
       else
         render 'deadline'
       end
-    elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited 
-      @participant.confirmed_participation = params[:participant][:confirmed_participation]
+    elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 10 
+      @participant.agree_waiting_list = params[:participant][:agree_waiting_list]
       if @participant.save
         d = DeadlinesUser.new
         d.deadline_id = 10
@@ -243,6 +254,14 @@ class ParticipantsController < ApplicationController
     else
       redirect_to participant_path(@participant)
     end
+  end
+
+  def check_deadline
+    @participant = Participant.find(params[:id])
+  end
+
+  def validate_deadline
+    @participants = current_user.functionary.participants
   end
 
   # GET /participants/1

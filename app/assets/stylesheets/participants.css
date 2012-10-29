@@ -2,6 +2,14 @@ tr td:first-of-type {
   font-weight: bold;
 }
 
+.deadline-yes {
+  background-color: #00ff00;
+}
+
+.deadline-no {
+  background-color: #ff0000;
+}
+
 .table-borderless td,
 .table-borderless th{ 
     border: 0 !important
