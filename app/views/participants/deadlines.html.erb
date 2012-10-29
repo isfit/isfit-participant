@@ -1,7 +1,6 @@
 <div class="well">
-  <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited %>
-
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post",:html => {:class => "form"} ) do |f| %>
+  <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Accept invitation</legend>
@@ -10,12 +9,11 @@
         </div>
         <%= f.input :accepted, :as => :boolean, :label =>  "I hereby accept my invitation to ISFiT." %>
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited %>
-
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 2), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Have you applied for a Visa?</legend>
@@ -26,12 +24,11 @@
         <%= f.input :applied_for_visa, :label => "Have you applied for a Visa?", 
           :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]] %>
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited %>
-
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 3), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Give ISFiT permission to use my contact information</legend>
@@ -43,12 +40,11 @@
         </div>
         <%= f.input :embassy_confirmation, :as => :boolean, :label => "I give ISFiT permission to use my contact information" %>
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited %>
-
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 4), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <legend>Do you have a valid passport?</legend>
@@ -58,10 +54,10 @@
         </div>
         <%= f.input :has_passport, :as => :boolean %>
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(5).users.include?(current_user) and current_user.participant.invited %>
+  <% elsif not Deadline.find_by_id(5).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
       <fieldset>
         <legend>Have you updated your profile?</legend>
         <div class="alert alert-info">
@@ -72,27 +68,41 @@
 
       </fieldset>
 
-  <% elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited %>
+  <% elsif Deadline.find_by_id(5).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 5 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
+    <fieldset>
+      <legend>Please wait</legend>
+      <p>
+      Please wait for your functionary to approve the previous deadline.
+      </p>
+    </fieldset>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+  <% elsif not Deadline.find_by_id(6).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 6), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
+        <legend>Have you been granted a Visa?</legend>
         <div class="alert alert-info">
           Fill out the Visa number from the Schengen visa or scan your visa and upload it below.
         </div>
-
-        <legend>Have you been granted a Visa?</legend>
+        <%= f.input :visa, :as => :boolean, :label => "Have you been granted a Visa?" %>
         <%= f.input :visa_number, :label => "Please enter your Visa number in the field below" %>
         Upload a scanned version of the Visa.<br>
         <%= f.file_field :visum %>
 
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited %>
+  <% elsif Deadline.find_by_id(6).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 6 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
+    <fieldset>
+      <legend>Please wait</legend>
+      <p>
+      Please wait for your functionary to approve the previous deadline.
+      </p>
+    </fieldset>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+  <% elsif not Deadline.find_by_id(7).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 7), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
         <div class="alert alert-info">
@@ -104,11 +114,11 @@
          :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
 
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited %>
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form"} ) do |f| %>
+  <% elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 8), :method => "post", :html => {:class => "form"} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
       <legend>Travel information</legend>
@@ -119,16 +129,23 @@
       </div>
         <%= f.input :transport_type_id, :as => :select, :label => "Transport type", :collection => TransportType.all.to_select_name %>
         <%= f.input :flightnumber %>
-        <%= f.input :arrives_at, :label => "Arrives at (time)", :input_html => { :class => "input-small" } %>
-        <%= f.input :departs_at, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
+        <%= f.input :arrives_at, :as => :datetime, :label => "Arrives at (time)", :input_html => { :class => "input-small" } %>
+        <%= f.input :departs_at, :as => :datetime, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
         <%= f.input :arrival_place_id, :as => :select, :label => "Arrival place", :collection => ArrivalPlace.all.to_select_name %>
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited %>
+  <% elsif Deadline.find_by_id(8).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 8 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
+    <fieldset>
+      <legend>Please wait</legend>
+      <p>
+      Please wait for your functionary to approve the previous deadline.
+      </p>
+    </fieldset>
 
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+  <% elsif not Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 9), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
 
@@ -136,12 +153,11 @@
         <%= f.input :confirmed_participation, :label => "I hereby confirm that I will participate in ISFiT 2013" %>
 
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?' %>
     <% end %>
 
-  <% elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited %>
-
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path, :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
+  <% elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 10), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
 
@@ -154,25 +170,23 @@
         <%= f.input :agree_waiting_list, :label => "Do you wish to be on a waiting list for participation in ISFiT 2013?" %>
 
       </fieldset>
-      <%= f.button :submit %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?' %>
     <% end %>
 
-
-  <% elsif false and DeadlinesUser.where("deadline_id = 9 AND user_id = ?", current_user.id).first.approved %>
-
+  <% elsif Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
     <legend>Finished</legend>
     <p>
       You have completed all the deadlines.
     </p>
 
-  <% else %>
-
-    <legend>Please wait</legend>
+  <% elsif not current_user.participant.active %>
+    <legend>Invitation</legend>
     <p>
-    There are currently no deadlines you can complete.
+    If this is wrong, send a question to your functionary.
     </p>
 
   <% end %>
+
 </div>
 
 <%= render 'menu' %>

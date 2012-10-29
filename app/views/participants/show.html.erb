@@ -17,12 +17,20 @@
       <td> <%= @participant.email %></td>
     </tr>
     <tr>
+      <td>Country of citizenship:</th>
+      <td> <%= Country.find_by_id(@participant.country_citizen_id).name %></td>
+    </tr>
+    <tr>
+      <td>Nationality:</th>
+      <td> <%= @participant.nationality %></td>
+    </tr>
+    <tr>
       <td>Birthdate:</td> 
       <td><%= @participant.date_of_birth %></td>
     </tr>
     <tr>
       <td>Sex:</td> 
-      <td><%= @participant.sex == "m" ? "Male" : "Female"  %></td>
+      <td><%= @participant.sex == 1 ? "Male" : "Female"  %></td>
     </tr>
     <tr>
       <td>Field of study:</td> 
@@ -57,6 +65,10 @@
       <td><%= @participant.vegetarian ? "Yes":"No" %></td>
     </tr>
     <tr>
+      <td>Halal food</td> 
+      <td><%= @participant.halal ? "Yes":"No" %></td>
+    </tr>
+    <tr>
       <td>Lactose intolerant</td> 
       <td><%= @participant.allergy_lactose ? "Yes":"No" %></td>
     </tr>
@@ -71,6 +83,20 @@
     <tr>
       <td>Other allergies</td> 
       <td><%= @participant.allergy_other %></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Host Information</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Prefer non-smoking</td>
+      <td><%= @participant.smoke ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <td>Handicap:</td>
+      <td><%= @participant.handicap %></td>
     </tr>
   </table>
 </fieldset>
@@ -97,20 +123,16 @@
       <td><%= @participant.departs_at %></td>
     </tr>
     <tr>
-      <td>Has passport in order?:</td>
-      <td><%= @participant.has_passport == 1 ? "Yes":"No" %></td>
-    </tr>
-    <tr>
-      <td>Applied for Visa?:</td>
-      <td><%= @participant.applied_for_visa == 1 ? "Yes":"No" %></td>
-    </tr>
-    <tr>
-      <td>Has Visa in order or don't need Visa?:</td>
-      <td><%= @participant.visa == 1 ? "Yes":"No" %></td>
-    </tr>
-    <tr>
       <td>Needs transportation by ISFiT from Oslo to Trondheim:</td>
-      <td><%= @participant.need_transport == 1 ? "Yes":"No" %></td>
+      <% if @participant.need_transport == 3 %>
+        <td>Oslo-Trondheim-Oslo</td
+      <% elsif @participant.need_transport == 2 %>
+        <td>Oslo-Trondheim</td
+      <% elsif @participant.need_transport == 1 %>
+        <td>Trondheim-Oslo</td
+      <% else %>
+        <td>No</td>
+      <% end %>
     </tr>
   </table>
 </fieldset>
@@ -131,10 +153,6 @@
       <% end %>
     </tr>
     <tr>
-      <td>Accepted invitation</td>
-      <td><%= @participant.accepted == 1 ? "Yes":"No" %></td>
-    </tr>
-    <tr>
       <td>Travel support amount:</td>
       <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
     </tr>
@@ -143,11 +161,56 @@
       <td><%= @participant.checked_in %></td>
     </tr>
     <tr>
+      <td>Checked out:</td>
+      <td><%= @participant.checked_out %></td>
+    </tr>
+    <tr>
       <td>Host:</td>
       <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
     </tr>
+    <tr>
+      <td>I agree to be contacted by media:</td>
+      <td><%= @participant.media_consent ? "Yes" : "No" %></td>
+    </tr>
   </table>
 </fieldset>
+
+<fieldset>
+  <legend>Deadline answers</legend>
+  <table class="table table-condensed table-hover table-borderless">
+    <tr>
+      <td class="span5">Accepted invitation</td>
+      <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <td>Applied for Visa?:</td>
+      <% if @participant.applied_for_visa == 1 %>
+        <td>Yes</td>
+      <% elsif @participant.applied_for_visa == 0 %>
+        <td>No</td>
+      <% else %>
+        <td>Do not need</td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Give ISFiT permission to use my contact information:</td>
+      <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <td>Has passport in order?:</td>
+      <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <td>Has Visa in order or don't need Visa?:</td>
+      <td><%= (@participant.visa == 1 or @participant.applied_for_visa) == -1 ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <td>Confirmed participation:</td>
+      <td><%= @participant.confirmed_participation == 1 ? "Yes" : "No" %></td>
+    </tr>
+  </table>
+</fieldset>
+
 
 <% if current_user.has_role?(:admin) %>
 <fieldset>

@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20121027142500) do
     t.integer  "participant_type", :default => 0
   end
 
-  create_table "deadlines_users", :id => false, :force => true do |t|
+  create_table "deadlines_users", :force => true do |t|
     t.integer  "user_id"
     t.integer  "deadline_id"
     t.datetime "created_at",                     :null => false
