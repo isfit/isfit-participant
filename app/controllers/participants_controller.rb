@@ -309,7 +309,7 @@ class ParticipantsController < ApplicationController
   end
 
   def validate_deadline
-    @participants = current_user.functionary.participants
+    @participants = current_user.functionary.participants.includes("user")
   end
 
   # GET /participants/1
