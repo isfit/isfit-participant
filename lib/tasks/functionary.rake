@@ -99,7 +99,7 @@ namespace :participant do
   end
 
   task :email => :environment do
-    participants = Participants.where(notified: 0).where(invited: 1)
+    participants = Participant.where(notified: 0).where(invited: 1)
     puts "Sending email to #{participants.count} people"
     sleep 5
     participants.each do |p|

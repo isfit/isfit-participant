@@ -13,20 +13,17 @@ class ParticipantsMailer < ActionMailer::Base
 
   def invitation_letter(participant)
     @participant = participant
-    mail_with_name = "#{participant.last_name}, #{participant.first_name} <#{participant.email}>"
-    mail(to: mail_with_name, subject: "Insert something")
+    mail(to: participant.email, subject: "Insert something")
   end
 
   def waiting_list(participant)
     @participant = participant
-    mail_with_name = "#{participant.last_name}, #{participant.first_name} <#{participant.email}>"
-    mail(to: mail_with_name, subject: "Insert something")
+    mail(to: participant.email, subject: "Insert something")
   end
 
   def denied(participant)
     @participant = participant
-    mail_with_name = "#{participant.last_name}, #{participant.first_name} <#{participant.email}>"
-    mail(to: mail_with_name, subject: "Insert something")
+    mail(to: participant.email, subject: "Insert something")
   end
   
 end
