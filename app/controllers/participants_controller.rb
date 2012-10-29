@@ -213,8 +213,8 @@ class ParticipantsController < ApplicationController
     elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 8 
       @participant.transport_type_id = params[:participant][:transport_type_id]
       @participant.flightnumber = params[:participant][:flightnumber]
-      @participant.arrives_at = params[:participant][:arrives_at]
-      @participant.departs_at = params[:participant][:departs_at]
+      @participant.arrives_at = DateTime.new(params[:participant]['arrives_at(1i)'].to_i, params[:participant]['arrives_at(2i)'].to_i, params[:participant]['arrives_at(3i)'].to_i, params[:participant]['arrives_at(4i)'].to_i, params[:participant]['arrives_at(5i)'].to_i)
+      @participant.departs_at = DateTime.new(params[:participant]['departs_at(1i)'].to_i, params[:participant]['departs_at(2i)'].to_i, params[:participant]['departs_at(3i)'].to_i, params[:participant]['departs_at(4i)'].to_i, params[:participant]['departs_at(5i)'].to_i)
       @participant.arrival_place_id = params[:participant][:arrival_place_id]
       if @participant.save
         d = DeadlinesUser.new
@@ -253,6 +253,54 @@ class ParticipantsController < ApplicationController
 
     else
       redirect_to participant_path(@participant)
+    end
+  end
+
+  def approve_deadline
+    @participant = Participant.find(params[:id])
+
+    if params[:deadline].to_i == 5
+      if params[:approved].to_i == 1 
+        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
+        d.approved = true
+        d.save
+        flash[:notice] = "Deadline was approved"
+        redirect_to validate_deadline_participants_path
+      else
+        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
+        d.destroy
+        flash[:warning] = "Deadline was removed"
+        redirect_to validate_deadline_participants_path
+      end      
+    elsif params[:deadline].to_i == 6
+      if params[:approved].to_i == 1 
+        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
+        d.approved = true
+        d.save
+        flash[:notice] = "Deadline was approved"
+        redirect_to validate_deadline_participants_path
+      else
+        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
+        d.destroy
+        flash[:warning] = "Deadline was removed"
+        redirect_to validate_deadline_participants_path
+      end
+    elsif params[:deadline].to_i == 8
+      if params[:approved].to_i == 1 
+        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
+        d.approved = true
+        d.save
+        flash[:notice] = "Deadline was approved"
+        redirect_to validate_deadline_participants_path
+      else
+        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
+        d.destroy
+        flash[:warning] = "Deadline was removed"
+        redirect_to validate_deadline_participants_path
+      end 
+    else
+      flash[:warning] = "Unknown deadline"
+      redirect_to validate_deadline_participants_path
     end
   end
 

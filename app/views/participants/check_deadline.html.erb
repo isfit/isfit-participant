@@ -1,59 +1,108 @@
-<% if Deadline.where("id = 6 and user_id = ?", @participant.user.id) %>
+<%= render 'menu' %>
+<div class="well">
+  <% if DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first and not DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first.approved %>
+    <fieldset>
+      <legend>No deadlines</legend>
+      <p>
+      Check the participant profile under.
+      </p>
+      <%= link_to 'Show profile', participant_path(@participant) %>
+      <br>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 5), :method => "POST", :class => "btn btn-primary" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 5), :method => "POST", :class => "btn btn-danger" %>
+    </fieldset>
 
-<fieldset>
-  <legend><%= "#{@participant.first_name} #{@participant.last_name}"%></legend>
-  <table class="table table-condensed table-hover table-borderless">
-    <tr>
-      <td class="span5">Accepted invitation</td>
-      <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
-    </tr>
-    <tr>
-      <td>Country:</td>
-      <td><%= @participant.country.name %></td>
+  <% elsif DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first and not DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first.approved %>
+    <fieldset>
+      <legend><%= "#{@participant.first_name} #{@participant.last_name}"%></legend>
+      <table class="table table-condensed table-hover table-borderless">
+        <tr>
+          <td class="span5">Accepted invitation</td>
+          <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
         </tr>
-    <tr>
-      <td>Country of citizenship:</th>
-      <td> <%= Country.find_by_id(@participant.country_citizen_id).name %></td>
-    </tr>
-    <tr>
-      <td>Nationality:</th>
-      <td> <%= @participant.nationality %></td>
-    </tr>
-    <tr>
-      <td>Applied for Visa?:</td>
-      <% if @participant.applied_for_visa == 1 %>
-        <td>Yes</td>
-      <% elsif @participant.applied_for_visa == 0 %>
-        <td>No</td>
-      <% else %>
-        <td>Do not need</td>
-      <% end %>
-    </tr>
-    <tr>
-      <td>Give ISFiT permission to use my contact information:</td>
-      <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
-    </tr>
-    <tr>
-      <td>Has passport in order?:</td>
-      <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
-    </tr>
-    <tr>
-      <td>Has Visa in order or don't need Visa?:</td>
-      <td><%= (@participant.visa == 1 or @participant.applied_for_visa) == -1 ? "Yes" : "No" %></td>
-    </tr>
-    <tr>
-      <td>Visa number:</td>
-      <td><%= @participant.visa_number %></td>
-    </tr>
-    <tr>
-      <td>Scanned visa?:</td>
-      <td><%= link_to 'Link', @participant.visum.url if @participant.visum? %></td>
-    </tr>
-  </table>
-</fieldset>
-  
-  
-  <br>
-  <%= link_to 'Approve', approve_deadline_participant_path(@participant), :class => "btn btn-primary" %>
-  <%= link_to 'Decline', approve_deadline_participant_path(@participant), :class => "btn btn-danger" %>
-<% end %>
+        <tr>
+          <td>Country:</td>
+          <td><%= @participant.country.name %></td>
+        </tr>
+        <tr>
+          <td>Country of citizenship:</th>
+          <td> <%= Country.find_by_id(@participant.country_citizen_id).name %></td>
+        </tr>
+        <tr>
+          <td>Nationality:</th>
+          <td> <%= @participant.nationality %></td>
+        </tr>
+        <tr>
+          <td>Applied for Visa?:</td>
+          <% if @participant.applied_for_visa == 1 %>
+            <td>Yes</td>
+          <% elsif @participant.applied_for_visa == 0 %>
+            <td>No</td>
+          <% else %>
+            <td>Do not need</td>
+          <% end %>
+        </tr>
+        <tr>
+          <td>Give ISFiT permission to use my contact information:</td>
+          <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+          <td>Has passport in order?:</td>
+          <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+          <td>Has Visa in order or don't need Visa?:</td>
+          <td><%= (@participant.visa == 1 or @participant.applied_for_visa) == -1 ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+          <td>Visa number:</td>
+          <td><%= @participant.visa_number %></td>
+        </tr>
+        <tr>
+          <td>Scanned visa?:</td>
+          <td><%= link_to 'Link', @participant.visum.url if @participant.visum? %></td>
+        </tr>
+      </table>
+      <br>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 6), :method => "POST", :class => "btn btn-primary" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 6), :method => "POST", :class => "btn btn-danger" %>
+    </fieldset>
+
+  <% elsif DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first and not DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first.approved %>
+    <fieldset>
+      <legend>Travel information</legend>
+      <table class="table table-condensed table-hover table-borderless">
+        <tr>
+          <td class="span5">Flightnumber</td>
+          <td><%= @participant.flightnumber %></td>
+        </tr>
+        <tr>
+          <td>Arrival place:</td>
+          <%if @participant.arrival_place != nil%>
+            <td><%= @participant.arrival_place.name %></td>
+          <%end%>
+        </tr>
+        <tr>
+          <td>Arrives at (time):</td>
+          <td><%= @participant.arrives_at %></td>
+        </tr>
+        <tr>
+          <td>Departs at (time):</td>
+          <td><%= @participant.departs_at %></td>
+        </tr>
+      </table>
+      <br>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 8), :method => "POST", :class => "btn btn-primary" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 8), :method => "POST", :class => "btn btn-danger" %>
+    </fieldset>
+
+  <% else %>
+    <fieldset>
+      <legend>No deadlines</legend>
+      <p>
+      There are currently no deadlines to validate for this participant.
+      </p>
+    </fieldset>
+
+  <% end %>
+</div>

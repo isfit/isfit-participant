@@ -10,6 +10,10 @@ tr td:first-of-type {
   background-color: #ff0000;
 }
 
+.deadline-check {
+  background-color: #ffff00;
+}
+
 .table-borderless td,
 .table-borderless th{ 
     border: 0 !important
