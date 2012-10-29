@@ -97,6 +97,18 @@ namespace :participant do
 
     end
   end
+
+  task :email => :environment do
+    participants = Participants.where(notified: 0).where(invited: 1)
+    puts "Sending email to #{participants.count} people"
+    sleep 5
+    participants.each do |p|
+      puts "Sending e-mail to: " + p.email
+      ParticipantsMailer.invitation_letter(p).deliver!
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
+    end
+  end
 end
 
 

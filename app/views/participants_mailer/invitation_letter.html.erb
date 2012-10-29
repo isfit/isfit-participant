@@ -1,66 +1,93 @@
-Dear <%= @participant.first_name %> <%= @participant.last_name %>,
+<p>Dear <%= @participant.first_name %> <%= @participant.last_name %>,</p>
 
+<p>
 Congratulations! You have been selected to participate in ISFiT 2013! You will
 be attending workshop <%= @participant.workshop_id %> and 
 <%= @participant.workshop.name %>. We truly believe that your participation will
 contribute uniquely to the festival, so we do hope that you will be able to
 attend.
+</p>
 
-You have been assigned a personal profile at https://participant.isfit.org.
-You can log into this with the following credentials:
-Username: <%= @participant.user.email %>
+<p>
+You have been assigned a personal profile at <a href="https://participant.isfit.org">https://participant.isfit.org</a>.
+You can log into this with the following credentials:<br>
+Username: <%= @participant.user.email %><br>
 Password: <%= @participant.user.first_password %>
-
+</p>
+<p>
 Please change the password once you log in.
+</p>
 
+<p>
 All contact with the ISFiT 2013 crew will happen through this profile. It is
 important that you log in as soon as you can, to confirm that you want to
-participate. The deadline for confirming your participation is 15th of
-November. If you do not confirm your participation by this date, you will lose
+participate. <strong>The deadline for confirming your participation is 15th of
+  November.</strong> If you do not confirm your participation by this date, you will lose
 your position.
+</p>
 
+<p>
 It is essential that you now start planning your visa application and trip to
-Trondheim.  Your visa application should be delivered at the Norwegian embassy
-in your country by the 15th of November. If you apply for a visa after this
+Trondheim. <strong>Your visa application should be delivered at the Norwegian embassy
+in your country by the 15th of November.</strong> If you apply for a visa after this
 date, the embassy might not be able to evaluate your application in time for
 the festival. However, you cannot apply for a visa before 7th of November.
 Also, remember to fill your travel plans into the given form on your personal
 profile by 15th of January. All the important dates will be put in a timeline
 at the end of this e-mail.  Through your personal profile, we will do our best
 to guide you through these processes.
+</p>
 
-We have also made a information package for you, that you can download here:
-https://participant.isfit.org/information_brochure.pdf
+<p>
+We have also made a information package for you, that you can download here:<br>
+<a href="https://participant.isfit.org/information_brochure.pdf">https://participant.isfit.org/information_brochure.pdf</a>
+</p>
+
 
 <% applicant = Application.find_by_email(@participant.email) %>
 <% if @participant.travel_support > 0 %>
-You are one of the few that have been granted travel support.
-Download the travel support letter 
-<%= travel_support_participant_url(@participant) %>
+  <p>
+  You are one of the few that have been granted travel support.<br>
+<%= link_to "Download the travel support letter", travel_support_participant_url(@participant, host: "participant.isfit.org") %>
 [confirmation letter]????
+  </p>
 <% elsif !applicant.nil? && (applicant.travel_apply || applicant.travel_amount) %>
+  <p>
 We regret to inform you that you have not been granted travel support
 for ISFiT 2013. Due to limited funds we were only able to support a
 very small number of students, and have to reject the majority of the
 applications.
+</p>
 <% else %>
 <% end %>
 
+<p>
 We wish you good luck planning your trip, and we look forward to seeing you in
 Trondheim in February 2013! Download your official invitation from Kaja Juul
-Skarbø, the president of ISFiT:
-<%= invitation_participant_url(@participant) %>
+Skarbø, the president of ISFiT:<br>
+<%= link_to "Invitation letter", invitation_participant_url(@participant, host: "participant.isfit.org") %>
+</p>
 
+<p>
 Your official invitation is extremelyimportant, both for the visa process and
 also your arrival in Norway.
+</p>
 
+<p>
 For further questions please contact us through your personal profile, and we
 will do our best to assist you.
+</p>
 
+<p>
 If you have any trouble logging into your personal profile, please send your
 questions to question@isfit.org.
+</p>
 
+<p>
 Yours sincerely,
+</p>
 
+<p>
 The Participant Team
+</p>
 
