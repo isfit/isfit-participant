@@ -8,7 +8,10 @@ class Participant < ActiveRecord::Base
   belongs_to :workshop
   belongs_to :host
 
-  has_attached_file :visum
+  has_attached_file :visum, {
+    :url => "/system/:hash.:extension",
+    :hash_secret => "kakekakekakemonster",
+  }
 
   validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
