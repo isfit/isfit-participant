@@ -26,15 +26,16 @@ Below is an overview of the deadlines for your participants.
     <% @participants.each do |participant| %>
       <tr>
         <td><%= "#{participant.last_name}, #{participant.first_name}" %></td>
-        <%= validate_table_cell(participant, 1) %>
-        <%= validate_table_cell(participant, 2) %>
-        <%= validate_table_cell(participant, 3) %>
-        <%= validate_table_cell(participant, 4) %>
-        <%= validate_table_cell(participant, 5) %>
-        <%= validate_table_cell(participant, 6) %>
-        <%= validate_table_cell(participant, 7) %>
-        <%= validate_table_cell(participant, 8) %>
-        <%= validate_table_cell(participant, 9) %>
+        <% d = DeadlinesUser.where("user_id = ?", participant.user.id) %>
+        <%= validate_table_cell(d, 1) %>
+        <%= validate_table_cell(d, 2) %>
+        <%= validate_table_cell(d, 3) %>
+        <%= validate_table_cell(d, 4) %>
+        <%= validate_table_cell(d, 5) %>
+        <%= validate_table_cell(d, 6) %>
+        <%= validate_table_cell(d, 7) %>
+        <%= validate_table_cell(d, 8) %>
+        <%= validate_table_cell(d, 9) %>
         <td><%= link_to 'Check', check_deadline_participant_path(participant), :class => "btn btn-primary" %></td>
         <td><%= link_to 'Show', participant_path(participant), :class => "btn btn-primary" %></td>
       </tr>
