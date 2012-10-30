@@ -25,7 +25,11 @@ Below is an overview of the deadlines for your participants.
   <tbody>
     <% @participants.each do |participant| %>
       <tr>
-        <td><%= "#{participant.last_name}, #{participant.first_name}" %></td>
+        <% if participant.active %>
+          <td><%= "#{participant.last_name}, #{participant.first_name}" %></td>
+        <% else %>
+          <td><del><%= "#{participant.last_name}, #{participant.first_name}" %></del></td>
+        <% end %>
         <% d = DeadlinesUser.where("user_id = ?", participant.user.id) %>
         <%= validate_table_cell(d, 1) %>
         <%= validate_table_cell(d, 2) %>

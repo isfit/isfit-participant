@@ -2,15 +2,15 @@ tr td:first-of-type {
   font-weight: bold;
 }
 
-.deadline-yes {
+.part-green {
   background-color: #00ff00;
 }
 
-.deadline-no {
+.part-red {
   background-color: #ff0000;
 }
 
-.deadline-check {
+.part-yellow {
   background-color: #ffff00;
 }
 

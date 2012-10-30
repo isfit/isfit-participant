@@ -37,9 +37,9 @@
           <% if @participant.applied_for_visa == 1 %>
             <td>Yes</td>
           <% elsif @participant.applied_for_visa == 0 %>
-            <td>No</td>
+            <td class=part-red>No</td>
           <% else %>
-            <td>Do not need</td>
+            <td class=part-yellow>Do not need</td>
           <% end %>
         </tr>
         <tr>
@@ -48,7 +48,11 @@
         </tr>
         <tr>
           <td>Has passport in order?:</td>
-          <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
+          <% if @participant.has_passport == 1 %>
+            <td>Yes</td>
+          <% else %>
+            <td class="part-red">No</td>
+          <% end %>
         </tr>
         <tr>
           <td>Has Visa in order or don't need Visa?:</td>
@@ -73,7 +77,11 @@
       <legend>Travel information</legend>
       <table class="table table-condensed table-hover table-borderless">
         <tr>
-          <td class="span5">Flightnumber</td>
+          <td class="span5">Transport type</td>
+          <td><%= @participant.transport_type.name %></td>
+        </tr>
+        <tr>
+          <td>Flightnumber</td>
           <td><%= @participant.flightnumber %></td>
         </tr>
         <tr>

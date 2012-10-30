@@ -105,11 +105,10 @@
     <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 7), :method => "post", :html => {:class => "form", :multipart => true} ) do |f| %>
       <%= f.error_notification %>
       <fieldset>
+        <legend>Transport Oslo-Trondheim</legend>
         <div class="alert alert-info">
           The cost will be 200NOK ($35 USD) each way, for a round-trip 400NOK ($70 USD). 
         </div>
-
-        <legend>Transport Oslo-Trondheim</legend>
         <%= f.input :need_transport, :label => "Do you need transportation by ISFiT from Oslo to Trondheim?",
          :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
 
@@ -149,7 +148,7 @@
       <%= f.error_notification %>
       <fieldset>
 
-        <legend>Media contact</legend>
+        <legend>Confirm participation</legend>
         <%= f.input :confirmed_participation, :label => "I hereby confirm that I will participate in ISFiT 2013" %>
 
       </fieldset>
@@ -161,7 +160,8 @@
       <%= f.error_notification %>
       <fieldset>
 
-        <legend>Media contact</legend>
+        <legend>Waiting list</legend>
+        <strong>Do you wish to be on a waiting list for participation in ISFiT 2013?</strong>
         <div class="alert alert-info">
           The final results will be available on the 20th of January.
           If you are granted participation at ISFiT 2013, the final deadline for confirming participation at
@@ -179,10 +179,31 @@
       You have completed all the deadlines.
     </p>
 
-  <% elsif not current_user.participant.active %>
-    <legend>Invitation</legend>
+  <% elsif Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and current_user.participant.agree_waiting_list %>
+    <legend>Waiting list</legend>
     <p>
-    If this is wrong, send a question to your functionary.
+      You are on the waiting list. The final results will be available on the 20th of January.
+    </p>
+
+  <% elsif Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and not current_user.participant.agree_waiting_list %>
+    <legend>Waiting list</legend>
+    <p>
+      You are no longer on the waiting-list.
+    </p>
+
+  <% elsif not current_user.participant.active %>
+    <legend>Information</legend>
+    <p>
+    <% if @participant.accepted == 0 %>
+      You did not accept the inivitation.
+    <% elsif @participant.applied_for_visa == 1 and not @participant.visa == 0 %>
+      You was not granted a visa.
+    <% elsif not @participant.confirmed_participation %>
+      You did not confirm that you will participate in ISFiT 2013.
+    <% else %>
+      You have missed the deadlines.
+    <% end %>
+    If this is wrong, please send a question to your functionary.
     </p>
 
   <% end %>
