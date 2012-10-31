@@ -329,7 +329,7 @@ class ParticipantsController < ApplicationController
     end
     if current_user.id == @participant.user.id || !current_user.has_role?(:participant)
       respond_to do |format|
-        format.html {render 'travel_support', :layout=>false}
+        format.html {render 'letter_of_recommendation', :layout=>false}
       end
     else
       raise CanCan::AccessDenied
