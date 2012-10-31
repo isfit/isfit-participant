@@ -70,6 +70,7 @@ IsfitParticipant::Application.routes.draw do
       get "mail_to_search_results"
       match 'search' => 'participants#search', :via => [:get, :post], :as => :search
       match 'index' => 'participants#index', :via => [:get, :post]
+      get "stats"
     end
     member do
       post "approve_deadline"

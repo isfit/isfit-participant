@@ -102,8 +102,6 @@ class ParticipantsController < ApplicationController
     if current_user.has_role?(:admin)
       redirect_to participants_path
     end
-
-    
   end
 
   def deadlines_handler
@@ -293,6 +291,10 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
     end
+  end
+
+  def stats
+    @participants = Participant.all
   end
 
   def invitation

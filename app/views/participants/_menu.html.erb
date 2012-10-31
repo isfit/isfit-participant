@@ -4,6 +4,9 @@
     <% if can? :validate_deadline, Participant %>
       <li><%= link_to image_tag('icons/eye.png') + ' Check deadlines', validate_deadline_participants_path %></li>
     <% end %>
+    <% if can? :stats, Participant %>
+      <li><%= link_to image_tag('icons/chart_bar.png') + ' Stats', stats_participants_path %></li>
+    <% end %>
     <% if can? :search, Participant %>
       <li><%= link_to image_tag('icons/find.png') + ' Search', search_participants_path %></li>
     <% end %>
