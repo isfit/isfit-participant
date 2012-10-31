@@ -314,9 +314,24 @@ class ParticipantsController < ApplicationController
       raise CanCan::AccessDenied
       return
     end
-    if current_user.id == @participant.user.id
+    if current_user.id == @participant.user.id || !current_user.has_role?(:participant)
       respond_to do |format|
         format.html {render 'travel_support', :layout=>false}
+      end
+    else
+      raise CanCan::AccessDenied
+    end
+  end
+
+  def letter_of_recommendation
+    @participant = Participant.find(params[:id])
+    if @participant.travel_support < 1
+      raise CanCan::AccessDenied
+      return
+    end
+    if current_user.id == @participant.user.id || !current_user.has_role?(:participant)
+      respond_to do |format|
+        format.html {render 'letter_of_recommendation', :layout=>false}
       end
     else
       raise CanCan::AccessDenied

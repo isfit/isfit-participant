@@ -17,6 +17,7 @@
       <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitationletter',  :controller=>:participants, :format => :pdf, :action=> :invitation, :id => @participant.id%></li>
       <% if @participant.travel_support > 0 %>
         <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
+        <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support recommendation letter',  :controller=>:participants, :format => :pdf, :action=> :letter_of_recommendation, :id => @participant.id%></li>
       <% end %>
       <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
       <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>

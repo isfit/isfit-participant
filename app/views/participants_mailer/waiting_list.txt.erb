@@ -1,1 +1,29 @@
-Hi!
+Dear <%= @participant.first_name %> <%= @participant.last_name %>,
+
+Thank you for applying for ISFiT 2013!
+
+We hereby wish to inform you that the first round of selecting participants to this year’s festival
+is now over. Unfortunately, due to the large number of applications we cannot at this time offer
+you a place. We would, however, like to offer you a waiting list position.
+
+You have been assigned a personal profile at https://participant.isfit.org.
+You can log into this with the following credentials:
+Username: <%= @participant.user.email %>
+Password: <%= @participant.user.first_password %>
+
+Please change the password once you log in.
+
+All contact with the ISFiT-team will happen through this profile. It is important that you log on as soon
+as you can, to confirm that you want to be on the waiting list for ISFiT 2013. The deadline for confirming
+the waiting list position is the 15th of November. If you do not confirm the position by this date, you will
+lose your place.
+
+The final results will be available on the 15th of January. If you are granted participation at ISFiT 2013,
+the final deadline for confirming participation at the festival is the 20th of January.
+
+Through your personal profile, we will do our best to support you until the festival. If you have any
+queries, please do not hesitate to contact: question@isfit.org
+
+Yours sincerely,
+
+The Participant Team

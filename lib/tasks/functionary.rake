@@ -98,13 +98,85 @@ namespace :participant do
     end
   end
 
-  task :email => :environment do
+  task :make_applicants_into_waiting_participants => :environment do
+    # TODO verifiser med Erik
+    invites = Application.waiting
+    invites.each do |invited|
+      puts "Processing #{invited.email}"
+      # Create User
+      user = User.new
+      user.email = invited.email.strip
+      user.first_password = generate_password
+      user.password = user.first_password
+      user.roles << Role.find(6)
+      user.save
+
+      # Create Participant
+      participant = Participant.new
+      participant.first_name = invited.first_name.strip
+      participant.last_name = invited.last_name.strip
+      participant.email = invited.email.strip
+      participant.date_of_birth = invited.birthdate
+      participant.address1 = invited.address.strip
+      participant.zipcode = invited.zipcode
+      participant.city = invited.city.strip
+      participant.country_id = invited.country_id
+      participant.country_citizen_id = invited.country_id
+      participant.sex = invited.sex
+      participant.field_of_study = invited.field_of_study
+      if not invited.final_workshop.nil?
+        participant.workshop_id = invited.final_workshop
+      else
+        puts "FINAL WORKSHOP IS NOT SET. USER ID: #{user.id}"
+      end
+      participant.user_id = user.id
+      participant.notified = 0
+      participant.invited = 0
+      participant.active = true
+      participant.travel_support = invited.travel_amount_given.to_i
+      participant.save
+      puts "Finished processing #{participant.email}. \n\n\n"
+
+    end
+  end
+
+  task :email_invited => :environment do
     participants = Participant.where(notified: 0).where(invited: 1)
     puts "Sending email to #{participants.count} people"
     sleep 5
     participants.each do |p|
       puts "Sending e-mail to: " + p.email
       ParticipantsMailer.invitation_letter(p).deliver!
+      p.notified = true
+      p.save
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
+    end
+  end
+
+  task :email_denied => :environment do
+    applicants = Application.denied
+    puts "Sending email to #{applicants.count} people"
+    sleep 5
+    applicants.each do |p|
+      puts "Sending e-mail to: " + p.email
+      ParticipantsMailer.denied(p).deliver!
+      p.status = 4 # Set status to 4 for notified uninvited
+      p.save
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
+    end
+  end
+
+  task :email_waiting => :environment do
+    participants = Participant.where(notified: 0).where(invited: 0)
+    puts "Sending email to #{participants.count} people"
+    sleep 5
+    participants.each do |p|
+      puts "Sending e-mail to: " + p.email
+      ParticipantsMailer.invitation_letter(p).deliver!
+      p.notified = true
+      p.save
       puts "E-mail is sent.\n\n"
       sleep 0.5
     end

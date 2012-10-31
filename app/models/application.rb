@@ -94,4 +94,6 @@ class Application < ActiveRecord::Base
     :message => "Travel amount should not be specified, when travel support not is granted."
 
   scope :invited, where(status: 1)
+  scope :waiting, where(status: 3)
+  scope :denied, where("status = 0 OR status = 2")
 end
