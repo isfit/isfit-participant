@@ -156,7 +156,7 @@ namespace :participant do
     applicants.each do |p|
       puts "Sending e-mail to: " + p.email
       ParticipantsMailer.denied(p).deliver!
-      p.status = 5 # Set status to 4 for notified uninvited
+      p.status = 5 # Set status to 5 for notified uninvited
       p.save
       puts "E-mail is sent.\n\n"
       sleep 0.5
