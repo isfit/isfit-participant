@@ -29,7 +29,7 @@
         <td colspan="2">  
           <p>
  The International Student Festival in Trondheim 2013 – ISFiT – and the ISFiT Foundation
-hereby confirm that you are invited to participate in ISFiT 2013, in workshop:
+hereby confirm that you are invited to participate in ISFiT 2013, in workshop <%= @participant.workshop_id %> - <%= @participant.workshop.name %>.
 The festival takes place in Trondheim, Norway, from 7th of February to the 17th of February
 2013.
 </p>
@@ -77,10 +77,10 @@ Yours sincerely,
 </p>
       </tr> 
       <tr> 
-        <td width="50%"><p><%= image_tag 'kaja_signature.jpg', :style => "border-bottom: 1px solid black", :width => "160"%> </p> 
+        <td width="50%"><p><%= image_tag 'kaja_signature.png', :style => "border-bottom: 1px solid black", :width => "160"%> </p> 
           <p>Kaja Juul Skarb&oslash;<br> 
           President, ISFiT 2013    </p></td> 
-        <td width="50%" align="right"><p><%= image_tag 'erik_vikum_signature.png', :style => "border-bottom: 1px solid black", :width => "160" %></p> 
+        <td width="50%" align="right"><p><%= image_tag 'eirik_vikum_signature.png', :style => "border-bottom: 1px solid black", :width => "160" %></p> 
           <p>Eirik Vikum<br> 
           Chairman, the ISFiT foundation</p></td> 
       </tr> 
