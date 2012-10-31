@@ -52,7 +52,8 @@ class ApplicationsController < ApplicationController
     @status = { "Not processed" => 0,
       "Accepted" => 1,
       "Not accepted" => 2,
-      "Waiting list" => 3 }
+      "Waiting list" => 3,
+      "Dialogue" => 4}
     @travel_status = { "Will get travel support" => 1,
       "Will maybe get travel support" => 2,
       "Will not get travel support" => 3 }
@@ -77,6 +78,12 @@ class ApplicationsController < ApplicationController
         @application.travel_amount_given = params[:application][:travel_amount_given]
       end
       @application.travel_comment = params[:application][:travel_comment]
+    else
+      @application.final_workshop = 0
+      @application.travel_status = 0
+      @application.travel_approved = 0
+      @application.travel_amount_given = 0
+      @application.travel_comment = ""
     end
 
     if @application.save
@@ -86,7 +93,8 @@ class ApplicationsController < ApplicationController
       @status = { "Not processed" => 0,
         "Accepted" => 1,
         "Not accepted" => 2,
-        "Waiting list" => 3 }
+        "Waiting list" => 3,
+        "Dialogue" => 4}
       @travel_status = { "Will get travel support" => 1,
         "Will maybe get travel support" => 2,
         "Will not get travel support" => 3 }
@@ -229,7 +237,8 @@ class ApplicationsController < ApplicationController
     @status = { "Not processed" => 0,
       "Accepted" => 1,
       "Not accepted" => 2,
-      "Waiting list" => 3}
+      "Waiting list" => 3,
+      "Dialogue" => 4 }
     @travel_status = { "Will get travel support" => 1,
       "Will maybe get travel support" => 2,
       "Will not get travel support" => 3 }
@@ -241,10 +250,12 @@ class ApplicationsController < ApplicationController
     @applications_results = @q.result.includes("country").where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).limit(200)
     @countries = Country.all
     @workshops = Workshop.all
+    #Move status and travel_status to model, and refactor
     @status = { "Not processed" => 0,
       "Accepted" => 1,
       "Not accepted" => 2,
-      "Waiting list" => 3 }
+      "Waiting list" => 3,
+      "Dialogue" => 4 }
     @travel_status = { "Will get travel support" => 1,
       "Will maybe get travel support" => 2,
       "Will not get travel support" => 3 }

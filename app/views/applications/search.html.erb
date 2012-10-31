@@ -3,11 +3,9 @@
 <h1>Search for application</h1>
 
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_applications_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
-  <% unless ControlPanel.first.app_grade3 and can?(:stats, Application) %>
-    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" } %>
-    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" } %>
-    <%= f.input :email_eq, :label => "Email", :input_html => { :class => "span4" } %>
-  <% end %>
+  <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" } %>
+  <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" } %>
+  <%= f.input :email_eq, :label => "Email", :input_html => { :class => "span4" } %>
   <%= f.input :country_id_eq, :collection => @countries, :as => :select, 
     :label => "Country", :input_html => { :class => "span4" } %>
   <%= f.input :sex_eq, :as => :select, :label => "Sex", 
@@ -76,6 +74,8 @@ A maximum of 200 applications will be listed below.<br>
             <%= image_tag ('icons/delete.png') %>
           <% elsif application.status == 3 %>
             <%= image_tag ('icons/time.png') %>
+          <% elsif application.status == 4 %>
+             <%= image_tag ('icons/flag_pink.png') %>
           <% end %>
         </td>
       <% end %>
