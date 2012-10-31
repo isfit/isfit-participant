@@ -80,7 +80,7 @@ class Application < ActiveRecord::Base
     :message => "must be a number between 0-10"
   validates_numericality_of :grade2, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, 
     :message => "must be a number between 0-10"
-  validates_numericality_of :status, :greater_than_or_equal_to => 0, :less_than => 4,
+  validates_numericality_of :status, :greater_than_or_equal_to => 0, :less_than => 6,
     :message => "Status is invalid"
   validates_numericality_of :travel_status, :greater_than_or_equal_to => 0, :less_than => 4,
     :message => "Travel status is invalid"

@@ -1,0 +1,32 @@
+  <p class="info">
+    All info below are from the active search.
+  </p>
+  <% content_for :script do %>
+  <script>
+    $(function() {
+      $("#country-dist").hide();
+      $("#country-dist-toggle").click(function() {
+        $("#country-dist").toggle("slow");
+      });
+    });
+  </script>
+  <% end %>
+  <h3><a id="country-dist-toggle" style="cursor: pointer;">Total country distribution</a></h3>
+  <div id="country-dist">
+    <p class="info"><%= @partici.count %> total</p>
+    <table id="datatable-country" class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @country_count.each do |c| %>
+          <tr>
+            <td><%= @countries[c[0]-1].name %></td><td><%= c[1] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

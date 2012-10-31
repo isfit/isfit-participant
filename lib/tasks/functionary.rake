@@ -99,7 +99,6 @@ namespace :participant do
   end
 
   task :make_applicants_into_waiting_participants => :environment do
-    # TODO verifiser med Erik
     invites = Application.waiting
     invites.each do |invited|
       puts "Processing #{invited.email}"
@@ -124,16 +123,12 @@ namespace :participant do
       participant.country_citizen_id = invited.country_id
       participant.sex = invited.sex
       participant.field_of_study = invited.field_of_study
-      if not invited.final_workshop.nil?
-        participant.workshop_id = invited.final_workshop
-      else
-        puts "FINAL WORKSHOP IS NOT SET. USER ID: #{user.id}"
-      end
+      participant.workshop_id = 0
       participant.user_id = user.id
       participant.notified = 0
       participant.invited = 0
       participant.active = true
-      participant.travel_support = invited.travel_amount_given.to_i
+      participant.travel_support = 0
       participant.save
       puts "Finished processing #{participant.email}. \n\n\n"
 
@@ -161,7 +156,7 @@ namespace :participant do
     applicants.each do |p|
       puts "Sending e-mail to: " + p.email
       ParticipantsMailer.denied(p).deliver!
-      p.status = 4 # Set status to 4 for notified uninvited
+      p.status = 5 # Set status to 5 for notified uninvited
       p.save
       puts "E-mail is sent.\n\n"
       sleep 0.5
