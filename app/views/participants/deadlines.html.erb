@@ -18,8 +18,8 @@
       <fieldset>
         <legend>Have you applied for a Visa?</legend>
         <div class="alert alert-info">
-          For more information: [link til Visa informasjon]
-          Here is a list over the countries that do not need a Visa: [link til visa-free countries]
+          For more information: <%= link_to 'Link', information_page_path(16) %><br>
+          Here is a list over the countries that do not need a Visa: <%= link_to 'Link', information_page_path(18) %>
         </div>
         <%= f.input :applied_for_visa, :label => "Have you applied for a Visa?", 
           :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]] %>
@@ -195,15 +195,19 @@
     <legend>Information</legend>
     <p>
     <% if @participant.accepted == 0 %>
-      You did not accept the inivitation.
+      You have failed to accept your invitation within the given deadline.
+    <% elsif @participant.applied_for_visa == 0 %>
+      You have failed to apply for your visa within the given deadline.
+    <% elsif @participant.has_passport == 0%>
+      To be able to enter Norway, it is required to have a passport. You have failed to meet this requirement.
     <% elsif @participant.applied_for_visa == 1 and not @participant.visa == 0 %>
-      You was not granted a visa.
+      ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement.
     <% elsif not @participant.confirmed_participation %>
-      You did not confirm that you will participate in ISFiT 2013.
+      You have failed to confirm your participation at ISFiT.
     <% else %>
-      You have missed the deadlines.
+      You have missed a deadline and may not proceed to the next step of the participation requirements.
     <% end %>
-    If this is wrong, please send a question to your functionary.
+      If this is wrong, please send a question to your functionary.
     </p>
 
   <% end %>

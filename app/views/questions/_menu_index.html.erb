@@ -1,7 +1,6 @@
 <% content_for :sidebar_left do %>
-  <div class="well">
-    <h4><%= image_tag('icons/wrench.png')%> Tools</h4>
-    <ul>
-      <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
-  </div>
+	<ul class="nav nav-list well">
+    <li class="nav-header">Menu</li>
+    <li><%= link_to image_tag('icons/comment_add.png') + ' New Question', new_question_path %></li>
+  <ul>
 <% end %>
