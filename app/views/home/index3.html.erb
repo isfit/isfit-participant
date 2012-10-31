@@ -15,6 +15,7 @@
     <% @deadlines = Deadline.where("participant_type = 0 OR participant_type = 2") %>
   <% end %>
   <% if @deadlines %>
+    <%= link_to "Go to next deadline", deadlines_participant_path(current_user.participant), class: "btn btn-primary btn-large btn-block" %>
     <ul class="nav nav-list well">
     <li class="nav-header">Deadlines</li>
       <% @deadlines.each do |d| %>
