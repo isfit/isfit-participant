@@ -40,16 +40,16 @@ to guide you through these processes.
 
 <p>
 We have also made a information package for you, that you can download here:<br>
-<a href="https://participant.isfit.org/information_brochure.pdf">https://participant.isfit.org/information_brochure.pdf</a>
+<a href="https://participant.isfit.org/Information_brochure.pdf">https://participant.isfit.org/information_brochure.pdf</a>
 </p>
 
 
 <% applicant = Application.find_by_email(@participant.email) %>
 <% if @participant.travel_support > 0 %>
   <p>
-  You are one of the few that have been granted travel support.<br>
-<%= link_to "Download the travel support letter", travel_support_participant_url(@participant, host: "participant.isfit.org") %>
-[confirmation letter]????
+  You are one of the few that have been granted travel support. You can download your travel support letter and your recommendation letter below. More information is available there.<br>
+<%= link_to "Download the travel support letter", travel_support_participant_url(@participant, host: "participant.isfit.org") %><br>
+<%= link_to "Download the travel support recommendation letter", letter_of_recommendation_participant_url(@participant, host: "participant.isfit.org") %>
   </p>
 <% elsif !applicant.nil? && (applicant.travel_apply || applicant.travel_amount) %>
   <p>
@@ -69,7 +69,7 @@ Skarbø, the president of ISFiT:<br>
 </p>
 
 <p>
-Your official invitation is extremelyimportant, both for the visa process and
+Your official invitation is extremely important, both for the visa process and
 also your arrival in Norway.
 </p>
 

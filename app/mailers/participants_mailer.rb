@@ -13,17 +13,17 @@ class ParticipantsMailer < ActionMailer::Base
 
   def invitation_letter(participant)
     @participant = participant
-    mail(to: participant.email, subject: "Insert something")
+    mail(to: participant.email, subject: "[ISFiT] Your invitation to ISFiT 2013")
   end
 
   def waiting_list(participant)
     @participant = participant
-    mail(to: participant.email, subject: "Insert something")
+    mail(to: participant.email, subject: "[ISFiT] Regarding your application to ISFiT 2013")
   end
 
   def denied(participant)
     @participant = participant
-    mail(to: participant.email, subject: "Insert something")
+    mail(to: participant.email, subject: "[ISFiT] Regarding your application to ISFiT 2013")
   end
   
 end
