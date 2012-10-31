@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
         .where(status_query)
         .order("questions.created_at DESC")
         .paginate(:per_page => 10, :page=>params[:page])
+      @question_counts = Question.group(:status).count
 
       @static = Functionary.find_by_sql('SELECT f.first_name as first_name, f.last_name as last_name'\
         ', count(CASE WHEN q.status = 1 THEN f.id END) as new, count(CASE WHEN q.status = 2 THEN f.id END)'\
@@ -36,17 +37,30 @@ class QuestionsController < ApplicationController
         .all(:conditions=>"dialogue = 1"+status_query, :order=>"questions.created_at DESC")
         .paginate(:per_page => 10, :page=>params[:page])
 
+      @question_counts = Question.where(:dialogue => 1).group(:status).count
+
       render :index_nopart
     elsif current_user.has_role?(:functionary)
-      @questions = Question
-        .joins(:participant).all(:joins=>"JOIN functionaries_participants fp ON fp.participant_id = participants.id",
-          :conditions=>status_query+" AND fp.functionary_id = "+current_user.functionary.id.to_s,
-          :order=>"questions.created_at DESC")
+      @questions = Question.joins(:participant)
+        .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+        .where(status_query+" AND fp.functionary_id = "+current_user.functionary.id.to_s)
+        .order("questions.created_at DESC")
         .paginate(:per_page => 10, :page => params[:page])
+
+      @question_counts = Question.joins(:participant)
+        .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+        .where("fp.functionary_id = "+current_user.functionary.id.to_s)
+        .group(:status)
+        .count
 
       render :index_nopart
     else
-      @questions = Question.find(:all, :conditions=>"participant_id="+current_user.participant.id.to_s)
+      @questions = Question.where("participant_id="+current_user.participant.id.to_s)
+
+      @question_counts = Question.where("participant_id="+current_user.participant.id.to_s)
+        .group(:status)
+        .count
+
       respond_to do |format|
         format.html # index.html.erb
         format.xml  { render :xml => @questions }

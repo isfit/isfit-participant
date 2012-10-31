@@ -7,6 +7,11 @@
     <%= f.button :submit, "Show", :class => "btn btn-primary" %>
   </div>
 <%end%>
+<ul>
+  <li>New: <%= (@question_counts && @question_counts[1]) ? @question_counts[1] : 0 %></li>
+  <li>Open: <%= (@question_counts && @question_counts[2]) ? @question_counts[2] : 0 %></li>
+  <li>Resolved: <%= (@question_counts && @question_counts[3]) ? @question_counts[3] : 0 %></li>
+</ul>
 <fieldset>
   <legend>Questions</legend>
   <table class="table table-bordered table-striped">
