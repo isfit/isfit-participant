@@ -1,0 +1,75 @@
+<html> 
+  <head>
+      <meta charset="UTF-8">
+
+
+<style> 
+body, td {
+font-family: 'Times New Roman';
+font-size: 9pt;
+}
+body {
+padding-left: 50px;
+padding-right: 50px;
+}
+.style2 {
+text-align:justify;
+}
+</style> 
+
+
+</head>
+<body>
+<table width="100%" border="0"> 
+<tr> 
+<td width="50%"><div align="left" class="style2"> 
+ISFiT<br> 
+Hovedbygget, NTNU<br> 
+H&oslash;gskoleringen 1<br> 
+7491 Trondheim<br> 
+NORWAY</div>
+</td> 
+<td><div align="right"> <%= image_tag 'logo_ny_blacyan.png', :width=>"150" %></div></td> 
+</tr> 
+<tr> 
+<td colspan="2" class="style2">
+<p align="right">Trondheim, 01.11.12 
+</p> 
+<p>
+To whom it may concern, 
+</p>
+
+<p>
+This letter confirms that <%= @participant.first_name %> <%= @participant.last_name %> has been granted the sum of <%= @participant.travel_support %> USD for attending ISFIT in February 2013. The participant has been selected because he/she has shown great potential and interest in ISFIT 2013. 
+</p>
+
+<p><strong>
+For security reasons we have to hand out the money upon arrival in Trondheim, Norway, and we therefore hope that you can grant the participant a loan so that he/she can afford to buy a flight ticket to Norway.</strong>
+</p>
+
+<p>
+ISFiT, the International Student Festival in Trondheim, is a festival arranged for and by students from all over the world with the aim of building networks across cultural and geographical borders. ISFiT is the world’s largest international student festival and has a thematic focus. Roughly 450 students from all parts of the world will gather to discuss topics related to this years theme: global trade. These discussions will take place in workshops and plenary sessions. Past speakers at the plenary sessions include His Holiness the Dalai Lama, former Director-General of WHO Dr. Gro Harlem Brundtland and Nobel Peace Prize Laureates Dr José Ramos-Horta, Professor Wangari Maathai, Nobel Peace Prize Laureate Dr Desmond Tutu and Crown Prince Haakon Magnus of Norway. There will also be a variety of cultural and social activities such as concerts, theatre and dance performances, and art exhibitions.
+</p>
+
+<p>
+In order to live up to our name as an international student festival, it is important that our participants are students with various social, cultural, religious and educational backgrounds. Our aim is to have students from more than 100 countries represented at ISFiT 2013.
+</p>
+
+<p>
+We have selected this participant among many others applicants, and we strongly feel that our candidates deserve to be financially supported so that they will get the chance to participate at ISFiT 2013.
+</p>
+
+<p>
+Best Regards, 
+</p>
+<%= image_tag "kari_eline_signature.png" %>
+<p>
+Kari Eline Strandjord<br>
+Head of Participation
+</p>
+
+</td>
+</tr> 
+</table> 
+</body>
+</html>
