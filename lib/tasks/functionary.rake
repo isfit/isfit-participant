@@ -169,7 +169,7 @@ namespace :participant do
     sleep 5
     participants.each do |p|
       puts "Sending e-mail to: " + p.email
-      ParticipantsMailer.invitation_letter(p).deliver!
+      ParticipantsMailer.waiting_list(p).deliver!
       p.notified = true
       p.save
       puts "E-mail is sent.\n\n"
