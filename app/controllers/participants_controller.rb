@@ -129,9 +129,12 @@ class ParticipantsController < ApplicationController
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
       if @participant.save
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 2)
-        if @participant.applied_for_visa != 1
+        if @participant.applied_for_visa == -1
           DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 3)
           DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 6)
+        elsif @participant.applied_for_visa == 0
+          @participant.active = false
+          @participant.save
         end
         flash[:notice] = "You information was successfully updated."
         render 'show'
@@ -149,6 +152,9 @@ class ParticipantsController < ApplicationController
       end
     elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 4 
       @participant.has_passport = params[:participant][:has_passport]
+      if @participant.has_passport == 0
+        @participant.active = false
+      end
       if @participant.save
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 4)
         flash[:notice] = "Participant was successfully updated."

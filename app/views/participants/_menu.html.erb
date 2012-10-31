@@ -21,9 +21,9 @@
       <% end %>
       <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
       <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
-      <% if current_user.has_role?(:admin) and not @participant.guaranteed %>
+      <% if current_user.has_role?(:admin) and not @participant.guaranteed and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>
         <li><%= link_to image_tag('icons/accept.png') + " Secure participant (admin only)", secure_participant_path(@participant) %></li>
-      <% elsif current_user.has_role?(:admin) %>
+      <% elsif current_user.has_role?(:admin) and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>
         <li><%= link_to image_tag('icons/delete.png') + " Remove guarantee (admin only)", desecure_participant_path(@participant) %></li>
       <% end %>
     <% end %>
