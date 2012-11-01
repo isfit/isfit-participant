@@ -14,14 +14,16 @@
       <li><%= link_to image_tag('icons/user.png') +' Show profile', participant_path(@participant) %></li>
       <li><%= link_to image_tag('icons/user_edit.png') +' Edit profile', edit_participant_path(@participant) %></li>
       <li><%= link_to image_tag('icons/arrow_right.png') + ' Continue deadlines', deadlines_participant_path %></li>
-      <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitation letter',  :controller=>:participants, :format => :pdf, :action=> :invitation, :id => @participant.id%></li>
-      <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download NTNU recommendation letter", "/ntnu_recommendation.pdf"%></li>
-      <% if @participant.travel_support > 0 %>
-        <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
-        <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support recommendation letter',  :controller=>:participants, :format => :pdf, :action=> :letter_of_recommendation, :id => @participant.id%></li>
-      <% end %>
-      <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
-      <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
+      <% if @participant.invited %>
+        <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download invitation letter',  :controller=>:participants, :format => :pdf, :action=> :invitation, :id => @participant.id%></li>
+        <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download NTNU recommendation letter", "/ntnu_recommendation.pdf"%></li>
+        <% if @participant.travel_support > 0 %>
+          <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support letter',  :controller=>:participants, :format => :pdf, :action=> :travel_support, :id => @participant.id%></li>
+          <li><%= link_to image_tag('icons/page_white_acrobat.png') + ' Download travel support recommendation letter',  :controller=>:participants, :format => :pdf, :action=> :letter_of_recommendation, :id => @participant.id%></li>
+        <% end %>
+        <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
+        <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
+      <% end %> 
       <% if current_user.has_role?(:admin) and not @participant.guaranteed and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>
         <li><%= link_to image_tag('icons/accept.png') + " Secure participant (admin only)", secure_participant_path(@participant) %></li>
       <% elsif current_user.has_role?(:admin) and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>

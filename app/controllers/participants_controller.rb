@@ -305,7 +305,7 @@ class ParticipantsController < ApplicationController
 
   def invitation
     @participant = Participant.find(params[:id])
-    if current_user == @participant.user || !current_user.has_role?(:participant)
+    if (current_user == @participant.user || !current_user.has_role?(:participant)) and @participant.invited
       respond_to do |f|
         f.html {render 'invitation', :layout=>false}
       end
