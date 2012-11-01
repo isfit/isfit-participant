@@ -380,7 +380,7 @@ class ParticipantsController < ApplicationController
   def edit
     @participant = Participant.find(params[:id])
     @accepted = @participant.accepted
-    if current_user == @participant.user or current_user.has_role?(:admin)
+    if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @participant }
@@ -395,12 +395,12 @@ class ParticipantsController < ApplicationController
   def update
     @participant = Participant.find(params[:id])
     params[:participant].delete("guaranteed")
-    if current_user.has_role?(:admin)
+    if current_user.has_role?(:admin) or current_user.has_role?(:functionary)
       @participant.first_name = params[:participant][:first_name]
       @participant.last_name = params[:participant][:last_name]
       @participant.save
     end
-    if current_user == @participant.user or current_user.has_role?(:admin)
+    if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
           if not Deadline.find_by_id(5).users.include?(current_user)
