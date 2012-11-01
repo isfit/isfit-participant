@@ -22,6 +22,27 @@
     </tr>
   </table>
 
+  <h4>Deadline 2</h4>
+  <p>Participants that have applied for visa and has accepted invitation.</p>
+  <table>
+    <tr>
+      <td class="span2">Yes</td>
+      <td><%= @temp = Participant.where("invited = 1 AND accepted = 1 AND applied_for_visa = 1").count %></td>
+    </tr>
+    <tr>
+      <td>Do not need</td>
+      <td><%= @temp2 = Participant.where("invited = 1 AND accepted = 1 AND applied_for_visa = -1").count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= @temp3 = DeadlinesUser.where("deadline_id = 2").count - @temp - @temp2 %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= Participant.where("invited = 1 AND accepted = 1").count - @temp - @temp2 - @temp3 %></td>
+    </tr>
+  </table>
+
   <h2>Waiting List Participants</h2>
   <p>Shows stats over the participants on the waiting list for the festival</p>
 
