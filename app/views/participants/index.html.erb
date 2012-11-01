@@ -20,7 +20,7 @@
   <%= render :partial => "participants" %>
   <%= will_paginate @participants, :params => {:q=>params[:q]} %>
 </div>
-
+<%if false%>
 <% content_for :script do %>
   <script>
     $(function() {
@@ -36,3 +36,4 @@
   <%= render 'stats' %>
   <%= render 'workshop_stats' %>
 </div>
+<%end%>
