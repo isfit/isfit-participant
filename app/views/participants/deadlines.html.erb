@@ -9,7 +9,7 @@
         </div>
         <%= f.input :accepted, :as => :boolean, :label =>  "I hereby accept my invitation to ISFiT." %>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -19,12 +19,13 @@
         <legend>Have you applied for a Visa?</legend>
         <div class="alert alert-info">
           For more information: <%= link_to 'Link', information_page_path(16) %><br>
-          Here is a list over the countries that do not need a Visa: <%= link_to 'Link', information_page_path(18) %>
+          Here is a list over the countries that do not need a Visa: <%= link_to 'Link', information_page_path(18) %><br>
+          <strong>Do not continue before you have applied for a visa or is from a visa-free country.</strong>
         </div>
         <%= f.input :applied_for_visa, :label => "Have you applied for a Visa?", 
           :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]] %>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(3).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -40,7 +41,7 @@
         </div>
         <%= f.input :embassy_confirmation, :as => :boolean, :label => "I give ISFiT permission to use my contact information" %>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(4).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -54,7 +55,7 @@
         </div>
         <%= f.input :has_passport, :as => :boolean %>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(5).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -90,7 +91,7 @@
         <%= f.file_field :visum %>
 
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif Deadline.find_by_id(6).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 6 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
@@ -113,7 +114,7 @@
          :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
 
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(8).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -132,7 +133,7 @@
         <%= f.input :departs_at, :as => :datetime, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
         <%= f.input :arrival_place_id, :as => :select, :label => "Arrival place", :collection => ArrivalPlace.all.to_select_name %>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?'  %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif Deadline.find_by_id(8).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 8 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
@@ -152,7 +153,7 @@
         <%= f.input :confirmed_participation, :label => "I hereby confirm that I will participate in ISFiT 2013" %>
 
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?' %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.' %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and current_user.participant.active %>
@@ -170,7 +171,7 @@
         <%= f.input :agree_waiting_list, :label => "Do you wish to be on a waiting list for participation in ISFiT 2013?" %>
 
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct?' %>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.' %>
     <% end %>
 
   <% elsif Deadline.find_by_id(9).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>

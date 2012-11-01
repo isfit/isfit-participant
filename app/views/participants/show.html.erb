@@ -188,39 +188,53 @@
   <table class="table table-condensed table-hover table-borderless">
     <% if @participant.invited %>
       <tr>
-        <td class="span5">Accepted invitation</td>
-        <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
-      </tr>
-      <tr>
-        <td>Applied for Visa?:</td>
-        <% if @participant.applied_for_visa == 1 %>
-          <td>Yes</td>
-        <% elsif @participant.applied_for_visa == 0 %>
-          <td>No</td>
-        <% else %>
-          <td>Do not need</td>
+        <% if DeadlinesUser.where("deadline_id = 1 AND user_id = ?", @participant.user.id).count > 0 %>
+          <td class="span5">Accepted invitation</td>
+          <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
         <% end %>
       </tr>
       <tr>
-        <td>Give ISFiT permission to use my contact information:</td>
-        <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
+        <% if DeadlinesUser.where("deadline_id = 2 AND user_id = ?", @participant.user.id).count > 0 %>
+          <td>Applied for Visa?:</td>
+          <% if @participant.applied_for_visa == 1 %>
+            <td>Yes</td>
+          <% elsif @participant.applied_for_visa == 0 %>
+            <td>No</td>
+          <% else %>
+            <td>Do not need</td>
+          <% end %>
+        <% end %>
       </tr>
       <tr>
-        <td>Has passport in order?:</td>
-        <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
+        <% if DeadlinesUser.where("deadline_id = 3 AND user_id = ?", @participant.user.id).count > 0 %>
+          <td>Give ISFiT permission to use my contact information:</td>
+          <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
+        <% end %>
       </tr>
       <tr>
-        <td>Has Visa in order or don't need Visa?:</td>
-        <td><%= (@participant.visa == 1 or @participant.applied_for_visa) == -1 ? "Yes" : "No" %></td>
+        <% if DeadlinesUser.where("deadline_id = 4 AND user_id = ?", @participant.user.id).count > 0 %>
+          <td>Has passport in order?:</td>
+          <td><%= @participant.has_passport == 1 ? "Yes" : "No" %></td>
+        <% end %>
       </tr>
       <tr>
-        <td>Confirmed participation:</td>
-        <td><%= @participant.confirmed_participation == 1 ? "Yes" : "No" %></td>
+        <% if DeadlinesUser.where("deadline_id = 6 AND user_id = ?", @participant.user.id).count > 0 and @participant.applied_for_visa == 1 %>
+          <td>Has Visa in order or don't need Visa?:</td>
+          <td><%= (@participant.visa == 1 or @participant.applied_for_visa == -1) ? "Yes" : "No" %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <% if DeadlinesUser.where("deadline_id = 9 AND user_id = ?", @participant.user.id).count > 0 %>
+          <td>Confirmed participation:</td>
+          <td><%= @participant.confirmed_participation ? "Yes" : "No" %></td>
+        <% end %>
       </tr>
     <% else %>
       <tr>
-        <td class="span5">Agree waiting list</td>
-        <td><%= @participant.agree_waiting_list ? "Yes" : "No" %></td>
+        <% if not @participant.agree_waiting_list.nil? %>
+          <td class="span5">Agree waiting list</td>
+          <td><%= @participant.agree_waiting_list ? "Yes" : "No" %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>
