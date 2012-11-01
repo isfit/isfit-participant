@@ -297,7 +297,11 @@ class ParticipantsController < ApplicationController
   end
 
   def validate_deadline
-    @participants = current_user.functionary.participants.includes("user").where("invited = 1")
+    if current_user.has_role?(:admin)
+      @participants = Participant.includes("user").where("invited = 1").paginate(:per_page => 50, :page => params[:page])
+    else
+      @participants = current_user.functionary.participants.includes("user").where("invited = 1")
+    end
   end
 
   # GET /participants/search
