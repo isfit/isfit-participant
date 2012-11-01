@@ -81,6 +81,7 @@ IsfitParticipant::Application.routes.draw do
       post "deadlines_handler"
       get "travel_support"
       get "letter_of_recommendation"
+      get "impersonate"
       get "invitation"
       get "secure"
       get "desecure"

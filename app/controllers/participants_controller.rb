@@ -416,6 +416,12 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def impersonate
+    @participant = Participant.find(params[:id])
+    sign_in(:user, User.find(@participant.user))
+    redirect_to root_url
+  end
+
   def mail_to_search_results
 
     search_participant

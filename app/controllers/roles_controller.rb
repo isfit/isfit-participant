@@ -4,11 +4,6 @@ class RolesController < ApplicationController
   
   load_and_authorize_resource
 
-  def impersonate
-    sign_in(:user, User.find(params[:id]))
-    redirect_to root_path
-  end
-
   # GET /users
   def index
     search_role
