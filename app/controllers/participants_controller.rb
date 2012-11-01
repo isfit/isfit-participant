@@ -49,6 +49,25 @@ class ParticipantsController < ApplicationController
     @hosts = @hosts.delete_if {|h| h.full? }
   end
 
+  def remove_deadline
+    @participant = Participant.find(params[:id])
+    if not @participant.active and @participant.applied_for_visa == 0 and DeadlinesUser.where("deadline_id = 2 AND user_id = ?", @participant.user.id).count == 1 and params[:deadline].to_i == 2
+      d = DeadlinesUser.where("deadline_id = 2 AND user_id = ?", @participant.user.id).first 
+      d.destroy
+      @participant.active = true
+      @participant.save
+      flash[:notice] = "Successfully removed deadline from particpant"
+      redirect_to participant_path(@participant)
+    else
+      flash[:alert] = "Unable to remove deadline from particpant"
+      redirect_to participant_path(@participant)
+    end
+  end
+
+  def failed_deadline
+    @participant = Participant.find(params[:id])
+  end
+
   def check_in
     p = Participant.find(params[:id])
     p.checked_in = Time.now()

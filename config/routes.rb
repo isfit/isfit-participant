@@ -79,10 +79,12 @@ IsfitParticipant::Application.routes.draw do
       get "check_out"
       get "deadlines"
       post "deadlines_handler"
+      get "failed_deadline"
       get "travel_support"
       get "letter_of_recommendation"
       get "impersonate"
       get "invitation"
+      post "remove_deadline"
       get "secure"
       get "desecure"
       get :match
