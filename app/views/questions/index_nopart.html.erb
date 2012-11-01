@@ -12,14 +12,15 @@
   <li>Open: <%= (@question_counts && @question_counts[2]) ? @question_counts[2] : 0 %></li>
   <li>Resolved: <%= (@question_counts && @question_counts[3]) ? @question_counts[3] : 0 %></li>
 </ul>
+
 <fieldset>
   <legend>Questions</legend>
   <table class="table table-bordered table-striped">
     <thead>
       <th>Subject</th>
       <th>Participant</th>
+      <th>Country</th>
       <th>Created at</th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -29,8 +30,8 @@
       <tr>
         <td><%= question.subject %></td>
         <td><%=p.first_name %> <%= p.last_name %></td>
+        <td><%= p.country.name %></td>
         <td><%=question.created_at%></td>
-        <td><%if question.dialogue == 1%>Dialogue<%end%></td>
         <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
         <td><%= link_to image_tag('icons/comment_edit.png') + ' Edit', edit_question_path(question) %></td>
