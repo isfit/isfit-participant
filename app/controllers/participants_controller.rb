@@ -146,17 +146,17 @@ class ParticipantsController < ApplicationController
       end
     elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 2
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
-      if @participant.save
+      if @participant.applied_for_visa != 0 and @participant.save 
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 2)
         if @participant.applied_for_visa == -1
           DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 3)
           DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 6)
-        elsif @participant.applied_for_visa == 0
-          @participant.active = false
-          @participant.save
         end
         flash[:notice] = "You information was successfully updated."
         render 'show'
+      elsif @participant.applied_for_visa == 0
+        flash[:alert] = "You have to apply for a visa or come from a visa-free country to continue."
+        return redirect_to deadlines_participant_path
       else
         render 'deadline'
       end
