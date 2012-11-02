@@ -62,7 +62,7 @@ Tabulous.setup do |config|
       [    :participant_user_tab          ,    'Profile'               ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    ((can? :index, Participant) and Participant.count > 0)       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
-      [    :information_pages_tab         ,    'Information'               ,    information_page_path(InformationPage.first)         ,    (can? :show, InformationPage)       ,    true        ],
+      [    :information_pages_tab         ,    'Information'               ,    information_page_path(4)         ,    (can? :show, InformationPage)       ,    true        ],
       [    :workshops_user_tab            ,    'Workshop'                  ,    (current_user.nil? or current_user.is_functionary? or current_user.participant.workshop.nil?) ? root_path : workshop_path(current_user.participant.workshop)                 ,    ((can? :show, Workshop) and not current_user.is_functionary? and not current_user.participant.workshop.nil?)      ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
