@@ -133,11 +133,11 @@
     <tr>
       <td>Needs transportation by ISFiT from Oslo to Trondheim:</td>
       <% if @participant.need_transport == 3 %>
-        <td>Oslo-Trondheim-Oslo</td
+        <td>Oslo-Trondheim-Oslo</td>
       <% elsif @participant.need_transport == 2 %>
-        <td>Oslo-Trondheim</td
+        <td>Oslo-Trondheim</td>
       <% elsif @participant.need_transport == 1 %>
-        <td>Trondheim-Oslo</td
+        <td>Trondheim-Oslo</td>
       <% else %>
         <td>No</td>
       <% end %>
@@ -164,18 +164,24 @@
       <td>Travel support amount:</td>
       <td><%= @participant.travel_support ? @participant.travel_support : "0" %> USD</td>
     </tr>
-    <tr>
-      <td>Checked in:</td>
-      <td><%= @participant.checked_in %></td>
-    </tr>
-    <tr>
-      <td>Checked out:</td>
-      <td><%= @participant.checked_out %></td>
-    </tr>
-    <tr>
-      <td>Host:</td>
-      <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
-    </tr>
+    <% if not @participant.checked_in.nil? %>
+      <tr>
+        <td>Checked in:</td>
+        <td><%= @participant.checked_in %></td>
+      </tr>
+    <% end %>
+    <% if not @participant.checked_out.nil? %>
+      <tr>
+        <td>Checked out:</td>
+        <td><%= @participant.checked_out %></td>
+      </tr>
+    <% end %>
+    <% if not @participant.host.nil? %>
+      <tr>
+        <td>Host:</td>
+        <td><%= @participant.host.nil? ? "Not matched" : (link_to @participant.host.first_name + " " + @participant.host.last_name, host_path(@participant.host)) %></td>
+      </tr>
+    <% end %>
     <tr>
       <td>I agree to be contacted by media:</td>
       <td><%= @participant.media_consent ? "Yes" : "No" %></td>
