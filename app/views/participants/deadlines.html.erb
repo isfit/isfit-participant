@@ -7,7 +7,7 @@
         <div class="alert alert-info">
           Do you wish to accept your invitation to attend ISFiT 2013?
         </div>
-        <%= f.input :accepted, :as => :boolean, :label =>  "I hereby accept my invitation to ISFiT." %>
+        <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "I hereby accept my invitation to ISFiT." %>
       </fieldset>
       <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
@@ -53,21 +53,26 @@
           Please note that your passport must also be valid at least 90 days after your arrival to
           Norway.
         </div>
-        <%= f.input :has_passport, :as => :boolean %>
+        <%= f.input :has_passport, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label => "Do you have a valid passport?" %>
       </fieldset>
       <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(5).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
+    <%= simple_form_for(:temp, :url => deadlines_handler_participant_path(:deadline => 5), :method => "post", :html => {:class => "form"} ) do |f| %>
+      <%= f.error_notification %>
       <fieldset>
         <legend>Have you updated your profile?</legend>
         <div class="alert alert-info">
           All the fields must be filled out to be able to continue.
         </div>
-
         <%= link_to 'Edit profile', edit_participant_path(@participant) %>
-
+        <br>
+        <br>
+        <%= f.input :edit_profile, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label => "Do you have edited your profile?" %>
       </fieldset>
+      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
+    <% end %>
 
   <% elsif Deadline.find_by_id(5).users.include?(current_user) and not DeadlinesUser.where("deadline_id = 5 AND user_id = ?", @participant.user.id).first.approved and current_user.participant.invited and current_user.participant.active %>
     <fieldset>
@@ -85,7 +90,7 @@
         <div class="alert alert-info">
           Fill out the Visa number from the Schengen visa or scan your visa and upload it below.
         </div>
-        <%= f.input :visa, :as => :boolean, :label => "Have you been granted a Visa?" %>
+        <%= f.input :visa, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label => "Have you been granted a Visa?" %>
         <%= f.input :visa_number, :label => "Please enter your Visa number in the field below" %>
         Upload a scanned version of the Visa.<br>
         <%= f.file_field :visum %>
