@@ -25,7 +25,7 @@ class Ability
       can :show, Workshop
       can [:index, :new, :create], Question
       if user.is_participant?
-        can [:show, :update, :travel_support, :invitation, :deadlines, :deadlines_handler], Participant, id: user.participant.id
+        can [:show, :update, :travel_support, :invitation, :letter_of_recommendation, :deadlines, :deadlines_handler], Participant, id: user.participant.id
         can [:show, :update], Question, participant_id: user.participant.id
       end
     end
