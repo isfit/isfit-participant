@@ -9,7 +9,7 @@ class Ability
     end
     if user.has_role? :functionary
       can :read, Article
-      can :update, Functionary
+      can [:update, :show], Functionary
       can :show, InformationPage
       can [:read, :update, :travel_support, :invitation, :validate_deadline, :check_deadline, :approve_deadline, :failed_deadline, :remove_deadline], Participant
       can [:index, :show, :update, :q_status, :resolve], Question

@@ -22,11 +22,6 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
-  <div clas="type-text">
-    <%= f.label :participants %>
-    <i>Hold in ctrl and click on the participants you want <br />to add/remove from the functionary<br />Participants with *** around them have no functionary</i>
-    <%= select_tag(:participant, options_for_select(@participants, @selected_participants), {:multiple => true, :size => @participants.size} )%>
-  </div>
   <div class="type-button">
     <%= f.submit :class => "submit" %>
   </div>
