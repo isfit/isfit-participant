@@ -57,6 +57,21 @@ namespace :participant do
     
   end
 
+  task :send_travel_info_email => :environment do
+    countries = [10,16,17,33,36,37,48,62,69,68,199,132,139,154,172,165,168,167,176,184,187,196]
+    puts "Sends email to all participants from given countries."
+    sleep 5
+    countries.each do |id|
+      country = Country.find(id)
+      country.participants.where("invited = 0").each do |participant|
+        puts "Sending e-mail to: " + participant.email
+        ParticipantsMailer.travel_funding(p).deliver!
+        puts "E-mail is sent.\n\n"
+        sleep 0.5
+      end
+    end
+  end
+
   task :make_applicants_into_participants => :environment do
     invites = Application.invited
     invites.each do |invited|
