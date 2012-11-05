@@ -173,7 +173,7 @@
           If you are granted participation at ISFiT 2013, the final deadline for confirming participation at
           the festival is the 1st of February. You will not be granted travel support.
         </div>
-        <%= f.input :agree_waiting_list, :label => "Do you wish to be on a waiting list for participation in ISFiT 2013?" %>
+        <%= f.input :agree_waiting_list, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label => "Do you wish to be on a waiting list for participation in ISFiT 2013?" %>
 
       </fieldset>
       <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.' %>

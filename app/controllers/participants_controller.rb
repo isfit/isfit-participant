@@ -258,6 +258,10 @@ class ParticipantsController < ApplicationController
         render 'deadlines'
       end
     elsif not Deadline.find_by_id(10).users.include?(current_user) and not current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 10 
+      if params[:participant].nil?
+        flash[:alert] = "You have to choose one of the options."
+        return render 'deadlines'
+      end
       @participant.agree_waiting_list = params[:participant][:agree_waiting_list]
       if @participant.save
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 10)
