@@ -25,6 +25,7 @@ gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'jquery-rails'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails'
