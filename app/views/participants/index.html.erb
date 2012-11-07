@@ -20,20 +20,3 @@
   <%= render :partial => "participants" %>
   <%= will_paginate @participants, :params => {:q=>params[:q]} %>
 </div>
-<%if false%>
-<% content_for :script do %>
-  <script>
-    $(function() {
-      $("div#statistics").hide();
-      $("#toggle-stat").click(function() {
-        $("div#statistics").toggle("slow");
-      });
-    });
-  </script>
-<% end %>
-<a id="toggle-stat" style="cursor: pointer;">Toggle statistics</a>
-<div id="statistics">
-  <%= render 'stats' %>
-  <%= render 'workshop_stats' %>
-</div>
-<%end%>

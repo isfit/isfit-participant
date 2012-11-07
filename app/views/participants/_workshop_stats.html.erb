@@ -72,7 +72,7 @@
     			tooltip: {
     				formatter: function() {
     					return '<b>'+ this.series.name +'</b><br/>'+
-    					this.y +' '+ this.x.toLowerCase();
+    					this.y +' from '+ this.x;
     				}
     			}
     		};
@@ -88,16 +88,11 @@
 		<% content_for :script do %>
 			<script>
 				$(function() {
-					$("#workshop<%= w.id %>-container").hide();
-					$("#workshop<%= w.id %>-bar-toggle").click(function() {
-						$("#workshop<%= w.id %>-container").toggle("slow");
-						$("#datatable<%= w.id %>").toggle("slow");
-					});
+					$("#datatable<%= w.id %>").hide();
 				});
 			</script>
 		<% end %>
-		<a id="workshop<%=w.id%>-bar-toggle" style="cursor: pointer;">Toggle graphic</a>
-		<div id="workshop<%= w.id %>-container" style="width: 400px; height: 800px; margin: 0;"></div>
+		<div id="workshop<%= w.id %>-container" style="width: 600px; height: 1000px; margin: 0;"></div>
 		<table id="datatable<%= w.id %>">
 			<thead>
 				<th></th>

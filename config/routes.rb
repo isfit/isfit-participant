@@ -71,6 +71,7 @@ IsfitParticipant::Application.routes.draw do
       match 'search' => 'participants#search', :via => [:get, :post], :as => :search
       match 'index' => 'participants#index', :via => [:get, :post]
       get "stats"
+      get 'graphics'
     end
     member do
       post "approve_deadline"

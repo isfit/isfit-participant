@@ -1,7 +1,4 @@
-  <p class="info">
-    All info below are from the active search.
-  </p>
-  <% content_for :script do %>
+<% content_for :script do %>
   <script>
     $(function() {
       $("#country-dist").hide();
@@ -10,23 +7,98 @@
       });
     });
   </script>
+<% end %>
+<% content_for :script do %>
+    <!-- Highcharts workshop basic bar from table -->
+    <script>
+      /**
+      * Visualize an HTML table using Highcharts. The top (horizontal) header 
+      * is used for series names, and the left (vertical) header is used 
+      * for category names. This function is based on jQuery.
+      * @param {Object} table The reference to the HTML table to visualize
+      * @param {Object} options Highcharts options
+      */
+      Highcharts.visualize = function(table, options) {
+        // the categories
+        options.xAxis.categories = [];
+        $('tbody th', table).each( function(i) {
+          options.xAxis.categories.push(this.innerHTML);
+        });
+
+        // the data series
+        options.series = [];
+        $('tr', table).each( function(i) {
+          var tr = this;
+          $('th, td', tr).each( function(j) {
+          if (j > 0) { // skip first column
+            if (i == 0) { // get the name and init the series
+              options.series[j - 1] = { 
+                name: this.innerHTML,
+                data: []
+              };
+              } else { // add values
+                options.series[j - 1].data.push(parseFloat(this.innerHTML));
+              }
+            }
+          });
+        });
+
+        var chart = new Highcharts.Chart(options);
+      }
+
+      // On document ready, call visualize on the datatable.
+      $(document).ready(function() {         
+        var table = document.getElementById('datatable-country'),
+        options = {
+          chart: {
+            renderTo: 'datatable-country-container',
+            defaultSeriesType: 'bar'
+          },
+          title: {
+            text: 'Total country dist'
+          },
+          xAxis: {
+          },
+          yAxis: {
+            title: {
+              text: 'Units'
+            }
+          },
+          tooltip: {
+            formatter: function() {
+              return '<b>'+ this.series.name +'</b><br/>'+
+              this.y +' from '+ this.x;
+            }
+          }
+        };
+
+        Highcharts.visualize(table, options);
+      });
+    </script>
   <% end %>
-  <h3><a id="country-dist-toggle" style="cursor: pointer;">Total country distribution</a></h3>
-  <div id="country-dist">
-    <p class="info"><%= @partici.count %> total</p>
-    <table id="datatable-country" class="table table-condensed table-striped">
-      <thead>
-        <tr>
-          <th>Country</th>
-          <th>Participants</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @country_count.each do |c| %>
-          <tr>
-            <td><%= @countries[c[0]-1].name %></td><td><%= c[1] %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+<h3><a id="country-dist-toggle" style="cursor: pointer;">Total country distribution (<%= @partici.count %> total)</a></h3>
+<div id="country-dist">
+  <% content_for :script do %>
+      <script>
+        $(function() {
+          $("#datatable-country").hide();
+        });
+      </script>
+    <% end %>
+  <div id="datatable-country-container" style="width: 600px; height: 3000px; margin: 0;"></div>
+  <table id="datatable-country" class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Participants</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @country_count.each do |c| %>
+      <tr>
+        <th><%= @countries[c[0]-1].name %></th><td><%= c[1] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
