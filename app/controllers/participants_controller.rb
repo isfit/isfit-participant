@@ -114,9 +114,9 @@ class ParticipantsController < ApplicationController
   # GET /participants/graphics
   def graphics
     if current_user.has_role?(:admin) || current_user.has_role?(:sec)
-      @partici = Participant.where(@query)
+      @partici = Participant.where(:invited => 1)
     else
-      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
+      @partici = Participant.where(:functionary_id => current_user.functionary.id)
     end
 
     @workshop_group = @partici.group(:workshop_id)
