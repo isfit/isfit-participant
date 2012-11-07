@@ -1,5 +1,5 @@
 IsfitParticipant::Application.routes.draw do
-
+  resources :answers
   resources :applications do
     collection do
       get "grade1"
@@ -40,7 +40,6 @@ IsfitParticipant::Application.routes.draw do
     end
   end
 
-
   resources :deadlines
   
   match 'change_password' => 'changepasswords#edit_password', :as => :change_password
@@ -71,6 +70,7 @@ IsfitParticipant::Application.routes.draw do
       match 'search' => 'participants#search', :via => [:get, :post], :as => :search
       match 'index' => 'participants#index', :via => [:get, :post]
       get "stats"
+      get 'graphics'
     end
     member do
       post "approve_deadline"

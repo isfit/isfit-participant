@@ -58,6 +58,7 @@ Tabulous.setup do |config|
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
+      [    :answers_tab                   ,    'Answers'                   ,    answers_path                   ,    false       ,    false       ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    ((can? :index, Application) and Participant.count == 0)  ,    true        ],
       [    :participant_user_tab          ,    'Profile'               ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    ((can? :index, Participant) and Participant.count > 0)       ,    true        ],

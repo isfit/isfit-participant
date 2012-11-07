@@ -96,12 +96,6 @@ class ParticipantsController < ApplicationController
     end
 
     #@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
-    @workshop_group = @partici.group(:workshop_id)
-    @workshop_count = @workshop_group.count
-    @workshops = Workshop.order(:id).all
-    @countries = Country.all
-    @country_group = @partici.group(:country_id)
-    @country_count = @country_group.count.sort_by{ |k,v| v }.reverse
 
     if current_user.has_role?(:sec)
       @partici = @partici.where("guaranteed = 1")
@@ -113,6 +107,35 @@ class ParticipantsController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb 
+      format.js
+    end
+  end
+
+  # GET /participants/graphics
+  def graphics
+    if current_user.has_role?(:admin) || current_user.has_role?(:sec)
+      @partici = Participant.where(@query)
+    else
+      @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
+    end
+
+    @workshop_group = @partici.group(:workshop_id)
+    @workshop_count = @workshop_group.count
+    @workshops = Workshop.order(:id).all
+    @countries = Country.all
+    @country_group = @partici.group(:country_id)
+    @country_count = @country_group.count.sort_by{ |k,v| v }.reverse
+
+    if current_user.has_role?(:sec)
+      @partici = @partici.where("guaranteed = 1")
+      @participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
+      respond_to do |f|
+        f.html {render 'index_sec'}
+      end
+      return
+    end
+    respond_to do |format|
+      format.html # graphics.html.erb 
       format.js
     end
   end
