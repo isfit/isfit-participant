@@ -5,20 +5,33 @@
   <h2>Invited Participants</h2>
   <p>Shows stats over the participants that are invited to the festival</p>
 
+  <h4>Logged in</h4>
+  <p>Invited participants that have logged in.</p>
+  <table>
+    <tr>
+      <td class="span2">Yes</td>
+      <td><%= User.joins(:participant).where("invited = 1 and sign_in_count > 0").count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= User.joins(:participant).where("invited = 1 and sign_in_count = 0").count %></td>
+    </tr>
+  </table>
+
   <h4>Deadline 1</h4>
   <p>Participants that have accepted the invitation</p>
   <table>
     <tr>
       <td class="span2">Yes</td>
-      <td><%= @temp = Participant.where("invited = 1 AND accepted = 1").count %></td>
+      <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND accepted = 1 AND deadline_id = 1").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>No</td>
-      <td><%= @temp2 = DeadlinesUser.where("deadline_id = 1").count - @temp %></td>
+      <td><%= @no = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND accepted = 0 AND deadline_id = 1").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>Not finished</td>
-      <td><%= Participant.where("invited = 1").count - @temp - @temp2 %></td>
+      <td><%= Participant.where("invited = 1").count - @yes - @no %></td>
     </tr>
   </table>
 
@@ -27,21 +40,39 @@
   <table>
     <tr>
       <td class="span2">Yes</td>
-      <td><%= @temp = Participant.where("invited = 1 AND accepted = 1 AND applied_for_visa = 1").count %></td>
+      <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND deadline_id = 2").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>Do not need</td>
-      <td><%= @temp2 = Participant.where("invited = 1 AND accepted = 1 AND applied_for_visa = -1").count %></td>
+      <td><%= @dnn = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = -1 AND deadline_id = 2").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>No</td>
-      <td><%= @temp3 = DeadlinesUser.where("deadline_id = 2").count - @temp - @temp2 %></td>
+      <td><%= @no = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 0 AND deadline_id = 2").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>Not finished</td>
-      <td><%= Participant.where("invited = 1 AND accepted = 1").count - @temp - @temp2 - @temp3 %></td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND accepted = 1 AND deadline_id = 1").group("participants.user_id").count.count - @yes - @no - @dnn %></td>
     </tr>
   </table>
+
+  <h4>Deadline 3</h4>
+  <p>Participants that have given embassy confirmation and have applied for visa.</p>
+  <table>
+    <tr>
+      <td class="span2">Yes</td>
+      <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND embassy_confirmation = 1 AND deadline_id = 3").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= @no = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND embassy_confirmation = 0 AND deadline_id = 3").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND deadline_id = 2").group("participants.user_id").count.count - @yes -  @no %></td>
+    </tr>
+  </table>
+
 
   <h2>Waiting List Participants</h2>
   <p>Shows stats over the participants on the waiting list for the festival</p>
