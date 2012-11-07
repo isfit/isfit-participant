@@ -1,5 +1,5 @@
 IsfitParticipant::Application.routes.draw do
-
+  resources :answers
   resources :applications do
     collection do
       get "grade1"
@@ -39,7 +39,6 @@ IsfitParticipant::Application.routes.draw do
       get "remove_bed"
     end
   end
-
 
   resources :deadlines
   

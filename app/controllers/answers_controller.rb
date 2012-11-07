@@ -20,4 +20,27 @@ class AnswersController < ApplicationController
       end
     end
   end
+
+  def edit
+    @answer = Answer.find(params[:id])
+    raise CanCan::AccessDenied unless current_user.is_functionary? && current_user.id == @answer.user_id
+  end
+
+  def update
+    @answer = Answer.find(params[:id])
+    
+    if current_user.is_functionary? && current_user.id == @answer.user_id
+      respond_to do |format|
+        if @answer.update_attributes(params[:answer])
+          format.html { redirect_to(@answer.question, :notice => 'Answer was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @answer.errors, :status => :unprocessable_entity }
+        end
+      end
+    else
+      raise CanCan::AccessDenied
+    end
+  end
 end
