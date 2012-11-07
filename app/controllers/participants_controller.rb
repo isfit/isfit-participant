@@ -334,6 +334,7 @@ class ParticipantsController < ApplicationController
     else
       @participants = current_user.functionary.participants.includes("user").where("invited = 1")
     end
+    @deadlines = Deadline.where("participant_type = 1")
   end
 
   # GET /participants/search
