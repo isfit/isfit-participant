@@ -423,6 +423,54 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def ignore
+    @participant = Participant.find(params[:id])
+    @participant.ignore = true
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant added to ignore list"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
+
+  def unignore
+    @participant = Participant.find(params[:id])
+    @participant.ignore = false
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant removed from ignore list"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
+
+  def deactivate
+    @participant = Participant.find(params[:id])
+    @participant.active = false
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant removed from deadlines"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
+
   def secure
     @participant = Participant.find(params[:id])
     @participant.guaranteed = 1

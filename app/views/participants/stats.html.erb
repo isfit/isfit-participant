@@ -73,6 +73,39 @@
     </tr>
   </table>
 
+  <h4>Deadline 4</h4>
+  <p>Participants that have a passport and has finished deadline 2.</p>
+  <table>
+    <tr>
+      <td class="span2">Yes</td>
+      <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND has_passport = 1 AND deadline_id = 4").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= @no = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND has_passport = 0 AND deadline_id = 4").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND (applied_for_visa = 1 OR applied_for_visa = -1) AND deadline_id = 2").group("participants.user_id").count.count - @yes -  @no %></td>
+    </tr>
+  </table>
+
+  <h4>Deadline 5</h4>
+  <p>Participants that have updated the profile and accepted the invitation.</p>
+  <table>
+    <tr>
+      <td class="span2">Approved</td>
+      <td><%= @approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 5 AND approved = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not approved</td>
+      <td><%= @not_approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 5 AND approved = 0").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 1").group("participants.user_id").count.count - @approved -  @not_approved %></td>
+    </tr>
+  </table>
 
   <h2>Waiting List Participants</h2>
   <p>Shows stats over the participants on the waiting list for the festival</p>

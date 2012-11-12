@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027142500) do
+ActiveRecord::Schema.define(:version => 20121112181650) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20121027142500) do
     t.string   "nationality"
     t.integer  "country_citizen_id"
     t.boolean  "active"
+    t.boolean  "ignore",                  :default => false
   end
 
   create_table "participants_temps", :force => true do |t|

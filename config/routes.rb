@@ -87,6 +87,9 @@ IsfitParticipant::Application.routes.draw do
       post "remove_deadline"
       get "secure"
       get "desecure"
+      get "ignore"
+      get "unignore"
+      get "deactivate"
       get :match
     end
   end

@@ -31,14 +31,32 @@
         <% end %>
         <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
         <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
-      <% end %> 
+      <% end %>
+      <% if current_user.has_role?(:admin) and not @participant.ignore %>
+        <li><%= link_to image_tag('icons/wand.png') + " Add participant to ignore list", ignore_participant_path(@participant), confirm: "This will add the participant to the ignore list for deadlines. Are you sure you want do this?" %></li>
+      <% end %>
+      <% if current_user.has_role?(:admin) and @participant.ignore %>
+        <li><%= link_to image_tag('icons/wand.png') + " Remove participant from ignore list", unignore_participant_path(@participant), confirm: "This will remove the participant from the ignore list for deadlines. Are you sure you want do this?" %></li>
+      <% end %>
+      <% if current_user.has_role?(:admin) and @participant.active %>
+        <li><%= link_to image_tag('icons/cross.png') + " Remove participant from deadlines", deactivate_participant_path(@participant), confirm: "The participant will not be able to continue on deadlines and are removed from the festival. Are you sure you want to continue?" %></li>
+      <% end %>
       <% if current_user.has_role?(:admin) and not @participant.guaranteed and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>
-        <li><%= link_to image_tag('icons/accept.png') + " Secure participant (admin only)", secure_participant_path(@participant) %></li>
+        <li><%= link_to image_tag('icons/accept.png') + " Secure participant", secure_participant_path(@participant) %></li>
       <% elsif current_user.has_role?(:admin) and @participant.active and DeadlinesUser.where("deadline_id = 9 and user_id = ?", @participant.user.id).count > 0 %>
-        <li><%= link_to image_tag('icons/delete.png') + " Remove guarantee (admin only)", desecure_participant_path(@participant) %></li>
+        <li><%= link_to image_tag('icons/delete.png') + " Remove guarantee", desecure_participant_path(@participant) %></li>
       <% end %>
     <% end %>
   </ul>
+
+  <% if current_user.has_role?(:admin) and @participant %>
+    <br>
+    <ul>
+      <li><strong>Ignore list:</strong>The participant will not be removed from the festival when the deadlines expire.</li>
+      <li><strong>Remove participant from deadlines:</strong> The participant can no longer continue on deadlines and are removed from the festival.</li>
+      <li><strong>Secure:</strong> The participant is guaranteed to participate in ISFiT.</li>
+    </ul>
+  <% end %>
 
   <br>
 

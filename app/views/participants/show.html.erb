@@ -1,4 +1,4 @@
-<h1><%= "#{@participant.first_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %></h1>
+<h1><%= "#{@participant.first_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %> <%= (not @participant.active and not current_user.is_participant?) ? "(Inactive)":"" %> <%= (@participant.ignore and not current_user.is_participant?) ? "(Ignored)":"" %></h1>
 <fieldset>
   <legend>Personal Information</legend>
   <table class="table table-condensed table-hover table-borderless">
