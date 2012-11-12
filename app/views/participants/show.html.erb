@@ -112,36 +112,40 @@
 <fieldset>
   <legend>Travel Information</legend>
   <table class="table table-condensed table-hover table-borderless">
-    <tr>
-      <td class="span5">Flightnumber</td>
-      <td><%= @participant.flightnumber %></td>
-    </tr>
-    <tr>
-      <td>Arrival place:</td>
-      <%if @participant.arrival_place != nil%>
-        <td><%= @participant.arrival_place.name %></td>
-      <%end%>
-    </tr>
-    <tr>
-      <td>Arrives at (time):</td>
-      <td><%= @participant.arrives_at %></td>
-    </tr>
-    <tr>
-      <td>Departs at (time):</td>
-      <td><%= @participant.departs_at %></td>
-    </tr>
-    <tr>
-      <td>Needs transportation by ISFiT from Oslo to Trondheim:</td>
-      <% if @participant.need_transport == 3 %>
-        <td>Oslo-Trondheim-Oslo</td>
-      <% elsif @participant.need_transport == 2 %>
-        <td>Oslo-Trondheim</td>
-      <% elsif @participant.need_transport == 1 %>
-        <td>Trondheim-Oslo</td>
-      <% else %>
-        <td>No</td>
-      <% end %>
-    </tr>
+    <% if DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).count > 0 %>
+      <tr>
+        <td class="span5">Flightnumber</td>
+        <td><%= @participant.flightnumber %></td>
+      </tr>
+      <tr>
+        <td>Arrival place:</td>
+        <%if @participant.arrival_place != nil%>
+          <td><%= @participant.arrival_place.name %></td>
+        <%end%>
+      </tr>
+      <tr>
+        <td>Arrives at (time):</td>
+        <td><%= @participant.arrives_at %></td>
+      </tr>
+      <tr>
+        <td>Departs at (time):</td>
+        <td><%= @participant.departs_at %></td>
+      </tr>
+    <% end %>
+    <% if DeadlinesUser.where("deadline_id = 7 and user_id = ?", @participant.user.id).count > 0 %>
+      <tr>
+        <td class="span5">Needs transportation by ISFiT from Oslo to Trondheim:</td>
+        <% if @participant.need_transport == 3 %>
+          <td>Oslo-Trondheim-Oslo</td>
+        <% elsif @participant.need_transport == 2 %>
+          <td>Oslo-Trondheim</td>
+        <% elsif @participant.need_transport == 1 %>
+          <td>Trondheim-Oslo</td>
+        <% else %>
+          <td>No</td>
+        <% end %>
+      </tr>
+    <% end %>
   </table>
 </fieldset>
 

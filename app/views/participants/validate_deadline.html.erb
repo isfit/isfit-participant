@@ -6,6 +6,12 @@
   Below is an overview of the deadlines for your participants.
   </p>
 
+  <p>
+  <% @deadlines.each do |d| %>
+    <%= "##{d.id} #{d.name}" %><br>
+  <% end %>  
+  </p>
+
   <table class="table table-bordered">
     <thead>
       <tr>
