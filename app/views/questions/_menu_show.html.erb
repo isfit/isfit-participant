@@ -4,7 +4,9 @@
       <li class="nav-header">Menu</li>
       <li><%= link_to image_tag('icons/comment_edit.png') + ' Edit question', edit_question_path(@question) %></li>
       <% if (@question.status < Question.status_resolved) %>
-        <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
+        <% if can? :resolve, Question %>
+          <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
+        <% end %>
         <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
         <% if can? :failed_deadline, Participant %>
           <li><%= link_to image_tag('icons/cancel.png') + ' Remove failed deadline', failed_deadline_participant_path(@question.participant) %></li>
