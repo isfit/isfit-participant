@@ -13,18 +13,37 @@ class QuestionsController < ApplicationController
   # GET /questions.xml
   def index
     selected_status = params[:question][:status] if params[:question]
+    selected_functionary = params[:question][:functionaries] if params[:question]
+    selected_functionary = nil if selected_functionary ==  ""
     status_query = ""
     @status = selected_status || Question.status_new
     @statuses = Question.status_options
+    @functionary = selected_functionary || current_user.id
 
     status_query = "status = " + @status.to_s
+    functionary_query = "fp.functionary_id = "+@functionary.to_s
 
     if current_user.has_role?(:admin)
-      @questions = Question
-        .where(status_query)
-        .order("questions.created_at DESC")
-        .paginate(:per_page => 10, :page=>params[:page])
-      @question_counts = Question.group(:status).count
+      if selected_functionary
+        @questions = Question
+          .joins(:participant)
+          .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+          .where(status_query+" AND "+functionary_query)
+          .order("questions.created_at DESC")
+          .paginate(:per_page => 10, :page => params[:page])
+        @question_counts = Question
+          .joins(:participant)
+          .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+          .where(functionary_query)
+          .group(:status)
+          .count
+      else
+        @questions = Question
+          .where(status_query)
+          .order("questions.created_at DESC")
+          .paginate(:per_page => 10, :page=>params[:page])
+        @question_counts = Question.group(:status).count
+      end
 
       @static = Functionary.find_by_sql('SELECT f.first_name as first_name, f.last_name as last_name'\
         ', count(CASE WHEN q.status = 1 THEN f.id END) as new, count(CASE WHEN q.status = 2 THEN f.id END)'\
