@@ -216,7 +216,7 @@
         <% end %>
       </tr>
       <tr>
-        <% if DeadlinesUser.where("deadline_id = 3 AND user_id = ?", @participant.user.id).count > 0 %>
+        <% if DeadlinesUser.where("deadline_id = 3 AND user_id = ?", @participant.user.id).count > 0 and @participant.applied_for_visa == 1 %>
           <td>Give ISFiT permission to use my contact information:</td>
           <td><%= @participant.embassy_confirmation == 1 ? "Yes" : "No" %></td>
         <% end %>
