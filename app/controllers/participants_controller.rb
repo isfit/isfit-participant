@@ -230,9 +230,6 @@ class ParticipantsController < ApplicationController
       @participant.visa = params[:participant][:visa]
       @participant.visa_number = params[:participant][:visa_number]
       @participant.visum = params[:participant][:visum]
-      if @participant.visa == 0
-        @participant.active = false
-      end
       if @participant.save
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 6)
         flash[:notice] = "Participant was successfully updated."

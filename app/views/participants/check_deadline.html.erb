@@ -59,6 +59,16 @@
           <td>Has Visa in order or don't need Visa?:</td>
           <td><%= (@participant.visa == 1 or @participant.applied_for_visa == -1) ? "Yes" : "No" %></td>
         </tr>
+        <% if @participant.applied_for_visa == 1 %>
+          <tr>
+            <td>Granted a visa?:</td>
+            <% if @participant.visa == 1 %>
+              <td>Yes</td>
+            <% else %>
+              <td class="part-red">No</td>
+            <% end %>
+          </tr>
+        <% end %>
         <tr>
           <td>Visa number:</td>
           <td><%= @participant.visa_number %></td>
