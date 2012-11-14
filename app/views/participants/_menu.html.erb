@@ -60,18 +60,22 @@
 
   <br>
 
-  <% if current_user.is_participant? %>
-    <% if current_user.participant.invited %>
+  <% if @participant %>
+    <% if @participant.invited %>
       <% @deadlines = Deadline.where("participant_type < 2") %>
     <% else %>
       <% @deadlines = Deadline.where("participant_type = 0 OR participant_type = 2") %>
     <% end %>
     <% if @deadlines %>
-      <%= link_to 'Go to next deadline', deadlines_participant_path, :class => "btn btn-primary btn-large btn-block" %>
+      <% if can? :check_deadline, Participant %>
+        <%= link_to 'Check deadlines', check_deadline_participant_path, :class => "btn btn-primary btn-large btn-block" %>
+      <% else %>
+        <%= link_to 'Go to next deadline', deadlines_participant_path, :class => "btn btn-primary btn-large btn-block" %>
+      <% end %>
       <ul class="nav nav-list well">
         <li class="nav-header">Deadlines</li>
         <% @deadlines.each do |d| %>
-          <%if d.users.include?(current_user)%>
+          <%if d.users.include?(@participant.user)%>
             <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
           <%else%>
             <%if d.deadline < Time.now%>
