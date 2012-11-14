@@ -18,5 +18,15 @@
       Arrivals by bus: <%= @oslo.where(:transport_type_id => 3).count %><br>
       Needs transport from Oslo: <%= @oslo.where(:need_transport => 1).count %><br>
     </p>
+    <h4>Needs transportation</h4>
+    <p>
+      Trondheim-Oslo: <%= Participant.where(:need_transport => 1).count %>
+    </p>
+    <p>
+      Oslo-Trondheim: <%= Participant.where(:need_transport => 2).count %>
+    </p>
+    <p>
+      Oslo-Trondheim-Oslo: <%= Participant.where(:need_transport => 3).count %>
+    </p>
   </div>
 <% end %>
