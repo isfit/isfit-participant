@@ -7,6 +7,9 @@
     <% if can? :validate_deadline, Participant %>
       <li><%= link_to image_tag('icons/eye.png') + ' Check deadlines', validate_deadline_participants_path %></li>
     <% end %>
+    <% if current_user.has_role?(:admin) %>
+      <li><%= link_to image_tag('icons/eye.png') + ' Functionary deadlines', deadlines_and_functionaries_participants_path %></li>
+    <% end %>
     <% if can? :stats, Participant %>
       <li><%= link_to image_tag('icons/chart_bar.png') + ' Stats', stats_participants_path %></li>
       <li><%= link_to image_tag('icons/wrench.png') + ' Graphics', graphics_participants_path %></li>
