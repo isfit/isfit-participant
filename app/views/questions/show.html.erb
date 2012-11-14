@@ -6,6 +6,17 @@
 	<p><em>Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
 </div>
 
+<% if current_user.has_role?(:admin) or current_user.has_role?(:functionary) %>
+  <p>
+  <b><%= "#{@question.participant.first_name} #{@question.participant.last_name}" %> belongs to the following functionaries</b>
+  <ul>
+    <% @question.participant.functionaries.each do |f| %>
+      <li><%= link_to f.user.name, f %></li>
+    <% end %>
+  </ul>
+  </p>
+<% end %>
+
 <% @answers.each do |answer|%>
 	<div class="well well-small">
 		<% if current_user.is_functionary? && current_user.id == answer.user_id %>

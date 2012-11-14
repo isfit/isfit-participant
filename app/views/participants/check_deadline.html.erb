@@ -8,6 +8,7 @@
       </p>
       <%= link_to 'Show profile', participant_path(@participant) %>
       <br>
+      <br>
       <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 5), :method => "POST", :class => "btn btn-primary" %>
       <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 5), :method => "POST", :class => "btn btn-danger" %>
     </fieldset>

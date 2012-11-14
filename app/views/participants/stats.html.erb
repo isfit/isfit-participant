@@ -98,7 +98,7 @@
       <td><%= @approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 5 AND approved = 1").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
-      <td>Not approved</td>
+      <td>Need approval</td>
       <td><%= @not_approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 5 AND approved = 0").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
