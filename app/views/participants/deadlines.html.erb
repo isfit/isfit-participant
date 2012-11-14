@@ -202,14 +202,8 @@
     <p>
     <% if @participant.accepted == 0 %>
       You have failed to accept your invitation within the given deadline.
-    <% elsif @participant.applied_for_visa == 0 %>
-      You have failed to apply for your visa within the given deadline.
-    <% elsif @participant.has_passport == 0%>
-      To be able to enter Norway, it is required to have a passport. You have failed to meet this requirement.
     <% elsif @participant.applied_for_visa == 1 and @participant.visa == 0 %>
       ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement.
-    <% elsif not @participant.confirmed_participation %>
-      You have failed to confirm your participation at ISFiT.
     <% else %>
       You have missed a deadline and may not proceed to the next step of the participation requirements.
     <% end %>
