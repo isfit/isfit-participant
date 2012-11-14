@@ -32,10 +32,10 @@
         <li><%= link_to image_tag('icons/page_white_acrobat.png') + " Download information brochure", "/Information_brochure.pdf"%></li>
         <li><%= link_to image_tag('icons/page_word.png') + " Download consent form", "/documents/power_of_attorney.doc"%></li>
       <% end %>
-      <% if current_user.has_role?(:admin) and not @participant.ignore %>
+      <% if (can? :ignore, Participant) and not @participant.ignore %>
         <li><%= link_to image_tag('icons/wand.png') + " Add participant to ignore list", ignore_participant_path(@participant), confirm: "This will add the participant to the ignore list for deadlines. Are you sure you want do this?" %></li>
       <% end %>
-      <% if current_user.has_role?(:admin) and @participant.ignore %>
+      <% if (can? :unignore, Participant) and @participant.ignore %>
         <li><%= link_to image_tag('icons/wand.png') + " Remove participant from ignore list", unignore_participant_path(@participant), confirm: "This will remove the participant from the ignore list for deadlines. Are you sure you want do this?" %></li>
       <% end %>
       <% if current_user.has_role?(:admin) and @participant.active %>
