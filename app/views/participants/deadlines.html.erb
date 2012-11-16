@@ -1,15 +1,38 @@
 <div class="well">
   <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
-      <%= f.error_notification %>
+    <% if false %>
+      <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
+        <%= f.error_notification %>
+        <fieldset>
+          <legend>Accept invitation</legend>
+          <div class="alert alert-info">
+            Do you wish to accept your invitation to attend ISFiT 2013?
+          </div>
+          <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "I hereby accept my invitation to ISFiT." %>
+        </fieldset>
+        <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
+      <% end %>
+    <% else %>
       <fieldset>
         <legend>Accept invitation</legend>
-        <div class="alert alert-info">
-          Do you wish to accept your invitation to attend ISFiT 2013?
-        </div>
-        <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "I hereby accept my invitation to ISFiT." %>
+        <p>
+        Dear
+        </p>
+        <p>
+        You did not fill in all the required information at Participant Web before the
+        given deadline and therefore you are not able to participate at ISFiT 2013. This is
+        an unfortunate situation, but there is nothing more we can do, except encourage
+        you to kindly respect our decision and hope that you will apply again for the next
+        ISFiT in 2015.
+        </p>
+        <p>
+        Yours sincerely,
+        </p>
+        <p>
+        The Participant Group<br>
+        ISFiT 2013
+        </p>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
