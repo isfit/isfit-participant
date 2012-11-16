@@ -63,5 +63,12 @@
     <legend>ISFiT related information</legend>
     <%= f.input :media_consent, :label => "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
   </fieldset>
+
+  <% if current_user.has_role?(:admin) %>
+    <fieldset>
+      <legend>Deadline Information</legend>
+    </fieldset>
+  <% end %>
+
     <%= f.button :submit %>
 <% end %>
