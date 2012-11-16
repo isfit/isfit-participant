@@ -73,7 +73,7 @@ namespace :participant do
   end
 
   task :deadline_failed => :environment do
-    participants = Participant.where("invited = 1 and accepted is null")
+    participants = Participant.where("invited = 1 and accepted is null and ignore = 0")
     puts "#{participants.count} participants will get an email"
     sleep 5
     participants.each do |part|
