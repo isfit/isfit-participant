@@ -1,5 +1,5 @@
 class ParticipantsMailer < ActionMailer::Base
-  default :from => "head.participant@isfit.org"
+  default :from => "no-reply@isfit.org"
 
   def send_mail(reciever, subject, text)
     @text = text
@@ -28,6 +28,11 @@ class ParticipantsMailer < ActionMailer::Base
 
   def travel_funding(participant)
     mail(to: participant.email, subject: "[ISFiT] Travel funding")
+  end
+
+  def failed_deadline(participant)
+    @participant = participant
+    mail(to: participant.email, subject: "[ISFiT] Regarding deadlines")
   end
 
 end
