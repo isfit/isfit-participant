@@ -1,6 +1,6 @@
 <div class="well">
   <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
-    <% if false %>
+    <% if false or @participant.ignore %>
       <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
         <%= f.error_notification %>
         <fieldset>

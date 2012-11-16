@@ -155,7 +155,7 @@ class ParticipantsController < ApplicationController
     #accept invitation
     if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 1 
       #add controlpanel?
-      if false
+      if false or @participant.ignore
         if params[:participant].nil?
           flash[:alert] = "You have to choose one of the options."
           return render 'deadlines'
