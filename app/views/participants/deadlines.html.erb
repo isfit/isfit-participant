@@ -222,16 +222,29 @@
 
   <% elsif not current_user.participant.active %>
     <legend>Information</legend>
-    <p>
     <% if @participant.accepted == 0 %>
-      You have failed to accept your invitation within the given deadline.
+      <p>You have failed to accept your invitation within the given deadline.If this is wrong, please send a question to your functionary.</p>
     <% elsif @participant.applied_for_visa == 1 and @participant.visa == 0 %>
-      ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement.
+      <p>ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement. If this is wrong, please send a question to your functionary.</p>
     <% else %>
-      You have missed a deadline and may not proceed to the next step of the participation requirements.
+        <p>
+        Dear <%= "#{@participant.first_name} #{@participant.last_name}" %>,
+        </p>
+        <p>
+        You did not fill in all the required information at Participant Web before the
+        given deadline and therefore you are not able to participate at ISFiT 2013. This is
+        an unfortunate situation, but there is nothing more we can do, except encourage
+        you to kindly respect our decision and hope that you will apply again for the next
+        ISFiT in 2015.
+        </p>
+        <p>
+        Yours sincerely,
+        </p>
+        <p>
+        The Participant Group<br>
+        ISFiT 2013
+        </p>
     <% end %>
-      If this is wrong, please send a question to your functionary.
-    </p>
 
   <% end %>
 
