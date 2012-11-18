@@ -11,7 +11,7 @@ class Ability
       can :read, Article
       can [:update, :show], Functionary
       can :show, InformationPage
-      can [:read, :update, :travel_support, :invitation, :validate_deadline, :check_deadline, :approve_deadline, :failed_deadline, :remove_deadline, :ignore, :unignore], Participant
+      can [:read, :update, :travel_support, :invitationi, :isfit_transportation, :validate_deadline, :check_deadline, :approve_deadline, :failed_deadline, :remove_deadline, :ignore, :unignore], Participant
       can [:index, :show, :update, :q_status, :resolve], Question
       can :read, Workshop
       can [:index, :show, :update, :grade1, :select_app, :grade_app, :set_grade], Application
@@ -25,7 +25,7 @@ class Ability
       can :show, Workshop
       can [:index, :new, :create], Question
       if user.is_participant?
-        can [:show, :update, :travel_support, :invitation, :letter_of_recommendation, :deadlines, :deadlines_handler], Participant, id: user.participant.id
+        can [:show, :update, :travel_support, :invitation, :letter_of_recommendation, :isfit_transportation, :deadlines, :deadlines_handler], Participant, id: user.participant.id
         can [:show, :update], Question, participant_id: user.participant.id
       end
     end
