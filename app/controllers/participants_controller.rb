@@ -564,6 +564,13 @@ class ParticipantsController < ApplicationController
       @participant.last_name = params[:participant][:last_name]
       @participant.save
     end
+    if current_user.has_role?(:admin)
+      @participant.accepted = params[:participant][:accepted]
+      @participant.applied_for_visa = params[:participant][:applied_for_visa]
+      @participant.embassy_confirmation = params[:participant][:embassy_confirmation]
+      @participant.need_transport = params[:participant][:need_transport]
+      @participant.save
+    end
     if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)
       respond_to do |format|
         if @participant.update_attributes(params[:participant])
