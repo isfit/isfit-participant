@@ -91,6 +91,7 @@ IsfitParticipant::Application.routes.draw do
       get "desecure"
       get "ignore"
       get "unignore"
+      get "activate"
       get "deactivate"
       get :match
     end
