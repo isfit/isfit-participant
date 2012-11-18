@@ -408,6 +408,17 @@ class ParticipantsController < ApplicationController
     @participants = Participant.all
   end
 
+  def isfit_transportation
+    @participant = Participant.find(params[:id])
+    if (current_user == @participant.user || !current_user.has_role?(:participant)) and @participant.invited
+      respond_to do |f|
+        f.html {render 'isfit_transportation', :layout=>false}
+      end
+    else
+      raise CanCan::AccessDenied
+    end
+  end
+
   def invitation
     @participant = Participant.find(params[:id])
     if (current_user == @participant.user || !current_user.has_role?(:participant)) and @participant.invited
