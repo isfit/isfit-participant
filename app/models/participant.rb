@@ -22,6 +22,27 @@ class Participant < ActiveRecord::Base
   validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
 
+  def self.sortable_fields
+    [
+      "first_name",
+      "last_name",
+      "email",
+      "country_id",
+      "workshop_id",
+      "transport_type_id",
+      "arrival_place_id",
+      "arrives_at",
+      "visa_present",
+      "accepted_present",
+      "has_passport",
+      "applied_for_visa",
+      "flightnumber",
+      "travel_support",
+      "need_transport",
+      "guaranteed",
+    ]
+  end
+
   #validations
   #validates_presence_of :first_name, :last_name, :email, :date_of_birth, :address1, :zipcode, :city, :field_of_study
   #validates_uniqueness_of :user_id

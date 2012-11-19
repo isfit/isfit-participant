@@ -383,7 +383,17 @@ class ParticipantsController < ApplicationController
   # GET /participants/search
   def search
     @q = Participant.search params[:q]
-    @participants = @q.result(distinct: true).paginate(per_page: 15, page: params[:page])
+    @sort_by = params[:sort_by]
+
+    if @sort_by == "" || @sort_by.nil?
+      @sort_by = "id"
+    end
+
+    @participants = @q.result(distinct: true)
+      .paginate(per_page: 15, page: params[:page])
+      .order("#{@sort_by} ASC")
+
+    @sortable_fields = Participant.sortable_fields
 
     respond_to do |format|
       format.html # search.html.erb
