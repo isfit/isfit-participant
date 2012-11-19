@@ -1,15 +1,38 @@
 <div class="well">
   <% if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
-    <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
-      <%= f.error_notification %>
+    <% if false or @participant.ignore %>
+      <%= simple_form_for(@participant, :url => deadlines_handler_participant_path(:deadline => 1), :method => "post",:html => {:class => "form"} ) do |f| %>
+        <%= f.error_notification %>
+        <fieldset>
+          <legend>Accept invitation</legend>
+          <div class="alert alert-info">
+            Do you wish to accept your invitation to attend ISFiT 2013?
+          </div>
+          <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "I hereby accept my invitation to ISFiT." %>
+        </fieldset>
+        <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
+      <% end %>
+    <% else %>
       <fieldset>
         <legend>Accept invitation</legend>
-        <div class="alert alert-info">
-          Do you wish to accept your invitation to attend ISFiT 2013?
-        </div>
-        <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "I hereby accept my invitation to ISFiT." %>
+        <p>
+        Dear
+        </p>
+        <p>
+        You did not fill in all the required information at Participant Web before the
+        given deadline and therefore you are not able to participate at ISFiT 2013. This is
+        an unfortunate situation, but there is nothing more we can do, except encourage
+        you to kindly respect our decision and hope that you will apply again for the next
+        ISFiT in 2015.
+        </p>
+        <p>
+        Yours sincerely,
+        </p>
+        <p>
+        The Participant Group<br>
+        ISFiT 2013
+        </p>
       </fieldset>
-      <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
     <% end %>
 
   <% elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active %>
@@ -199,22 +222,29 @@
 
   <% elsif not current_user.participant.active %>
     <legend>Information</legend>
-    <p>
     <% if @participant.accepted == 0 %>
-      You have failed to accept your invitation within the given deadline.
-    <% elsif @participant.applied_for_visa == 0 %>
-      You have failed to apply for your visa within the given deadline.
-    <% elsif @participant.has_passport == 0%>
-      To be able to enter Norway, it is required to have a passport. You have failed to meet this requirement.
+      <p>You have failed to accept your invitation within the given deadline.If this is wrong, please send a question to your functionary.</p>
     <% elsif @participant.applied_for_visa == 1 and @participant.visa == 0 %>
-      ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement.
-    <% elsif not @participant.confirmed_participation %>
-      You have failed to confirm your participation at ISFiT.
+      <p>ISFiT participants from visa required countries must have a visa within the given deadline. You have failed to meet this requirement. If this is wrong, please send a question to your functionary.</p>
     <% else %>
-      You have missed a deadline and may not proceed to the next step of the participation requirements.
+        <p>
+        Dear <%= "#{@participant.first_name} #{@participant.last_name}" %>,
+        </p>
+        <p>
+        You did not fill in all the required information at Participant Web before the
+        given deadline and therefore you are not able to participate at ISFiT 2013. This is
+        an unfortunate situation, but there is nothing more we can do, except encourage
+        you to kindly respect our decision and hope that you will apply again for the next
+        ISFiT in 2015.
+        </p>
+        <p>
+        Yours sincerely,
+        </p>
+        <p>
+        The Participant Group<br>
+        ISFiT 2013
+        </p>
     <% end %>
-      If this is wrong, please send a question to your functionary.
-    </p>
 
   <% end %>
 

@@ -114,7 +114,7 @@ class ParticipantsController < ApplicationController
   # GET /participants/graphics
   def graphics
     if current_user.has_role?(:admin) || current_user.has_role?(:sec)
-      @partici = Participant.where(:invited => 1)
+      @partici = Participant.where(:invited => 1, :active => 1)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id)
     end
@@ -154,22 +154,28 @@ class ParticipantsController < ApplicationController
 
     #accept invitation
     if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 1 
-      if params[:participant].nil?
-        flash[:alert] = "You have to choose one of the options."
-        return render 'deadlines'
-      end
-      @participant.accepted = params[:participant][:accepted]
-      @participant.active = @participant.accepted == 1 ? true : false
-      if @participant.save
-        DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 1)
-        if @participant.accepted == 1
-          flash[:notice] = "Your invitation was accepted."
-        else
-          flash[:alert] = "Your invitation was rejected."
+      #add controlpanel?
+      if false or @participant.ignore
+        if params[:participant].nil?
+          flash[:alert] = "You have to choose one of the options."
+          return render 'deadlines'
         end
-        render 'show'
+        @participant.accepted = params[:participant][:accepted]
+        @participant.active = @participant.accepted == 1 ? true : false
+        if @participant.save
+          DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 1)
+          if @participant.accepted == 1
+            flash[:notice] = "Your invitation was accepted."
+          else
+            flash[:alert] = "Your invitation was rejected."
+          end
+          render 'show'
+        else
+          render 'deadlines'
+        end
       else
-        render 'deadlines'
+        flash[:alert] = "You can no longer accept the invitation, the deadline was 15. November"
+        redirect_to participant_path(@participant)
       end
     elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 2
       if params[:participant].nil?
@@ -412,6 +418,17 @@ class ParticipantsController < ApplicationController
     @participants = Participant.all
   end
 
+  def isfit_transportation
+    @participant = Participant.find(params[:id])
+    if (current_user == @participant.user || !current_user.has_role?(:participant)) and @participant.invited
+      respond_to do |f|
+        f.html {render 'isfit_transportation', :layout=>false}
+      end
+    else
+      raise CanCan::AccessDenied
+    end
+  end
+
   def invitation
     @participant = Participant.find(params[:id])
     if (current_user == @participant.user || !current_user.has_role?(:participant)) and @participant.invited
@@ -475,6 +492,22 @@ class ParticipantsController < ApplicationController
     if @participant.save
       respond_to do |format|
         flash[:notice] = "Participant removed from ignore list"
+        format.html {redirect_to(participant_path(@participant))}
+      end
+    else
+      respond_to do |format|
+        flash[:warning] = "Something went wrong"
+        format.html {redirect_to(@participant)}
+      end
+    end
+  end
+
+  def activate
+    @participant = Participant.find(params[:id])
+    @participant.active = true
+    if @participant.save
+      respond_to do |format|
+        flash[:notice] = "Participant is now active, and can continue on deadlines."
         format.html {redirect_to(participant_path(@participant))}
       end
     else
@@ -555,6 +588,13 @@ class ParticipantsController < ApplicationController
     if current_user.has_role?(:admin) or current_user.has_role?(:functionary)
       @participant.first_name = params[:participant][:first_name]
       @participant.last_name = params[:participant][:last_name]
+      @participant.save
+    end
+    if current_user.has_role?(:admin)
+      @participant.accepted = params[:participant][:accepted]
+      @participant.applied_for_visa = params[:participant][:applied_for_visa]
+      @participant.embassy_confirmation = params[:participant][:embassy_confirmation]
+      @participant.need_transport = params[:participant][:need_transport]
       @participant.save
     end
     if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)

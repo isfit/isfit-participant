@@ -83,6 +83,7 @@ IsfitParticipant::Application.routes.draw do
       get "failed_deadline"
       get "travel_support"
       get "letter_of_recommendation"
+      get "isfit_transportation"
       get "impersonate"
       get "invitation"
       post "remove_deadline"
@@ -90,6 +91,7 @@ IsfitParticipant::Application.routes.draw do
       get "desecure"
       get "ignore"
       get "unignore"
+      get "activate"
       get "deactivate"
       get :match
     end

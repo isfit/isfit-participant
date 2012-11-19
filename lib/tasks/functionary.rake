@@ -63,12 +63,27 @@ namespace :participant do
     sleep 5
     countries.each do |id|
       country = Country.find(id)
-      country.participants.where("invited = 0").each do |participant|
+      country.participants.where("invited = 1").each do |participant|
         puts "Sending e-mail to: " + participant.email
         ParticipantsMailer.travel_funding(p).deliver!
         puts "E-mail is sent.\n\n"
         sleep 0.5
       end
+    end
+  end
+
+  task :deadline_failed => :environment do
+    #participants = Participant.where("invited = 1 and accepted is null and participants.ignore = 0 and active = 1")
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 5").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND (du.id is null or has_passport is null)")
+    puts "#{participants.count} participants will get an email"
+    sleep 5
+    participants.each do |part|
+      puts "Sending e-mail to: " + part.email
+      #ParticipantsMailer.failed_deadline(part).deliver!
+      #part.active = false
+      #part.save
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
     end
   end
 

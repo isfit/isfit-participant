@@ -5,28 +5,25 @@
     <p>
       <% @trondheim = @partici.where(:arrival_place_id => 1) %>
       Total: <%= @trondheim.count %><br>
-      Arrivals by plane: <%= @trondheim.where(:transport_type_id => 1).count %><br>
-      Arrivals by train: <%= @trondheim.where(:transport_type_id => 2).count %><br>
-      Arrivals by bus: <%= @trondheim.where(:transport_type_id => 3).count %><br>
+      Arrivals by plane: <%= @trondheim.where(:transport_type_id => 5).count %><br>
+      Arrivals by train: <%= @trondheim.where(:transport_type_id => 6).count %><br>
+      Arrivals by bus: <%= @trondheim.where(:transport_type_id => 7).count %><br>
+      Arrivals by car: <%= @trondheim.where(:transport_type_id => 8).count %><br>
     </p>
     <h4>Oslo</h4>
     <p>
       <% @oslo = @partici.where(:arrival_place_id => 2) %>
       Total: <%= @oslo.count %><br>
-      Arrivals by plane: <%= @oslo.where(:transport_type_id => 1).count %><br>
-      Arrivals by train: <%= @oslo.where(:transport_type_id => 2).count %><br>
-      Arrivals by bus: <%= @oslo.where(:transport_type_id => 3).count %><br>
-      Needs transport from Oslo: <%= @oslo.where(:need_transport => 1).count %><br>
+      Arrivals by plane: <%= @oslo.where(:transport_type_id => 5).count %><br>
+      Arrivals by train: <%= @oslo.where(:transport_type_id => 6).count %><br>
+      Arrivals by bus: <%= @oslo.where(:transport_type_id => 7).count %><br>
+      Arrivals by car: <%= @oslo.where(:transport_type_id => 8).count %><br>
     </p>
-    <h4>Needs transportation</h4>
+    <h4>Needs transportation from Oslo</h4>
     <p>
-      Trondheim-Oslo: <%= Participant.where(:need_transport => 1).count %>
-    </p>
-    <p>
-      Oslo-Trondheim: <%= Participant.where(:need_transport => 2).count %>
-    </p>
-    <p>
-      Oslo-Trondheim-Oslo: <%= Participant.where(:need_transport => 3).count %>
+    Trondheim-Oslo: <%= Participant.where(:need_transport => 1).count %><br>
+    Oslo-Trondheim: <%= Participant.where(:need_transport => 2).count %><br>
+    Oslo-Trondheim-Oslo: <%= Participant.where(:need_transport => 3).count %><br>
     </p>
   </div>
 <% end %>

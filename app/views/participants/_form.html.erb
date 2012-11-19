@@ -63,5 +63,17 @@
     <legend>ISFiT related information</legend>
     <%= f.input :media_consent, :label => "I agree to be contacted by the norwegian media prior to and during ISFiT 2011" %>
   </fieldset>
+
+  <% if current_user.has_role?(:admin) %>
+    <fieldset>
+      <legend>Deadline Information</legend>
+      <%= f.input :accepted, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label =>  "Accepted invitation to ISFiT." %>
+      <%= f.input :applied_for_visa, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]] %>
+      <%= f.input :embassy_confirmation, :as => :boolean %>
+      <%= f.input :need_transport, :label => "Transportation by ISFiT from Oslo to Trondheim?",
+                  :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
+    </fieldset>
+  <% end %>
+
     <%= f.button :submit %>
 <% end %>
