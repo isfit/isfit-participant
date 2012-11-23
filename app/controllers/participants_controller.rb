@@ -389,24 +389,27 @@ class ParticipantsController < ApplicationController
   # GET /participants/search
   def search
     @q = Participant.search params[:q]
+
     @sort_by = params[:sort_by]
+    @sort_by = "id" if @sort_by == "" || @sort_by.nil?
+
     @functionary = params[:functionary]
     @functionary = nil if @functionary ==  ""
 
-    @participants = @q.result(distinct: true)
+    @participants = nil
     if @functionary
-      @participants = @participants
+      @participants = @q
+        .result(distinct: true)
         .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
         .where("fp.functionary_id = "+@functionary.to_s)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
+    else
+      @participants = @q
+        .result(distinct: true)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
     end
-
-    if @sort_by == "" || @sort_by.nil?
-      @sort_by = "id"
-    end
-
-    @participants = @participants
-      .paginate(per_page: 15, page: params[:page])
-      .order("#{@sort_by} ASC")
 
     @sortable_fields = Participant.sortable_fields
 
