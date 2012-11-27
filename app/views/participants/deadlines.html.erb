@@ -113,7 +113,7 @@
         <div class="alert alert-info">
           Fill out the Visa number from the Schengen visa or scan your visa and upload it below.
         </div>
-        <%= f.input :visa, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0]], :label => "Have you been granted a Visa?" %>
+        <%= f.input :visa, :as => :radio_buttons, :collection => [["Yes", 1], ["No", 0], ["Do not need", -1]], :label => "Have you been granted a Visa?" %>
         <%= f.input :visa_number, :label => "Please enter your Visa number in the field below" %>
         Upload a scanned version of the Visa.<br>
         <%= f.file_field :visum %>
