@@ -35,4 +35,9 @@ class ParticipantsMailer < ActionMailer::Base
     mail(to: participant.email, subject: "[ISFiT] Regarding deadlines")
   end
 
+  def deadline_reminder(participant)
+    @participant = participant
+    mail(to: participant.email, subject: "[ISFiT] Deadline reminder")
+  end
+
 end

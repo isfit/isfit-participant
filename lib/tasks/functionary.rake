@@ -87,6 +87,20 @@ namespace :participant do
     end
   end
 
+  task :deadline_reminder => :environment do
+    participants = Participant.where("invited = 1 and active = 1 and notified = 1")
+    puts "#{participants.count} participants will get an email"
+    sleep 5
+    participants.each do |part|
+      puts "Sending e-mail to: " + part.email
+      #ParticipantsMailer.deadline_reminder(part).deliver!
+      part.notified = 0
+      part.save
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
+    end
+  end
+
   task :make_applicants_into_participants => :environment do
     invites = Application.invited
     invites.each do |invited|
