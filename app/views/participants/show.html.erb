@@ -239,6 +239,18 @@
           <td><%= @participant.confirmed_participation ? "Yes" : "No" %></td>
         <% end %>
       </tr>
+      <tr>
+        <td>Deadline 5 approved:</td>
+        <td><%= deadline_approved(DeadlinesUser.where("deadline_id = 5 AND user_id = ?", @participant.user.id)) %></td>
+      </tr>
+      <tr>
+        <td>Deadline 6 approved:</td>
+        <td><%= deadline_approved(DeadlinesUser.where("deadline_id = 6 AND user_id = ?", @participant.user.id)) %></td>
+      </tr>
+      <tr>
+        <td>Deadline 8 approved:</td>
+        <td><%= deadline_approved(DeadlinesUser.where("deadline_id = 8 AND user_id = ?", @participant.user.id)) %></td>
+      </tr>
     <% else %>
       <tr>
         <% if not @participant.agree_waiting_list.nil? %>
