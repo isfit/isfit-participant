@@ -25,7 +25,7 @@
     <%= f.input :arrival_place_id_eq, label: "Arrival place", as: :select, collection: ArrivalPlace.all.collect { |a| [a.name, a.id] }, required: false %>
     <%= f.input :arrives_at_cont, label: "Arrives at", as: :date, start_year: Date.today.year - 1, end_year: Date.today.year + 1, include_blank: true, input_html: { :class => "span2" }, required: false %>
     <%= f.input :visa_present, label: "Has visa", as: :select, required: false %>
-    <%= f.input :invited_present, label: "Invited", as: :select, collection: [["Invited", 1], ["Waiting-list", 0]], required: false %>
+    <%= f.input :invited_eq, label: "Invited", as: :select, collection: [["Invited", true], ["Waiting-list", false]], required: false %>
     <%= f.input :accepted_present, label: "Accepted invitation", as: :select, required: false %>
     <%= f.input :applied_for_visa_eq, label: "Applied for visa", as: :select, collection: [["Yes", 1], ["Do not need", -1]], required: false %>
     <%= f.input :embassy_confirmation_present, label: "Embassy confirmation", as: :select, required: false %>
