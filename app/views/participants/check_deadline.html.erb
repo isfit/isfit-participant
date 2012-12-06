@@ -95,7 +95,7 @@
       <table class="table table-condensed table-hover table-borderless">
         <tr>
           <td class="span5">Transport type</td>
-          <td><%= @participant.transport_type.name %></td>
+          <td><%= @participant.transport_type.nil? ? "" : @participant.transport_type.name %></td>
         </tr>
         <tr>
           <td>Flightnumber</td>
