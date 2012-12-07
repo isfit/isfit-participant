@@ -304,56 +304,31 @@ class ParticipantsController < ApplicationController
 
   def approve_deadline
     @participant = Participant.find(params[:id])
+    d = DeadlinesUser.where("deadline_id = ? and user_id = ?", params[:deadline].to_i, @participant.user.id).first
 
-    if params[:deadline].to_i == 5
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        DeadlineMailer.deadline_approved(@participant, 5).deliver
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
-        d.destroy
-        DeadlineMailer.deadline_not_approved(@participant, 5).deliver
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end      
-    elsif params[:deadline].to_i == 6
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        DeadlineMailer.deadline_approved(@participant, 6).deliver
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
-        d.destroy
-        DeadlineMailer.deadline_not_approved(@participant, 6).deliver
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end
-    elsif params[:deadline].to_i == 8
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        DeadlineMailer.deadline_approved(@participant, 8).deliver
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
-        d.destroy
-        DeadlineMailer.deadline_not_approved(@participant, 8).deliver
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end 
-    else
-      flash[:warning] = "Unknown deadline"
-      redirect_to validate_deadline_participants_path
+    if d.nil?
+      flash[:alert] = "This deadline has not been done by the participant."
+      return redirect_to validate_deadline_participants_path
     end
+
+    if params[:approved].to_i == 1 and not d.approved 
+      d.approved = true
+      d.save
+      DeadlineMailer.deadline_approved(@participant, d.deadline_id).deliver
+      flash[:notice] = "Deadline was approved."
+      redirect_to validate_deadline_participants_path
+    elsif params[:approved].to_i == 0 and not d.approved
+      d.destroy
+      DeadlineMailer.deadline_not_approved(@participant, d.deadline_id).deliver
+      flash[:notice] = "Deadline was not approved."
+      redirect_to validate_deadline_participants_path
+    elsif d.approved
+      flash[:alert] = "This deadline is already approved."
+      redirect_to validate_deadline_participants_path
+    else
+      flash[:alert] = "Something went wrong."
+      redirect_to validate_deadline_participants_path
+    end        
   end
 
   def check_deadline

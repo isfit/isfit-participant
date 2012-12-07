@@ -9,8 +9,8 @@
       <%= link_to 'Show profile', participant_path(@participant) %>
       <br>
       <br>
-      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 5), :method => "POST", :class => "btn btn-primary" %>
-      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 5), :method => "POST", :class => "btn btn-danger" %>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 5), :method => "POST", :class => "btn btn-primary", :confirm => "Are you sure you want to approve this deadline?" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 5), :method => "POST", :class => "btn btn-danger", :confirm => "Are you sure you want to decline this deadline?" %>
     </fieldset>
 
   <% elsif DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first and not DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first.approved %>
@@ -85,8 +85,8 @@
         </tr>
       </table>
       <br>
-      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 6), :method => "POST", :class => "btn btn-primary" %>
-      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 6), :method => "POST", :class => "btn btn-danger" %>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 6), :method => "POST", :class => "btn btn-primary", :confirm => "Are you sure you want to approve this deadline?" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 6), :method => "POST", :class => "btn btn-danger", :confirm => "Are you sure you want to decline this deadline?" %>
     </fieldset>
 
   <% elsif DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first and not DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first.approved %>
@@ -117,8 +117,8 @@
         </tr>
       </table>
       <br>
-      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 8), :method => "POST", :class => "btn btn-primary" %>
-      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 8), :method => "POST", :class => "btn btn-danger" %>
+      <%= link_to 'Approve', approve_deadline_participant_path(@participant, :approved => 1, :deadline => 8), :method => "POST", :class => "btn btn-primary", :confirm => "Are you sure you want to approve this deadline?" %>
+      <%= link_to 'Decline', approve_deadline_participant_path(@participant, :approved => 0, :deadline => 8), :method => "POST", :class => "btn btn-danger", :confirm => "Are you sure you want to decline this deadline?" %>
     </fieldset>
 
   <% else %>
