@@ -588,6 +588,11 @@ class ParticipantsController < ApplicationController
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
       @participant.embassy_confirmation = params[:participant][:embassy_confirmation]
       @participant.need_transport = params[:participant][:need_transport]
+      @participant.transport_type_id = params[:participant][:transport_type_id]
+      @participant.flightnumber = params[:participant][:flightnumber]
+      @participant.arrives_at = DateTime.new(params[:participant]['arrives_at(1i)'].to_i, params[:participant]['arrives_at(2i)'].to_i, params[:participant]['arrives_at(3i)'].to_i, params[:participant]['arrives_at(4i)'].to_i, params[:participant]['arrives_at(5i)'].to_i)
+      @participant.departs_at = DateTime.new(params[:participant]['departs_at(1i)'].to_i, params[:participant]['departs_at(2i)'].to_i, params[:participant]['departs_at(3i)'].to_i, params[:participant]['departs_at(4i)'].to_i, params[:participant]['departs_at(5i)'].to_i)
+      @participant.arrival_place_id = params[:participant][:arrival_place_id]
       @participant.save
     end
     if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)

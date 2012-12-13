@@ -72,6 +72,11 @@
       <%= f.input :embassy_confirmation, :as => :boolean %>
       <%= f.input :need_transport, :label => "Transportation by ISFiT from Oslo to Trondheim?",
                   :as => :radio_buttons, :collection => [["Oslo-Trondheim-Oslo", 3], ["Oslo-Trondheim", 2], ["Trondheim-Oslo", 1], ["No", 0]] %>
+      <%= f.input :transport_type_id, :as => :select, :label => "Transport type", :collection => TransportType.all.to_select_name %>
+      <%= f.input :flightnumber %>
+      <%= f.input :arrives_at, :as => :datetime, :label => "Arrives at (time)", :input_html => { :class => "input-small" } %>
+      <%= f.input :departs_at, :as => :datetime, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
+      <%= f.input :arrival_place_id, :as => :select, :label => "Arrival place", :collection => ArrivalPlace.all.to_select_name %>
     </fieldset>
   <% end %>
 
