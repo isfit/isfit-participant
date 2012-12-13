@@ -120,7 +120,7 @@
     </tr>
     <tr>
       <td>Not finished</td>
-      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 1").group("participants.user_id").count.count - @approved -  @not_approved %></td>
+      <td><%= Participant.where("active = 1 AND invited = 1").count - @approved -  @not_approved %></td>
     </tr>
   </table>
 
@@ -138,6 +138,10 @@
     <tr>
       <td>Trondheim-Oslo</td>
       <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 0").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
       <td>Not finished</td>
@@ -158,7 +162,7 @@
     </tr>
     <tr>
       <td>Not finished</td>
-      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 1").group("participants.user_id").count.count - @approved -  @not_approved %></td>
+      <td><%= Participant.where("active = 1 AND invited = 1").count - @approved -  @not_approved %></td>
     </tr>
   </table>
 
