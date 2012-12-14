@@ -87,14 +87,23 @@ namespace :participant do
     end
   end
 
+  task :set_notified_to_zero => :environment do
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 1")
+    participant.each do |part|
+      part.notified = 0
+      part.save
+    end
+  end
+
   task :deadline_reminder => :environment do
-    participants = Participant.where("invited = 1 and active = 1 and notified = 1")
+    #participants = Participant.where("invited = 1 and active = 1 and notified = 1")
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
     puts "#{participants.count} participants will get an email"
     sleep 5
     participants.each do |part|
       puts "Sending e-mail to: " + part.email
       #ParticipantsMailer.deadline_reminder(part).deliver!
-      part.notified = 0
+      part.notified = 1
       part.save
       puts "E-mail is sent.\n\n"
       sleep 0.5
