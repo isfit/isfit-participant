@@ -124,7 +124,7 @@
     </tr>
     <tr>
       <td>Unique countries</td>
-      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 6 AND approved = 1").group("participants.user_id").count.count %></td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 6 AND approved = 1").group("participants.country_id").count.count %></td>
     </tr>
     <tr>
       <td>Not approved or ignored</td>
