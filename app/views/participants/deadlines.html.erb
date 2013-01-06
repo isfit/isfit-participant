@@ -157,8 +157,8 @@
       </div>
         <%= f.input :transport_type_id, :as => :select, :label => "Transport type", :collection => TransportType.all.to_select_name %>
         <%= f.input :flightnumber %>
-        <%= f.input :arrives_at, :as => :datetime, :label => "Arrives at (time)", :input_html => { :class => "input-small" } %>
-        <%= f.input :departs_at, :as => :datetime, :label => "Departs at (time)", :input_html => { :class => "input-small" } %>
+        <%= f.input :arrives_at, :as => :datetime, :label => "Arrives at (time)", :hint => "Arrival in Oslo/Trondheim", :input_html => { :class => "input-small" } %>
+        <%= f.input :departs_at, :as => :datetime, :label => "Departs at (time)", :hint => "Departure from Oslo/Trondheim", :input_html => { :class => "input-small" } %>
         <%= f.input :arrival_place_id, :as => :select, :label => "Arrival place", :collection => ArrivalPlace.all.to_select_name %>
       </fieldset>
       <%= f.button :submit, 'Continue', confirm: 'Is the information correct? You can not go back and change this later.'  %>
