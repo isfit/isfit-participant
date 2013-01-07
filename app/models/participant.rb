@@ -46,4 +46,6 @@ class Participant < ActiveRecord::Base
   #validations
   #validates_presence_of :first_name, :last_name, :email, :date_of_birth, :address1, :zipcode, :city, :field_of_study
   #validates_uniqueness_of :user_id
+  
+  #Next version of participant need validation of email...
 end

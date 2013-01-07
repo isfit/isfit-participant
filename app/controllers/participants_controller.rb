@@ -304,50 +304,31 @@ class ParticipantsController < ApplicationController
 
   def approve_deadline
     @participant = Participant.find(params[:id])
+    d = DeadlinesUser.where("deadline_id = ? and user_id = ?", params[:deadline].to_i, @participant.user.id).first
 
-    if params[:deadline].to_i == 5
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 5 and user_id = ?", @participant.user.id).first
-        d.destroy
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end      
-    elsif params[:deadline].to_i == 6
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 6 and user_id = ?", @participant.user.id).first
-        d.destroy
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end
-    elsif params[:deadline].to_i == 8
-      if params[:approved].to_i == 1 
-        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
-        d.approved = true
-        d.save
-        flash[:notice] = "Deadline was approved"
-        redirect_to validate_deadline_participants_path
-      else
-        d = DeadlinesUser.where("deadline_id = 8 and user_id = ?", @participant.user.id).first
-        d.destroy
-        flash[:warning] = "Deadline was removed"
-        redirect_to validate_deadline_participants_path
-      end 
-    else
-      flash[:warning] = "Unknown deadline"
-      redirect_to validate_deadline_participants_path
+    if d.nil?
+      flash[:alert] = "This deadline has not been done by the participant."
+      return redirect_to validate_deadline_participants_path
     end
+
+    if params[:approved].to_i == 1 and not d.approved 
+      d.approved = true
+      d.save
+      DeadlineMailer.deadline_approved(@participant, d.deadline_id).deliver
+      flash[:notice] = "Deadline was approved."
+      redirect_to validate_deadline_participants_path
+    elsif params[:approved].to_i == 0 and not d.approved
+      d.destroy
+      DeadlineMailer.deadline_not_approved(@participant, d.deadline_id).deliver
+      flash[:notice] = "Deadline was not approved."
+      redirect_to validate_deadline_participants_path
+    elsif d.approved
+      flash[:alert] = "This deadline is already approved."
+      redirect_to validate_deadline_participants_path
+    else
+      flash[:alert] = "Something went wrong."
+      redirect_to validate_deadline_participants_path
+    end        
   end
 
   def check_deadline
@@ -389,15 +370,27 @@ class ParticipantsController < ApplicationController
   # GET /participants/search
   def search
     @q = Participant.search params[:q]
+
     @sort_by = params[:sort_by]
+    @sort_by = "id" if @sort_by == "" || @sort_by.nil?
 
-    if @sort_by == "" || @sort_by.nil?
-      @sort_by = "id"
+    @functionary = params[:functionary]
+    @functionary = nil if @functionary ==  ""
+
+    @participants = nil
+    if @functionary
+      @participants = @q
+        .result(distinct: true)
+        .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+        .where("fp.functionary_id = "+@functionary.to_s)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
+    else
+      @participants = @q
+        .result(distinct: true)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
     end
-
-    @participants = @q.result(distinct: true)
-      .paginate(per_page: 15, page: params[:page])
-      .order("#{@sort_by} ASC")
 
     @sortable_fields = Participant.sortable_fields
 
@@ -595,6 +588,11 @@ class ParticipantsController < ApplicationController
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
       @participant.embassy_confirmation = params[:participant][:embassy_confirmation]
       @participant.need_transport = params[:participant][:need_transport]
+      @participant.transport_type_id = params[:participant][:transport_type_id]
+      @participant.flightnumber = params[:participant][:flightnumber]
+      @participant.arrives_at = DateTime.new(params[:participant]['arrives_at(1i)'].to_i, params[:participant]['arrives_at(2i)'].to_i, params[:participant]['arrives_at(3i)'].to_i, params[:participant]['arrives_at(4i)'].to_i, params[:participant]['arrives_at(5i)'].to_i)
+      @participant.departs_at = DateTime.new(params[:participant]['departs_at(1i)'].to_i, params[:participant]['departs_at(2i)'].to_i, params[:participant]['departs_at(3i)'].to_i, params[:participant]['departs_at(4i)'].to_i, params[:participant]['departs_at(5i)'].to_i)
+      @participant.arrival_place_id = params[:participant][:arrival_place_id]
       @participant.save
     end
     if current_user == @participant.user or current_user.has_role?(:admin) or current_user.has_role?(:functionary)

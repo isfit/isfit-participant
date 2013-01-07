@@ -13,4 +13,14 @@ module ParticipantsHelper
     end
   end
 
+  def deadline_approved(deadline)
+    if deadline.count == 0
+      return "You have not finished this deadline"
+    elsif deadline.first.approved
+      return "Yes"
+    elsif not deadline.first.approved
+      return "Please wait for approval"
+    end
+  end
+
 end

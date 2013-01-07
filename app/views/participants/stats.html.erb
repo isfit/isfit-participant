@@ -9,7 +9,7 @@
   <p>Invited participants that have logged in.</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= User.joins(:participant).where("invited = 1 and sign_in_count > 0").count %></td>
     </tr>
     <tr>
@@ -22,7 +22,7 @@
   <p>Participants that have accepted the invitation</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND accepted = 1 AND deadline_id = 1").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
@@ -39,7 +39,7 @@
   <p>Participants that have applied for visa and has accepted invitation.</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND deadline_id = 2").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
@@ -60,7 +60,7 @@
   <p>Participants that have given embassy confirmation and have applied for visa.</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND applied_for_visa = 1 AND embassy_confirmation = 1 AND deadline_id = 3").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@
   <p>Participants that have a passport and has finished deadline 2.</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= @yes = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND has_passport = 1 AND deadline_id = 4").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
@@ -94,7 +94,7 @@
   <p>Participants that have updated the profile and accepted the invitation.</p>
   <table>
     <tr>
-      <td class="span2">Approved</td>
+      <td class="span3">Approved</td>
       <td><%= @approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("invited = 1 AND deadline_id = 5 AND approved = 1").group("participants.user_id").count.count %></td>
     </tr>
     <tr>
@@ -107,6 +107,86 @@
     </tr>
   </table>
 
+  <h4>Deadline 6</h4>
+  <p>Stats for deadline 6, where the participant is active. Unique countries is the number of different countries represented by participants that have deadline 6 approved. Not approved or ignored are participants that not have deadline 6 approved or are on the ignore-list.</p>
+  <table>
+    <tr>
+      <td class="span3">Approved</td>
+      <td><%= @approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 6 AND approved = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Need approval</td>
+      <td><%= @not_approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 6 AND approved = 0").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= Participant.where("active = 1 AND invited = 1").count - @approved -  @not_approved %></td>
+    </tr>
+    <tr>
+      <td>Unique countries</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 6 AND approved = 1").group("participants.country_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not approved or ignored</td>
+      <td><%= Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND (du.id is null or du.approved = 0)").group("participants.user_id").count.count %></td>
+    </tr>
+  </table>
+
+  <h4>Deadline 7</h4>
+  <p>Need of transport, for participants that are active.</p>
+  <table>
+    <tr>
+      <td class="span3">Oslo-Trondheim-Oslo</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 3").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Oslo-Trondheim</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 2").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Trondheim-Oslo</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>No</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 7 AND need_transport = 0").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= Participant.where("active = 1 AND invited = 1 AND need_transport is NULL").count %></td>
+    </tr>
+  </table>
+
+  <h4>Deadline 8</h4>
+  <p>Stats for deadline 8, where the participant is active.</p>
+  <table>
+    <tr>
+      <td class="span3">Approved</td>
+      <td><%= @approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 8 AND approved = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Need approval</td>
+      <td><%= @not_approved = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 8 AND approved = 0").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= Participant.where("active = 1 AND invited = 1").count - @approved -  @not_approved %></td>
+    </tr>
+  </table>
+
+  <h4>Deadline 9</h4>
+  <p>Stats for deadline 9, where the participant is active.</p>
+  <table>
+    <tr>
+      <td class="span3">Confirmed particpation</td>
+      <td><%= @confirmed = DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 9 AND confirmed_participation = 1").group("participants.user_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Not finished</td>
+      <td><%= Participant.where("active = 1 AND invited = 1").count - @confirmed %></td>
+    </tr>
+  </table>
+
   <h2>Waiting List Participants</h2>
   <p>Shows stats over the participants on the waiting list for the festival</p>
 
@@ -114,7 +194,7 @@
   <p>Participants that have accepted to stay on the waiting list</p>
   <table>
     <tr>
-      <td class="span2">Yes</td>
+      <td class="span3">Yes</td>
       <td><%= @temp = Participant.where("invited = 0 AND agree_waiting_list = 1").count %></td>
     </tr>
     <tr>

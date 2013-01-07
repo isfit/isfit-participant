@@ -82,7 +82,15 @@
         <li class="nav-header">Deadlines</li>
         <% @deadlines.each do |d| %>
           <%if d.users.include?(@participant.user)%>
-            <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+            <% if [5,6,8].include? d.id %>
+              <% if DeadlinesUser.where("deadline_id = ? and user_id = ?", d.id, @participant.user).first.approved %>
+                <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+              <% else %>
+                <li><%= image_tag('icons/error.png') %> <%=d.name%></li>
+              <% end %>
+            <% else %>
+              <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+            <% end %>
           <%else%>
             <%if d.deadline < Time.now%>
               <li><%= image_tag('icons/clock_red.png')%> <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%></li>
