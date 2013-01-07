@@ -7,16 +7,16 @@ Found <%= pluralize @hosts.size, "host"%>
     <th></th>
   </tr>
 
-<% @hosts.each do |host| %>
-  <tr>
-    <td><%= host.first_name %></td>
-    <td><%= host.last_name %></td>
-    <td><%= host.participants.count %>/<%= host.number %></td>
-    <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
-  </tr>
-<% end %>
-</table>
-<% content_for :sidebar_right do %>
+  <% @hosts.each do |host| %>
+    <tr>
+      <td><%= host.first_name %></td>
+      <td><%= host.last_name %></td>
+      <td><%= host.participants.count %>/<%= host.number %></td>
+      <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
+    </tr>
+  <% end %>
+  </table>
+  <% content_for :sidebar_right do %>
 
   <h2>Problems?</h2>
   Call Dag-Inge: 92491526
