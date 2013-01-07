@@ -4,26 +4,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-admin:
+one:
   id: 1
-  name: admin
+  email: "krisvage@isfit.org"
+  first_password: "Hei"
 
-theme:
+two:
   id: 2
-  name: theme
-
-functionary:
-  id: 3
-  name: functionary
-
-sec:
-  id: 4
-  name: sec
-
-dialogue:
-  id: 5
-  name: diaglogue
-
-participant:
-  id: 6
-  name: participant
+  email: "place@isfit.org"
+  first_password: "123456"
