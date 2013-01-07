@@ -25,11 +25,20 @@ gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'jquery-rails'
+gem 'devise-encryptable'
 
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'spork'
+  gem 'rb-fsevent'
+  gem 'guard-rspec'
+  gem 'guard-spork'
 end
 
 # gem 'rmagick'
@@ -39,6 +48,7 @@ end
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'rvm-capistrano'
 
 gem 'newrelic_rpm'
 # To use debugger
