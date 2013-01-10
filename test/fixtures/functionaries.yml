@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  first_name: MyString
-  last_name: MyString
+  first_name: "Ola"
+  last_name: "Nordmann"
   email: MyString
 
 two:
-  first_name: MyString
-  last_name: MyString
+  first_name: "Kari"
+  last_name: "Normann"
   email: MyString
