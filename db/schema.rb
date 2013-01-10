@@ -331,8 +331,77 @@ ActiveRecord::Schema.define(:version => 20130107134752) do
     t.datetime "updated_at",                      :null => false
   end
 
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "roles_views", :id => false, :force => true do |t|
+    t.integer "id",                              :default => 0, :null => false
+    t.integer "user_id"
+    t.string  "name",              :limit => 40
+    t.string  "authorizable_type", :limit => 40
+    t.integer "authorizable_id"
+  end
+
+  create_table "transport_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "user_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "first_password"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "workshops", :force => true do |t|
+    t.string   "name"
+    t.text     "ingress"
+    t.text     "body"
+    t.integer  "number"
+    t.integer  "user_id"
+    t.boolean  "published"
+    t.boolean  "got_comments"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.string   "workshop_image_file_name"
+    t.string   "workshop_image_content_type"
+    t.integer  "workshop_image_file_size"
+    t.datetime "workshop_image_updated_at"
+  end
+
+  add_index "workshops", ["user_id"], :name => "index_workshops_on_user_id"
   add_index "roles", ["authorizable_id"], :name => "index_roles_on_authorizable_id"
   add_index "roles", ["authorizable_type"], :name => "index_roles_on_authorizable_type"
   add_index "roles", ["name", "authorizable_id", "authorizable_type"], :name => "index_roles_on_name_and_authorizable_id_and_authorizable_type", :unique => true
   add_index "roles", ["name"], :name => "index_roles_on_name"
+end
 
