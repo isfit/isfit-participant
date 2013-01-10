@@ -1,8 +1,16 @@
 <% content_for :sidebar_left do %>
-  <h4><%= image_tag('icons/wrench.png') %> Tools</h4>
-  <ul class="vlist">
+  <ul class="nav nav-list well">
+    <li class="nav-header"><%= image_tag('icons/wrench.png') %> Tools</li>
     <li><%= link_to image_tag('icons/house.png') + ' Show all', hosts_path %></li>
+
+    <li class="nav-header">Information</li>
+    <li><b><%= Host.all.inject(0) {|sum,host| sum + host.number_left } %></b> free beds.</li>
+    <li><b><%= Participant.where(:host_id => nil).where("checked_in IS NOT NULL").count %></b> unmatched participants.</li>
+
+    <li class="nav-header">Problems?</li>
+    <li>Call Dag-Inge: 92491526</li>
   </ul>
+
 
   <% form_for (@search_participant.nil? ? Participant.new : @search_participant), :url => { :action => "show" },
     :html => {:method => "get", :class => "search"} do |f| %>
@@ -25,15 +33,9 @@
     <%= f.submit 'Search' %><br>
   <% end %>
 <% end %>
-<% content_for :sidebar_right do %>
-  <h2>Information</h2>
-  <p class="info">
-    <b><%= Host.all.inject(0) {|sum,host| sum + host.number_left } %></b> free beds.<br>
-    <b><%= Participant.where(:host_id => nil).where("checked_in IS NOT NULL").count %></b> unmatched participants.
-  </p>
-  <h2>Problems?</h2>
-  Call Dag-Inge: 92491526
-<% end %>
+
+
+
 <h1><%=@host.first_name + " " + @host.last_name%></h1>
 <table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
 	<tr>
@@ -59,67 +61,18 @@
 	<tr>
 		<th>Place</th>
 		<td><%=@host.place%></td>
-	</tr>	
-	<tr>
-		<th>Age</th>
-		<td><%=@host.age%></td>
 	</tr>
   <tr>
-    <th>Spoken languages</th>
-    <td><%=@host.language_speak%></td>
-	<tr>
-		<th>Have been a host before?</th>
-		<td><%=@host.before ? "Yes" : "No"%></td>
-	</tr>
-  <tr>
-    <th>Number and what kind of pets</th>
-    <td><%=@host.animal_number%> <%=@host.pet%></td>
-	<tr>
-		<th>Number of skies</th>
-		<td><%=@host.skies%></td>
-	</tr>
-  <tr>
-    <th>Preferences</th>
-    <td><%=@host.preference%></td>
-	</tr>
-  <tr>
-		<th>Where can participants sleep?</th>
-		<td><%=@host.where%></td>
-	</tr>
-		
-	<tr>
-		<th>Participants can arrive one day before?</th>
-		<td><%=@host.arrival_before ? "Yes" : "No"%></td>
-	</tr>	
-	<tr>
-		<th>Participants can arrive one day late?</th>
-		<td><%=@host.leave_late ? "Yes" : "No"%></td>
-	</tr>	
-  <tr>
-    <th>Participants can smoke?</th>
-		<td><%=@host.smoker ? "Yes" : "No"%></td>
+    <th>Student?</th>
+    <td><%= @host.student %></td>
   </tr>
-  <tr>
-    <th>Participants can be a vegetarian</th>
-		<td><%=@host.vegetarian ? "Yes" : "No"%></td>
-  </tr>
-	<tr>
-		<th>How he/she heard about ISFiT</th>
-		<td><%if @host.know_isfit == "Medlemmer av ISFiT organisasjonen"%><%=@host.member_name%><%else%><%=@host.know_isfit%><%end%></td>
-	</tr>	
 </table>
-<table border="0" cellspacing="4" cellpadding="5"  style="text-align: left">
-	<tr>
-		<th>Why you want to become a host?</th>
-	</tr>
-	<tr>
-		<td><%=@host.why%></td>
-	</tr>	
-</table>
+
+
 <h3>Selected participants</h3>
 Selected <%= pluralize @host.participants.size, "participant"%> 
-<table class="full">
-  <tr>
+<table class="table table-condensed table-striped">
+  <thead>
     <th>First name</th>
     <th>Last name</th>
     <th>Sex</th>
@@ -127,13 +80,13 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <th>Workshop</th>
     <th></th>
     <th></th>
-  </tr>
+  </thead>
 
 <% @host.participants.each do |p| %>
   <tr>
     <td><%= p.first_name %></td>
     <td><%= p.last_name %></td>
-    <td><%= (p.sex == 1)?"M":"F"%></td>
+    <td><%= (p.sex == 1) ? "M" : "F" %></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
     <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p), :target => "_blank" %></td>
@@ -143,25 +96,38 @@ Selected <%= pluralize @host.participants.size, "participant"%>
 </table>
 
 
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: host_path(@host), method: :post, :html => { :class => "form-horizontal" } do |f| %>
+  <fieldset>
+    <legend>Search participants</legend>
+    <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
+    <%= f.input :invited_eq, label: "Sex", as: :select, collection: [["Male", true], ["Female", false]], required: false %>
+    <%= f.input :smoke_eq, label: "Prefers non-smoking", as: :select, required: false %>
+
+    <div class="form-actions">
+      <%= f.submit 'search', :class => "btn btn-primary" %>
+    </div>
+  </fieldset>
+<% end %>
+
 <h3>Possible participants</h3>
 <%if @showall%><b>Couldn't find any matches, shows all, choose with care!</b><%end%>
-Found <%= pluralize @participants.size, "participant"%> 
-<table class="full">
-  <tr>
+Found <%= pluralize @participants.total_entries, "participant"%>
+<table class="table table-condensed table-striped">
+  <thead>
     <th>First name</th>
     <th>Last name</th>
     <th>Sex</th>
     <th>Country</th>
     <th>Workshop</th>
-    <th></th>
-    <th></th>
-  </tr>
+    <th>Vis</th>
+    <th>Kjøp</th>
+  </thead>
 
 <% @participants.each do |p| %>
   <tr>
     <td><%= p.first_name %></td>
     <td><%= p.last_name %></td>
-    <td><%= (p.sex == 1)?"M":"F"%></td>
+    <td><%= (p.sex == 1) ? "M" : "F" %></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
     <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p), :target => "_blank" %></td>
@@ -170,3 +136,4 @@ Found <%= pluralize @participants.size, "participant"%>
 <% end %>
 </table>
 
+<%= will_paginate @participants, :params => {:q=>params[:q]} %>

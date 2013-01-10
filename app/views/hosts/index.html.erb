@@ -1,23 +1,47 @@
-Found <%= pluralize @hosts.size, "host"%> 
-<table class="full">
-  <tr>
+<% content_for :sidebar_left do %>
+  <ul class="nav nav-list well">
+    <li class="nav-header">Problems?</li>
+    <li>Call Dag-Inge: 92491526</li>
+  </ul>
+<% end %>
+
+
+
+
+
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: hosts_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
+  <fieldset>
+    <legend>Search hosts</legend>
+    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" }, required: false %>
+
+    <div class="form-actions">
+      <%= f.submit 'search', :class => "btn btn-primary" %>
+    </div>
+  </fieldset>
+<% end %>
+
+
+
+
+
+Found <%= pluralize @hosts.total_entries, "host"%>
+<table class="table table-striped table-condensed">
+  <thead>
     <th>First name</th>
     <th>Last name</th>
     <th>Number of participants</th>
     <th></th>
-  </tr>
+  </thead>
 
-<% @hosts.each do |host| %>
-  <tr>
-    <td><%= host.first_name %></td>
-    <td><%= host.last_name %></td>
-    <td><%= host.participants.count %>/<%= host.number %></td>
-    <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
-  </tr>
-<% end %>
+  <% @hosts.each do |host| %>
+    <tr>
+      <td><%= host.first_name %></td>
+      <td><%= host.last_name %></td>
+      <td><%= host.participants.count %>/<%= host.number %></td>
+      <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
+    </tr>
+  <% end %>
 </table>
-<% content_for :sidebar_right do %>
 
-  <h2>Problems?</h2>
-  Call Dag-Inge: 92491526
-<% end %>
+<%= will_paginate @hosts, :params => {:q=>params[:q]} %>

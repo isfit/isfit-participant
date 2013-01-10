@@ -22,6 +22,14 @@ class Participant < ActiveRecord::Base
   validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
 
+  def workshop_name
+    if self.workshop
+      self.workshop.name
+    else
+      ""
+    end
+  end
+
   def self.sortable_fields
     [
       "first_name",

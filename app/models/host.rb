@@ -13,4 +13,12 @@ class Host < ActiveRecord::Base
   def number_left
     number - participants.count
   end
+
+  def student
+    if self[:student].nil?
+      "Not registered"
+    else
+      self[:student] ? "Yes" : "No"
+    end
+  end
 end

@@ -34,6 +34,10 @@ IsfitParticipant::Application.routes.draw do
   resources :events
   
   resources :hosts do
+    collection do
+      match 'index' => 'hosts#index', :via => [:get, :post]
+      match '/:id' => 'hosts#show', :via => [:get, :post]
+    end
     member do
       get "add_bed"
       get "remove_bed"
