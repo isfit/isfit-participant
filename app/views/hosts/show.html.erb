@@ -19,7 +19,7 @@
 <table class="table table-borderless table-hover table-striped table-condensed">
 	<tr>
 		<th>Number of participants:</th>
-    <td><%=@host.participants.count%>/<%=@host.number%><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %> <%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %> </td>
+    <td><b class="hosts_button_spacing"><%=@host.participants.count%>/<%=@host.number%></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %></b></td>
 	</tr>	
 	<tr>
 		<th>E-mail</th>
@@ -68,7 +68,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <td><%= (p.sex == 1) ? "M" : "F" %></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
-    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p) %></td>
+    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), match_participant_path(p) %></td>
     <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), remove_host_participant_path(id: p.id, host_id: @host.id), method: :post %></td>
   </tr>
 <% end %>
