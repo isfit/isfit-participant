@@ -68,9 +68,9 @@ Tabulous.setup do |config|
       [    :workshops_user_tab            ,    'Workshop'                  ,    (current_user.nil? or current_user.is_functionary? or current_user.participant.workshop.nil?) ? root_path : workshop_path(current_user.participant.workshop)                 ,    ((can? :show, Workshop) and not current_user.is_functionary? and not current_user.participant.workshop.nil?)      ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
-      [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    false       ,    true        ],
+      [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    (can? :index, Host)       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
-      [    :control_panel_tab             ,    'Control Panel'             ,    control_panels_path            ,    (can? :index, ControlPanel)        ,    true        ],
+      [    :control_panel_tab             ,    'CP'                        ,    control_panels_path            ,    (can? :index, ControlPanel)        ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
