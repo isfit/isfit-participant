@@ -2,6 +2,8 @@ class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
   set_tab :profile
 
+  require 'will_paginate/array'
+
   load_and_authorize_resource
 
   def match_host
@@ -38,9 +40,8 @@ class ParticipantsController < ApplicationController
     @hosts = Host
       .where("number > 0")
       .where(deleted: 0)
-      .paginate(per_page: 10, page: params[:page])
-
     @hosts = @hosts.delete_if { |h| h.full? }
+    @hosts = @hosts.paginate(per_page: 10, page: params[:page])
   end
 
   def remove_deadline

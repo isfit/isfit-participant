@@ -46,16 +46,16 @@ Found <%= pluralize @hosts.total_entries, "host" %>
   <thead>
     <tr>
       <th>Host name</th>
-      <th></th>
-      <th></th>
+      <th>Show</th>
+      <th>Add</th>
     </tr>
   </thead>
   <tbody>
     <% @hosts.each do |host| %>
       <tr>
         <td><%= host.full_name %></td>
-        <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host") + " Show", host %></td>
-        <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host") + " Add", add_host_path(@participant, host_id: host), method: :post %></td>
+        <td><%= link_to image_tag('icons/user_go.png', :title=>"Show host"), host %></td>
+        <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), add_host_path(@participant, host_id: host), method: :post %></td>
       </tr>
     <% end %>
   </tbody>
