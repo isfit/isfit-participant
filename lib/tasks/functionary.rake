@@ -90,23 +90,26 @@ namespace :participant do
   end
 
   task :set_notified_to_zero => :environment do
-    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 1")
-    participant.each do |part|
-      part.notified = 0
-      part.save
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 9").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND invited = 1 AND du.id is null AND notified = 1")
+    participants.each do |part|
+      p = Participant.find_by_id(part.id)
+      p.notified = 0
+      p.save
     end
   end
 
   task :deadline_reminder => :environment do
     #participants = Participant.where("invited = 1 and active = 1 and notified = 1")
-    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
+    #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 9").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND invited = 1 AND du.id is null AND notified = 0")
     puts "#{participants.count} participants will get an email"
     sleep 5
     participants.each do |part|
-      puts "Sending e-mail to: " + part.email
-      #ParticipantsMailer.deadline_reminder(part).deliver!
-      part.notified = 1
-      part.save
+      p = Participant.find_by_id(part.id)
+      puts "Sending e-mail to: " + p.email
+      #ParticipantsMailer.deadline_reminder(p).deliver!
+      p.notified = 1
+      p.save
       puts "E-mail is sent.\n\n"
       sleep 0.5
     end
@@ -231,6 +234,32 @@ namespace :participant do
       sleep 0.5
     end
   end
+end
+
+namespace :sec do
+  task :create_sec_users => :environment do
+    func = {
+      :mayhmi => { :first => "May Helen", :last => "Midtbø" },
+    }
+
+    func.each do |username,value|
+      password = generate_password.to_s
+      email = username.to_s + "@isfit.org"
+      puts "#{email} #{password}"
+      first = value[:first]
+      last = value[:last]
+      user = User.new(:email => email, :first_password => password, :password => password)
+      
+      if user.save
+        UserMailer.functionary_mail(user).deliver
+      end
+      
+      UserRole.create(:user_id => user.id, :role_id => 4)
+      Functionary.create(:email => email, :user_id => user.id, :first_name => first, :last_name => last)
+    end
+  end
+
+
 end
 
 
