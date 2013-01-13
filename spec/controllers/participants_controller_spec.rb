@@ -14,7 +14,7 @@ describe ParticipantsController do
 			#participant = stub_model(Participant)
 			#Participant.stub(:all) { [participant] }
 			get :index
-			expect(assigns(:participants)).to eq([participants(:two), participants(:one)])
+			expect(assigns(:participants)).to eq([participants(:two), participants(:has_host), participants(:one)])
 		end
 	end
 end

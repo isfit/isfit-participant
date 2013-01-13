@@ -7,46 +7,40 @@ class ParticipantsController < ApplicationController
   def match_host
     @participant = Participant.find(params[:id])
     @host = Host.find(params[:host_id])
-    if not @participant.host.nil?
+
+    if @host.full?
+      flash[:alert] = "Host #{@host.full_name} has no more free beds! Please find another host for #{@participant.full_name}."
+    elsif @participant.has_host?
+      flash[:alert] = "Participant #{@participant.full_name} has already been given a host, please find another participant for #{@host.full_name}."
+    else
       @participant.host = @host
       @participant.save
-      flash[:notice] = "Participant matched"
-      redirect_to match_participant_path(@participant)
-    else
-      flash[:warning] = "Participant taken"
-      redirect_to match_participant_path(@participant)
+      flash[:notice] = "#{@participant.full_name} will be hosted by #{@host.full_name}."
     end
 
+    redirect_to host_path(@host)
+  end
+
+  def remove_host
+    @participant = Participant.find(params[:id])
+    @host        = Host.find(params[:host_id])
+
+    @participant.host_id = nil
+    @participant.save
+    flash[:notice] = "#{@participant.full_name} was removed from #{@host.full_name}"
+
+    redirect_to host_path(@host)
   end
 
   def match
     @participant = Participant.find(params[:id])
-    @hosts = Host.where("number > 0")
-    @showall = false
-    if @participant.vegetarian
-      @hosts = @hosts.where(:vegetarian => 1)
-    end
-    if @participant.smoke
-      @hosts = @hosts.where(:smoker => 0)
-    end
-    if @participant.arrives_at != nil
-    if @participant.arrives_at <= DateTime.civil(2011,02,11)
-      @hosts = @hosts.where(:arrival_before => 1)
-    end
-    end
-    if @participant.departs_at != nil
-    if @participant.departs_at >= DateTime.civil(2011-02-22) && @participant.departs_at <= DateTime.civil(2010-02-23)
-       @hosts = @hosts.where(:leave_late => 1) 
-    end
-    end
-    if @participant.allergy_pets
-      @hosts = @hosts.where("animal_number = 0")
-    end
-    if @hosts.empty?
-     @hosts = Host.where("number > 0")
-     @showall = true
-    end 
-    @hosts = @hosts.delete_if {|h| h.full? }
+
+    @hosts = Host
+      .where("number > 0")
+      .where(deleted: 0)
+      .paginate(per_page: 10, page: params[:page])
+
+    @hosts = @hosts.delete_if { |h| h.full? }
   end
 
   def remove_deadline
@@ -87,24 +81,28 @@ class ParticipantsController < ApplicationController
   # GET /participants.xml
   def index
     @q = Participant.search params[:q]
+
+    if current_user.has_role?(:sec)
+      @participants = @q
+        .result(distinct: true) #.where("guaranteed = 1")
+        .paginate(per_page: 10, page: params[:page])
+
+      respond_to do |f|
+        f.html {render 'index_sec'}
+      end
+      return
+    end
+
     @participants = @q.result(distinct: true).paginate(per_page: 15, page: params[:page])
 
-    if current_user.has_role?(:admin) || current_user.has_role?(:sec)
+    if current_user.has_role?(:admin)
       @partici = Participant.where(@query)
     else
       @partici = Participant.where(:functionary_id => current_user.functionary.id).where(@query)
     end
 
     #@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
-
-    if current_user.has_role?(:sec)
-      @partici = @partici.where("guaranteed = 1")
-    	@participants = @partici.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page=>params[:page])
-      respond_to do |f|
-        f.html {render 'index_sec'}
-      end
-      return
-    end
+    
     respond_to do |format|
       format.html # index.html.erb 
       format.js

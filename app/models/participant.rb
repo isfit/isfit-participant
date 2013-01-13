@@ -22,11 +22,23 @@ class Participant < ActiveRecord::Base
   validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
 
+  def full_name
+    self.first_name + " " + self.last_name
+  end
+
   def workshop_name
     if self.workshop
       self.workshop.name
     else
       ""
+    end
+  end
+
+  def has_host?
+    if self.host
+      true
+    else
+      false
     end
   end
 
