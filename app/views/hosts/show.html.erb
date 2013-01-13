@@ -10,37 +10,16 @@
     <li class="nav-header">Problems?</li>
     <li>Call Dag-Inge: 92491526</li>
   </ul>
-
-
-  <% form_for (@search_participant.nil? ? Participant.new : @search_participant), :url => { :action => "show" },
-    :html => {:method => "get", :class => "search"} do |f| %>
-      <ul class="vlist">
-        <%unless ( @search_participant.nil? )%>
-          <%unless @search_participant.country.nil? %>
-            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country", :selected=>@search_participant.country_id.to_s}) %></li>
-          <% else %>
-            <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
-          <% end %>
-        <% else %>
-          <li><b>Country: </b></li><li><%= collection_select(:participant, :country_id, Country.all, :id, :name, {:prompt => "Select a country"}) %></li>
-        <%end%>
-        <li><b>Search on vegetarian?: </b></li><li><%= f.check_box :vegetarian %></li>
-        <li><b>Search on smoker?: </b></li><li><%= f.check_box :smoke %></li>
-
-    </ul></ul>
-
-    <br />
-    <%= f.submit 'Search' %><br>
-  <% end %>
 <% end %>
 
 
-
 <h1><%=@host.first_name + " " + @host.last_name%></h1>
-<table border="0" cellspacing="5" cellpadding="5" style="text-align: left">
+
+<legend>Info</legend>
+<table class="table table-borderless table-hover table-striped table-condensed">
 	<tr>
 		<th>Number of participants:</th>
-                <td><%=@host.participants.count%>/<%=@host.number%> <%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %> <%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %> </td>
+    <td><%=@host.participants.count%>/<%=@host.number%><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %> <%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %> </td>
 	</tr>	
 	<tr>
 		<th>E-mail</th>
@@ -69,9 +48,9 @@
 </table>
 
 
-<h3>Selected participants</h3>
+<legend>Selected participants</legend>
 Selected <%= pluralize @host.participants.size, "participant"%> 
-<table class="table table-condensed table-striped">
+<table class="table table-borderless table-condensed table-striped">
   <thead>
     <th>First name</th>
     <th>Last name</th>
@@ -89,8 +68,8 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <td><%= (p.sex == 1) ? "M" : "F" %></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
-    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p), :target => "_blank" %></td>
-    <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), :remove_participant_id => p.id %></td>
+    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p) %></td>
+    <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), remove_host_participant_path(id: p.id, host_id: @host.id), method: :post %></td>
   </tr>
 <% end %>
 </table>
@@ -99,9 +78,12 @@ Selected <%= pluralize @host.participants.size, "participant"%>
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: host_path(@host), method: :post, :html => { :class => "form-horizontal" } do |f| %>
   <fieldset>
     <legend>Search participants</legend>
+    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
     <%= f.input :invited_eq, label: "Sex", as: :select, collection: [["Male", true], ["Female", false]], required: false %>
     <%= f.input :smoke_eq, label: "Prefers non-smoking", as: :select, required: false %>
+    <%= f.input :vegetarian_eq, label: "Vegetarian", as: :select, required: false %>
 
     <div class="form-actions">
       <%= f.submit 'search', :class => "btn btn-primary" %>
@@ -109,18 +91,18 @@ Selected <%= pluralize @host.participants.size, "participant"%>
   </fieldset>
 <% end %>
 
-<h3>Possible participants</h3>
-<%if @showall%><b>Couldn't find any matches, shows all, choose with care!</b><%end%>
-Found <%= pluralize @participants.total_entries, "participant"%>
-<table class="table table-condensed table-striped">
+<legend>Possible participants</legend>
+
+Found <%= pluralize @participants_count, "participant" %>
+<table class="table table-condensed table-striped table-borderless table-hover">
   <thead>
     <th>First name</th>
     <th>Last name</th>
     <th>Sex</th>
     <th>Country</th>
     <th>Workshop</th>
-    <th>Vis</th>
-    <th>Kjøp</th>
+    <th>Show</th>
+    <th>Choose</th>
   </thead>
 
 <% @participants.each do |p| %>
@@ -130,10 +112,8 @@ Found <%= pluralize @participants.total_entries, "participant"%>
     <td><%= (p.sex == 1) ? "M" : "F" %></td>
     <td><%= p.country.name %></td>
     <td><%= p.workshop_id %></td>
-    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), participant_path(p), :target => "_blank" %></td>
-    <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), :participant_id => p.id %></td>
+    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), match_participant_path(p) %></td>
+    <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), add_host_path(id: p.id, host_id: @host.id), method: :post %></td>
   </tr>
 <% end %>
 </table>
-
-<%= will_paginate @participants, :params => {:q=>params[:q]} %>

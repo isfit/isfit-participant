@@ -1,7 +1,6 @@
 class Host < ActiveRecord::Base
   has_many :participants
 
-
   def full_name
     "#{first_name} #{last_name}"
   end
