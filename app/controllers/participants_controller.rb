@@ -274,6 +274,8 @@ class ParticipantsController < ApplicationController
       if not @participant.confirmed_participation
         flash[:alert] = "You have to confirm your participation if you want to attend at ISFiT"
         return redirect_to deadlines_participant_path
+      else
+        @participant.guaranteed = true
       end
       if @participant.save
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 9)
