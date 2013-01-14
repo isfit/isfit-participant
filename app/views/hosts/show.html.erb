@@ -4,7 +4,7 @@
     <li><%= link_to image_tag('icons/house.png') + ' Show all', hosts_path %></li>
 
     <li class="nav-header">Information</li>
-    <li><b><%= Host.all.inject(0) {|sum,host| sum + host.number_left } %></b> free beds.</li>
+    <li><b><%= @free_beds.to_i %></b> free beds.</li>
     <li><b><%= Participant.where(:host_id => nil).where("checked_in IS NOT NULL").count %></b> unmatched participants.</li>
 
     <li class="nav-header">Problems?</li>

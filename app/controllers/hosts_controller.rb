@@ -69,6 +69,10 @@ class HostsController < ApplicationController
       .order("checked_in ASC")
       .limit(50)
       .shuffle
+
+    beds = Host.select("SUM(number) AS sum").where(deleted: 0)[0].sum
+    taken_beds = Participant.where("host_id IS NOT NULL").count
+    @free_beds = beds - taken_beds
   end
 
 end
