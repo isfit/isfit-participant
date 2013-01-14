@@ -125,11 +125,11 @@
       </tr>
       <tr>
         <td>Arrives at (time):</td>
-        <td><%= @participant.arrives_at %></td>
+        <td><%= @participant.arrives_at.strftime("%F %H:%M") %></td>
       </tr>
       <tr>
         <td>Departs at (time):</td>
-        <td><%= @participant.departs_at %></td>
+        <td><%= @participant.departs_at.strftime("%F %H:%M") %></td>
       </tr>
     <% end %>
     <% if DeadlinesUser.where("deadline_id = 7 and user_id = ?", @participant.user.id).count > 0 %>
@@ -171,7 +171,7 @@
     <% if not @participant.checked_in.nil? %>
       <tr>
         <td>Checked in:</td>
-        <td><%= @participant.checked_in %></td>
+        <td><%= @participant.checked_in.strftime("%F %H:%M") %></td>
       </tr>
     <% end %>
     <% if not @participant.checked_out.nil? %>

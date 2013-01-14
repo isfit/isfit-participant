@@ -109,11 +109,11 @@
         </tr>
         <tr>
           <td>Arrives at (time):</td>
-          <td><%= @participant.arrives_at %></td>
+          <td><%= @participant.arrives_at.strftime("%F %H:%M") %></td>
         </tr>
         <tr>
           <td>Departs at (time):</td>
-          <td><%= @participant.departs_at %></td>
+          <td><%= @participant.departs_at.strftime("%F %H:%M") %></td>
         </tr>
       </table>
       <br>
