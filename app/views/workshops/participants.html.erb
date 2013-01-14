@@ -12,8 +12,12 @@
       <th>Name</th>
       <th>Sex</th>
       <th>Country</th>
-      <th>Show</th>
-      <th>Change workshop</th>
+      <% if can? :show, Participant %>
+        <th>Show</th>
+      <% end %>
+      <% if can? :update_workshop, Participant %>
+        <th>Change workshop</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -22,8 +26,12 @@
       <td><%= "#{participant.first_name} #{participant.last_name}" %></td>
       <td><%= participant.sex ? "Male" : "Female" %></td>
       <td><%= participant.country.name %></td>
-      <td><%= link_to 'Show', participant_path(participant.id), class: "btn btn-primary" %></td>
-      <td><%= link_to 'Change workshop', show_workshop_participant_path(participant.id), class: "btn" %></td>
+      <% if can? :show, Participant %>
+        <td><%= link_to 'Show', participant_path(participant.id), class: "btn btn-primary" %></td>
+      <% end %>
+      <% if can? :update_workshop, Participant %>
+        <td><%= link_to 'Change workshop', show_workshop_participant_path(participant.id), class: "btn" %></td>
+      <% end %>
     </tr>
   <% end %>
 
