@@ -25,13 +25,38 @@ class HostsController < ApplicationController
   def index
     @q = Host.search params[:q]
 
-    @hosts = @q.result(distinct: true).where(deleted: 0)
-    @hosts = @hosts.delete_if { |h| h.full? } unless params[:has_free_beds].nil?
-    @hosts = @hosts.paginate(per_page: 10, page: params[:page])
+    if params[:has_free_beds].nil?
+      @hosts = @q
+        .result(distinct: true)
+        .where(deleted: 0)
+        .paginate(per_page: 10, page: params[:page])
+    else
+      @hosts = @q
+        .result(distinct: true)
+        .find_by_sql("
+          SELECT h_id AS id, h_first_name AS first_name, last_name, h_number AS number, h_participants
+          FROM (
+            SELECT h_id, h_first_name, last_name, number AS h_number, SUM(c) AS h_participants, deleted
+            FROM (
+              SELECT h.id AS h_id, h.first_name AS h_first_name, h.last_name, number, COUNT(p.host_id) AS c, deleted
+              FROM hosts as h
+              LEFT OUTER JOIN participants AS p on h.id = p.host_id
+              GROUP BY h.id
+              UNION
+              SELECT h.id AS h_id, h.first_name AS h_first_name, h.last_name, number, COUNT(*) AS c, deleted
+              FROM hosts AS h
+              INNER JOIN participants AS p ON h.id = p.host_id
+              GROUP BY h.id
+            ) AS all_hosts_with_beds_and_participant_count
+            GROUP BY h_id
+          ) AS filtered_deleted_and_full
+          WHERE ((h_number > h_participants) AND (deleted = 0))")
+        .paginate(per_page: 10, page: params[:page])
+    end
   end
 
   def show
-    @host = Host.find(params[:id]) 
+    @host = Host.find(params[:id])
 
     @q = Participant.search(params[:q])
     @results = @q
