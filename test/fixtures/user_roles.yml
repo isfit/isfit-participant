@@ -1,0 +1,3 @@
+one:
+  user_id: users(:one).id
+  role_id: role(:admin).id

@@ -6,11 +6,11 @@
 #
 admin:
   id: 1
-  name: admin
+  name: "admin"
 
 theme:
   id: 2
-  name: theme
+  name: "theme"
 
 functionary:
   id: 3

@@ -1,75 +1,55 @@
-<script type="text/javascript">
-$(function() {
-  $('#participant_arrives_at').datepicker({ dateFormat: 'yy-mm-dd' });
-});
-</script>
-<% content_for :head do %>
-  <%= javascript_include_tag 'highcharts' %>
-<% end %>
 <% content_for :sidebar_left do %>
-  <% form_for (@search_participant.nil? ? Participant.new : @search_participant), :url => { :action => "index" },
-    :html => {:method => "get", :class => "search"} do |f| %>
-      <ul class="vlist">
-        <li><b>First name: </b></li><li><%= f.text_field :first_name, :size=>25 %></li>
-        <li><b>Last name: </b></li><li><%= f.text_field :last_name, :size=>25%></li>
-        <%unless ( @search_participant.nil? )%>
-          <%unless @search_participant.arrival_place.nil?%>
-            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place", :selected=>@search_participant.arrival_place_id.to_s}) %></li>
-          <%else%>
-            <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
-          <%end%>
-          <li><b>Checked in: </b></li><li><%= f.check_box :checked_in, :checked => @checked_in == "1" %></li>
-          <li><b>Checked out: </b></li><li><%= f.check_box :checked_out, :checked => @checked_out == "1"  %></li>
-        <%else%>
-          <li><b>Arrival place: </b></li><li><%= collection_select(:participant, :arrival_place_id, ArrivalPlace.all, :id, :name, {:prompt => "Select arrival place"}) %></li>
-          <li><b>Checked in: </b></li><li><%= f.check_box :checked_in %></li>
-          <li><b>Checked out: </b></li><li><%= f.check_box :checked_out %></li>
-        <%end%>
-        <%if @arrives_at.blank?%>
-          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at %></li>
-        <%else%>
-          <li><b>Arrives at: </b></li><li><%= f.text_field :arrives_at, :value=> @arrives_at %></li>
-        <%end%> 
-      </ul>
+  <ul class="nav nav-list well">
+    <li class="nav-header">Check in</li>
+    <li>There are <%= pluralize Participant.where("checked_in IS NOT NULL").count, "participant" %> checked in</li>
 
-    <br />
-    <%= f.submit 'Search' %> <%= link_to (submit_tag 'Show all', :type => 'button'), :action=>:index %><br>
+    <li class="nav-header">Problems?</li>
+    <li>Call Dag-Inge: 92491526</li>
+  </ul>
+<% end %>
+
+<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: participants_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
+  <fieldset>
+    <legend>Search participants</legend>
+    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
+    <%= f.input :arrival_place_id_eq, :label => "Arrival place", as: :select, collection: ArrivalPlace.all.collect { |ap| [ap.name, ap.id] }, required: false, :input_html => { :class => "span4" } %>
+    <%= f.input :checked_in_not_null, :label => "Checked in", as: :boolean, required: false %>
+    <%= f.input :checked_out_not_null, :label => "Checked out", as: :boolean, required: false %>
+
+    <div class="form-actions">
+      <%= f.submit 'search', :class => "btn btn-primary" %>
+    </div>
+  </fieldset>
+<% end %>
+
+Found <%= pluralize @participants.total_entries, "participant"%> 
+<table class="table table-striped table-condensed table-borderless">
+  <thead>
+    <th><%= "First name" %></th>
+    <th><%= "Last name" %></th>
+    <th><%= "Country" %></th>
+    <th><%= "Arrives at" %></th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+  <% @participants.each do |participant| %>
+    <tr>
+      <td><%= participant.first_name %></td>
+      <td><%= participant.last_name %></td>
+      <td><%= participant.country.name %></td>
+      <td><%= participant.arrives_at.strftime("%F %H:%M") unless participant.arrives_at.nil? %> </td>
+      <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
+      <% if participant.checked_in.nil? %>
+        <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), check_in_participant_path(participant)  %></td>
+      <% else %>
+        <td></td>
+      <% end %>
+    </tr>
   <% end %>
-<% end %>
-
-<div id="index_table">
-Found <%= pluralize @partici.size, "participant"%> 
-<table class="full">
-  <tr>
-    <th><%= sortable "first_name", "First name" %></th>
-    <th><%= sortable "last_name", "Last name" %></th>
-    <th><%= sortable "country_id", "Country" %></th>
-    <th><%= sortable "arrives_at", "Arrives at" %></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @participants.each do |participant| %>
-  <tr>
-    <td><%= participant.first_name %></td>
-    <td><%= participant.last_name %></td>
-    <td><%= participant.country.name %></td>
-    <td><%= participant.arrives_at.strftime("%F %H:%M") unless participant.arrives_at.nil? %> </td>
-    <td><%= link_to image_tag('icons/add.png', :title => "Match participant"), match_participant_path(participant) %></td>
-    <% if participant.checked_in.nil? %>
-      <td><%= link_to image_tag('icons/door_in.png', :title=>"Check in participant"), check_in_participant_path(participant)  %></td>
-    <% else %>
-      <td></td>
-    <% end %>
-  </tr>
-<% end %>
+  </tbody>
 </table>
-<%= will_paginate @participants%>
-</div>
-<% content_for :sidebar_right do %>
-  <h2>Check in</h2>
-  There are <%= pluralize Participant.where("checked_in IS NOT NULL").count, "participant" %> checked in
 
-  <h2>Problems?</h2>
-  Call Dag-Inge: 92491526
-<% end %>
+<%= will_paginate @participants%>

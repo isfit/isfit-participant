@@ -38,6 +38,10 @@ IsfitParticipant::Application.routes.draw do
   resources :events
   
   resources :hosts do
+    collection do
+      match 'index' => 'hosts#index', :via => [:get, :post]
+      match '/:id' => 'hosts#show', :via => [:get, :post]
+    end
     member do
       get "add_bed"
       get "remove_bed"
@@ -66,7 +70,10 @@ IsfitParticipant::Application.routes.draw do
     resources :answers
   end
   resources :functionaries
-  match 'participants/:id/host/:host_id' => 'participants#match_host', :as => :add_host
+
+  match 'participants/:id/host/:host_id' => 'participants#match_host', :via => :post, :as => :add_host
+  # => match 'participants/:id/remove'
+
   resources :participants do
     collection do
       get "validate_deadline"
@@ -90,6 +97,7 @@ IsfitParticipant::Application.routes.draw do
       get "isfit_transportation"
       get "impersonate"
       get "invitation"
+      post "remove_host"
       post "remove_deadline"
       get "secure"
       get "desecure"

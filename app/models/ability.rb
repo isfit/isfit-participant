@@ -37,7 +37,7 @@ class Ability
     end
     if user.has_role? :sec
       can :manage, Host
-      can [:index, :match, :match_host, :check_in, :check_out, :show], Participant
+      can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show], Participant
     end
   end
 
