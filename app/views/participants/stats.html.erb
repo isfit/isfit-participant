@@ -172,6 +172,14 @@
       <td>Not finished</td>
       <td><%= Participant.where("active = 1 AND invited = 1").count - @approved -  @not_approved %></td>
     </tr>
+    <tr>
+      <td>Unique countries</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 8 AND approved = 1").group("participants.country_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Unique countries(citizen)</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 8 AND approved = 1").group("participants.country_citizen_id").count.count %></td>
+    </tr>
   </table>
 
   <h4>Deadline 9</h4>
@@ -188,6 +196,10 @@
     <tr>
       <td>Unique countries</td>
       <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 9").group("participants.country_id").count.count %></td>
+    </tr>
+    <tr>
+      <td>Unique countries(citizen)</td>
+      <td><%= DeadlinesUser.joins("INNER JOIN `participants` ON participants.user_id = deadlines_users.user_id").where("active = 1 AND invited = 1 AND deadline_id = 9").group("participants.country_citizen_id").count.count %></td>
     </tr>
   </table>
 
