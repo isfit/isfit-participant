@@ -1,0 +1,23 @@
+<h1>Edit participant workshop</h1>
+<p><strong>NOT IMPLEMENTED!</strong></p>
+
+<% content_for :sidebar_left do %>
+  <%= render 'menu' %>
+<% end %>
+
+<p>Workshop priorities from participant application.</p>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <td>Workshop 1:</td>
+    <td><%= Workshop.find(@application.workshop1).name %></td>
+  </tr>
+  <tr>
+    <td>Workshop 2:</td>
+    <td><%= Workshop.find(@application.workshop2).name %></td>
+  </tr>
+  <tr>
+    <td>Workshop 3:</td>
+    <td><%= Workshop.find(@application.workshop3).name %></td>
+  </tr>
+</table>

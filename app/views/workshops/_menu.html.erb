@@ -7,5 +7,8 @@
   <% if current_user.is_participant? and not current_user.participant.workshop.nil? %>
     <li><%= link_to image_tag('icons/arrow_right.png') + ' Workshop', workshop_path(current_user.participant.workshop) %></li>
   <% end %>
+  <% if can?( :participants, Workshop) and @workshop %>
+    <li><%= link_to image_tag('icons/group.png') + ' Participants', participants_workshop_path(@workshop.id) %></li>
+  <% end %>
 </ul>
 <% end %>

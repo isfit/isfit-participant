@@ -642,4 +642,13 @@ class ParticipantsController < ApplicationController
       end
     end
   end
+
+  def show_workshop
+    @participant = Participant.find(params[:id])
+    @application = Application.where("email = ?", @participant.user.email).first
+  end
+
+  def update_workshop
+
+  end
 end

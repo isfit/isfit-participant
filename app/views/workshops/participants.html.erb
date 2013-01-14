@@ -1,0 +1,30 @@
+<h1>Workshop participants</h1>
+<p>The participants in the workshop is listed below.</p>
+
+<% content_for :sidebar_left do %>
+  <%= render 'menu' %>
+<% end %>
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Country</th>
+      <th>Show</th>
+      <th>Change workshop</th>
+    </tr>
+  </thead>
+
+  <% @participants.each do |participant| %>
+    <tr>
+      <td><%= "#{participant.first_name} #{participant.last_name}" %></td>
+      <td><%= participant.sex ? "Male" : "Female" %></td>
+      <td><%= participant.country.name %></td>
+      <td><%= link_to 'Show', participant_path(participant.id), class: "btn btn-primary" %></td>
+      <td><%= link_to 'Change workshop', show_workshop_participant_path(participant.id), class: "btn" %></td>
+    </tr>
+  <% end %>
+
+</table>

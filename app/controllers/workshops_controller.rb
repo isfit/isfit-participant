@@ -37,4 +37,7 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def participants
+    @participants = Workshop.find(params[:id]).participants.where("invited = 1 AND active = 1 AND guaranteed = 1").includes(:country)
+  end
 end

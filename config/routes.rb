@@ -28,6 +28,7 @@ IsfitParticipant::Application.routes.draw do
   resources :information_pages
   resources :workshops do
     member do
+      get "participants"
       get "allergies"
     end
   end
@@ -106,6 +107,8 @@ IsfitParticipant::Application.routes.draw do
       get "activate"
       get "deactivate"
       get :match
+      get :show_workshop
+      post :update_workshop
     end
   end
 
