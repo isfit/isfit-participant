@@ -515,6 +515,7 @@ class ParticipantsController < ApplicationController
   def deactivate
     @participant = Participant.find(params[:id])
     @participant.active = false
+    @participant.guaranteed = false
     if @participant.save
       respond_to do |format|
         flash[:notice] = "Participant removed from deadlines"
