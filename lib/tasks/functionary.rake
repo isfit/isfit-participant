@@ -98,6 +98,16 @@ namespace :participant do
     end
   end
 
+  task :fix_guaranteed => :environment do
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 9").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND invited = 1 AND du.id is not null AND notified = 1")
+    participants.each do |part|
+      puts p.email
+      #p = Participant.find_by_id(part.id)
+      #p.guaranteed = true
+      #p.save
+    end
+  end
+
   task :deadline_reminder => :environment do
     #participants = Participant.where("invited = 1 and active = 1 and notified = 1")
     #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
