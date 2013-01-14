@@ -1,0 +1,53 @@
+<%= content_for :sidebar_left do %>
+  <%= render 'menu' %>
+<% end %>
+
+<h1><%= @workshop.name %> participants</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Halal</th>
+      <th>Vegetarian</th>
+      <th>Lactose</th>
+      <th>Gluten</th>
+      <th>Nuts</th>
+      <th>Other allergies</th>
+    </tr>
+  </thead>
+  <% @participants.each do |part| %>
+    <tr>
+      <td><%= link_to "#{part.first_name} #{part.last_name}", participant_path(part.id) %></td>
+      <td><%= part.halal ? "Yes" : "No" %></td>
+      <td><%= part.vegetarian ? "Yes" : "No" %></td>
+      <td><%= part.allergy_lactose ? "Yes" : "No" %></td>
+      <td><%= part.allergy_gluten ? "Yes" : "No" %></td>
+      <td><%= part.allergy_nuts ? "Yes" : "No" %></td>
+      <td><%= part.allergy_other %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Halal</th>
+    <th>Vegetarian</th>
+    <th>Lactose</th>
+    <th>Gluten</th>
+    <th>Nuts</th>
+    <th>Other allergies</th>
+  </tr>
+  <tr>
+    <td><%= @participants.where("halal = 1").count %></td> 
+    <td><%= @participants.where("vegetarian = 1").count %></td> 
+    <td><%= @participants.where("allergy_lactose = 1").count %></td> 
+    <td><%= @participants.where("allergy_gluten = 1").count %></td> 
+    <td><%= @participants.where("allergy_nuts = 1").count %></td> 
+    <td><%= @participants.where("allergy_other is not null").count %></td> 
+  </tr>
+</table>
+

@@ -26,7 +26,11 @@ IsfitParticipant::Application.routes.draw do
 
   resources :information_categories
   resources :information_pages
-  resources :workshops
+  resources :workshops do
+    member do
+      get "allergies"
+    end
+  end
   resources :articles
   post "search/index"
   devise_for :users

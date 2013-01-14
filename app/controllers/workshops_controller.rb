@@ -18,6 +18,11 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def allergies
+    @workshop = Workshop.find(params[:id])
+    @participants = Participant.where("active = 1 and invited = 1 and workshop_id = ?", @workshop.id)
+  end
+
   def edit
     @workshop = Workshop.find(params[:id])
   end
