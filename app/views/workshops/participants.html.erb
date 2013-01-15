@@ -5,7 +5,7 @@
   <%= render 'menu' %>
 <% end %>
 
-<table class="table table-bordered table-striped">
+<table id="result" class="table table-bordered table-striped tablesorter">
 
   <thead>
     <tr>
@@ -24,7 +24,7 @@
   <% @participants.each do |participant| %>
     <tr>
       <td><%= "#{participant.first_name} #{participant.last_name}" %></td>
-      <td><%= participant.sex ? "Male" : "Female" %></td>
+      <td><%= participant.sex == 1 ? "Male" : "Female" %></td>
       <td><%= participant.country.name %></td>
       <% if can? :show, Participant %>
         <td><%= link_to 'Show', participant_path(participant.id), class: "btn btn-primary" %></td>
