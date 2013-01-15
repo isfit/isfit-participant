@@ -377,9 +377,27 @@ class ParticipantsController < ApplicationController
 
     @functionary = params[:functionary]
     @functionary = nil if @functionary ==  ""
+    @deadline = params[:deadline]
+    @deadline = nil if @deadline ==  ""
 
     @participants = nil
-    if @functionary
+    if @functionary and @deadline
+      @participants = @q
+        .result(distinct: true)
+        .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
+        .joins("JOIN deadlines_users du ON du.user_id = participants.user_id")
+        .where("fp.functionary_id = "+@functionary.to_s)
+        .where("deadline_id = ? AND approved = 0", @deadline.to_i)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
+    elsif @deadline
+      @participants = @q
+        .result(distinct: true)
+        .joins("JOIN deadlines_users du ON du.user_id = participants.user_id")
+        .where("deadline_id = ? AND approved = 0", @deadline.to_i)
+        .paginate(per_page: 15, page: params[:page])
+        .order("#{@sort_by} ASC")
+    elsif @functionary
       @participants = @q
         .result(distinct: true)
         .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")

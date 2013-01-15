@@ -15,6 +15,12 @@
         <%= select_tag :functionary, options_for_select(Functionary.all_with_role_functionary, @functionary), include_blank: true %>
       </div>
     </div>
+    <div class="control-group string optional">
+      <%= label_tag 'deadline', "Deadline not approved", :class => "string optional control-label" %>
+      <div class="controls">
+        <%= select_tag :deadline, options_for_select({ "Deadline 6" => 6, "Deadline 8" => 8 }, @deadline), include_blank: true %>
+      </div>
+    </div>
     <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :email_cont, label: "Email", :input_html => { :class => "span4" }, required: false %>
