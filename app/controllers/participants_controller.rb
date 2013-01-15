@@ -664,9 +664,21 @@ class ParticipantsController < ApplicationController
   def show_workshop
     @participant = Participant.find(params[:id])
     @application = Application.where("email = ?", @participant.user.email).first
+    @workshops = Workshop.all
   end
 
   def update_workshop
+    @participant = Participant.find(params[:id])
+    @old_workshop = @participant.workshop_id
+    @participant.workshop_id = params[:participant][:workshop_id]
 
+    if @participant.save
+      flash[:notice] = "The workshop was changed."
+      redirect_to participants_workshop_path(@old_workshop)
+    else
+      @workshops = Workshop.all
+      flash[:alert] = "Something went wrong."
+      render 'show_workshop'
+    end
   end
 end

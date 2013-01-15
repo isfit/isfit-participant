@@ -1,6 +1,6 @@
 <h1>Workshop participants</h1>
-<p>The participants in the workshop is listed below.</p>
-
+<p>The participants for <%= @workshop.name %> is listed below.</p>
+<p><strong>Participants: </strong> <%= @participants.count %></p>
 <% content_for :sidebar_left do %>
   <%= render 'menu' %>
 <% end %>

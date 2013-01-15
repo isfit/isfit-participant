@@ -1,5 +1,4 @@
 <h1>Edit participant workshop</h1>
-<p><strong>NOT IMPLEMENTED!</strong></p>
 
 <% content_for :sidebar_left do %>
   <%= render 'menu' %>
@@ -21,3 +20,12 @@
     <td><%= Workshop.find(@application.workshop3).name %></td>
   </tr>
 </table>
+
+
+<%= simple_form_for(@participant, :url => update_workshop_participant_path, :method => "post",:html => {:class => "form"} ) do |f| %>
+  <%= f.error_notification %>
+  
+  <%= f.input :workshop_id, :as => :select, :collection => @workshops %>
+  <%= f.button :submit, 'Update', confirm: 'Are you sure you want to change workshop for this participant?'  %>
+<% end %>
+
