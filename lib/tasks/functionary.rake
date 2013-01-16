@@ -76,7 +76,7 @@ namespace :participant do
     #participants = Participant.where("invited = 1 and accepted is null and participants.ignore = 0 and active = 1")
     #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 5").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND (du.id is null or has_passport is null)")
     #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null")
-    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 9").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND guaranteed is null")
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 8").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND guaranteed is null")
     puts "#{participants.count} participants will get an email"
     sleep 5
     participants.each do |part|
@@ -112,7 +112,7 @@ namespace :participant do
   task :deadline_reminder => :environment do
     #participants = Participant.where("invited = 1 and active = 1 and notified = 1")
     #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
-    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 8").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND invited = 1 AND du.id is null AND notified = 0")
+    participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 9").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND invited = 1 AND du.id is null AND notified = 0")
     puts "#{participants.count} participants will get an email"
     sleep 5
     participants.each do |part|
