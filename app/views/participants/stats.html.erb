@@ -5,7 +5,20 @@
   <h2>Invited Participants</h2>
   <p>Shows stats over the participants that are invited to the festival</p>
 
+  <h4>General</h4>
+  <p>General statistics of the active participants.</p>
+  <table>
+    <tr>
+      <td class="span3">Male</td>
+      <td><%= Participant.where("active = 1 AND invited = 1 and sex = 1").count %></td>
+    </tr>
+    <tr>
+      <td>Female</td>
+      <td><%= Participant.where("active = 1 AND invited = 1 and sex = 0").count %></td>
+    </tr>
+  </table>
   <h4>Logged in</h4>
+
   <p>Invited participants that have logged in.</p>
   <table>
     <tr>
