@@ -40,4 +40,9 @@ class ParticipantsMailer < ActionMailer::Base
     mail(to: participant.email, subject: "[ISFiT] Deadline reminder")
   end
 
+  def waiting_list_answer(participant)
+    @participant = participant
+    mail(to: participant.email, subject: "[ISFiT] Regarding your application to ISFiT 2013")
+  end
+
 end

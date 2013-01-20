@@ -111,6 +111,21 @@ namespace :participant do
     end
   end
 
+  task :waiting_list_answer => :environment do
+    participants = Participant.where("invited = 0 and notified = 0")
+    puts "#{participants.count} participants will get an email"
+    sleep 5
+    participants.each do |part|
+      p = Participant.find_by_id(part.id)
+      puts "Sending e-mail to: " + p.email
+      #ParticipantsMailer.waiting_list_answer(p).deliver!
+      #p.notified = 1
+      p.save
+      puts "E-mail is sent.\n\n"
+      sleep 0.5
+    end
+  end
+
   task :deadline_reminder => :environment do
     #participants = Participant.where("invited = 1 and active = 1 and notified = 1")
     #participants = Participant.joins("LEFT JOIN (#{DeadlinesUser.where("deadline_id = 6").to_sql}) AS du ON participants.user_id = du.user_id").where("active = 1 AND participants.ignore = 0 AND invited = 1 AND du.id is null AND notified = 0")
