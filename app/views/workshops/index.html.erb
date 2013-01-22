@@ -13,13 +13,17 @@
     <tr>
       <th>Workshop</th>
       <th></th>
-      <th></th>
+      <% if can? :edit, Workshop %>
+        <th></th>
+      <% end %>
     </tr>
     <% @workshops.each do |workshop| %>
       <tr>
         <td><%= "Workshop #{workshop.id}: #{workshop.name}" %></td>
         <td><%= link_to 'Show', workshop, :class => "btn btn-info" %></td>
+      <% if can? :edit, Workshop %>
         <td><%= link_to 'Edit', edit_workshop_path(workshop), :class => "btn" %></td>
+      <% end %>
       </tr>
     <% end %>
   </table>
