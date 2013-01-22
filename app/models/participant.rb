@@ -19,6 +19,10 @@ class Participant < ActiveRecord::Base
     :hash_secret => "kakekakekakemonster",
   }
 
+  ransacker :arrives_at do
+    Arel::Nodes::SqlLiteral.new("date(participants.arrives_at)")
+  end
+
   validates_attachment :visum,
     :size => { :in => 0..50.megabytes }
 
