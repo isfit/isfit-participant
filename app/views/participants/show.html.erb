@@ -1,4 +1,4 @@
-<h1><%= "#{@participant.first_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %> <%= (not @participant.active and not current_user.is_participant?) ? "(Inactive)":"" %> <%= (@participant.ignore and not current_user.is_participant?) ? "(Ignored)":"" %></h1>
+<h1><%= "#{@participant.first_name} #{@participant.last_name}"%> <%= (@participant.guaranteed and not current_user.is_participant?) ? "(Guaranteed)":"" %> <%= (not @participant.active and not current_user.is_participant? and not @participant.dialogue) ? "(Inactive)":"" %> <%= (@participant.ignore and not current_user.is_participant?) ? "(Ignored)":"" %> <%= (@participant.dialogue and not current_user.is_participant?) ? "(Dialogue)":"" %></h1>
 <fieldset>
   <legend>Personal Information</legend>
   <table class="table table-condensed table-hover table-borderless">
@@ -93,6 +93,7 @@
   <% end %>
 </fieldset>
 
+<% unless @participant.dialogue %>
 <fieldset>
   <legend>Host Information</legend>
   <table class="table table-condensed table-hover table-borderless">
@@ -262,7 +263,6 @@
   </table>
 </fieldset>
 
-
 <% if current_user.has_role?(:admin) %>
 <fieldset>
   <legend>Admin info</legend>
@@ -288,4 +288,5 @@
 <% end %>
 
 <%= render 'menu' %>
+<% end %>
 

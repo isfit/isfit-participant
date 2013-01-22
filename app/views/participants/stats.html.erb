@@ -232,7 +232,7 @@
     </tr>
     <tr>
       <td>Not finished</td>
-      <td><%= Participant.where("invited = 0").count - @temp - @temp2 %></td>
+      <td><%= Participant.where("invited = 0 AND dialogue is null").count - @temp - @temp2 %></td>
     </tr>
   </table>
 
