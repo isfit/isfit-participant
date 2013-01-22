@@ -70,7 +70,11 @@ IsfitParticipant::Application.routes.draw do
     end
     resources :answers
   end
-  resources :functionaries
+  resources :functionaries do
+    member do
+      get :impersonate
+    end
+  end
 
   match 'participants/:id/host/:host_id' => 'participants#match_host', :via => :post, :as => :add_host
   # => match 'participants/:id/remove'

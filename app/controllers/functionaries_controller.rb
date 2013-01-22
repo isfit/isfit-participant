@@ -27,6 +27,13 @@ class FunctionariesController < ApplicationController
     end
   end
 
+  def impersonate
+    @functionary = Functionary.find(params[:id])
+    sign_in(:user, User.find(@functionary.user))
+    redirect_to root_url
+  end
+
+
   # GET /functionaries/1/edit
   def edit
     @functionary = Functionary.find(params[:id])
