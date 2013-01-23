@@ -38,6 +38,12 @@ class WorkshopsController < ApplicationController
   end
 
   def participants
-    @participants = Workshop.find(params[:id]).participants.where("invited = 1 AND active = 1 AND guaranteed = 1").includes(:country)
+    @workshop = Workshop.find(params[:id])
+    
+    if @workshop.id == 18
+      @participants = Workshop.find(params[:id]).participants.where("dialogue = 1").includes(:country)
+    else
+      @participants = Workshop.find(params[:id]).participants.where("invited = 1 AND active = 1 AND guaranteed = 1").includes(:country)
+    end
   end
 end
