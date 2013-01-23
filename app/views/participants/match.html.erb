@@ -15,6 +15,10 @@
 <table class="table table-condensed table-hover table-borderless">
   <tbody>
     <tr>
+      <th>Halal</th> 
+      <td><%= @participant.halal ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
       <th>Vegetarian</th> 
       <td><%= @participant.vegetarian ? "Yes" : "No" %></td>
     </tr>
@@ -33,6 +37,14 @@
     <tr>
       <th>Other allergies</th> 
       <td><%= @participant.allergy_other %></td>
+    </tr>
+    <tr>
+      <th>Allergic to pets</th> 
+      <td><%= @participant.allergy_pets ? "Yes" : "No" %></td>
+    </tr>
+    <tr>
+      <th>Handicap</th> 
+      <td><%= @participant.handicap %></td>
     </tr>
   </tbody>
 </table>
