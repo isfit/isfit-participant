@@ -24,7 +24,13 @@
     <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :email_cont, label: "Email", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :arrives_at_matches, label: "Arrives at", as: :string, hint: "Use YYYY-MM-DD", input_html: { :class => "span2" }, required: false %>
+    <div class="control-group string optional">
+      <%= label_tag 'arrives_at', "Arrives at", :class => "string optional control-label" %>
+      <div class="controls">
+        <%= text_field :arrives_at, :arrives_at, :value => @arrives_at %>
+        <p class="help-block">Use YYYY-MM-DD</p>
+      </div>
+    </div>
     <%= f.input :arrival_place_id_eq, label: "Arrival place", as: :select, collection: ArrivalPlace.all.collect { |a| [a.name, a.id] }, required: false %>
     <%= f.input :guaranteed_present, label: "Guaranteed", as: :select, required: false %>
     <%= f.input :country_id_eq, label: "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false %>
