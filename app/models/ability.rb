@@ -19,7 +19,7 @@ class Ability
     if user.has_role? :theme
       can [:index, :show, :grade2, :select_app, :grade_app, :set_grade], Application
       can [:index, :show, :participants], Workshop
-      can [:show], Participant
+#      can [:show], Participant
 #      can [:show], Host
     end
     if user.has_role? :participant
