@@ -47,7 +47,7 @@
     <td><%= @participants.where("allergy_lactose = 1").count %></td> 
     <td><%= @participants.where("allergy_gluten = 1").count %></td> 
     <td><%= @participants.where("allergy_nuts = 1").count %></td> 
-    <td><%= @participants.where("allergy_other is not null").count %></td> 
+    <td><%= @participants.where("allergy_other IS NOT NULL AND allergy_other <> ''").count %></td> 
   </tr>
 </table>
 
