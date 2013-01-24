@@ -395,7 +395,7 @@ class ParticipantsController < ApplicationController
         .joins("JOIN deadlines_users du ON du.user_id = participants.user_id")
         .where("fp.functionary_id = "+@functionary.to_s)
         .where("deadline_id = ? AND approved = 0", @deadline.to_i)
-        .where("date(arrives_at) LIKE ?", "#{@arrives_at}%")
+        .where("coalesce(date(arrives_at), '') LIKE ?", "#{@arrives_at}%")
         .paginate(per_page: 15, page: params[:page])
         .order("#{@sort_by} ASC")
     elsif @deadline
@@ -403,7 +403,7 @@ class ParticipantsController < ApplicationController
         .result(distinct: true)
         .joins("JOIN deadlines_users du ON du.user_id = participants.user_id")
         .where("deadline_id = ? AND approved = 0", @deadline.to_i)
-        .where("date(arrives_at) LIKE ?", "#{@arrives_at}%")
+        .where("coalesce(date(arrives_at), '') LIKE ?", "#{@arrives_at}%")
         .paginate(per_page: 15, page: params[:page])
         .order("#{@sort_by} ASC")
     elsif @functionary
@@ -411,13 +411,13 @@ class ParticipantsController < ApplicationController
         .result(distinct: true)
         .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
         .where("fp.functionary_id = "+@functionary.to_s)
-        .where("date(arrives_at) LIKE ?", "#{@arrives_at}%")
+        .where("coalesce(date(arrives_at), '') LIKE ?", "#{@arrives_at}%")
         .paginate(per_page: 15, page: params[:page])
         .order("#{@sort_by} ASC")
     else
       @participants = @q
         .result(distinct: true)
-        .where("date(arrives_at) LIKE ?", "#{@arrives_at}%")
+        .where("coalesce(date(arrives_at), '') LIKE ?", "#{@arrives_at}%")
         .paginate(per_page: 15, page: params[:page])
         .order("#{@sort_by} ASC")
     end
