@@ -47,7 +47,7 @@ class ParticipantsMailer < ActionMailer::Base
 
   def info_mail(participant)
     @participant = participant
-    # add attachment(map trondheim)
+    #attachments['trondheimmap.pdf'] = File.read('') #Add path
     mail(to: participant.email, subject: "[ISFiT] Information")
   end
 
