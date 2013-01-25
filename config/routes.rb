@@ -30,6 +30,7 @@ IsfitParticipant::Application.routes.draw do
     member do
       get "participants"
       get "allergies"
+      get "attendance_list"
     end
   end
   resources :articles

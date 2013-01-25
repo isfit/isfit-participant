@@ -50,4 +50,18 @@ class WorkshopsController < ApplicationController
       @participants = Workshop.find(params[:id]).participants.where("invited = 1 AND active = 1 AND guaranteed = 1").includes(:country)
     end
   end
+
+  def attendance_list
+    @workshop = Workshop.find(params[:id])
+    
+    if @workshop.id == 18
+      @participants = Workshop.find(params[:id]).participants.where("dialogue = 1").includes(:country)
+    else
+      @participants = Workshop.find(params[:id]).participants.where("invited = 1 AND active = 1 AND guaranteed = 1").includes(:country)
+    end
+    
+    respond_to do |f|
+      f.html {render 'attendance_list', :layout=>false}
+    end
+  end
 end

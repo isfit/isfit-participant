@@ -1,0 +1,26 @@
+<% render 'menu' %>
+
+<h1>Workshop <%= @workshop.number %> attendance list</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th>Participant phone</th>
+      <th>Host</th>
+      <th>Host phone</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @participants.each do |p| %>
+    <tr>
+      <td><%= "#{p.first_name} #{p.last_name}" %></td>
+      <td><%= "TODO" %></td>
+      <td><%= p.host.nil? ? "No host" : "#{p.host.first_name} #{p.host.last_name}" %></td>
+      <td><%= p.host.nil? ? "No host" : p.host.phone %></td>
+      <td>____________________</td>
+    </tr>
+  <% end %>
+
+</table>
