@@ -18,7 +18,7 @@ class Ability
     end
     if user.has_role? :theme
       can [:index, :show, :grade2, :select_app, :grade_app, :set_grade], Application
-      can [:index, :show, :participants], Workshop
+      can [:index, :show, :participants, :attendance_list], Workshop
 #      can [:show], Participant
 #      can [:show], Host
     end
@@ -41,6 +41,7 @@ class Ability
     if user.has_role? :sec
       can :manage, Host
       can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show], Participant
+      can [:participants, :attendance_list, :index, :show], Workshop
     end
   end
 
