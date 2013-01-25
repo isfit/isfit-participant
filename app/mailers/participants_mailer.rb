@@ -45,4 +45,10 @@ class ParticipantsMailer < ActionMailer::Base
     mail(to: participant.email, subject: "[ISFiT] Regarding your application to ISFiT 2013")
   end
 
+  def info_mail(participant)
+    @participant = participant
+    # add attachment(map trondheim)
+    mail(to: participant.email, subject: "[ISFiT] Information")
+  end
+
 end
