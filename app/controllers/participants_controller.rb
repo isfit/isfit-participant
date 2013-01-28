@@ -68,7 +68,7 @@ class ParticipantsController < ApplicationController
     p.checked_in = Time.now()
     p.save
     flash[:notice] = "#{p.last_name}, #{p.first_name} is checked in"
-    redirect_to participants_path
+    redirect_to add_phone_number_participant_path(p)
   end
 
   def check_out
@@ -78,6 +78,21 @@ class ParticipantsController < ApplicationController
     redirect_to participants_path
   end
 
+  def add_phone_number
+    @participant = Participant.find(params[:id])
+
+    respond_to do |f|
+      f.html
+    end
+  end
+
+  def update_phone_number
+    @participant.phone_number = params[:participant][:phone_number]
+
+    @participant.save
+    redirect_to match_participant_path(@participant)
+  end
+
   # GET /participants
   # GET /participants.xml
   def index
@@ -85,7 +100,8 @@ class ParticipantsController < ApplicationController
 
     if current_user.has_role?(:sec)
       @participants = @q
-        .result(distinct: true) #.where("guaranteed = 1")
+        .result(distinct: true)
+        .where(guaranteed: true)
         .paginate(per_page: 10, page: params[:page])
 
       respond_to do |f|

@@ -2,7 +2,8 @@
   <ul class="nav nav-list well">
     <li class="nav-header">Participants</li>
     <li><%= link_to image_tag('icons/user_go.png', title: "Full profile") + " Full profile", participant_path(@participant) %></li>
-    <li><%= link_to image_tag('icons/house.png') + ' Show all', participants_path %></li>
+    <li><%= link_to image_tag('icons/phone.png', title: 'Add phone number') + 'Add phone number', add_phone_number_participant_path(@participant) %></li>
+    <li><%= link_to image_tag('icons/house.png', title: 'Show all') + ' Show all', participants_path %></li>
 
     <li class="nav-header">Problems?</li>
     <li>Call Dag-Inge: 92491526</li>
@@ -10,6 +11,16 @@
 <% end %>
 
 <h1><%= "#{@participant.first_name} #{@participant.last_name} #{(@participant.guaranteed and not current_user.is_participant?) ? '(Guaranteed)' : ''}" %></h1>
+
+<legend>Phone number</legend>
+<table class="table table-condensed table-hover table-borderless">
+  <tbody>
+    <tr>
+      <th>Phone number</th>
+      <td><%= @participant.phone_number %></td>
+    </tr>
+  </tbody>
+</table>
 
 <legend>Food and allergies</legend>
 <table class="table table-condensed table-hover table-borderless">

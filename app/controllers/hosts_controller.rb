@@ -61,6 +61,7 @@ class HostsController < ApplicationController
     @q = Participant.search(params[:q])
     @results = @q
       .result(distinct: true)
+      .where(guaranteed: true)
       .where("checked_in IS NOT NULL AND host_id IS NULL")
 
     @participants_count = @results.count

@@ -40,8 +40,8 @@ class Ability
     end
     if user.has_role? :sec
       can :manage, Host
-      can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show], Participant
       can [:participants, :attendance_list, :index, :show], Workshop
+      can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show, :add_phone_number, :update_phone_number], Participant
     end
   end
 

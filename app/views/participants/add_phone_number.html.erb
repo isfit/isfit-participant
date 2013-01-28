@@ -1,0 +1,10 @@
+<%= simple_form_for(@participant, url: update_phone_number_participant_path(@participant), :html => {:class => "form", method: :post} ) do |f| %>
+  <%= f.error_notification %>
+
+  <fieldset>
+    <legend>Private information</legend>
+    <%= f.input :phone_number %>
+  </fieldset>
+
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>
