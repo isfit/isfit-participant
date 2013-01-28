@@ -16,7 +16,7 @@
   <% @participants.each do |p| %>
     <tr>
       <td><%= "#{p.first_name} #{p.last_name}" %></td>
-      <td><%= "TODO" %></td>
+      <td><%= p.phone_number %></td>
       <td><%= p.host.nil? ? "No host" : "#{p.host.first_name} #{p.host.last_name}" %></td>
       <td><%= p.host.nil? ? "No host" : p.host.phone %></td>
       <td>____________________</td>
