@@ -44,4 +44,4 @@
   <% end %>
 </table>
 
-<%= will_paginate @hosts, :params => {:q=>params[:q]} %>
+<%= will_paginate @hosts, :params => {:q=>params[:q], :has_free_beds=>params[:has_free_beds]} %>
