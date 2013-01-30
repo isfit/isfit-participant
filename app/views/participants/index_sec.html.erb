@@ -16,6 +16,7 @@
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
     <%= f.input :arrival_place_id_eq, :label => "Arrival place", as: :select, collection: ArrivalPlace.all.collect { |ap| [ap.name, ap.id] }, required: false, :input_html => { :class => "span4" } %>
     <%= f.input :checked_in_not_null, :label => "Checked in", as: :boolean, required: false %>
+    <%= f.input :checked_in_null, :label => "Not checked in", as: :boolean, required: false %>
     <%= f.input :checked_out_not_null, :label => "Checked out", as: :boolean, required: false %>
 
     <div class="form-actions">
