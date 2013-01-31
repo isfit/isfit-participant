@@ -31,26 +31,11 @@ class HostsController < ApplicationController
         .where(deleted: 0)
         .paginate(per_page: 10, page: params[:page])
     else
-      @hosts = @q
-        .result(distinct: true)
-        .find_by_sql("
-          SELECT h_id AS id, h_first_name AS first_name, last_name, h_number AS number, h_participants
-          FROM (
-            SELECT h_id, h_first_name, last_name, number AS h_number, SUM(c) AS h_participants, deleted
-            FROM (
-              SELECT h.id AS h_id, h.first_name AS h_first_name, h.last_name, number, COUNT(p.host_id) AS c, deleted
-              FROM hosts as h
-              LEFT OUTER JOIN participants AS p on h.id = p.host_id
-              GROUP BY h.id
-              UNION
-              SELECT h.id AS h_id, h.first_name AS h_first_name, h.last_name, number, COUNT(*) AS c, deleted
-              FROM hosts AS h
-              INNER JOIN participants AS p ON h.id = p.host_id
-              GROUP BY h.id
-            ) AS all_hosts_with_beds_and_participant_count
-            GROUP BY h_id
-          ) AS filtered_deleted_and_full
-          WHERE ((h_number > h_participants) AND (deleted = 0))")
+      @hosts = Host
+        .find_with_free_beds(
+          first_name: params[:q][:first_name_cont],
+          last_name: params[:q][:last_name_cont]
+        )
         .paginate(per_page: 10, page: params[:page])
     end
   end
