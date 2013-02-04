@@ -87,7 +87,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
     <%= f.input :invited_eq, label: "Sex", as: :select, collection: [["Male", true], ["Female", false]], required: false %>
     <%= f.input :smoke_eq, label: "Prefers non-smoking", as: :select, required: false %>
-    <%= f.input :vegetarian_eq, label: "Vegetarian", as: :select, required: false %>
+    <%= f.input :allergy_pets_eq, label: "Pets allergy", as: :select, required: false %>
 
     <div class="form-actions">
       <%= f.submit 'search', :class => "btn btn-primary" %>
