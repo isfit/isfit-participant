@@ -101,7 +101,7 @@ class ParticipantsController < ApplicationController
     if current_user.has_role?(:sec)
       @participants = @q
         .result(distinct: true)
-        .where(guaranteed: true)
+        .where("guaranteed = 1 OR dialogue = 1")
         .paginate(per_page: 10, page: params[:page])
 
       respond_to do |f|

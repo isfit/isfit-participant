@@ -19,7 +19,11 @@
 <table class="table table-borderless table-hover table-striped table-condensed">
 	<tr>
 		<th>Number of participants:</th>
-    <td><b class="hosts_button_spacing"><%=@host.participants.count%>/<%=@host.number%></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %></b></td>
+    <td><b class="hosts_button_spacing"><%=@host.participants.count%>/<%=@host.number%></b>
+      <% if can? :add_bed, Host %><b class="hosts_button_spacing"><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %></b></td>
+      <% else %>
+        Fjernet frem til festival :)
+      <% end %>
 	</tr>	
 	<tr>
 		<th>E-mail</th>
@@ -83,7 +87,7 @@ Selected <%= pluralize @host.participants.size, "participant"%>
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
     <%= f.input :invited_eq, label: "Sex", as: :select, collection: [["Male", true], ["Female", false]], required: false %>
     <%= f.input :smoke_eq, label: "Prefers non-smoking", as: :select, required: false %>
-    <%= f.input :vegetarian_eq, label: "Vegetarian", as: :select, required: false %>
+    <%= f.input :allergy_pets_eq, label: "Pets allergy", as: :select, required: false %>
 
     <div class="form-actions">
       <%= f.submit 'search', :class => "btn btn-primary" %>
