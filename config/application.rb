@@ -41,11 +41,11 @@ module IsfitParticipant
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use PDFKit::Middleware
-    PDFKit.configure do |c|
-      #c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
-      c.wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
-    end
+    #config.middleware.use PDFKit::Middleware
+    #PDFKit.configure do |c|
+    #  #c.wkhtmltopdf = "/home/users/stianfr/temp/wkhtmltopdf-amd64"
+    #  c.wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
+    #end
 
     config.assets.enabled = true
   end
