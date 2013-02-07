@@ -71,6 +71,18 @@ class ParticipantsController < ApplicationController
     redirect_to add_phone_number_participant_path(p)
   end
 
+  def remove_check_in
+    p = Participant.find(params[:id])
+    if p.checked_in.nil?
+      flash[:notice] = "Participant is not checked in already."
+    else
+      p.checked_in = nil
+      p.save
+      flash[:notice] = "#{p.last_name}, #{p.first_name} is no longer checked in."
+    end
+    redirect_to participant_path(p)
+  end
+
   def check_out
     p = Participant.find(params[:id])
     p.checked_out = Time.now()

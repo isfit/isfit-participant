@@ -3,6 +3,7 @@
     <li class="nav-header">Participants</li>
     <li><%= link_to image_tag('icons/user_go.png', title: "Full profile") + " Full profile", participant_path(@participant) %></li>
     <li><%= link_to image_tag('icons/phone.png', title: 'Add phone number') + 'Add phone number', add_phone_number_participant_path(@participant) %></li>
+    <li><%= link_to image_tag('icons/door_out.png', title: 'Remove check in') + ' Remove check in', remove_check_in_participant_path(@participant) %></li>
     <li><%= link_to image_tag('icons/house.png', title: 'Show all') + ' Show all', participants_path %></li>
 
     <li class="nav-header">Problems?</li>

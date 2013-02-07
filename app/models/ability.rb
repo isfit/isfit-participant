@@ -42,7 +42,7 @@ class Ability
       can :manage, Host
       #cannot [:add_bed, :remove_bed], Host
       can [:participants, :attendance_list, :index, :show], Workshop
-      can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show, :add_phone_number, :update_phone_number], Participant
+      can [:index, :match, :match_host, :remove_host, :check_in, :check_out, :show, :add_phone_number, :update_phone_number, :remove_check_in], Participant
     end
   end
 
