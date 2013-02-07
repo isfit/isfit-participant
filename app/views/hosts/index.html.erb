@@ -4,6 +4,7 @@
     <li>Call Dag-Inge: 92491526</li>
     <li class="nav-header"># Checked in participants</li>
     <li><%= Participant.where("checked_in IS NOT NULL").count %> participants checked in</li>
+    <li><%= Participant.where("host_id IS NOT NULL").count %> participants matched with hosts<li>
   </ul>
 <% end %>
 
