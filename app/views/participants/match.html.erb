@@ -23,6 +23,20 @@
   </tbody>
 </table>
 
+<legend>Workshop</legend>
+<table class="table table-condensed table-hover table-borderless">
+  <tbody>
+    <tr>
+      <th>Nr + name</th>
+      <% if @participant.workshop %>
+        <td><%= @participant.workshop.id.to_s + ' - ' + @participant.workshop.name %></td>
+      <% else %>
+        Doesn't have workshop, contact IT.
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
 <legend>Food and allergies</legend>
 <table class="table table-condensed table-hover table-borderless">
   <tbody>
