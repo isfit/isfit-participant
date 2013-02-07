@@ -37,6 +37,16 @@
   </tbody>
 </table>
 
+<legend>Checked in</legend>
+<table class="table table-condensed table-hover table-borderless">
+  <tbody>
+    <tr>
+      <th>Time checked in:</th>
+      <td><%= @participant.checked_in || "Not checked in" %></td>
+    </tr>
+  </tbody>
+</table>
+
 <legend>Food and allergies</legend>
 <table class="table table-condensed table-hover table-borderless">
   <tbody>
