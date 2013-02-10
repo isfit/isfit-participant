@@ -49,6 +49,9 @@
   </table>
 </fieldset>
 
+<legend>Current host</legend>
+<h4><%= (link_to @participant.host.full_name, host_path(@participant.host)) if @participant.host %></h4>
+
 <fieldset>
   <legend>Next of kin information</legend>
   <table class="table table-condensed table-hover table-borderless">
