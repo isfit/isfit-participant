@@ -8,7 +8,7 @@
     <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :email_cont, :label => "Email", :input_html => { :class => "span4" }, required: false %>
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "span4" } %>
-    <%= f.input :workshop_id_eq, :label => "Workshop", as: :select, collection: Workshop.all.collect { |w| [w.name, w.id] }, required: false, :input_html => { :class => "span4" } %>
+    <%= f.input :workshop_id_eq, :label => "Workshop", as: :select, collection: Workshop.all.collect { |w| ["#{w.id} - #{w.name}", w.id] }, required: false, :input_html => { :class => "span4" } %>
 
     <div class="form-actions">
       <%= f.submit 'search', :class => "btn btn-primary" %>

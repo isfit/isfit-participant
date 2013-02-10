@@ -3,6 +3,7 @@
     <li class="nav-header">Participants</li>
     <li><%= link_to image_tag('icons/user_go.png', title: "Full profile") + " Full profile", participant_path(@participant) %></li>
     <li><%= link_to image_tag('icons/phone.png', title: 'Add phone number') + 'Add phone number', add_phone_number_participant_path(@participant) %></li>
+    <li><%= link_to image_tag('icons/door_out.png', title: 'Remove check in') + ' Remove check in', remove_check_in_participant_path(@participant) %></li>
     <li><%= link_to image_tag('icons/house.png', title: 'Show all') + ' Show all', participants_path %></li>
 
     <li class="nav-header">Problems?</li>
@@ -18,6 +19,30 @@
     <tr>
       <th>Phone number</th>
       <td><%= @participant.phone_number %></td>
+    </tr>
+  </tbody>
+</table>
+
+<legend>Workshop</legend>
+<table class="table table-condensed table-hover table-borderless">
+  <tbody>
+    <tr>
+      <th>Nr + name</th>
+      <% if @participant.workshop %>
+        <td><%= @participant.workshop.id.to_s + ' - ' + @participant.workshop.name %></td>
+      <% else %>
+        Doesn't have workshop, contact IT.
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<legend>Checked in</legend>
+<table class="table table-condensed table-hover table-borderless">
+  <tbody>
+    <tr>
+      <th>Time checked in:</th>
+      <td><%= @participant.checked_in || "Not checked in" %></td>
     </tr>
   </tbody>
 </table>

@@ -94,6 +94,7 @@ IsfitParticipant::Application.routes.draw do
       post "approve_deadline"
       get "check_deadline"
       get "check_in"
+      get "remove_check_in"
       get "check_out"
       get "deadlines"
       get :add_phone_number

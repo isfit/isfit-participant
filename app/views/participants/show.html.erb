@@ -23,6 +23,10 @@
       </tr>
     <% end %>
     <tr>
+      <td>Time checked in:</td>
+      <td><%= @participant.checked_in || "Not checked in" %></td>
+    </tr>
+    <tr>
       <td>Country of citizenship:</td>
       <td> <%= Country.find_by_id(@participant.country_citizen_id).name %></td>
     </tr>
@@ -44,6 +48,9 @@
     </tr>
   </table>
 </fieldset>
+
+<legend>Current host</legend>
+<h4><%= (link_to @participant.host.full_name, host_path(@participant.host)) if @participant.host %></h4>
 
 <fieldset>
   <legend>Next of kin information</legend>
