@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -18,12 +18,12 @@ gem "pdfkit"
 gem "princely"
 gem "ransack"
 gem "simple_form"
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3'
 gem "tabs_on_rails"
 gem "tabulous"
-gem 'twitter-bootstrap-rails'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
+gem 'bootstrap-sass'
 gem 'jquery-rails'
 
 group :assets do
