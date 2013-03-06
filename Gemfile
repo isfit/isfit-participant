@@ -21,6 +21,7 @@ gem "simple_form"
 gem 'sqlite3'
 gem "tabs_on_rails"
 gem "tabulous"
+gem 'therubyracer'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'bootstrap-sass'
