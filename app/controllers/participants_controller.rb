@@ -378,7 +378,6 @@ class ParticipantsController < ApplicationController
   end
 
   def deadlines_and_functionaries
-    if current_user.has_role?(:admin)
       @functionaries = Functionary.includes(:participants).select {|f| f.participants.length > 0 }
       @deadline_five  = Participant.find_by_sql("SELECT functionaries_participants.functionary_id, COUNT(*) as count FROM `participants`"\
           " INNER JOIN `deadlines_users` ON participants.user_id = deadlines_users.user_id INNER JOIN "\
@@ -395,9 +394,6 @@ class ParticipantsController < ApplicationController
           "`functionaries_participants` ON functionaries_participants.participant_id = participants.id "\
           "WHERE deadline_id = 8 and approved = 0 and invited = 1 GROUP BY "\
           "functionaries_participants.functionary_id")
-    else
-      raise CanCan::AccessDenied
-    end
   end
 
   # GET /participants/search
