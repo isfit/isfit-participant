@@ -343,12 +343,16 @@ class ParticipantsController < ApplicationController
     if params[:approved].to_i == 1 and not d.approved 
       d.approved = true
       d.save
-      DeadlineMailer.deadline_approved(@participant, d.deadline_id).deliver
+      if @participant.active
+        DeadlineMailer.deadline_approved(@participant, d.deadline_id).deliver
+      end
       flash[:notice] = "Deadline was approved."
       redirect_to validate_deadline_participants_path
     elsif params[:approved].to_i == 0 and not d.approved
       d.destroy
-      DeadlineMailer.deadline_not_approved(@participant, d.deadline_id).deliver
+      if @participant.active
+        DeadlineMailer.deadline_not_approved(@participant, d.deadline_id).deliver
+      end
       flash[:notice] = "Deadline was not approved."
       redirect_to validate_deadline_participants_path
     elsif d.approved
