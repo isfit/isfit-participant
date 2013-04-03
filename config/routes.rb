@@ -100,14 +100,12 @@ IsfitParticipant::Application.routes.draw do
       get :add_phone_number
       post :update_phone_number
       post "deadlines_handler"
-      get "failed_deadline"
       get "travel_support"
       get "letter_of_recommendation"
       get "isfit_transportation"
       get "impersonate"
       get "invitation"
       post "remove_host"
-      post "remove_deadline"
       get "secure"
       get "desecure"
       get "ignore"

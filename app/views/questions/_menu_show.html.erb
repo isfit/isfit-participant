@@ -8,9 +8,6 @@
           <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
         <% end %>
         <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
-        <% if can? :failed_deadline, Participant %>
-          <li><%= link_to image_tag('icons/cancel.png') + ' Remove failed deadline', failed_deadline_participant_path(@question.participant) %></li>
-        <% end %>
       <% end %>
       <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
     </ul>
