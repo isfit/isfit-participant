@@ -4,11 +4,7 @@ namespace :admin do
   
   task :create_admin_users => :environment do
     func = {
-      :karies => { :first => "Kari Eline", :last => "Strandjord" },
-      :borgemy => { :first => "Børge", :last => "Myran" },
-      :almasato => { :first => "Alma", :last => "Sator" },
-      :kasperth => { :first => "Kasper", :last => "Husefest" },
-      :skaran => { :first => "Anja Myreng", :last => "Skaran" }
+      :username => { :first => "firstname", :last => "lastname" },
     }
 
     func.each do |username,value|
@@ -40,9 +36,6 @@ namespace :participant do
       User.find_by_email("einarsu@isfit.org") => [184,118,37,182,1,26,61,156,34,165,104,119],
       User.find_by_email("egille@isfit.org") => [16,187,177,128,47,10,19,127],
       User.find_by_email("martgies@isfit.org") => [90,40,41,110,82,84,135,85,95,66,144,76,161,116],
-      User.find_by_email("monalock@isfit.org") => [],
-      User.find_by_email("pernilss@isfit.org") => [],
-      User.find_by_email("natharma@isfit.org") => []
     }
 
     func.each do |user,countries|
@@ -282,7 +275,7 @@ end
 namespace :sec do
   task :create_sec_users => :environment do
     func = {
-      :mayhmi => { :first => "May Helen", :last => "Midtbø" },
+      :username => { :first => "firstname", :last => "lastname" },
     }
 
     func.each do |username,value|
@@ -309,76 +302,7 @@ end
 namespace :theme do
   task :create_theme_users => :environment do
     func = {
-      :martrett => { :first => "Martine", :last => "Retting" },
-      :didriksr => { :first => "Didrik Skibeli", :last => "Rokkones" },
-      :krishoff => { :first => "Kristian", :last => "Hoff" },
-      :nelsonw => { :first => "Nelson", :last => "Wang" },
-      :amalskau => { :first => "Amalie Skau", :last => "Jakobsen" },
-      :sindgarc => { :first => "Sindre Augusto", :last => "Garcia" },
-      :karipaul => { :first => "Kari Evensen", :last => "Paulsrud" },
-      :sanaker => { :first => "Anita", :last => "Sanaker" },
-      :sigurpe => { :first => "Sigurd Solheim", :last => "Pettersen" },
-      :masto => { :first => "Marit", :last => "Stokke" },
-      :marinaeaar => { :first => "Marianne Nårstad", :last => "Jensen" },
-      :mariwae => { :first => "Mari", :last => "Wærnes" },
-      :marieide => { :first => "Mari", :last => "Eide" },
-      :ingrklep => { :first => "Ingrid Kleppenes", :last => "Verne" },
-      :idaar => { :first => "Ida", :last => "Arnesen" },
-      :joriprok => { :first => "Jorinde", :last => "Prokosch" },
-      :ingrvik => { :first => "Ingrid Vik", :last => "Bakken" },
-      :isabnord => { :first => "Isabel Nordli", :last => "Løyning" },
-      :maregulo => { :first => "Maren", :last => "Gulowsen" },
-      :hannsund => { :first => "Hanne", :last => "Sundene" },
-      :tarjeins => { :first => "Tarjei", :last => "Sandal" },
-      :jonahell => { :first => "Jonas", :last => "Helland" },
-      :elissand => { :first => "Elisabeth", :last => "Sandbakken" },
-      :shyaamr => { :first => "Shyaam", :last => "Ramkumar" },
-      :meretefa => { :first => "Merete", :last => "Falck" },
-      :joharogn => { :first => "Johanne", :last => "Rognstad" },
-      :ingvelde => { :first => "Ingvild Fagerheim", :last => "Eldegard" },
-      :karlhenr => { :first => "Karl Shi Xue", :last => "Henriksen" },
-      :ingrkjev => { :first => "Ingrid", :last => "Kjevik-Wycherley" },
-      :sofiande => { :first => "Sofie", :last => "Andelic" },
-      :annefers => { :first => "Anne-Line", :last => "Ferstad" },
-      :norahaal => { :first => "Nora Haaland", :last => "Serigstad" },
-      :noraabra => { :first => "Nora Skarre", :last => "Abrahamsen" },
-      :erlenick => { :first => "Erlend", :last => "Nickelsen" },
-      :'ole-gang' => { :first => "Ole-Jørgen Gangsø", :last => "Bekkevold" },
-      :haeaakgrin => { :first => "Håkon", :last => "Grindheim" },
-      :ingrith => { :first => "Ingrid", :last => "Thorbjørnsen" },
-      :elisabpr => { :first => "Elisabeth", :last => "Prestegård" },
-      :rachels => { :first => "Rachel", :last => "Spiegel" },
-      :susasand => { :first => "Susanne", :last => "Sandell" },
-      :sofifuru => { :first => "Sofie", :last => "Furu" },
-      :mareel => { :first => "Maren", :last => "Eliassen" },
-      :stinhari => { :first => "Stine Mari", :last => "Harildstad" },
-      :kareek => { :first => "Karen Marie Nebb", :last => "Ek" },
-      :alexking => { :first => "Alexander Taranger", :last => "King" },
-      :axeltren => { :first => "Axel", :last => "Trentzsch" },
-      :wagstaff => { :first => "Lindsay K.", :last => "Wagstaff" },
-      :kajafroy => { :first => "Kaja", :last => "Kvåle" },
-      :oyvinsve => { :first => "Øyvind", :last => "Svendsen" },
-      :jenspejo => { :first => "Jens Petter", :last => "Johansen" },
-      :olemagi => { :first => "Ole Magnus Kålås", :last => "Iversen" },
-      :maxeckb => { :first => "Max Eckbo", :last => "Hallqvist" },
-      :hannhenn => { :first => "Hannah", :last => "Henningsen" },
-      :theafors => { :first => "Thea", :last => "Forsén" },
-      :miawall => { :first => "Mia", :last => "Walle-Hansen" },
-      :lenestok => { :first => "Lene", :last => "Stokke" },
-      :toredyre => { :first => "Tore", :last => "Dyrendahl" },
-      :anehegl => { :first => "Ane", :last => "Hegland" },
-      :gunnbjaeoe => { :first => "Gunnar", :last => "Bjørnsson" },
-      :birgskaj => { :first => "Birgitte", :last => "Skajaa" },
-      :mathskyl => { :first => "Mathilde", :last => "Skylstad" },
-      :'trinaas-' => { :first => "Trine", :last => "Aas-Hansen" },
-      :kariej => { :first => "Kari Lien", :last => "Johnsen" },
-      :vildekr => { :first => "Vilde", :last => "Krogsrud" },
-      :fridotte => { :first => "Frida Grønhaug", :last => "Ottemo" },
-      :martraeoen => { :first => "Martin Wang", :last => "Rønningen" },
-      :livekvel => { :first => "Live Margrethe L.", :last => "Kvelland" },
-      :morhaug => { :first => "Morten", :last => "Haugen" },
-      :vildaare => { :first => "Vilde", :last => "Aarethun" },
-      :marierik => { :first => "Marianne", :last => "Eriksen" },
+      :username => { :first => "firstname", :last => "lastname" },
     }
 
     func.each do |username,value|
@@ -405,22 +329,7 @@ namespace :functionary do
 
   task :create_functionary_users => :environment do
     func = {
-      :xuanhuon => { :first => "Anna Xuan Huong Thi", :last => "Nguyen" },
-      :juliebb => { :first => "Julie Benedicte", :last => "Bøye" },
-      :jkbui => { :first => "Kieu Van", :last => "Bui" },
-      :martgjer => { :first => "Marte", :last => "Gjerde" },
-      :bettinag => { :first => "Bettina Qiang", :last => "Grande" },
-      :karinny => { :first => "Karin", :last => "Nybru" },
-      :wanda => { :first => "Wanda", :last => "Kleiven" },
-      :ayansebo => { :first => "Ayanda", :last => "Seboko" },
-      :marleide => { :first => "Marlen", :last => "Eide" },
-      :annambe => { :first => "Anna Margareta", :last => "Berg" },
-      :einarsu => { :first => "Einar", :last => "Ueland" },
-      :egille => { :first => "Egill", :last => "Eide" },
-      :martgies => { :first => "Martha", :last => "Gieselmann" },
-      :monalock => { :first => "Mona Lock", :last => "Skålevik" },
-      :pernilss => { :first => "Pernille Sofie", :last => "Sørensen" },
-      :natharma => { :first => "Nathalie Susana Armas", :last => "Schrøder" },
+      :username => { :first => "firstname", :last => "lastname" },
     }
 
     func.each do |username,value|
@@ -443,15 +352,7 @@ namespace :functionary do
 
   task :create => :environment do
     func = {
-    :tanita => {:first  => "Tanita", :last => "Hansen"},
-    :hannagri => {:first =>"Hanna", :last => "Grimsrud Husum"},
-    :kennej => {:first => "Kenneth", :last => "Johansen"},
-    :krisdjup => {:first =>"Kristina", :last => "Djup"},
-    :sophridd => {:first => "Sophie", :last => "Riddervold"},
-    :helgasyn => {:first => "Helga", :last => "Kjos-Hanssen"},
-    :sofielys => {:first => "Sofie", :last => "Lian"},
-    :ullern => {:first => "Eli", :last => "Fyhn Ullern"},
-    :kristaf => {:first => "Kristine", :last => "Kjeldstad"},
+      :username => { :first => "firstname", :last => "lastname" },
     }
  
     func.each do |username,value|
@@ -479,12 +380,7 @@ namespace :facilitator do
 
   task :create => :environment do
     func = {
-      :siljemat => {:first => "Silje", :last => "Mathisen"},
-#      :krisover => {:first => "Kristian", :last => "Bøhle Overrein"},
-      :ragnmoln => {:first => "Ragnhild", :last => "Molnes"},
-      :henrisi => {:first => "Henrik", :last => "Sigstad"},
-#      :kristokj => {:first => "Kristoffer", :last => "Kjærnes"},
-#      :ingvnyg => {:first => "Ingvild", :last => "Tanke Nygård"}
+      :username => { :first => "firstname", :last => "lastname" },
     }
     func.each do |username,value|
       password = generate_password.to_s
@@ -561,10 +457,7 @@ end
 namespace :admin do
   task :create => :environment do
      func = {
-    :hannah => {:first  => "Hanna", :last => "Haaland"},
-#    :tuvajako => {:first =>"Tuva", :last => "Rønnes"},
-    :malenehu => {:first => "Malene Huse", :last => "Eikrem"},
-#    :andhaugs => {:first =>"Anders Grønning", :last => "Haugseth"},
+      :username => { :first => "firstname", :last => "lastname" },
     }
  
     func.each do |username,value|
