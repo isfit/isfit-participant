@@ -162,28 +162,22 @@ class ParticipantsController < ApplicationController
 
     #accept invitation
     if not Deadline.find_by_id(1).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 1 
-      #add controlpanel?
-      if false or @participant.ignore
-        if params[:participant].nil?
-          flash[:alert] = "You have to choose one of the options."
-          return render 'deadlines'
-        end
-        @participant.accepted = params[:participant][:accepted]
-        @participant.active = @participant.accepted == 1 ? true : false
-        if @participant.save
-          DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 1)
-          if @participant.accepted == 1
-            flash[:notice] = "Your invitation was accepted."
-          else
-            flash[:alert] = "Your invitation was rejected."
-          end
-          render 'show'
+      if params[:participant].nil?
+        flash[:alert] = "You have to choose one of the options."
+        return render 'deadlines'
+      end
+      @participant.accepted = params[:participant][:accepted]
+      @participant.active = @participant.accepted == 1 ? true : false
+      if @participant.save
+        DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 1)
+        if @participant.accepted == 1
+          flash[:notice] = "Your invitation was accepted."
         else
-          render 'deadlines'
+          flash[:alert] = "Your invitation was rejected."
         end
+        render 'show'
       else
-        flash[:alert] = "You can no longer accept the invitation, the deadline was 15. November"
-        redirect_to participant_path(@participant)
+        render 'deadlines'
       end
     elsif not Deadline.find_by_id(2).users.include?(current_user) and current_user.participant.invited and current_user.participant.active and params[:deadline].to_i == 2
       if params[:participant].nil?
@@ -193,10 +187,6 @@ class ParticipantsController < ApplicationController
       @participant.applied_for_visa = params[:participant][:applied_for_visa]
       if @participant.applied_for_visa != 0 and @participant.save 
         DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 2)
-        if @participant.applied_for_visa == -1
-          DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 3)
-          DeadlinesUser.create(:user_id => current_user.id, :deadline_id => 6)
-        end
         flash[:notice] = "You information was successfully updated."
         render 'show'
       elsif @participant.applied_for_visa == 0
