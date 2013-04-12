@@ -3,7 +3,8 @@
 <% end %>
 <div class="well">
   <h1>Country Stats</h1>
-  <p><b>Countries with accepted applications:</b> <%= @countries.count %></p>
+  <p><b>Countries with accepted applications:</b> <%= @stats.count %></p>
+  <p>Shows statistics over all accepted participants per country.</p>
   <p>TS = Travel Support</p>
 
   <table id="result" class="table table-bordered table-striped tablesorter">
@@ -19,16 +20,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @countries.each do |k,v| %>
-        <% @app = Application.includes("country").where("deleted = 0 AND status = 1 AND countries.name = ?", k) %>
+      <% @stats.each do |country| %>
         <tr>
-          <td><%= k %></td>
-          <td><%= ((@app.where("sex = 'm'").count.to_f / v.to_f)*100).to_i %>%</td>
-          <td><%= v %></td>
-          <td><%= @app.where("travel_apply = 1").count %></td>
-          <td><%= @app.where("travel_approved = 1").count %></td>
-          <td><%= @app.where("travel_approved = 1").sum(:travel_amount_given) %></td>
-          <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => Country.find_by_name(k).id}), :method => "POST", :class => "btn btn-primary" %></td>
+          <td><%= country.name %></td>
+          <td><%= ((country.male.to_f / country.count.to_f)*100).to_i %>%</td>
+          <td><%= country.count %></td>
+          <td><%= country.apply.to_i %></td>
+          <td><%= country.approved.to_i %></td>
+          <td><%= country.given %></td>
+          <td><%= link_to 'Search', stats_applications_path(:q => {:status_eq => 1, :country_id_eq => country.id}), :method => "POST", :class => "btn btn-primary" %></td>
         </tr>
       <% end %>
     </tbody>

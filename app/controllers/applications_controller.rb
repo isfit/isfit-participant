@@ -31,6 +31,7 @@ class ApplicationsController < ApplicationController
       return redirect_to applications_path, alert: "You are not able to view this page at the moment"
     end 
     @q = Application.search(params[:q])
+    #check and write wid to session
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
     @applications = @q.result.where("deleted = 0 AND grade2_functionary_id = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).order("rand()").limit(30)
     @grade = 2 
@@ -283,7 +284,19 @@ class ApplicationsController < ApplicationController
   end
 
   def country_stats
-    @countries = Application.includes("country").where("deleted = 0 AND status = 1").group("countries.name").count
+    @stats = Application.find_by_sql("
+      SELECT 
+        countries.id, 
+        countries.name, 
+        count(*) as count, 
+        sum(case when sex = 'm' then 1 else 0 end) as male, 
+        sum(travel_apply) as apply, sum(travel_approved) as approved, 
+        sum(case when travel_approved = 1 then travel_amount_given else 0 end) as given 
+      FROM `applications` 
+      INNER JOIN countries ON countries.id = applications.country_id 
+      WHERE status = 1 AND deleted = 0 
+      GROUP BY country_id 
+      ORDER BY countries.name")
   end
 
   def workshop_stats
