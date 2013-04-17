@@ -31,9 +31,15 @@ class ApplicationsController < ApplicationController
       return redirect_to applications_path, alert: "You are not able to view this page at the moment"
     end 
     @q = Application.search(params[:q])
-    #check and write wid to session
+    if params[:q].nil? and not user_session[:wid].nil?
+      @applications = @q.result.where("workshop1 = ? AND deleted = 0 AND grade2_functionary_id = 0 AND grade1 > ?", user_session[:wid], ControlPanel.first.app_grade2_scope).order("rand()").limit(30)
+    else
+      unless params[:q].nil?
+        user_session[:wid] = params[:q][:workshop1_eq]
+      end
+      @applications = @q.result.where("deleted = 0 AND grade2_functionary_id = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).order("rand()").limit(30)
+    end
     @selected_applications = Application.where("deleted = 0 AND (grade2_functionary_id = ? AND grade2 = 0)", current_user.id)
-    @applications = @q.result.where("deleted = 0 AND grade2_functionary_id = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).order("rand()").limit(30)
     @grade = 2 
     @workshops = Workshop.all
     @app_graded = ((Application.where("deleted = 0 AND grade2 > 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).count.to_f / Application.where("deleted = 0 AND grade1 > ?", ControlPanel.first.app_grade2_scope).count.to_f) * 100).to_i

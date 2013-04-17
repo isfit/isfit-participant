@@ -36,11 +36,10 @@
   </table>
 
   <h3>Applications that are not selected</h3>
-
   <% if @grade.to_i == 2 %>
     <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: grade2_applications_path, method: :post do |f| %>
       <%= f.input :workshop1_eq, :collection => @workshops, :as => :select,
-        :label => "Workshop", :input_html => { :class => "span4" } %>
+        :selected => user_session[:wid], :label => "Workshop", :input_html => { :class => "span4" } %>
       <%= f.submit "Search" %>
     <% end %>
   <% end %>
