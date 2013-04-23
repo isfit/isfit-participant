@@ -4,7 +4,7 @@ class Functionary < ActiveRecord::Base
 
   def self.all_with_role_functionary
   	self.includes(:user => :roles).all
-      .select{ |f| f.user.has_role?(:functionary) }
+      .select{ |f| f.user.nil? ? nil : f.user.has_role?(:functionary) }
   		.collect{ |f| [f.first_name + " " + f.last_name, f.id] }
   end
 

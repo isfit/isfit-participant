@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <h4>Choose status:</h4>
     <%= f.select :status, @statuses, selected: @status %>
-    <% if current_user.has_role?("admin") %>
+    <% if can? :manage, Question %>
       <%= f.select :functionaries, Functionary.all_with_role_functionary, selected: @functionary, include_blank: true %>
     <% end %>
     <%= f.button :submit, "Show", :class => "btn btn-primary" %>
