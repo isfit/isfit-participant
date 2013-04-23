@@ -1,6 +1,5 @@
 class WorkshopsController < ApplicationController
   before_filter :authenticate_user!
-  set_tab :workshop
 
   load_and_authorize_resource
 

@@ -1,6 +1,5 @@
 class HostsController < ApplicationController
   before_filter :authenticate_user!
-  set_tab :host
 
   require 'will_paginate/array'
 

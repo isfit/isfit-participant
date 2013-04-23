@@ -1,7 +1,5 @@
 class InformationCategoriesController < ApplicationController
-
   before_filter :authenticate_user!
-  set_tab :information
 
   load_and_authorize_resource
 

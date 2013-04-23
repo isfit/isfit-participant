@@ -19,7 +19,6 @@ gem "princely"
 gem "ransack"
 gem "simple_form"
 gem 'sqlite3'
-gem "tabs_on_rails"
 gem "tabulous"
 gem 'therubyracer'
 gem "wkhtmltopdf"

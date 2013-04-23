@@ -1,6 +1,5 @@
 class ParticipantsController < ApplicationController
   before_filter :authenticate_user!
-  set_tab :profile
 
   require 'will_paginate/array'
 
