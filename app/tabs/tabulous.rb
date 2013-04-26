@@ -72,6 +72,7 @@ Tabulous.setup do |config|
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
       [    :control_panel_tab             ,    'CP'                        ,    control_panels_path            ,    ((can? :index, ControlPanel) and false)       ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
+      [    :roles_tab                     ,    'Roles'                     ,    roles_path                     ,    false       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#

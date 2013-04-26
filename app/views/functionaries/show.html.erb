@@ -1,21 +1,71 @@
+<script>
+  $(document).ready(function() {
+    $("#add-role").bind('ajax:success', function(evt, data, status, xhr) {
+      updateUserRoleList(data);
+    })
+
+    $("#user-role-list").on("click", "a", function() {
+      $.ajax({
+        type: "POST",
+        url: "/functionaries/<%= params[:id] %>/remove_role",
+        data: { role: $(this).attr("data-id") },
+        success: function(response, textStatus, jqXHR) {
+          updateUserRoleList(response);
+        }
+      });
+    });
+  });
+
+  var updateUserRoleList = function(data) {
+    $("#user-role-list").empty();
+    for(var i = 0; i < data.length; i++) {
+      $("#user-role-list").append('<li>' + data[i].role.name + 
+                                  ' <a href="#" data-id="' + data[i].role.id + 
+                                  '">Remove</a></li>');
+    }
+  };
+</script>
+
+<%= render 'menu' %>
+
+<div class="pull-right">
+  <% if (current_user.functionary == @functionary) || (can? :manage, Functionary) %>
+    <%= link_to 'Edit', edit_functionary_path(@functionary), :class => "btn btn-primary" %>
+  <% end %>
+</div>
+
 <h1><%= "#{@functionary.first_name} #{@functionary.last_name}"%></h1>
-<p>
-<b>Email:</b>
-  <%= @functionary.email %>
-</p>
+
+<p><strong>Email: </strong><%= @functionary.email %></p>
+
+<p>This functionary has the following roles:</p>
+<ul id="user-role-list">
+  <% @roles.each do |role| %>
+    <li><%= role.name %> <a href="#" data-id="<%= role.id %>">Remove</a></li>
+  <% end %>
+</ul>
+
+<% if (can? :manage, Functionary) %>
+  <p>Give this user a new role:</p>
+  <%= form_tag({:action => 'add_role'}, :remote => true, :id => "add-role") do %>
+    <%= collection_select(:role, :id, Role.all, :id, :name) %>
+    <%= submit_tag("Add", class: "btn btn-primary") %>
+  <% end %>
+<% end %>
+
 <%if current_user.has_role?(:admin) && !@participants.empty?%>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-  </tr>
-  <%@participants.each do |p|%>
+  <p>This user is functionary for the following participants.</p>  
+  <table class="table table-bordered table-striped">
     <tr>
-      <td><%=p.first_name%> <%=p.last_name%></td>
-      <td><%=p.email%></td>
+      <th>Name</th>
+      <th>Email</th>
     </tr>
-  <%end%>
-</table>
+    <%@participants.each do |p|%>
+      <tr>
+        <td><%=p.first_name%> <%=p.last_name%></td>
+        <td><%=p.email%></td>
+      </tr>
+    <%end%>
+  </table>
 <%end%>
 
-<%if (current_user.has_role?(:functionary) && current_user.functionary == @functionary) || current_user.has_role?(:admin)%><%= link_to 'Edit', edit_functionary_path(@functionary) %><%end%>

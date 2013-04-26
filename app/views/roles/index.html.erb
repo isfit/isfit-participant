@@ -21,7 +21,7 @@ $(document).ready(function (){
 }); 
 </script>
 <% content_for :sidebar_left do %>
-<% form_for :user, @search_role, :url => { :controller=> :roles, :action => :index },
+<% form_for :user, :url => { :controller=> :roles, :action => :index },
 :html => {:method => "get", :class => "search"} do |f| %>
   <ul class="vlist">
   <li><b>E-mail address: </b></li><li><%= f.text_field :email %></li>

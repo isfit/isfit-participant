@@ -74,6 +74,8 @@ IsfitParticipant::Application.routes.draw do
   resources :functionaries do
     member do
       get :impersonate
+      post :add_role
+      post :remove_role
     end
   end
 
