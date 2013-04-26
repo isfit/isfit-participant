@@ -1,38 +1,48 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+#Create roles
 admin = Role.create(:name => "admin")
-functionary = Role.create(:name => "functionary")
-participant = Role.create(:name => "participant")
-dialogue = Role.create(:name => "dialogue")
-ArrivalPlace.create(:name => "Trondheim")
+Role.create(:name => "theme")
+Role.create(:name => "functionary")
+Role.create(:name => "sec")
+Role.create(:name => "dialogue")
+Role.create(:name => "participant")
+
+#Create arrival places
 ArrivalPlace.create(:name => "Oslo")
+ArrivalPlace.create(:name => "Trondheim")
 
-TransportType.create(:name => "Plane")
-TransportType.create(:name => "Train")
-TransportType.create(:name => "Bus")
+#Create transport types
+TransportType.create(:id => 5, :name => "Plane")
+TransportType.create(:id => 6,:name => "Train")
+TransportType.create(:id => 7,:name => "Bus")
+TransportType.create(:id => 8,:name => "Car")
 
+#Create control panel entry
+ControlPanel.create(:app_grade1 => 0, :app_grade2 => 0, :app_grade3 => 0, :app_grade2_scope => 0)
 
-User.create!(:email => "root@isfit.org", :password => "123456")
+#Create first user
+User.create!(:email => "root@isfit.org", :password => "sdfiky7f23ohfasldjfbd923hd29bhsidywqdhwejdbuiwhdo8ncskdncjkshfi2o3")
 User.last.roles << admin
-f = Functionary.create!(:first_name => "Inge-Dag", :last_name => "Functionaryville")
+f = Functionary.create!(:first_name => "Placeholder", :last_name => "Placeholdersen")
 f.user = User.last
 f.save
 
-Deadline.create(:name=>"Visit profile page", :deadline=>"2010-11-15 23:59")
-Deadline.create(:name=>"Get visa", :deadline=>"2010-12-15 23:59")
-Deadline.create(:name=>"Past deadline....", :deadline=>Time.now)
+#Deadlines
+Deadline.create(:name => "1. Accept invitation", :deadline => "2014-11-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "2. Apply for visa", :deadline => "2014-11-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "3. Embassy confirmation", :deadline => "2014-11-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "4. Valid passport", :deadline => "2014-11-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "5. Update profile", :deadline => "2014-11-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "6. Granted vias", :deadline => "2014-12-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "7. Need transport", :deadline => "2015-01-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "8. Flight tickets", :deadline => "2015-01-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "9. Confirm participation", :deadline => "2015-01-15 23:59", :participant_type: => 1)
+Deadline.create(:name => "1. Accept waiting-list", :deadline => "2014-11-15 23:59", :participant_type: => 2)
 
-QuestionStatus.create(:name=>"New")
-QuestionStatus.create(:name=>"Open")
-QuestionStatus.create(:name=>"Resolved")
-#Functionary.all.each do |f|
-#  f.participants.each do |p|
-#    p.functionaries << f
-#    p.save
-#  end
-#end
+#Countries???
+
+#Remember to change password
+puts "#############################################################################################"
+puts "#############################################################################################"
+puts "### CHANGE PLACEHOLDER PASSWORD #############################################################"
+puts "#############################################################################################"
+puts "#############################################################################################"
