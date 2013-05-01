@@ -1,7 +1,7 @@
 <%= render 'menu' %>
 <%= render "information" %>
 
-<table class="table table-striped">
+<table class="table table-bordered table-striped">
   <thead>
     <th><b>Title</b></th>
     <th><b>Author</b></th>
@@ -16,9 +16,9 @@
       <td><%= article.title %></td>
       <td><%= article.user.name %></td>
       <td><%= article.sticky == 1 ? "yes" : "no" %>
-      <td><%= link_to image_tag('icons/page_white_go.png') + ' Show', article %></td>
-      <td><%= link_to image_tag('icons/page_white_edit.png') + ' Edit', edit_article_path(article) %></td>
-      <td><%= link_to image_tag('icons/page_white_delete.png') + 'Delete', article, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'Show', article, :class => "btn btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_article_path(article), :class => "btn" %></td>
+      <td><%= link_to 'Delete', article, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger" %></td>
     </tr>
   <% end %>
 </table>

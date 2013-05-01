@@ -1,6 +1,7 @@
 <% content_for :sidebar_left do %>
-	<div class="well">
-  	<h4><%= image_tag('icons/wrench.png') %> Tools</h4>
-  	<%= link_to image_tag('icons/page_white_add.png') +' New Article', new_article_path %>
-	</div>
+  <ul class="nav nav-list well">
+    <li class="nav-header">Articles</li>
+    <li><%= link_to image_tag('icons/page_white_stack.png') +' All Articles', articles_path %></li>
+    <li><%= link_to image_tag('icons/page_white_add.png') +' New Article', new_article_path %></li>
+  </ul>
 <% end %>
