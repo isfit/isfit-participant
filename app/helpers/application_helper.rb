@@ -15,16 +15,6 @@ module ApplicationHelper
     options[:src] = File.expand_path(RAILS_ROOT) + '/public/images/' + image
     tag(:img, options)
   end
-require 'iconv'
-
-  def replace_UTF8(field)
-    ic_ignore = Iconv.new('ISO-8859-15//IGNORE//TRANSLIT', 'UTF-8')
-    field = ic_ignore.iconv(field)
-    ic_ignore.close
-        
-    field
-  end
-
 end
 
 module ActiveRecord
