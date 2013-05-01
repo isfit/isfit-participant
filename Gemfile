@@ -32,10 +32,6 @@ group :assets do
   gem 'uglifier'
 end
 
-group :test, :development do
-  gem 'rspec-rails'
-end
-
 # gem 'rmagick'
 
 # Use unicorn as the web server
