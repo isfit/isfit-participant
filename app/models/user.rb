@@ -22,12 +22,14 @@ class User < ActiveRecord::Base
 
   #methods
   def name
-    user = self.functionary
-    if user == nil
+    if self.is_functionary?
+      user = self.functionary
+    else
       user = self.participant
     end
     user.first_name + " " + user.last_name
   end
+
   def is_functionary?
     if self.functionary
       true
@@ -35,6 +37,7 @@ class User < ActiveRecord::Base
       false
     end
   end
+  
   def is_participant?
     if self.participant
       true
@@ -46,5 +49,4 @@ class User < ActiveRecord::Base
   def has_role?(role)
     roles.any? { |r| r[:name] == role.to_s }
   end
-
 end
