@@ -1,5 +1,6 @@
 class Functionary < ActiveRecord::Base
   belongs_to :user
+  accepts_nested_attributes_for :user
   has_and_belongs_to_many :participants
 
   def self.all_with_role_functionary
@@ -9,6 +10,18 @@ class Functionary < ActiveRecord::Base
   end
 
   def full_name
-    "#{first_name} #{last_name}"
+    "#{user.first_name} #{user.last_name}"
+  end
+
+  def first_name
+    user.first_name
+  end
+
+  def last_name
+    user.last_name
+  end
+
+  def email
+    user.email
   end
 end
