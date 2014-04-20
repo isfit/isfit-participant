@@ -8,8 +8,8 @@ one:
   id: 1
   email: "krisvage@isfit.org"
   first_password: "Hei"
-  first_name: "Kristan"
-  last_name: "Våge"
+  first_name: "Kristian"
+  last_name: "Vage"
 
 two:
   id: 2
