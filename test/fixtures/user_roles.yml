@@ -1,3 +1,23 @@
 one:
-  user_id: users(:one).id
-  role_id: role(:admin).id
+  user: stan
+  role: functionary
+
+two:
+  user: stan
+  role: admin
+
+three:
+  user: kyle
+  role: functionary
+
+four:
+  user: kyle
+  role: theme
+
+five:
+  user: eric
+  role: participant
+
+six:
+  user: kenny
+  role: participant

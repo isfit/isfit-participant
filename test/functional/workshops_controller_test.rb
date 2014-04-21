@@ -2,8 +2,8 @@ require 'test_helper'
 
 class WorkshopsControllerTest < ActionController::TestCase
   setup do
-    @workshop = workshops(:one)
-    sign_in users(:one)
+    @workshop = workshops(:politics)
+    sign_in users(:kenny)
   end
 
   test "should get index" do

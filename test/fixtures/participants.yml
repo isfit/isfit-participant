@@ -1,29 +1,27 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  date_of_birth: 2010-09-23
-  address1: MyString
-  zipcode: 1
-  city: MyString
+eric:
+  first_name: Eric
+  last_name: Cartman
+  email: eric@example.com
+  date_of_birth: 1997-08-13
+  address1: "E. Bonaza Cir."
+  zipcode: 80440
+  city: South Park
   country_id: 1
   sex: 1
-  field_of_study: MyString
-  workshop: 1
-  user_id: 3
+  field_of_study: Sadism
+  workshop: politics
+  user: eric
+  host: randy
 
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  date_of_birth: 2010-09-23
-  address1: MyString
-  zipcode: 1
-  city: MyString
+kenny:
+  first_name: Kenny
+  last_name: McCormick
+  email: kenny@example.com
+  date_of_birth: 1997-08-13
+  address1: "E. Bonaza Cir."
+  zipcode: 80440
+  city: South Park
   country_id: 1
   sex: 1
-  field_of_study: MyString
-  workshop: 1
-  user_id: 3
+  field_of_study: Laziness
+  user: kenny
