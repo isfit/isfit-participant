@@ -2,13 +2,10 @@ require 'test_helper'
 
 class FunctionaryTest < ActiveSupport::TestCase
   def setup
-    @f = Functionary.new
-    @f.first_name = "Placeholder"
-    @f.last_name = "Placeholdersen"
+    @f = functionaries(:one)
   end
 
-
   test "has full name" do
-    assert_equal "Placeholder Placeholdersen", @f.full_name
+    assert_equal 'Kristian Vage', @f.full_name
   end
 end

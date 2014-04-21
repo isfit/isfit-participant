@@ -32,6 +32,10 @@ group :assets do
   gem 'uglifier'
 end
 
+group :development do
+  gem 'pry'
+end
+
 # gem 'rmagick'
 
 # Use unicorn as the web server

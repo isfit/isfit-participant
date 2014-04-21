@@ -12,7 +12,7 @@ one:
   sex: 1
   field_of_study: MyString
   workshop: 1
-  user_id: 1
+  user_id: 3
 
 two:
   first_name: MyString
@@ -26,4 +26,4 @@ two:
   sex: 1
   field_of_study: MyString
   workshop: 1
-  user_id: 1
+  user_id: 3
