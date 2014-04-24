@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  get "workshops_public/index"
+
   resources :answers
   resources :applications do
     collection do
@@ -37,6 +39,7 @@ IsfitParticipant::Application.routes.draw do
   post "search/index"
   devise_for :users
 
+  
   resources :events
   
   resources :hosts do

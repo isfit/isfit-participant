@@ -73,6 +73,7 @@ Tabulous.setup do |config|
       [    :control_panel_tab             ,    'CP'                        ,    control_panels_path            ,    ((can? :index, ControlPanel) and false)       ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
       [    :roles_tab                     ,    'Roles'                     ,    roles_path                     ,    false       ,    true        ],
+      [    :workshops_public_tab          ,    'Look at workshops'         ,    workshops_public_index_path           ,    true        ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
