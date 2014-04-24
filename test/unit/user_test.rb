@@ -9,10 +9,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'user results correct name' do
-    assert_equal 'Stan Marsh',      @stan.name,  "Stan March is named #{@stan.name}"
-    assert_equal 'Kyle Broflovski', @kyle.name,  "Kyle Broflovski is named #{@kyle.name}"
-    assert_equal 'Eric Cartman',    @eric.name,  "Eric Cartman is named #{@eric.name}"
-    assert_equal 'Kenny McCormick', @kenny.name, "Kenny McCormick is named #{@kenny.name}"
+    assert_equal 'Stan Marsh',      @stan.full_name,  "Stan March is named #{@stan.full_name}"
+    assert_equal 'Kyle Broflovski', @kyle.full_name,  "Kyle Broflovski is named #{@kyle.full_name}"
+    assert_equal 'Eric Cartman',    @eric.full_name,  "Eric Cartman is named #{@eric.full_name}"
+    assert_equal 'Kenny McCormick', @kenny.full_name, "Kenny McCormick is named #{@kenny.full_name}"
   end
 
   test 'is functionary true if functionary' do

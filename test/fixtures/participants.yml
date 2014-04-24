@@ -1,7 +1,4 @@
 eric:
-  first_name: Eric
-  last_name: Cartman
-  email: eric@example.com
   date_of_birth: 1997-08-13
   address1: "E. Bonaza Cir."
   zipcode: 80440
@@ -14,9 +11,6 @@ eric:
   host: randy
 
 kenny:
-  first_name: Kenny
-  last_name: McCormick
-  email: kenny@example.com
   date_of_birth: 1997-08-13
   address1: "E. Bonaza Cir."
   zipcode: 80440

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408101106) do
+ActiveRecord::Schema.define(:version => 20140424103143) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -162,9 +162,6 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
   end
 
   create_table "participants", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
     t.date     "date_of_birth"
     t.string   "address1"
     t.string   "zipcode"

@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   has_one :functionary
 
   #methods
-  def name
-    self.first_name + " " + self.last_name
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def is_functionary?
