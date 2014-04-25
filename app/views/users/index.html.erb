@@ -1,0 +1,21 @@
+<h1>Users</h1>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Name</th>
+    <th>E-mail</th>
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.full_name %></td>
+    <td><%= user.email %></td>
+    <td>
+      <%= link_to 'Show', user %>
+      <%= link_to 'Edit', edit_user_path(user) %>
+      <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %>
+    </td>
+  </tr>
+  <% end %>
+</table>

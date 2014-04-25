@@ -1,0 +1,49 @@
+<div class="pull-right">
+  <%= link_to 'New Profile', new_profile_path, :class => "btn btn-primary"%>
+</div>
+<h1>profiles</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+              <th>Address</th>
+              <th>Postal code</th>
+              <th>City</th>
+              <th>Nationality</th>
+              <th>Citizenship</th>
+              <th>Country</th>
+              <th>Calling code</th>
+              <th>Phone</th>
+              <th>Date of birth</th>
+              <th>Gender</th>
+              <th>Gender specify</th>
+              <th>School</th>
+              <th>Field of study</th>
+            <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @profiles.each do |profile| %>
+    <tr>
+              <td><%= profile.address %></td>
+              <td><%= profile.postal_code %></td>
+              <td><%= profile.city %></td>
+              <td><%= profile.nationality %></td>
+              <td><%= profile.citizenship %></td>
+              <td><%= profile.country %></td>
+              <td><%= profile.calling_code %></td>
+              <td><%= profile.phone %></td>
+              <td><%= profile.date_of_birth %></td>
+              <td><%= profile.gender %></td>
+              <td><%= profile.gender_specify %></td>
+              <td><%= profile.school %></td>
+              <td><%= profile.field_of_study %></td>
+            <td><%= link_to 'Show', profile, :class => "btn-primary btn" %></td>
+      <td><%= link_to 'Edit', edit_profile_path(profile), :class => "btn" %></td>
+      <td><%= link_to 'Destroy', profile, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %></td>
+    </tr>
+    <% end %>
+  </table>
+

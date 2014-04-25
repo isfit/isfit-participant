@@ -43,7 +43,7 @@
          <div class="span12">
            <div class="pull-right">
              <% if user_signed_in? %>
-               Hi <%=current_user.name%> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %> <% else %>
+               Hi <%= current_user.full_name %> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %> <% else %>
                <%= link_to "Login", new_user_session_url %>
              <% end %>
            </div>
@@ -65,7 +65,7 @@
           <ul class="nav pull-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <%=current_user.name%>
+                <%= current_user.full_name %>
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">

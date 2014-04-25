@@ -1,4 +1,9 @@
 IsfitParticipant::Application.routes.draw do
+  resources :profiles
+
+  devise_for :users
+  resources :users
+
   resources :answers
   resources :applications do
     collection do
@@ -35,7 +40,6 @@ IsfitParticipant::Application.routes.draw do
   end
   resources :articles
   post "search/index"
-  devise_for :users
 
   resources :events
   
