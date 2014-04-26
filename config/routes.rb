@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  get 'dashboard', to: 'dashboard#index'
+
   get 'landing/index'
 
   resources :profiles
