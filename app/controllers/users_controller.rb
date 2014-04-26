@@ -29,6 +29,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def register
+
+  end
+
   def update
     @user = User.find(params[:id])
 
