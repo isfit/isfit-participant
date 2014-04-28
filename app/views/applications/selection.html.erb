@@ -17,18 +17,18 @@
   <%= f.error_notification %>
   <div class="form_inputs">
     <%= f.input :status, :collection => @status, :as => :select, 
-      :label => "Status", :input_html => { :class => "span4" } %>
-    <%= f.input :selection_comment, :input_html => { :class => "span4", :rows => 5 } %>
+      :label => "Status", :input_html => { :class => "col-md-4" } %>
+    <%= f.input :selection_comment, :input_html => { :class => "col-md-4", :rows => 5 } %>
  
     Final workshop, travel status and travel support will only be saved for particpants that are accepted.<br>
     <%= f.input :final_workshop, :collection => @workshops, :as => :select, 
-      :input_html => { :class => "span4" } %>
+      :input_html => { :class => "col-md-4" } %>
     <%= f.input :travel_status, :collection => @travel_status, :as => :select,
-      :label => "Travel status", :input_html => { :class => "span4" } %>
+      :label => "Travel status", :input_html => { :class => "col-md-4" } %>
     <%= f.input :travel_approved, :as => :boolean, :label => "Travel support granted" %>
-    <%= f.input :travel_amount_given , :input_html => { :class => "span4" } %>
-    <%= f.input :travel_comment, :input_html => { :class => "span4", :rows => 5 } %>
-    <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+    <%= f.input :travel_amount_given , :input_html => { :class => "col-md-4" } %>
+    <%= f.input :travel_comment, :input_html => { :class => "col-md-4", :rows => 5 } %>
+    <%= f.button :submit, "Set grade", :class => "btn btn-primary" %>
   </div>
 <% end %>
 

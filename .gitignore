@@ -7,4 +7,5 @@ log/*.log
 tmp/**/*
 public/.htaccess
 *.swp
+.sass-cache/*
 public/system

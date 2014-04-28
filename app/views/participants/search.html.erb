@@ -3,28 +3,28 @@
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: search_participants_path, :html => { :class => "form-horizontal" } do |f| %>
   <fieldset>
     <legend>Search participants</legend>
-    <div class="control-group string optional">
+    <div class="form-group string optional">
       <%= label_tag 'sort_by', "Sort By", :class => "string optional control-label" %>
       <div class="controls">
         <%= select_tag :sort_by, options_from_collection_for_select(@sortable_fields, "to_sym", "humanize", @sort_by), include_blank: true %>
       </div>
     </div>
-    <div class="control-group string optional">
+    <div class="form-group string optional">
       <%= label_tag 'functionary', "Functionary", :class => "string optional control-label" %>
       <div class="controls">
         <%= select_tag :functionary, options_for_select(Functionary.all_with_role_functionary, @functionary), include_blank: true %>
       </div>
     </div>
-    <div class="control-group string optional">
+    <div class="form-group string optional">
       <%= label_tag 'deadline', "Deadline not approved", :class => "string optional control-label" %>
       <div class="controls">
         <%= select_tag :deadline, options_for_select({ "Deadline 6" => 6, "Deadline 8" => 8 }, @deadline), include_blank: true %>
       </div>
     </div>
-    <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :email_cont, label: "Email", :input_html => { :class => "span4" }, required: false %>
-    <div class="control-group string optional">
+    <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "col-md-4" }, required: false %>
+    <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "col-md-4" }, required: false %>
+    <%= f.input :email_cont, label: "Email", :input_html => { :class => "col-md-4" }, required: false %>
+    <div class="form-group string optional">
       <%= label_tag 'arrives_at', "Arrives at", :class => "string optional control-label" %>
       <div class="controls">
         <%= text_field :arrives_at, :arrives_at, :value => @arrives_at %>
@@ -52,9 +52,7 @@
     <%= f.input :active_eq, label: "Active", as: :select, required: false %>
   </fieldset>
 
-  <div class="form-actions">
-    <%= f.submit 'search', :class => "btn btn-primary" %>
-  </div>
+  <%= f.submit 'search', :class => "btn btn-primary" %>
 <% end %>
 
 <div id="index_table">

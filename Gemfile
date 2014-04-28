@@ -23,7 +23,7 @@ gem "tabulous"
 gem 'therubyracer'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 
 group :assets do
