@@ -22,9 +22,7 @@
     <!--%= f.input :student_eq, label: "Student?", as: :select, collection: [["True", true], ["False", false]], required: false %-->
     <!--%= f.input :student_null, label: "Student not registered", as: :boolean, required: false %-->
 
-    <div class="form-actions">
-      <%= f.submit 'search', :class => "btn btn-primary" %>
-    </div>
+    <%= f.submit 'search', :class => "btn btn-primary" %>
   </fieldset>
 <% end %>
 

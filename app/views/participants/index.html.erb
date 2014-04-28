@@ -10,9 +10,7 @@
     <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "col-md-4" } %>
     <%= f.input :workshop_id_eq, :label => "Workshop", as: :select, collection: Workshop.all.collect { |w| ["#{w.id} - #{w.name}", w.id] }, required: false, :input_html => { :class => "col-md-4" } %>
 
-    <div class="form-actions">
-      <%= f.submit 'search', :class => "btn btn-primary" %>
-    </div>
+    <%= f.submit 'search', :class => "btn btn-primary" %>
   </fieldset>
 <% end %>
 
