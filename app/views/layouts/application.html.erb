@@ -40,7 +40,7 @@
     <!--
      <div class="container">
        <div class="row">
-         <div class="span12">
+         <div class="col-md-12">
            <div class="pull-right">
              <% if user_signed_in? %>
                Hi <%= current_user.full_name %> <%=link_to "Change password", change_password_path%> | <%= link_to "Logout", destroy_user_session_url %> <% else %>
@@ -86,16 +86,16 @@
          </div>
        <% end %>
        <div role="main" class="row">
-         <div class="span3">
+         <div class="col-md-3">
           <%= yield :sidebar_left %>
           <%= yield :sidebar_right %>
          </div>
-         <div id="content" class="span9">
+         <div id="content" class="col-md-9">
            <%= yield %>
          </div>
        </div>
        <div class="row">
-         <footer class="main-footer span12 pagination-centered">
+         <footer class="main-footer col-md-12 pagination-centered">
          <%= link_to image_tag("logo2013.png", :class => "footer-logo"), "http://www.isfit.org/" %>
          <p>All written material and the ISFiT logo is copyrighted the ISFiT Foundation &copy;  2013.</p>
          </footer>

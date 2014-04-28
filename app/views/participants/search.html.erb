@@ -21,9 +21,9 @@
         <%= select_tag :deadline, options_for_select({ "Deadline 6" => 6, "Deadline 8" => 8 }, @deadline), include_blank: true %>
       </div>
     </div>
-    <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :email_cont, label: "Email", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :first_name_cont, label: "First name", :input_html => { :class => "col-md-4" }, required: false %>
+    <%= f.input :last_name_cont, label: "Last name", :input_html => { :class => "col-md-4" }, required: false %>
+    <%= f.input :email_cont, label: "Email", :input_html => { :class => "col-md-4" }, required: false %>
     <div class="control-group string optional">
       <%= label_tag 'arrives_at', "Arrives at", :class => "string optional control-label" %>
       <div class="controls">

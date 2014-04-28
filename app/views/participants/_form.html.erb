@@ -11,7 +11,7 @@
       :collection => [["female", 0], ["male", 1]] %>  
     <%= f.input :date_of_birth, :as => :date, :start_year => Date.today.year - 100,
       :end_year => Date.today.year - 17, :order =>  [:year, :month, :day], 
-      :input_html => { :class => "span2" } %>
+      :input_html => { :class => "col-md-2" } %>
     <%= f.input :field_of_study %>
     <%= f.input :email %>
     <%= f.input :address1, :label => "Address" %>

@@ -11,8 +11,8 @@
 <%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: hosts_path, method: :post, :html => { :class => "form-horizontal" } do |f| %>
   <fieldset>
     <legend>Search hosts</legend>
-    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "span4" }, required: false %>
-    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "span4" }, required: false %>
+    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "col-md-4" }, required: false %>
+    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "col-md-4" }, required: false %>
     <div class="control-group string optional">
       <%= label_tag 'has_free_beds', "Has free beds", :class => "string optional control-label" %>
       <div class="controls">
