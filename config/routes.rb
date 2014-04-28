@@ -3,10 +3,9 @@ IsfitParticipant::Application.routes.draw do
 
   get 'landing/index'
 
-  resources :profiles
-
   devise_for :users, :controllers => {:registrations => 'registrations'}
   resources :users do
+    resource :profile, only: [:new, :create]
     member do
       post :add_role
       post :remove_role

@@ -1,0 +1,7 @@
+<h1>Hello ISFiT-applicant</h1>
+
+<% if current_user.profile %>
+  <p>Du har en profil</p>
+<% else %>
+  <%= link_to 'Create a profile to get started!', new_user_profile_path(current_user) %>
+<% end %>
