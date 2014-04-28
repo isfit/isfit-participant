@@ -31,7 +31,7 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bluecloth (2.2.0)
-    bootstrap-sass (2.3.1.0)
+    bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
@@ -144,7 +144,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.4)
-    sass (3.2.8)
+    sass (3.3.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -184,7 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth
-  bootstrap-sass
+  bootstrap-sass (~> 3.1.1)
   bootstrap-will_paginate (= 0.0.9)
   cancan
   capistrano
