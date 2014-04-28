@@ -20,7 +20,7 @@
 <% @answers.each do |answer|%>
 	<div class="well well-small">
 		<% if current_user.is_functionary? && current_user.id == answer.user_id %>
-			<div class="pull-right"><%= link_to 'Edit', edit_answer_path(answer), :class => "btn btn-small btn-primary" %></div>
+			<div class="pull-right"><%= link_to 'Edit', edit_answer_path(answer), :class => "btn btn-sm btn-primary" %></div>
 		<% end %>
 		<p><%=raw format(answer.content)%></p>
 		<p><em>Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>

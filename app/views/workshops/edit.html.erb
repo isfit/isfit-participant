@@ -1,8 +1,8 @@
 <%= render 'menu' %>
 
 <div class="pull-right">
-  <%= link_to 'Show', @workshop, confirm: 'This will cancel all changes. Are you sure?', method: :get, :class => "btn" %>
-  <%= link_to 'Back', workshops_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn" %>
+  <%= link_to 'Show', @workshop, confirm: 'This will cancel all changes. Are you sure?', method: :get, :class => "btn btn-default" %>
+  <%= link_to 'Back', workshops_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn btn-default" %>
 </div>
 
 <div class="well">
@@ -15,7 +15,7 @@
       <%= f.input :body, :input_html => { :class => "col-md-6", :rows => 10 } %><br>
     </div>
     <div class="form-actions">
-      <%= f.button :submit, :class => "btn-primary" %>
+      <%= f.button :submit, :class => "btn btn-primary" %>
     </div>
   <% end %>
 </div>

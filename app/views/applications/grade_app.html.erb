@@ -10,7 +10,7 @@
     <div class="form_inputs">
       <%= f.input :grade1, :input_html => { :class => "col-md-4" } %>
       <%= f.input :grade1_comment, :input_html => { :class => "col-md-4", :rows => 5 } %>
-      <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+      <%= f.button :submit, "Set grade", :class => "btn btn-primary" %>
     </div>
   <% end %>
 <% elsif @application.grade2_functionary_id == current_user.id && @application.grade2 == 0 %>
@@ -21,7 +21,7 @@
     <div class="form_inputs">
       <%= f.input :grade2, :input_html => { :class => "col-md-4" } %>
       <%= f.input :grade2_comment, :input_html => { :class => "col-md-4", :rows => 5 } %>
-      <%= f.button :submit, "Set grade", :class => "btn-primary" %>
+      <%= f.button :submit, "Set grade", :class => "btn btn-primary" %>
     </div>
   <% end %>
 <% else %>
