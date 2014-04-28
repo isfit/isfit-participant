@@ -50,4 +50,26 @@ class UsersController < ApplicationController
 
     redirect_to users_path
   end
+
+  def add_role
+    @user = User.find(params[:id])
+    @role = Role.find(params[:role][:id])
+
+    unless @user.has_role?(@role.name)
+      @user.roles << @role
+    end
+
+    render json: @user.roles.to_json
+  end
+
+  def remove_role
+    @user = User.find(params[:id])
+    @role = Role.find(params[:role])
+
+    if @user.has_role?(@role.name)
+      UserRole.find_by_user_id_and_role_id(@user.id, @role.id).destroy
+    end
+
+    render json: User.find(params[:id]).roles.to_json
+  end
 end

@@ -6,7 +6,12 @@ IsfitParticipant::Application.routes.draw do
   resources :profiles
 
   devise_for :users, :controllers => {:registrations => 'registrations'}
-  resources :users
+  resources :users do
+    member do
+      post :add_role
+      post :remove_role
+    end
+  end
 
   resources :answers
   resources :applications do

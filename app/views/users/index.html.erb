@@ -1,9 +1,12 @@
+<%= render 'menu' %>
+
 <h1>Users</h1>
 
 <table class="table table-bordered table-striped">
   <tr>
     <th>Name</th>
     <th>E-mail</th>
+    <th>Roles</th>
     <th></th>
   </tr>
 
@@ -11,6 +14,7 @@
   <tr>
     <td><%= user.full_name %></td>
     <td><%= user.email %></td>
+    <td><%= roles_to_sentence(user) %></td>
     <td>
       <%= link_to 'Show', user %>
       <%= link_to 'Edit', edit_user_path(user) %>
