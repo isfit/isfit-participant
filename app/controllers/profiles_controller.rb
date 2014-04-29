@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_filter :check_if_can_manage_user, :check_for_existing_profile
+
   def new
     @profile = Profile.new
   end
@@ -11,4 +13,9 @@ class ProfilesController < ApplicationController
       redirect_to dashboard_url, notice: 'Your profile was successfully created. We can\'t wait for your application!'
     end
   end
+
+  private
+    def check_for_existing_profile
+      redirect_to dashboard_url, alert: 'You already have a profile!' if User.find(params[:user_id]).profile
+    end
 end
