@@ -1,7 +1,13 @@
-<h1>Hello ISFiT-applicant</h1>
+<h1>Welcome, <%= current_user.full_name %>!</h1>
 
 <% if current_user.profile %>
-  <p>Du har en profil</p>
+  <p>
+    <%= link_to '<strong>Profile</strong><br>You have a valid profile'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
+  </p>
 <% else %>
-  <%= link_to 'Create a profile to get started!', new_user_profile_path(current_user) %>
+  <p>
+    <%= link_to '<strong>Profile</strong><br>Create a profile before you apply'.html_safe, new_user_profile_path(current_user), class: 'btn btn-danger btn-dashboard' %>
+  </p>
+
+  <p>Before you can send in an application for one of the workshops or the dialoge group you need to create a profile.</p>
 <% end %>
