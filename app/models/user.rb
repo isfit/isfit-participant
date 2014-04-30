@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   has_one :profile
 
   validates_uniqueness_of :email
-  
-  validates_presence_of :email, :first_name, :last_name
+  validates_presence_of :first_name, :last_name
+
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   
   # Include default devise modules. Others available are:
