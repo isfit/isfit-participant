@@ -3,14 +3,18 @@ class ProfilesController < ApplicationController
 
   def new
     @profile = Profile.new
+    @user = User.find(params[:user_id])
   end
 
   def create
     @profile = Profile.new(params[:profile])
     @profile.user_id = params[:user_id]
+    @user = User.find(params[:user_id])
 
     if @profile.save
       redirect_to dashboard_url, notice: 'Your profile was successfully created. We can\'t wait for your application!'
+    else
+      render action: 'new'
     end
   end
 
