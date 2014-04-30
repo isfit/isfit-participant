@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :user_roles
   has_one :profile
 
+  validate :emails_match
   validates_uniqueness_of :email
   validates_presence_of :first_name, :last_name
 
@@ -15,7 +16,10 @@ class User < ActiveRecord::Base
          :recoverable, :registerable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_password, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation,
+                  :remember_me, :first_password, :first_name, :last_name,
+                  :email_confirmation
+  attr_accessor :email_confirmation
   
   #relations
   has_one :participant
@@ -24,6 +28,12 @@ class User < ActiveRecord::Base
   #methods
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def emails_match
+    if (!self.email.eql? self.email_confirmation)
+      errors.add(:email_confirmation, "must match email")
+    end
   end
 
   def is_functionary?
