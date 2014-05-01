@@ -1,6 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  layout 'landing'
-
   def create
     @user = User.new(params[:user])
     applicant_role = Role.where(name: 'applicant')
