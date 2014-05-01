@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140430134400) do
+ActiveRecord::Schema.define(:version => 20140501190311) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -230,16 +230,17 @@ ActiveRecord::Schema.define(:version => 20140430134400) do
     t.integer  "calling_code"
     t.integer  "phone"
     t.date     "date_of_birth"
-    t.integer  "gender",         :limit => 1
+    t.integer  "gender",           :limit => 1
     t.string   "gender_specify"
     t.string   "school"
     t.string   "field_of_study"
     t.integer  "user_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "country_id"
     t.integer  "citizenship_id"
     t.string   "nationality"
+    t.text     "motivation_essay",              :null => false
   end
 
   create_table "questions", :force => true do |t|
