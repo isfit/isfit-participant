@@ -6,9 +6,13 @@
 
 <p>The first step in the application process is to create a profile, so we get to know you better. This step must be completed before you can send in an application.</p>
 
-<% if current_user.profile %>
+<% if current_user.profile && current_user.profile.motivation_essay != '' %>
   <p>
     <%= link_to '<strong>Profile</strong><br>You have created a profile'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
+  </p>
+<% elsif current_user.profile %>
+  <p>
+    <%= link_to '<strong>Profile</strong><br>You have created a profile but we miss your motivation essay'.html_safe, current_user, class: 'btn btn-warning btn-dashboard' %>
   </p>
 <% else %>
   <p>
