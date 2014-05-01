@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
     elsif current_user.has_role?(:sec)
       redirect_to participants_path
     elsif current_user.has_role?(:applicant)
-      render template: 'dashboard/index_applicant'
+      render template: 'dashboard/index_applicant', layout: 'landing'
     end
   end
 end
