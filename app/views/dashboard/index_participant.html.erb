@@ -1,0 +1,42 @@
+<!-- Participant view -->
+<div class="well">
+  <div id="important_articles" class="important_articles">
+    <%= render @important_articles %>
+  </div>
+  <div id="articles" class="articles">
+    <%= render @articles %>
+  </div>
+</div>
+
+<% content_for :sidebar_left do %>
+    <% if current_user.participant.invited %>
+        <% @deadlines = Deadline.where("participant_type < 2") %>
+    <% else %>
+        <% @deadlines = Deadline.where("participant_type = 0 OR participant_type = 2") %>
+    <% end %>
+    <% if @deadlines %>
+        <%= link_to "Go to next deadline", deadlines_participant_path(current_user.participant), class: "btn btn-primary btn-lg btn-block" %>
+        <ul class="nav nav-list well">
+          <li class="nav-header">Deadlines</li>
+          <% @deadlines.each do |d| %>
+              <%if d.users.include?(current_user)%>
+                  <% if [5,6,8].include? d.id %>
+                      <% if DeadlinesUser.where("deadline_id = ? and user_id = ?", d.id, current_user.id).first.approved %>
+                          <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+                      <% else %>
+                          <li><%= image_tag('icons/error.png') %> <%=d.name%></li>
+                      <% end %>
+                  <% else %>
+                      <li><%= image_tag('icons/accept.png') %> <del><%=d.name%></del></li>
+                  <% end %>
+              <%else%>
+                  <%if d.deadline < Time.now%>
+                      <li><%= image_tag('icons/clock_red.png')%> <%=d.name%> - <%=d.deadline.to_formatted_s(:long)%></li>
+                  <%else%>
+                      <li><%= image_tag('icons/clock.png')%> <%=d.name%> - in <%=time_ago_in_words(d.deadline)%>(<%= d.deadline%>)</li>
+                  <%end%>
+              <%end%>
+          <%end%>
+        </ul>
+    <%end%>
+<% end %>

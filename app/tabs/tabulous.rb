@@ -61,11 +61,9 @@ Tabulous.setup do |config|
       [    :answers_tab                   ,    'Answers'                   ,    answers_path                   ,    false       ,    false       ],
       [    :events_tab                    ,    'Events'                    ,    events_path                    ,    false       ,    false       ],
       [    :application_tab               ,    'Applications'              ,    applications_path              ,    ((can? :index, Application) and Participant.count == 0)  ,    true        ],
-      [    :participant_user_tab          ,    'Profile'                   ,    (current_user.nil? or current_user.is_functionary?) ? root_path : participant_path(current_user.participant) ,    current_user.nil? ? false : current_user.is_participant?       ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    ((can? :index, Participant) and Participant.count > 0)       ,    true        ],
       [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_page_path(4)       ,    (can? :show, InformationPage)       ,    true        ],
-      [    :workshops_user_tab            ,    'Workshop'                  ,    (current_user.nil? or current_user.is_functionary? or current_user.participant.workshop.nil?) ? root_path : workshop_path(current_user.participant.workshop)                 ,    ((can? :show, Workshop) and not current_user.is_functionary? and not current_user.participant.workshop.nil?)      ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    (can? :index, Host)       ,    true        ],
@@ -149,7 +147,7 @@ Tabulous.setup do |config|
   # This gives you control over what class the <ul> element that wraps the tabs
   # will have.  Good for interfacing with third-party code like Twitter
   # Bootstrap.
-  config.tabs_ul_class = "nav nav-pills"
+  config.tabs_ul_class = "nav navbar-nav"
 
   # This gives you control over what class the <ul> element that wraps the subtabs
   # will have.  Good for interfacing with third-party code.

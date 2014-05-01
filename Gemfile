@@ -23,7 +23,7 @@ gem "tabulous"
 gem 'therubyracer'
 gem "wkhtmltopdf"
 gem 'bootstrap-will_paginate', '0.0.9'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 
 group :assets do
@@ -51,7 +51,6 @@ gem 'newrelic_rpm'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to

@@ -2,27 +2,38 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :deadlines
   has_many :user_roles
   has_many :roles, :through => :user_roles
+  has_one :profile
 
+  validate :emails_match
   validates_uniqueness_of :email
-  
-  validates_presence_of :email, :first_name, :last_name
+  validates_presence_of :first_name, :last_name
+
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, 
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :registerable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_password, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation,
+                  :remember_me, :first_password, :first_name, :last_name,
+                  :email_confirmation
+  attr_accessor :email_confirmation
   
   #relations
   has_one :participant
   has_one :functionary
 
   #methods
-  def name
-    self.first_name + " " + self.last_name
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def emails_match
+    if (!self.email.eql? self.email_confirmation)
+      errors.add(:email_confirmation, "must match email")
+    end
   end
 
   def is_functionary?

@@ -9,7 +9,7 @@ class Participant < ActiveRecord::Base
   belongs_to :host
 
   attr_accessible :address1, :sex, :next_of_kin_name, :next_of_kin_phone, 
-    :next_of_kin_address, :date_of_birth, :field_of_study, :email, :zipcode, 
+    :next_of_kin_address, :date_of_birth, :field_of_study, :zipcode,
     :city, :country_id, :country_citizen_id, :nationality, :vegetarian, 
     :halal, :allergy_lactose, :allergy_gluten, :allergy_nuts, :allergy_pets,
     :allergy_other, :smoke, :handicap, :media_consent
@@ -23,7 +23,19 @@ class Participant < ActiveRecord::Base
     :size => { :in => 0..50.megabytes }
 
   def full_name
-    self.first_name + " " + self.last_name
+    user.full_name
+  end
+
+  def first_name
+    user.first_name
+  end
+
+  def last_name
+    user.last_name
+  end
+
+  def email
+    user.email
   end
 
   def workshop_name

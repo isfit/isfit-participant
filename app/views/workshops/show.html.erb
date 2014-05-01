@@ -1,8 +1,8 @@
 <%= render 'menu' %>
 <% if can? :edit, Workshop %>
   <div class="pull-right">
-    <%= link_to 'Edit', edit_workshop_path(@workshop), :class => "btn" %>
-    <%= link_to 'Back', workshops_path, :class => "btn" %>
+    <%= link_to 'Edit', edit_workshop_path(@workshop), :class => "btn btn-default" %>
+    <%= link_to 'Back', workshops_path, :class => "btn btn-default" %>
   </div>
 <% end %>
 <div class="well">

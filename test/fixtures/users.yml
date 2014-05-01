@@ -1,19 +1,23 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+stan:
+  email: stan@example.org
+  first_name: Stan
+  last_name: Marsh
+  first_password: stan123
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one:
-  id: 1
-  email: "krisvage@isfit.org"
-  first_password: "Hei"
-  first_name: "Kristian"
-  last_name: "Vage"
+kyle:
+  email: kyle@example.org
+  first_name: Kyle
+  last_name: Broflovski
+  first_password: kyle123
 
-two:
-  id: 2
-  email: "place@isfit.org"
-  first_password: "123456"
-  first_name: "John"
-  last_name: "Smith"
+eric:
+  email: eric@example.com
+  first_name: Eric
+  last_name: Cartman
+  first_password: eric123
+
+kenny:
+  email: kenny@example.com
+  first_name: Kenny
+  last_name: McCormick
+  first_password: killme1337

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408101106) do
+ActiveRecord::Schema.define(:version => 20140430134400) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -162,9 +162,6 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
   end
 
   create_table "participants", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
     t.date     "date_of_birth"
     t.string   "address1"
     t.string   "zipcode"
@@ -225,6 +222,26 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
     t.string   "phone_number"
   end
 
+  create_table "profiles", :force => true do |t|
+    t.string   "address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "citizenship"
+    t.integer  "calling_code"
+    t.integer  "phone"
+    t.date     "date_of_birth"
+    t.integer  "gender",         :limit => 1
+    t.string   "gender_specify"
+    t.string   "school"
+    t.string   "field_of_study"
+    t.integer  "user_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "country_id"
+    t.integer  "citizenship_id"
+    t.string   "nationality"
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "subject"
     t.text     "content"
@@ -253,13 +270,6 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
   add_index "roles", ["name", "authorizable_id", "authorizable_type"], :name => "index_roles_on_name_and_authorizable_id_and_authorizable_type", :unique => true
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
-  create_table "roles_users", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "transport_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -274,8 +284,8 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -284,8 +294,8 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -293,6 +303,7 @@ ActiveRecord::Schema.define(:version => 20140408101106) do
     t.string   "first_password"
     t.string   "first_name"
     t.string   "last_name"
+    t.boolean  "active",                 :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

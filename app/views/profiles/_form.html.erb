@@ -1,0 +1,98 @@
+<%= form_for @profile, url: user_profile_path(@user) do |f| %>
+    <% if @profile.errors.full_messages.any? %>
+        <div class="bg-danger info-box">
+          <h2><%= pluralize(@profile.errors.full_messages.count, 'error') %> prevents you from creating a profile</h2>
+
+          <ul>
+            <% @profile.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <h2>Personal information</h2>
+
+    <div class="form-group">
+        <%= f.label :date_of_birth %><br>
+        <%= f.date_select :date_of_birth %>
+    </div>
+
+    <div class="checkbox">
+        <strong>Gender</strong>
+
+        <p>
+            <label><%= f.radio_button :gender, 0 %> Male</label><br>
+            <label><%= f.radio_button :gender, 1 %> Female</label><br>
+            <label><%= f.radio_button :gender, 2 %> Other</label>
+        </p>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :nationality_id %>
+      <%= f.text_field :nationality, placeholder: 'Your nationality', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :citizenship_id %><br>
+      <%= f.collection_select :citizenship_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control'} %>
+    </div>
+
+    <h2>Education information</h2>
+
+    <div class="form-group">
+
+    </div>
+
+    <div class="form-group">
+      <%= f.label :school, 'University' %>
+      <%= f.text_field :school, placeholder: 'Your university', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :field_of_study %>
+      <%= f.text_field :field_of_study, placeholder: 'Your field of study', class: 'form-control' %>
+    </div>
+
+    <h2>Contact information</h2>
+
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address, placeholder: 'Your address', class: 'form-control' %>
+    </div>
+
+    <div class="form-group" style="float: left; width: 150px;">
+      <%= f.label :postal_code %>
+      <%= f.text_field :postal_code, placeholder: 'Your postal code', class: 'form-control', style: 'border-bottom-right-radius: 0; border-top-right-radius: 0;' %>
+    </div>
+
+    <div class="form-group" style="margin-left: 150px">
+        <%= f.label :city %>
+        <%= f.text_field :city, placeholder: 'Your city', class: 'form-control', style: 'border-bottom-left-radius: 0; border-top-left-radius: 0; border-left-width: 0;' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :country_id %><br>
+      <%= f.collection_select :country_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <%= f.label :phone, 'Phone number' %>
+      </div>
+
+
+      <div class="input-group" style="float: left; width: 120px;">
+        <span class="input-group-addon">+</span>
+        <%= f.text_field :calling_code, placeholder: 'Dial code', class: 'form-control', style: 'border-bottom-right-radius: 0; border-top-right-radius: 0;' %>
+      </div>
+
+      <div style="margin-left: 120px">
+        <%= f.text_field :phone, placeholder: 'Your phone number', class: 'form-control', style: 'border-bottom-left-radius: 0; border-top-left-radius: 0; border-left-width: 0;' %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.submit 'Create profile', class: 'btn btn-success btn-lg' %>
+    </div>
+<% end %>

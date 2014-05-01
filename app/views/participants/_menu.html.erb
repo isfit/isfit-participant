@@ -80,9 +80,9 @@
     <% end %>
     <% if @deadlines %>
       <% if can? :check_deadline, Participant %>
-        <%= link_to 'Check deadlines', check_deadline_participant_path, :class => "btn btn-primary btn-large btn-block" %>
+        <%= link_to 'Check deadlines', check_deadline_participant_path, :class => "btn btn-primary btn-lg btn-block" %>
       <% else %>
-        <%= link_to 'Go to next deadline', deadlines_participant_path, :class => "btn btn-primary btn-large btn-block" %>
+        <%= link_to 'Go to next deadline', deadlines_participant_path, :class => "btn btn-primary btn-lg btn-block" %>
       <% end %>
       <ul class="nav nav-list well">
         <li class="nav-header">Deadlines</li>

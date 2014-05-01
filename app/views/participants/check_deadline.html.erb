@@ -18,7 +18,7 @@
       <legend><%= "#{@participant.first_name} #{@participant.last_name}"%></legend>
       <table class="table table-condensed table-hover table-borderless">
         <tr>
-          <td class="span5">Accepted invitation</td>
+          <td class="col-md-5">Accepted invitation</td>
           <td><%= @participant.accepted == 1 ? "Yes" : "No" %></td>
         </tr>
         <tr>
@@ -94,7 +94,7 @@
       <legend>Travel information</legend>
       <table class="table table-condensed table-hover table-borderless">
         <tr>
-          <td class="span5">Transport type</td>
+          <td class="col-md-5">Transport type</td>
           <td><%= @participant.transport_type.nil? ? "" : @participant.transport_type.name %></td>
         </tr>
         <tr>

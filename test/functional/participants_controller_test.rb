@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ParticipantsControllerTest < ActionController::TestCase
   setup do
-    @participant = participants(:one)
+    @participant = participants(:eric)
   end
 
   test "should get index" do

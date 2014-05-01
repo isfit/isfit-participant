@@ -22,7 +22,7 @@
         <td><%= "Workshop #{workshop.id}: #{workshop.name}" %></td>
         <td><%= link_to 'Show', workshop, :class => "btn btn-info" %></td>
       <% if can? :edit, Workshop %>
-        <td><%= link_to 'Edit', edit_workshop_path(workshop), :class => "btn" %></td>
+        <td><%= link_to 'Edit', edit_workshop_path(workshop), :class => "btn btn-default" %></td>
       <% end %>
       </tr>
     <% end %>

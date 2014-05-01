@@ -1,0 +1,43 @@
+<h1>Ready for the ISFiT experience?</h1>
+
+<p>Do you want to take part in one of the workshops or the dialogue group on the ISFiT festival? Start the application process by creating an account!</p>
+
+<%= form_for @user, url: user_registration_path do |f| %>
+    <div class="form-group">
+        <p>
+          <%= f.text_field :first_name, placeholder: 'Your first name', autofocus: true, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.text_field :last_name, placeholder: 'Your last name', class: 'form-control' %>
+        </p>
+
+        <p>Names must be a they appear in your passport.</p>
+    </div>
+
+    <div class="form-group">
+        <p>
+          <%= f.email_field :email, placeholder: 'Your e-mail', class: 'form-control' %>
+        </p>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <%= f.email_field :email_confirmation, placeholder: 'Repeat the e-mail', class: 'form-control' %>
+      </p>
+    </div>
+
+    <div class="form-group">
+        <p>
+          <%= f.password_field :password, placeholder: 'Select a password', class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.password_field :password_confirmation, placeholder: 'Repeat the password', class: 'form-control' %>
+        </p>
+    </div>
+
+    <p>Want a strong password? We recommend you to use minimum four random words. Easy to remember, hard for computers to guess.</p>
+
+    <%= f.submit 'Create account', class: 'btn btn-success btn-lg' %>
+<% end %>

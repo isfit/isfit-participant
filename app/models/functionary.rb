@@ -10,7 +10,7 @@ class Functionary < ActiveRecord::Base
   end
 
   def full_name
-    "#{user.first_name} #{user.last_name}"
+    user.full_name
   end
 
   def first_name

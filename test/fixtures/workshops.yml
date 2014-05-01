@@ -1,7 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+politics:
+  name: Politics
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+flying:
+  name: Flying
