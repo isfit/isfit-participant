@@ -35,7 +35,7 @@
 
     <div class="form-group">
       <%= f.label :citizenship_id %><br>
-      <%= f.collection_select :citizenship_id, Country.all,:id,:name, include_blank: true %>
+      <%= f.collection_select :citizenship_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control'} %>
     </div>
 
     <h2>Education information</h2>
@@ -61,32 +61,34 @@
       <%= f.text_field :address, placeholder: 'Your address', class: 'form-control' %>
     </div>
 
-    <div class="form-group">
-      <div class="col-md-3">
-        <%= f.label :postal_code %>
-        <%= f.text_field :postal_code, placeholder: 'Your postal code', class: 'form-control' %>
-      </div>
+    <div class="form-group" style="float: left; width: 150px;">
+      <%= f.label :postal_code %>
+      <%= f.text_field :postal_code, placeholder: 'Your postal code', class: 'form-control', style: 'border-bottom-right-radius: 0; border-top-right-radius: 0;' %>
+    </div>
 
-      <div class="col-md-9">
+    <div class="form-group" style="margin-left: 150px">
         <%= f.label :city %>
-        <%= f.text_field :city, placeholder: 'Your city', class: 'form-control' %>
-      </div>
+        <%= f.text_field :city, placeholder: 'Your city', class: 'form-control', style: 'border-bottom-left-radius: 0; border-top-left-radius: 0; border-left-width: 0;' %>
     </div>
 
     <div class="form-group">
       <%= f.label :country_id %><br>
-      <%= f.collection_select :country_id, Country.all,:id,:name, include_blank: true %>
+      <%= f.collection_select :country_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control'} %>
     </div>
 
     <div class="form-group">
-      <div class="col-md-3">
-        <%= f.label :calling_code, 'Country calling code' %>
-        <%= f.text_field :calling_code, placeholder: 'Your country calling code', class: 'form-control' %>
+      <div>
+        <%= f.label :phone, 'Phone number' %>
       </div>
 
-      <div class="col-md-9">
-        <%= f.label :phone, 'Phone number' %>
-        <%= f.text_field :phone, placeholder: 'Your phone number', class: 'form-control' %>
+
+      <div class="input-group" style="float: left; width: 120px;">
+        <span class="input-group-addon">+</span>
+        <%= f.text_field :calling_code, placeholder: 'Dial code', class: 'form-control', style: 'border-bottom-right-radius: 0; border-top-right-radius: 0;' %>
+      </div>
+
+      <div style="margin-left: 120px">
+        <%= f.text_field :phone, placeholder: 'Your phone number', class: 'form-control', style: 'border-bottom-left-radius: 0; border-top-left-radius: 0; border-left-width: 0;' %>
       </div>
     </div>
 
