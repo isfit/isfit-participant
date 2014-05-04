@@ -6,6 +6,8 @@
 
 <p>The first step in the application process is to create a profile, so we get to know you better. This step must be completed before you can send in an application.</p>
 
+<p>Please note that you have to be at least 18 years old and a student at the time of participation.</p>
+
 <% if current_user.profile && current_user.profile.motivation_essay != '' %>
   <p>
     <%= link_to '<strong>Profile</strong><br>You have created a profile'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
@@ -22,25 +24,23 @@
 
 <h2>Festival application</h2>
 
-<p>If you are interested in participating in ISFiT 2015, you must fill in one of the application forms. The workshop application is open to everyone. If you are from the selected conflict area you can apply for the dialogue group.</p>
-
-<p>Please note that you have to be at least 18 years old and a student at the time of participation.</p>
+<p>If you are interested in participating in ISFiT 2015, you must fill in one of the application forms. The workshop application is open to everyone. If you are from the selected conflict area you can apply for the dialogue group. The workshop application form will be available after the summer.</p>
 
 <p>Deadline for submitting the application is the <strong>30th of September 2014</strong>! Those who are selected to participate will receive an invitation by e-mail.</p>
 
 <p>
   <button class="btn btn-disabled btn-dashboard">
     <strong>Workshop application</strong><br>
-    Coming soon
+    Will be available after summer
   </button>
 </p>
 
-  <p>
-    <button class="btn btn-disabled btn-dashboard">
-      <strong>Dialogue application</strong><br>
-      Coming soon
-    </button>
-  </p>
+<p>
+  <button class="btn btn-disabled btn-dashboard">
+    <strong>Dialogue application</strong><br>
+    Coming soon
+  </button>
+</p>
 
 <h2>Financial aid application</h2>
 
