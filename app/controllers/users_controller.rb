@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    redirect_to edit_user_url(params[:id]) unless can? :manage, User
+
     @user = User.find(params[:id])
   end
 
@@ -38,7 +40,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params[:user])
-      redirect_to @user, notice: 'User was successfully updated.'
+      if can? :manage, User
+        redirect_to @user, notice: 'User was successfully updated.'
+      else
+        redirect_to edit_user_url(@user), notice: 'Your profile was successfully updated.'
+      end
     else
       render action: 'edit'
     end

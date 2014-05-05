@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :user_roles
   has_one :profile
 
-  validate :emails_match
+  accepts_nested_attributes_for :profile
+
+  validate :emails_match, on: :create
   validates_uniqueness_of :email
   validates_presence_of :first_name, :last_name
 
@@ -18,7 +20,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation,
                   :remember_me, :first_password, :first_name, :last_name,
-                  :email_confirmation
+                  :email_confirmation, :profile_attributes
   attr_accessor :email_confirmation
   
   #relations
