@@ -1,0 +1,26 @@
+<div class="pull-right">
+<%= link_to 'Edit', edit_financial_aid_application_path(@financial_aid_application), :class => "btn btn-default" %>
+<%= link_to 'Back', financial_aid_applications_path, :class => "btn btn-default" %>
+</div>
+  <p>
+  <b>Essay:</b>
+  <%= @financial_aid_application.essay %>
+  </p>
+
+  <p>
+  <b>Amount:</b>
+  <%= @financial_aid_application.amount %>
+  </p>
+
+
+  <p>
+    <b>Options</b><br />
+    <% if @financial_aid_application.can_come_anyway? %>
+    I can still come, even if I don't receive travel support.
+    <% end %>
+    <% if @financial_aid_application.other_sources? %>
+    I can obtain travel support from other sources.
+    <% end %>
+  </p>
+
+

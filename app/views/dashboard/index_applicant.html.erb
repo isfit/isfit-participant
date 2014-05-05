@@ -48,9 +48,23 @@
 
 <p>Please note that we have a limited sum to offer, so we encourage you to search for alternative ways of financing your participation. There are a variety of scholarships and legacies you could apply for, or your university may be able to support you.</p>
 
-<p>
-  <button class="btn btn-disabled btn-dashboard">
-    <strong>Financial aid application</strong><br>
-    Coming soon
-  </button>
-</p>
+<% if current_user.profile %>
+    <% if current_user.financial_aid_application%>
+        <p>
+          <%= link_to '<strong>Financial aid application</strong><br>You have created a financial aid application'.html_safe, edit_user_financial_aid_application_path(current_user) , class: 'btn btn-success btn-dashboard' %>
+        </p>
+        <% else %>
+        <p>
+          <%= link_to '<strong>Financial aid application</strong><br>You have not created a financial aid application'.html_safe, new_user_financial_aid_application_path(current_user), class: 'btn btn-warning btn-dashboard' %>
+        </p>
+        <% end %>
+    <% else %>
+    <p>
+      <button class="btn btn-disabled btn-dashboard">
+        <strong>Financial aid application</strong><br>
+        You need to create a profile before applying for financial aid
+      </button>
+    </p>
+    <% end %>
+
+

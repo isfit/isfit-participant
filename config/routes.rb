@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  get 'financial_aid_applications', to: 'financial_aid_applications#index'
+
   get 'dashboard', to: 'dashboard#index'
 
   get 'landing/index'
@@ -16,6 +18,7 @@ IsfitParticipant::Application.routes.draw do
 
   resources :users do
     resource :profile, only: [:new, :create]
+    resource :financial_aid_application
     member do
       post :add_role
       post :remove_role
