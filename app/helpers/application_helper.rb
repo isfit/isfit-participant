@@ -15,6 +15,17 @@ module ApplicationHelper
     options[:src] = File.expand_path(RAILS_ROOT) + '/public/images/' + image
     tag(:img, options)
   end
+
+  def gender_to_string(gender_id)
+    case gender_id
+      when 0
+        'Male'
+      when 1
+        'Female'
+      else
+        'Other'
+    end
+  end
 end
 
 module ActiveRecord

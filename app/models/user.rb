@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :user_roles
   has_one :profile
 
-  validate :emails_match
+  validate :emails_match, on: :create
   validates_uniqueness_of :email
   validates_presence_of :first_name, :last_name
 

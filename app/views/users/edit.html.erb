@@ -1,7 +1,53 @@
-<%= simple_form_for(@user) do |f| %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :email %>
+<h2>Profile</h2>
 
-    <%= f.button :submit %>
+<%= form_for(@user) do |f| %>
+    <% if @user.errors.full_messages.any? %>
+        <div class="bg-danger info-box">
+          <h2><%= pluralize(@user.errors.full_messages.count, 'error') %> prevents you from updating your profile</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+        <strong>Name</strong><br />
+        <%= @user.full_name %>
+    </div>
+
+    <% if @user.profile %>
+    <div class="form-group">
+        <strong>Date of birth</strong><br />
+        <%= @user.profile.date_of_birth %>
+    </div>
+
+    <div class="form-group">
+        <strong>Gender</strong><br />
+        <%= gender_to_string(@user.profile.gender) %>
+    </div>
+
+    <div class="form-group">
+        <strong>Nationality</strong><br />
+        <%= @user.profile.nationality %>
+    </div>
+
+    <div class="form-group">
+        <strong>Citizenship</strong><br />
+        <%= @user.profile.citizenship.name %>
+    </div>
+    <% end %>
+
+    <h2>Contact information</h2>
+
+    <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, placeholder: 'Your e-mail', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= f.submit 'Update profile', class: 'btn btn-success'%>
+    </div>
 <% end %>
