@@ -35,7 +35,6 @@ class FinancialAidApplicationsController < ApplicationController
 
   # GET /financial_aid_applications/1/edit
   def edit
-    #binding.pry
     @user = User.find(params[:user_id])
     @financial_aid_application = @user.financial_aid_application
   end
@@ -64,6 +63,7 @@ class FinancialAidApplicationsController < ApplicationController
         format.html { redirect_to user_financial_aid_application_path(params[:user_id]), notice: 'Financial aid application was successfully updated.' }
         format.json { head :no_content }
       else
+        @user = User.find(params[:user_id])
         format.html { render action: "edit" }
         format.json { render json: @financial_aid_application.errors, status: :unprocessable_entity }
       end
