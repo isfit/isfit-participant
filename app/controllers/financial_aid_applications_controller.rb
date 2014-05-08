@@ -45,6 +45,7 @@ class FinancialAidApplicationsController < ApplicationController
   def create
     @financial_aid_application = FinancialAidApplication.new(params[:financial_aid_application])
     @financial_aid_application.user_id = params[:user_id]
+    @user = User.find(params[:user_id])
 
       if @financial_aid_application.save
         #redirect_to user_financial_aid_application_path(params[:user_id]), notice: 'Financial aid application was successfully created.'
