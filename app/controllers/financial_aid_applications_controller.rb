@@ -1,4 +1,5 @@
 class FinancialAidApplicationsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /financial_aid_applications
   # GET /financial_aid_applications.json
   def index
@@ -46,8 +47,8 @@ class FinancialAidApplicationsController < ApplicationController
     @financial_aid_application.user_id = params[:user_id]
 
       if @financial_aid_application.save
-        redirect_to user_financial_aid_application_path(params[:user_id]), notice: 'Financial aid application was successfully created.'
-
+        #redirect_to user_financial_aid_application_path(params[:user_id]), notice: 'Financial aid application was successfully created.'
+        redirect_to dashboard_url, notice: 'Your financial aid application was saved'
       else
         render action: "new"
       end
@@ -58,16 +59,12 @@ class FinancialAidApplicationsController < ApplicationController
   def update
     @financial_aid_application = FinancialAidApplication.where(user_id: params[:user_id]).first
 
-    respond_to do |format|
       if @financial_aid_application.update_attributes(params[:financial_aid_application])
-        format.html { redirect_to user_financial_aid_application_path(params[:user_id]), notice: 'Financial aid application was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to dashboard_url, notice: 'Your financial aid application was updated'
       else
         @user = User.find(params[:user_id])
-        format.html { render action: "edit" }
-        format.json { render json: @financial_aid_application.errors, status: :unprocessable_entity }
+        render action: "edit"
       end
-    end
   end
 
   # DELETE /financial_aid_applications/1

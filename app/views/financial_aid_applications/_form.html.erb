@@ -1,5 +1,6 @@
-<%= form_for @financial_aid_application, url: user_financial_aid_application_path(@user), method: :put do |f| %>
+<%= form_for @financial_aid_application, url: user_financial_aid_application_path(@user) do |f| %>
   <div class="form-group">
+    Please write a brief essay about why you should be granted travel support (200 words). If you are able to obtain travel support from other sources, please include this in your essay.<br /><br />
     <%= f.label :essay %>
     <%= f.text_area :essay, class: 'form-control'%>
   </div>

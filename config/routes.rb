@@ -1,5 +1,4 @@
 IsfitParticipant::Application.routes.draw do
-  get 'financial_aid_applications', to: 'financial_aid_applications#index'
 
   get 'dashboard', to: 'dashboard#index'
 
