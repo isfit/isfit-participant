@@ -3,4 +3,5 @@ class Profile < ActiveRecord::Base
   attr_accessible :address, :calling_code, :citizenship_id, :city, :country_id, :date_of_birth, :field_of_study, :gender, :gender_specify, :nationality, :phone, :postal_code, :school, :motivation_essay
   belongs_to :user
   belongs_to :citizenship, class_name: 'Country'
+  belongs_to :country
 end

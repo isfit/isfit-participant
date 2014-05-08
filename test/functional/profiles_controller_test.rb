@@ -2,48 +2,23 @@ require 'test_helper'
 
 class ProfilesControllerTest < ActionController::TestCase
   setup do
-    @profile = profiles(:one)
-  end
+    @user = users(:kyle)
+    @user.profile.destroy
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:profiles)
+    sign_in @user
   end
 
   test "should get new" do
-    get :new
+    get :new, user_id: @user.id
     assert_response :success
   end
 
   test "should create profile" do
+    usa = countries(:usa)
     assert_difference('Profile.count') do
-      post :create, profile: { address: @profile.address, calling_code: @profile.calling_code, citizenship: @profile.citizenship, city: @profile.city, country: @profile.country, date_of_birth: @profile.date_of_birth, field_of_study: @profile.field_of_study, gender: @profile.gender, gender_specify: @profile.gender_specify, nationality: @profile.nationality, phone: @profile.phone, postal_code: @profile.postal_code, school: @profile.school }
+      post :create, profile: { address: 'E. Bonanza St.', postal_code: 80440, city: 'South Park', nationality: 'American', citizenship_id: usa.id, country_id: usa.id, calling_code: 1, phone: 80000100, date_of_birth: '1996-04-24', gender: 1, school: 'South Park Elementary', field_of_study: 'Primary', motivation_essay: '' }, user_id: @user.id
     end
 
-    assert_redirected_to profile_path(assigns(:profile))
-  end
-
-  test "should show profile" do
-    get :show, id: @profile
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @profile
-    assert_response :success
-  end
-
-  test "should update profile" do
-    put :update, id: @profile, profile: { address: @profile.address, calling_code: @profile.calling_code, citizenship: @profile.citizenship, city: @profile.city, country: @profile.country, date_of_birth: @profile.date_of_birth, field_of_study: @profile.field_of_study, gender: @profile.gender, gender_specify: @profile.gender_specify, nationality: @profile.nationality, phone: @profile.phone, postal_code: @profile.postal_code, school: @profile.school }
-    assert_redirected_to profile_path(assigns(:profile))
-  end
-
-  test "should destroy profile" do
-    assert_difference('Profile.count', -1) do
-      delete :destroy, id: @profile
-    end
-
-    assert_redirected_to profiles_path
+    assert_redirected_to dashboard_url
   end
 end

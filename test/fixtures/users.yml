@@ -1,23 +1,19 @@
 stan:
-  email: stan@example.org
+  email: stan@example.com
   first_name: Stan
   last_name: Marsh
-  first_password: stan123
 
 kyle:
-  email: kyle@example.org
+  email: kyle@example.com
   first_name: Kyle
   last_name: Broflovski
-  first_password: kyle123
 
-eric:
-  email: eric@example.com
-  first_name: Eric
-  last_name: Cartman
-  first_password: eric123
+ike:
+  email: ike@example.com
+  first_name: Ike
+  last_name: Broflovski
 
-kenny:
-  email: kenny@example.com
-  first_name: Kenny
-  last_name: McCormick
-  first_password: killme1337
+randy:
+  email: randy@example.com
+  first_name: Randy
+  last_name: Marsh
