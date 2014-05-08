@@ -1,0 +1,30 @@
+<%= form_for @financial_aid_application, url: user_financial_aid_application_path(@user) do |f| %>
+  <div class="form-group">
+    Please write a brief essay about why you should be granted travel support (200 words). If you are able to obtain travel support from other sources, please include this in your essay.<br /><br />
+    <%= f.label :essay %>
+    <%= f.text_area :essay, class: 'form-control'%>
+  </div>
+
+
+    <div class="form-group">
+      <%= f.label :amount, "Requested amount in USD (Max 3000)" %>
+      <%= f.text_field :amount, class: 'form-control'%>
+    </div>
+
+    <div class="checkbox">
+        <label><%= f.check_box :other_sources %> I can obtain travel support from other sources.</label><br>
+    </div>
+    <div class="checkbox">
+      <label><%= f.check_box :can_come_anyway %> I can still come, even if I don't receive travel support. </label><br>
+    </div>
+
+    <% if @financial_aid_application.new_record? %>
+    <div>
+      <%= f.submit 'Create application', class: 'btn btn-success btn-lg' %>
+    </div>
+        <% else %>
+    <div>
+          <%= f.submit 'Update application', class: 'btn btn-success btn-lg' %>
+    </div>
+        <% end %>
+<% end %>

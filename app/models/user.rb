@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :user_roles
   has_many :roles, :through => :user_roles
   has_one :profile
+  has_one :financial_aid_application
 
   accepts_nested_attributes_for :profile
 

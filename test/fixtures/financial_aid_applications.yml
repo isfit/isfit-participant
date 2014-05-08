@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  essay: MyText
+  amount: 1
+  other_sources: false
+  can_come_anyway: false
+  user_id: 1
+
+two:
+  essay: MyText
+  amount: 1
+  other_sources: false
+  can_come_anyway: false
+  user_id: 1

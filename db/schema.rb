@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140501190311) do
+ActiveRecord::Schema.define(:version => 20140505165914) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -117,6 +117,16 @@ ActiveRecord::Schema.define(:version => 20140501190311) do
     t.datetime "end_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "financial_aid_applications", :force => true do |t|
+    t.text     "essay"
+    t.integer  "amount"
+    t.boolean  "other_sources"
+    t.boolean  "can_come_anyway"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "functionaries", :force => true do |t|
@@ -235,12 +245,12 @@ ActiveRecord::Schema.define(:version => 20140501190311) do
     t.string   "school"
     t.string   "field_of_study"
     t.integer  "user_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "country_id"
     t.integer  "citizenship_id"
     t.string   "nationality"
-    t.text     "motivation_essay",              :null => false
+    t.text     "motivation_essay",              :default => "", :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -309,6 +319,17 @@ ActiveRecord::Schema.define(:version => 20140501190311) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "workshop_applications", :force => true do |t|
+    t.integer  "workshop1_id"
+    t.integer  "workshop2_id"
+    t.integer  "workshop3_id"
+    t.text     "essay_motivation"
+    t.text     "essay_workshop"
+    t.integer  "user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "workshops", :force => true do |t|
     t.string   "name"
