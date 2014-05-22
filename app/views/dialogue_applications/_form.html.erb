@@ -1,0 +1,15 @@
+<%= simple_form_for(@dialogue_application, url: user_dialogue_application_path) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :relationship_status %>
+    <%= f.input :english_proficiency %>
+    <%= f.input :french_proficiency %>
+    <%= f.input :dialogue_essay %>
+    <%= f.input :conflict_essay %>
+    <%= f.input :vision_essay %>
+    <%= f.input :user_id %>
+  </div>
+
+  <%= f.button :submit %>
+<% end %>

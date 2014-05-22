@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  relationship_status: 1
+  english_proficiency: 1
+  french_proficiency: 1
+  dialogue_essay: MyText
+  conflict_essay: MyText
+  vision_essay: MyText
+  user_id: 1
+
+two:
+  relationship_status: 1
+  english_proficiency: 1
+  french_proficiency: 1
+  dialogue_essay: MyText
+  conflict_essay: MyText
+  vision_essay: MyText
+  user_id: 1

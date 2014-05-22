@@ -1,0 +1,37 @@
+<div class="pull-right">
+  <%= link_to 'New Dialogue application', new_dialogue_application_path, :class => "btn btn-primary"%>
+</div>
+<h1>dialogue_applications</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+              <th>Relationship status</th>
+              <th>English proficiency</th>
+              <th>French proficiency</th>
+              <th>Dialogue essay</th>
+              <th>Conflict essay</th>
+              <th>Vision essay</th>
+              <th>User</th>
+            <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @dialogue_applications.each do |dialogue_application| %>
+    <tr>
+              <td><%= dialogue_application.relationship_status %></td>
+              <td><%= dialogue_application.english_proficiency %></td>
+              <td><%= dialogue_application.french_proficiency %></td>
+              <td><%= dialogue_application.dialogue_essay %></td>
+              <td><%= dialogue_application.conflict_essay %></td>
+              <td><%= dialogue_application.vision_essay %></td>
+              <td><%= dialogue_application.user_id %></td>
+            <td><%= link_to 'Show', dialogue_application, :class => "btn btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_dialogue_application_path(dialogue_application), :class => "btn" %></td>
+      <td><%= link_to 'Destroy', dialogue_application, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %></td>
+    </tr>
+    <% end %>
+  </table>
+
