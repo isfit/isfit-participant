@@ -1,56 +1,87 @@
 <h1>Welcome, <%= current_user.full_name %>!</h1>
 
-<p>From this site, you'll start your application process for ISFiT 2015.</p>
+<p>
+  Welcome to the participant web for ISFiT 2015! From here you can apply to participate in the festival where you can feel the ISFiT experience.
+</p>
 
-<h2>Profile</h2>
-
-<p>The first step in the application process is to create a profile, so we get to know you better. This step must be completed before you can send in an application.</p>
-
-<p>Please note that you have to be at least 18 years old and a student at the time of participation.</p>
+<p>
+  Deadline for submitting the application is the <strong>30th of September 2014</strong>!
+</p>
 
 <% if current_user.profile && current_user.profile.motivation_essay != '' %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You have created a profile'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>Your profile is complete! <em>Edit profile</em>'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
   </p>
 <% elsif current_user.profile %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You have created a profile but we miss your motivation essay'.html_safe, current_user, class: 'btn btn-warning btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, current_user, class: 'btn btn-warning btn-dashboard' %>
   </p>
 <% else %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You need a profile before you can apply'.html_safe, new_user_profile_path(current_user), class: 'btn btn-danger btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>You need a profile before yu can apply! <em>Create profile</em>'.html_safe, new_user_profile_path(current_user), class: 'btn btn-danger btn-dashboard' %>
   </p>
 <% end %>
 
-<h2>Festival application</h2>
 
-<p>If you are interested in participating in ISFiT 2015, you must fill in one of the application forms. The workshop application is open to everyone. If you are from the selected conflict area you can apply for the dialogue group. The workshop application form will be available after the summer.</p>
+<h2>Workshop application</h2>
 
-<p>Deadline for submitting the application is the <strong>30th of September 2014</strong>! Those who are selected to participate will receive an invitation by e-mail.</p>
+<p>
+  The workshops are small groups where participants will share their experience, work creatively with and discuss topics related to the overall theme of ISFiT 2015, corruption.
+</p>
+
+<p>
+  Those who are selected to participate will receive an invitation by e-mail.
+</p>
 
 <p>
   <button class="btn btn-disabled btn-dashboard">
     <strong>Workshop application</strong><br>
-    Will be available after summer
+    Will be available after the summer
   </button>
 </p>
-
-<p>
-  <button class="btn btn-disabled btn-dashboard">
-    <strong>Dialogue application</strong><br>
-    Coming soon
-  </button>
-</p>
-
-<h2>Financial aid application</h2>
 
 <p>ISFiT 2015 aims to have skilled participants with diverse backgrounds regarding geography, culture, class and gender. To achieve this goal, we will be able to offer some participants financial support.</p>
-
-<p>Please note that we have a limited sum to offer, so we encourage you to search for alternative ways of financing your participation. There are a variety of scholarships and legacies you could apply for, or your university may be able to support you.</p>
 
 <p>
   <button class="btn btn-disabled btn-dashboard">
     <strong>Financial aid application</strong><br>
-    Coming soon
+    Will be available after the summer
   </button>
 </p>
+
+
+<h2>Dialogue application</h2>
+
+<p>
+  The Dialogue Groups is a meeting place for students from different sides of conflicts. The students are given the opportunity to better understand their counterpart’s point of view, through such means as conversations and workshops.
+</p>
+
+<p>
+  The Dialoge Groups are only open for participants from DR Congo.
+</p>
+
+<p>
+  <% if current_user.profile %>
+    <% if current_user.profile.country_id == 41 %>
+      <% if current_user.dialogue_application %>
+        <%= link_to '<strong>Dialogue application</strong><br>You have applied for the dialoge groups! <em>Edit dialogue application</em>'.html_safe, edit_user_dialogue_application_path(current_user), class: 'btn btn-success btn-dashboard' %>
+      <% else %>
+        <%= link_to '<strong>Dialogue application</strong><br>You have not applied for the dialoge groups! <em>New dialogue application</em>'.html_safe, new_user_dialogue_application_path(current_user), class: 'btn btn-danger btn-dashboard' %>
+      <% end %>
+    <% else %>
+      <button class="btn btn-disabled btn-dashboard">
+        <strong>Dialogue application</strong><br>
+        You are not from the selected conflict area
+      </button>
+    <% end %>
+  <% else %>
+    <button class="btn btn-disabled btn-dashboard">
+      <strong>Dialogue application</strong><br>
+      You need a profile before you can send an application
+    </button>
+  <% end %>
+</p>
+
+
+
+
