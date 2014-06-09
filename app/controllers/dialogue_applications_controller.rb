@@ -14,6 +14,10 @@ class DialogueApplicationsController < ApplicationController
   end
 
   def new
+    if @user.dialogue_application
+      redirect_to dashboard_url, notice: 'You can\'t create a new dialogue application since you already have one!'
+    end
+
     @dialogue_application = DialogueApplication.new
   end
 
