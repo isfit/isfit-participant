@@ -1,8 +1,10 @@
 <div class="pull-right">
-  <%= link_to 'Show', @dialogue_application, confirm: 'This will cancel all changes. Are you sure?', method: :get, :class => "btn btn-default" %>
-  <%= link_to 'Back', dialogue_applications_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn btn-default" %>
+  <%= link_to 'Back', dashboard_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn btn-default" %>
 </div>
-<h1>Editing dialogue_application</h1>
+<h1>Dialogue Application</h1>
+
+<p>
+	This is the information we have registered on your <em>dialogue application</em>. You can change it and every field must be filled until the 30th of september.
+</p>
 
 <%= render 'form' %>
-

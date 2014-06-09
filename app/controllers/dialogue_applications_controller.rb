@@ -1,5 +1,5 @@
 class DialogueApplicationsController < ApplicationController
-  before_filter :load_user, :can_access_dialogue_application, :check_user_profile, :check_user_country, only: [:new, :create]
+  before_filter :load_user, :can_access_dialogue_application, :check_user_profile, :check_user_country, only: [:new, :create, :edit, :update]
   before_filter :authenticate_user!
 
   load_and_authorize_resource
@@ -17,9 +17,8 @@ class DialogueApplicationsController < ApplicationController
     @dialogue_application = DialogueApplication.new
   end
 
-  # GET /dialogue_applications/1/edit
   def edit
-    @dialogue_application = DialogueApplication.find(params[:id])
+    @dialogue_application = DialogueApplication.where(user_id: params[:user_id]).first
   end
 
   def create
@@ -34,16 +33,12 @@ class DialogueApplicationsController < ApplicationController
   end
 
   def update
-    @dialogue_application = DialogueApplication.find(params[:id])
+    @dialogue_application = DialogueApplication.where(user_id: params[:user_id]).first
 
-    respond_to do |format|
-      if @dialogue_application.update_attributes(params[:dialogue_application])
-        format.html { redirect_to @dialogue_application, notice: 'Dialogue application was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @dialogue_application.errors, status: :unprocessable_entity }
-      end
+    if @dialogue_application.update_attributes(params[:dialogue_application])
+      redirect_to edit_user_dialogue_application_url(params[:user_id]), notice: 'Changes for your dialogue application is saved.'
+    else
+      render action: "edit"
     end
   end
 

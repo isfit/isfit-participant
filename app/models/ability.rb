@@ -59,7 +59,7 @@ class Ability
 
     if user.has_role? :applicant
       can [:show, :edit, :update], User
-      can [:new, :create], DialogueApplication
+      can [:new, :create, :edit, :update], DialogueApplication
     end
   end
 end
