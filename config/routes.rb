@@ -15,6 +15,7 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :users do
+    resource :dialogue_application, path: 'applications/dialogue'
     resource :profile, only: [:new, :create]
     member do
       post :add_role

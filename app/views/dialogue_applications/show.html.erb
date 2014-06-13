@@ -1,0 +1,40 @@
+<div class="pull-right">
+<%= link_to 'Edit', edit_dialogue_application_path(@dialogue_application), :class => "btn btn-default" %>
+<%= link_to 'Back', dialogue_applications_path, :class => "btn btn-default" %>
+</div>
+  <p>
+  <b>Relationship status:</b>
+  <%= @dialogue_application.relationship_status %>
+  </p>
+
+  <p>
+  <b>English proficiency:</b>
+  <%= @dialogue_application.english_proficiency %>
+  </p>
+
+  <p>
+  <b>French proficiency:</b>
+  <%= @dialogue_application.french_proficiency %>
+  </p>
+
+  <p>
+  <b>Dialogue essay:</b>
+  <%= @dialogue_application.dialogue_essay %>
+  </p>
+
+  <p>
+  <b>Conflict essay:</b>
+  <%= @dialogue_application.conflict_essay %>
+  </p>
+
+  <p>
+  <b>Vision essay:</b>
+  <%= @dialogue_application.vision_essay %>
+  </p>
+
+  <p>
+  <b>User:</b>
+  <%= @dialogue_application.user_id %>
+  </p>
+
+
