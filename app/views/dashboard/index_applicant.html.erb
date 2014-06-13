@@ -57,31 +57,12 @@
 </p>
 
 <p>
-  The Dialoge Groups are only open for participants from DR Congo.
+  The Dialoge Groups are only open for participants from selected countries. These will be announced afthe the summer
 </p>
 
 <p>
-  <% if current_user.profile %>
-    <% if current_user.profile.country_id == 41 %>
-      <% if current_user.dialogue_application %>
-        <%= link_to '<strong>Dialogue application</strong><br>You have applied for the dialoge groups! <em>Edit dialogue application</em>'.html_safe, edit_user_dialogue_application_path(current_user), class: 'btn btn-success btn-dashboard' %>
-      <% else %>
-        <%= link_to '<strong>Dialogue application</strong><br>You have not applied for the dialoge groups! <em>New dialogue application</em>'.html_safe, new_user_dialogue_application_path(current_user), class: 'btn btn-danger btn-dashboard' %>
-      <% end %>
-    <% else %>
-      <button class="btn btn-disabled btn-dashboard">
-        <strong>Dialogue application</strong><br>
-        You are not from the selected conflict area
-      </button>
-    <% end %>
-  <% else %>
-    <button class="btn btn-disabled btn-dashboard">
-      <strong>Dialogue application</strong><br>
-      You need a profile before you can send an application
-    </button>
-  <% end %>
+  <button class="btn btn-disabled btn-dashboard">
+    <strong>Dialogue application</strong><br>
+    Will be available after the summer
+  </button>
 </p>
-
-
-
-

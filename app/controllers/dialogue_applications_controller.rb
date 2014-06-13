@@ -1,5 +1,5 @@
 class DialogueApplicationsController < ApplicationController
-  before_filter :load_user, :can_access_dialogue_application, :check_user_profile, :check_user_country, only: [:new, :create, :edit, :update]
+  before_filter :load_user, :available_after_summer, :can_access_dialogue_application, :check_user_profile, :check_user_country, only: [:new, :create, :edit, :update]
   before_filter :authenticate_user!
 
   load_and_authorize_resource
@@ -74,8 +74,12 @@ class DialogueApplicationsController < ApplicationController
     end
 
     def check_user_country
-      unless @user.profile.country_id == 41
-        return redirect_to dashboard_url, alert: 'User must be from the selected conflict area before sending workshop application.'
-      end
+      #unless @user.profile.country_id == 41
+      #  return redirect_to dashboard_url, alert: 'User must be from the selected conflict area before sending workshop application.'
+      #end
+    end
+
+    def available_after_summer
+      redirect_to dashboard_url, alert: 'The dialoge application form will be available after summer.'
     end
 end
