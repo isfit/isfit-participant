@@ -12,6 +12,7 @@ IsfitParticipant::Application.routes.draw do
     post 'signup' => 'registrations#create', :as => :user_registration
     get 'forgot-password' => 'passwords#new', :as => :new_user_password
     post 'forgot-password' => 'passwords#create', :as => :user_password
+    put 'forgot-password' => 'devise/passwords#update', :as => :user_password
   end
 
   resources :users do
