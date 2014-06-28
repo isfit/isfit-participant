@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140511012711) do
+ActiveRecord::Schema.define(:version => 20140628200127) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -112,15 +112,18 @@ ActiveRecord::Schema.define(:version => 20140511012711) do
   end
 
   create_table "dialogue_applications", :force => true do |t|
-    t.integer  "relationship_status", :null => false
-    t.integer  "english_proficiency", :null => false
-    t.integer  "french_proficiency",  :null => false
-    t.text     "dialogue_essay",      :null => false
-    t.text     "conflict_essay",      :null => false
-    t.text     "vision_essay",        :null => false
-    t.integer  "user_id",             :null => false
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.integer  "relationship_status",                    :null => false
+    t.integer  "english_proficiency",                    :null => false
+    t.text     "dialogue_essay",                         :null => false
+    t.text     "conflict_essay",                         :null => false
+    t.text     "vision_essay",                           :null => false
+    t.integer  "user_id",                                :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "ethnicity",           :default => "",    :null => false
+    t.boolean  "national",            :default => false, :null => false
+    t.boolean  "realtives",           :default => false, :null => false
+    t.text     "other_information"
   end
 
   create_table "events", :force => true do |t|

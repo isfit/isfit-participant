@@ -28,14 +28,19 @@
     </p>
   </div>
 
-  <div class="forum-group">
+  <div class="form-group">
     <%= f.label :english_proficiency %><br>
     <%= f.select :english_proficiency, [['Please select your proficiency level', nil], ['A1 - Beginner', 1], ['A2 - Elementary', 2], ['B1 - Intermediate', 3], ['B2 - Upper intermediate', 4], ['C1 - Advanced', 5], ['C2 - Proficiency', 6]] %>
   </div>
 
-  <div class="forum-group">
-    <%= f.label :french_proficiency %><br>
-    <%= f.select :french_proficiency, [['Please select your proficiency level', nil], ['A1 - Beginner', 1], ['A2 - Elementary', 2], ['B1 - Intermediate', 3], ['B2 - Upper intermediate', 4], ['C1 - Advanced', 5], ['C2 - Proficiency', 6]] %>
+  <div class="form-group">
+    <%= f.label :ethnicity, 'What ethnicity do you identify with?' %> <em>Optional</em><br>
+    <%= f.text_field :ethnicity, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :national %><%= f.label :national, 'Are you a national of the country in which you are applying?' %><br>
+    <%= f.check_box :realtives %><%= f.label :realtives, 'Do you have any friends or family in Norway?' %>
   </div>
 
   <h2>Dialogue essay</h2>
@@ -50,9 +55,9 @@
     <li>How can you use what you learn in the dialogue groups in your home region?</li>
   </ul>
 
-  <div class="forum-group">
+  <div class="form-group">
     <%= f.label :dialogue_essay %><br>
-    <%= f.text_area :dialogue_essay, rows: 10, class: 'form-control' %>
+    <%= f.text_area :dialogue_essay, rows: 8, class: 'form-control' %>
   </div>
 
   <h2>Conflict essay</h2>
@@ -61,9 +66,9 @@
     Write an essay (max 300 words) about the conflict in your region. How do you experience the conflict? How does it affect your day-to-day life?
   </p>
 
-  <div class="forum-group">
+  <div class="form-group">
     <%= f.label :conflict_essay %><br>
-    <%= f.text_area :conflict_essay, rows: 10, class: 'form-control' %>
+    <%= f.text_area :conflict_essay, rows: 8, class: 'form-control' %>
   </div>
 
   <h2>Visions for your country</h2>
@@ -72,12 +77,19 @@
     Write an essay (max 300 words) on what visions you have for your region. How can participation in the dialogue groups help you achieve it?
   </p>
 
-  <div class="forum-group">
+  <div class="form-group">
     <%= f.label :vision_essay %><br>
-    <%= f.text_area :vision_essay, rows: 10, class: 'form-control' %>
+    <%= f.text_area :vision_essay, rows: 8, class: 'form-control' %>
   </div>
 
-  <div class="forum-group">
+  <h2>Other information</h2>
+
+  <div class="form-group">
+    <%= f.label :other_information, 'Is there any other information you wish to be considered as part of your application?' %><br>
+    <%= f.text_area :other_information, rows: 6, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit nil, class: 'btn btn-success' %>
   </div>
 <% end %>
