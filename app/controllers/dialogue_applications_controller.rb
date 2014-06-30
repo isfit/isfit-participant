@@ -1,6 +1,5 @@
 class DialogueApplicationsController < ApplicationController
   before_filter :load_user, :available_after_summer, :can_access_dialogue_application, :check_user_profile, :check_user_country, only: [:new, :create, :edit, :update]
-  before_filter :authenticate_user!
 
   load_and_authorize_resource
 

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :check_if_can_manage_user, only: [:show, :edit, :update]
 
   load_and_authorize_resource
