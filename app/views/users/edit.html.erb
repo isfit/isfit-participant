@@ -14,46 +14,54 @@
     <% end %>
 
     <div class="form-group">
-        <strong>Name</strong><br />
-        <%= @user.full_name %>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, placeholder: 'First name', :autofocus => true, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control' %>
     </div>
 
     <% if @user.profile %>
-    <div class="form-group">
-        <strong>Date of birth</strong><br />
-        <%= @user.profile.date_of_birth %>
-    </div>
+      <%= f.fields_for :profile do |p| %>
+        <div class="form-group">
+          <%= p.label :date_of_birth %><br>
+          <%= p.date_select :date_of_birth, start_year: 1974, end_year: 1998 %>
+        </div>
 
-    <div class="form-group">
-        <strong>Gender</strong><br />
-        <%= gender_to_string(@user.profile.gender) %>
-    </div>
+        <div class="checkbox">
+          <strong>Gender</strong>
 
-    <div class="form-group">
-        <strong>Nationality</strong><br />
-        <%= @user.profile.nationality %>
-    </div>
+          <p>
+            <label><%= p.radio_button :gender, 0 %> Male</label><br>
+            <label><%= p.radio_button :gender, 1 %> Female</label><br>
+            <label><%= p.radio_button :gender, 2 %> Other</label>
+          </p>
+        </div>
 
-    <div class="form-group">
-        <strong>Citizenship</strong><br />
-        <%= @user.profile.citizenship.name %>
-    </div>
-    <% end %>
+        <div class="form-group">
+          <%= p.label :nationality_id %>
+          <%= p.text_field :nationality, placeholder: 'Your nationality', class: 'form-control' %>
+        </div>
 
-    <% if @user.profile %>
-        <%= f.fields_for :profile do |p| %>
-            <h2>Education information</h2>
+        <div class="form-group">
+          <%= p.label :citizenship_id %><br>
+          <%= p.collection_select :citizenship_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control'} %>
+        </div>
 
-            <div class="form-group">
-              <%= p.label :school, 'University' %>
-              <%= p.text_field :school, placeholder: 'Your university', class: 'form-control' %>
-            </div>
+        <h2>Education information</h2>
 
-            <div class="form-group">
-              <%= p.label :field_of_study %>
-              <%= p.text_field :field_of_study, placeholder: 'Your field of study', class: 'form-control' %>
-            </div>
-        <% end %>
+        <div class="form-group">
+          <%= p.label :school, 'University' %>
+          <%= p.text_field :school, placeholder: 'Your university', class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= p.label :field_of_study %>
+          <%= p.text_field :field_of_study, placeholder: 'Your field of study', class: 'form-control' %>
+        </div>
+      <% end %>
     <% end %>
 
     <h2>Contact information</h2>
