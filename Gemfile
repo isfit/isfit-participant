@@ -43,6 +43,7 @@ end
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'rvm-capistrano'
 
 gem 'newrelic_rpm'
 # To use debugger
