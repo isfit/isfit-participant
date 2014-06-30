@@ -3,16 +3,14 @@ IsfitParticipant::Application.routes.draw do
 
   get 'landing/index'
 
-  devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords'}, :skip => [:sessions]
+  devise_for :users, :controllers => {:registrations => 'registrations'}, :skip => [:sessions]
   as :user do
-    get 'login' => 'sessions#new', :as => :new_user_session
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
-    get 'signup' => 'registrations#new', :as => :new_user_registration
+
+    get 'signup' => 'devise/registrations#new', :as => :new_user_registration
     post 'signup' => 'registrations#create', :as => :user_registration
-    get 'forgot-password' => 'passwords#new', :as => :new_user_password
-    post 'forgot-password' => 'passwords#create', :as => :user_password
-    put 'forgot-password' => 'devise/passwords#update', :as => :user_password
   end
 
   resources :users do
