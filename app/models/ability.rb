@@ -15,12 +15,10 @@ class Ability
       can [:read, :update, :travel_support, :invitation, :isfit_transportation, :validate_deadline, :check_deadline, :approve_deadline, :ignore, :unignore, :search], Participant
       can [:index, :show, :update, :q_status, :resolve], Question
       can :read, Workshop
-      can [:index, :show, :update, :grade1, :select_app, :grade_app, :set_grade], Application
       can [:show, :edit, :update], User
     end
 
     if user.has_role? :theme
-      can [:index, :show, :grade2, :select_app, :grade_app, :set_grade], Application
       can [:index, :show, :participants, :attendance_list], Workshop
 #      can [:show], Participant
 #      can [:show], Host
@@ -40,12 +38,10 @@ class Ability
     end
 
     if user.has_role? :functionary_support
-      can  [:search, :create], Application
       can [:show, :edit, :update], User
     end
 
     if user.has_role? :dialogue
-      can [:read, :search], Application
       can [:show, :edit, :update], User
     end
 

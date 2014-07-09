@@ -60,9 +60,7 @@ Tabulous.setup do |config|
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
       [    :answers_tab                   ,    'Answers'                   ,    answers_path                   ,    false       ,    false       ],
       [    :events_tab                    ,    'Events'                    ,    events_path                    ,    false       ,    false       ],
-      [    :application_tab               ,    'Applications'              ,    applications_path              ,    ((can? :index, Application) and Participant.count == 0)  ,    true        ],
       [    :participants_tab              ,    'Participants'              ,    participants_path              ,    ((can? :index, Participant) and Participant.count > 0)       ,    true        ],
-      [    :functionaries_tab             ,    'Functionaries'             ,    functionaries_path             ,    false       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_page_path(4)       ,    (can? :show, InformationPage)       ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
@@ -98,7 +96,6 @@ Tabulous.setup do |config|
       #----------------------------------------------------------------------------------------#
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
       [    :control_panel             ,    :all_actions    ,    :control_panel_tab             ],
-      [    :application               ,    :all_actions    ,    :application_tab               ],
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
       [    :workshops                 ,    :all_actions    ,    :workshops_tab                 ],
       [    :articles                  ,    :all_actions    ,    :articles_tab                  ],
@@ -109,7 +106,6 @@ Tabulous.setup do |config|
       [    :roles                     ,    :all_actions    ,    :roles_tab                     ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
-      [    :functionaries             ,    :all_actions    ,    :functionaries_tab             ],
       [    :participants              ,    :all_actions    ,    :participants_tab              ],
       [    :home                      ,    :all_actions    ,    :home_tab                      ],
       #----------------------------------------------------------------------------------------#
