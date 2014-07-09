@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   
   #relations
   has_one :participant
-  has_one :functionary
 
   #methods
   def full_name
@@ -36,14 +35,6 @@ class User < ActiveRecord::Base
   def emails_match
     if (!self.email.eql? self.email_confirmation)
       errors.add(:email_confirmation, "must match email")
-    end
-  end
-
-  def is_functionary?
-    if self.functionary
-      true
-    else
-      false
     end
   end
   

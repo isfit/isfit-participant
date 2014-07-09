@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140709172029) do
+ActiveRecord::Schema.define(:version => 20140709190632) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -88,19 +88,6 @@ ActiveRecord::Schema.define(:version => 20140709172029) do
     t.datetime "end_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "functionaries", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
-  end
-
-  create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "functionary_id"
-    t.integer  "participant_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "hosts", :force => true do |t|

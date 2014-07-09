@@ -8,10 +8,6 @@ class UserTest < ActiveSupport::TestCase
   test 'user results correct name' do
     assert_equal 'Stan Marsh',      @stan.full_name,  "Stan March is named #{@stan.full_name}"
   end
-
-  test 'is functionary true if functionary' do
-    assert @stan.is_functionary?,   'Stan isn\'t a functionary'
-  end
   
   test 'is participant true if participant' do
     assert !@stan.is_participant?, 'Stan is a participant'
