@@ -25,25 +25,6 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :answers
-  resources :applications do
-    collection do
-      get "grade1"
-      match 'grade2' => 'applications#grade2', :via => [:get, :post], :as => :grade2
-      get "workshop_stats"
-      get "country_stats"
-      match 'search' => 'applications#search', :via => [:get, :post], :as => :search
-      match 'stats' => 'applications#stats', :via => [:get, :post], :as => :stats
-      match "duplicates" => "applications#duplicates_index", via: :get, :as => "duplicates"
-    end
-    member do
-      get "selection"
-      post "save_selection"
-      post "select_app"
-      get "grade_app"
-      post "set_grade"
-      get "duplicates"
-    end
-  end
 
   resources :control_panels, :only => [:index, :edit, :update]
 
