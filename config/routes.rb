@@ -75,46 +75,5 @@ IsfitParticipant::Application.routes.draw do
     resources :answers
   end
 
-  match 'participants/:id/host/:host_id' => 'participants#match_host', :via => :post, :as => :add_host
-  # => match 'participants/:id/remove'
-
-  resources :participants do
-    collection do
-      get "validate_deadline"
-      get "mail_to_search_results"
-      get "deadlines_and_functionaries"
-      match 'search' => 'participants#search', :via => [:get, :post], :as => :search
-      match 'index' => 'participants#index', :via => [:get, :post]
-      get "stats"
-      get 'graphics'
-    end
-    member do
-      post "approve_deadline"
-      get "check_deadline"
-      get "check_in"
-      get "remove_check_in"
-      get "check_out"
-      get "deadlines"
-      get :add_phone_number
-      post :update_phone_number
-      post "deadlines_handler"
-      get "travel_support"
-      get "letter_of_recommendation"
-      get "isfit_transportation"
-      get "impersonate"
-      get "invitation"
-      post "remove_host"
-      get "secure"
-      get "desecure"
-      get "ignore"
-      get "unignore"
-      get "activate"
-      get "deactivate"
-      get :match
-      get :show_workshop
-      post :update_workshop
-    end
-  end
-
   root :to => 'landing#index'
 end
