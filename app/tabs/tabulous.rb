@@ -65,7 +65,6 @@ Tabulous.setup do |config|
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    (can? :index, Host)       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
-      [    :control_panel_tab             ,    'CP'                        ,    control_panels_path            ,    ((can? :index, ControlPanel) and false)       ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
       [    :roles_tab                     ,    'Roles'                     ,    roles_path                     ,    false       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
@@ -94,7 +93,6 @@ Tabulous.setup do |config|
       #    CONTROLLER                 |    ACTION          |    TAB                            #
       #----------------------------------------------------------------------------------------#
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
-      [    :control_panel             ,    :all_actions    ,    :control_panel_tab             ],
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
       [    :workshops                 ,    :all_actions    ,    :workshops_tab                 ],
       [    :articles                  ,    :all_actions    ,    :articles_tab                  ],
