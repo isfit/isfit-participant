@@ -60,7 +60,6 @@ Tabulous.setup do |config|
       [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
       [    :answers_tab                   ,    'Answers'                   ,    answers_path                   ,    false       ,    false       ],
       [    :events_tab                    ,    'Events'                    ,    events_path                    ,    false       ,    false       ],
-      [    :participants_tab              ,    'Participants'              ,    participants_path              ,    ((can? :index, Participant) and Participant.count > 0)       ,    true        ],
       [    :information_pages_tab         ,    'Information'               ,    information_page_path(4)       ,    (can? :show, InformationPage)       ,    true        ],
       [    :workshops_tab                 ,    'Workshops'                 ,    workshops_path                 ,    (can? :index, Workshop)       ,    true        ],
       [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
@@ -106,7 +105,6 @@ Tabulous.setup do |config|
       [    :roles                     ,    :all_actions    ,    :roles_tab                     ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
-      [    :participants              ,    :all_actions    ,    :participants_tab              ],
       [    :home                      ,    :all_actions    ,    :home_tab                      ],
       #----------------------------------------------------------------------------------------#
       #    CONTROLLER                 |    ACTION          |    TAB                            #
