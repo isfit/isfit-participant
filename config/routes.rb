@@ -23,27 +23,6 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :answers
-  resources :applications do
-    collection do
-      get "grade1"
-      match 'grade2' => 'applications#grade2', :via => [:get, :post], :as => :grade2
-      get "workshop_stats"
-      get "country_stats"
-      match 'search' => 'applications#search', :via => [:get, :post], :as => :search
-      match 'stats' => 'applications#stats', :via => [:get, :post], :as => :stats
-      match "duplicates" => "applications#duplicates_index", via: :get, :as => "duplicates"
-    end
-    member do
-      get "selection"
-      post "save_selection"
-      post "select_app"
-      get "grade_app"
-      post "set_grade"
-      get "duplicates"
-    end
-  end
-
-  resources :control_panels, :only => [:index, :edit, :update]
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 
@@ -92,54 +71,6 @@ IsfitParticipant::Application.routes.draw do
 			get "resolve"
     end
     resources :answers
-  end
-  resources :functionaries do
-    member do
-      get :impersonate
-      post :add_role
-      post :remove_role
-    end
-  end
-
-  match 'participants/:id/host/:host_id' => 'participants#match_host', :via => :post, :as => :add_host
-  # => match 'participants/:id/remove'
-
-  resources :participants do
-    collection do
-      get "validate_deadline"
-      get "mail_to_search_results"
-      get "deadlines_and_functionaries"
-      match 'search' => 'participants#search', :via => [:get, :post], :as => :search
-      match 'index' => 'participants#index', :via => [:get, :post]
-      get "stats"
-      get 'graphics'
-    end
-    member do
-      post "approve_deadline"
-      get "check_deadline"
-      get "check_in"
-      get "remove_check_in"
-      get "check_out"
-      get "deadlines"
-      get :add_phone_number
-      post :update_phone_number
-      post "deadlines_handler"
-      get "travel_support"
-      get "letter_of_recommendation"
-      get "isfit_transportation"
-      get "impersonate"
-      get "invitation"
-      post "remove_host"
-      get "secure"
-      get "desecure"
-      get "ignore"
-      get "unignore"
-      get "activate"
-      get "deactivate"
-      get :match
-      get :show_workshop
-      post :update_workshop
-    end
   end
 
   root :to => 'landing#index'

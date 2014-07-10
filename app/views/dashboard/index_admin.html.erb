@@ -10,22 +10,6 @@
 <% content_for :sidebar_right do  %>
 <div class="well">
     <h4>Quick overview</h4>
-    <% if Participant.count > 0 %>
-    <p>
-        <b>Participants in system:</b> <%= Participant.count %><br>
-        <b>Participants accepted:</b> <%= Participant.where(:accepted => 1).count %><br>
-        <b>Participants with Visa:</b> <%= Participant.where(:visa => 1).count %><br>
-        <b>Participants with passport:</b> <%= Participant.where(:has_passport => 1).count %><br>
-    </p>
-    <% else %>
-    <b>Applications in system:</b> <%= Application.count %><br>
-    <b>Applications deleted:</b> <%= Application.where("deleted = 1").count %><br>
-    <b>Applications left 1st round:</b> <%= Application.where("deleted = 0 and grade1 = 0").count %><br>
-    <b>Applications left 2nd round:</b> <%= Application.where("deleted = 0 and grade2 = 0 and grade1 > ?", ControlPanel.first.app_grade2_scope).count %><br>
-    <b>Applications accepted:</b> <%= Application.where("status = 1").count %><br>
-    <b>Applications on waiting list:</b> <%= Application.where("status = 3").count %><br>
-    <b>Travel support granted</b> <%= number_to_currency(Application.where("status = 1").sum(:travel_amount_given), :unit => "$") %>
-    <% end %>
 </div>
 <% end %>
 

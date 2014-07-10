@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140628200127) do
+ActiveRecord::Schema.define(:version => 20140710154022) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -19,50 +19,6 @@ ActiveRecord::Schema.define(:version => 20140628200127) do
     t.integer  "question_id"
     t.text     "content"
     t.integer  "user_id"
-  end
-
-  create_table "applications", :force => true do |t|
-    t.string   "first_name",                                                 :null => false
-    t.string   "last_name",                                                  :null => false
-    t.string   "address",                                                    :null => false
-    t.string   "zipcode",                  :limit => 10,                     :null => false
-    t.string   "city",                                                       :null => false
-    t.integer  "country_id",                              :default => 0,     :null => false
-    t.string   "phone",                    :limit => 64,                     :null => false
-    t.string   "email",                    :limit => 100,                    :null => false
-    t.date     "birthdate",                                                  :null => false
-    t.string   "sex",                      :limit => 2,                      :null => false
-    t.string   "university",                                                 :null => false
-    t.string   "field_of_study",                                             :null => false
-    t.integer  "workshop1",                               :default => 0,     :null => false
-    t.integer  "workshop2",                               :default => 0,     :null => false
-    t.integer  "workshop3",                               :default => 0,     :null => false
-    t.text     "essay1",                                                     :null => false
-    t.text     "essay2",                                                     :null => false
-    t.integer  "travel_apply",             :limit => 1,   :default => 0
-    t.text     "travel_essay"
-    t.string   "travel_amount",            :limit => 20,  :default => ""
-    t.integer  "travel_nosupport_other",   :limit => 1,   :default => 0
-    t.integer  "travel_nosupport_cancome", :limit => 1,   :default => 0
-    t.integer  "grade1_functionary_id",                   :default => 0,     :null => false
-    t.integer  "grade1",                   :limit => 2,   :default => 0,     :null => false
-    t.text     "grade1_comment"
-    t.integer  "grade2_functionary_id",                   :default => 0,     :null => false
-    t.integer  "grade2",                   :limit => 2,   :default => 0,     :null => false
-    t.text     "grade2_comment"
-    t.integer  "total_grade",              :limit => 2,   :default => 0,     :null => false
-    t.integer  "selection_functionary_id",                :default => 0,     :null => false
-    t.text     "selection_comment"
-    t.integer  "travel_functionary_id",                   :default => 0,     :null => false
-    t.integer  "travel_approved",          :limit => 1,   :default => 0,     :null => false
-    t.string   "travel_amount_given",                     :default => "0",   :null => false
-    t.text     "travel_comment"
-    t.integer  "status",                                  :default => 0,     :null => false
-    t.integer  "final_workshop",                          :default => 0,     :null => false
-    t.boolean  "deleted",                                 :default => false
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.integer  "travel_status",                           :default => 0,     :null => false
   end
 
   create_table "arrival_places", :force => true do |t|
@@ -78,15 +34,6 @@ ActiveRecord::Schema.define(:version => 20140628200127) do
     t.datetime "publish_at"
     t.integer  "user_id"
     t.integer  "sticky"
-  end
-
-  create_table "control_panels", :force => true do |t|
-    t.boolean  "app_grade1",       :default => false
-    t.boolean  "app_grade2",       :default => false
-    t.boolean  "app_grade3",       :default => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "app_grade2_scope"
   end
 
   create_table "countries", :force => true do |t|
@@ -134,19 +81,6 @@ ActiveRecord::Schema.define(:version => 20140628200127) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "functionaries", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
-  end
-
-  create_table "functionaries_participants", :id => false, :force => true do |t|
-    t.integer  "functionary_id"
-    t.integer  "participant_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
   create_table "hosts", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -174,67 +108,6 @@ ActiveRecord::Schema.define(:version => 20140628200127) do
     t.integer  "information_category_id"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
-  end
-
-  create_table "participants", :force => true do |t|
-    t.date     "date_of_birth"
-    t.string   "address1"
-    t.string   "zipcode"
-    t.string   "city"
-    t.integer  "country_id"
-    t.integer  "sex"
-    t.string   "field_of_study"
-    t.integer  "workshop_id"
-    t.integer  "user_id"
-    t.integer  "functionary_id"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.datetime "arrives_at"
-    t.datetime "departs_at"
-    t.integer  "arrival_place_id"
-    t.integer  "need_transport"
-    t.string   "next_of_kin_name"
-    t.string   "next_of_kin_phone"
-    t.text     "next_of_kin_address"
-    t.string   "flightnumber"
-    t.integer  "has_passport"
-    t.integer  "accepted"
-    t.integer  "visa"
-    t.integer  "transport_type_id"
-    t.integer  "travel_support"
-    t.integer  "applied_for_visa"
-    t.integer  "notified"
-    t.boolean  "dialogue"
-    t.boolean  "media_consent"
-    t.boolean  "subscribe_consent"
-    t.integer  "embassy_confirmation",    :default => 0,     :null => false
-    t.boolean  "allergy_lactose"
-    t.boolean  "allergy_gluten"
-    t.boolean  "allergy_nuts"
-    t.string   "allergy_other"
-    t.boolean  "vegetarian"
-    t.boolean  "guaranteed"
-    t.boolean  "smoke"
-    t.string   "handicap"
-    t.boolean  "allergy_pets"
-    t.integer  "host_id"
-    t.datetime "checked_in"
-    t.datetime "checked_out"
-    t.boolean  "spp"
-    t.boolean  "invited"
-    t.boolean  "halal",                   :default => false
-    t.boolean  "agree_waiting_list"
-    t.string   "visa_number"
-    t.string   "visum_file_name"
-    t.string   "visum_content_type"
-    t.integer  "visum_file_size"
-    t.datetime "visum_updated_at"
-    t.boolean  "confirmed_participation"
-    t.string   "nationality"
-    t.integer  "country_citizen_id"
-    t.boolean  "active"
-    t.boolean  "ignore",                  :default => false
-    t.string   "phone_number"
   end
 
   create_table "profiles", :force => true do |t|
