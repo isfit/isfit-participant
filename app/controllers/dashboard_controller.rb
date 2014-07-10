@@ -1,6 +1,4 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate_user!
-
   def index
     @deadlines = Deadline.all
     @important_articles = Article.where("publish_at < NOW()" ).where("sticky = 1").order("created_at DESC").limit(1)

@@ -1,6 +1,4 @@
 class ParticipantsController < ApplicationController
-  before_filter :authenticate_user!
-
   require 'will_paginate/array'
 
   load_and_authorize_resource
