@@ -10,14 +10,6 @@
 <% content_for :sidebar_right do  %>
 <div class="well">
     <h4>Quick overview</h4>
-    <% if Participant.count > 0 %>
-    <p>
-        <b>Participants in system:</b> <%= Participant.count %><br>
-        <b>Participants accepted:</b> <%= Participant.where(:accepted => 1).count %><br>
-        <b>Participants with Visa:</b> <%= Participant.where(:visa => 1).count %><br>
-        <b>Participants with passport:</b> <%= Participant.where(:has_passport => 1).count %><br>
-    </p>
-    <% end %>
 </div>
 <% end %>
 
