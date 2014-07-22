@@ -50,7 +50,7 @@ class ProfileTest < ActiveSupport::TestCase
   	profile = FactoryGirl.build(:profile, citizenship: nil)
   	assert profile.invalid?
   end
-  
+
   test 'not vaild without nationality' do
   	profile = FactoryGirl.build(:profile, nationality: '')
   	assert profile.invalid?
@@ -69,5 +69,23 @@ class ProfileTest < ActiveSupport::TestCase
   test 'not vaild without user' do
   	profile = FactoryGirl.build(:profile, field_of_study: nil)
   	assert profile.invalid?
+  end
+
+  test 'phone number can save numbers with leading zeros' do
+    number = '04200'
+    profile = FactoryGirl.create(:profile, phone: number)
+    assert_equal number, profile.phone, "Phone number was saved without leading zero"
+  end
+
+  test 'phone number strips formatting characters' do
+    number = '(420) 09500-128'
+    profile = FactoryGirl.create(:profile, phone: number)
+    assert_equal '42009500128', profile.phone, 'Formating characters was not stripped'
+  end
+
+  test 'phone number is not valid with letters' do
+    number = '420 isfit'
+    profile = FactoryGirl.build(:profile, phone: number)
+    assert profile.invalid?
   end
 end

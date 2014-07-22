@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140710154022) do
+ActiveRecord::Schema.define(:version => 20140722085450) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20140710154022) do
     t.string   "city"
     t.string   "citizenship"
     t.integer  "calling_code"
-    t.integer  "phone"
+    t.string   "phone"
     t.date     "date_of_birth"
     t.integer  "gender",           :limit => 1
     t.string   "gender_specify"
