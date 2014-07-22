@@ -16,6 +16,6 @@ class Profile < ActiveRecord::Base
 
   private
     def strip_phone_formating_characters
-      self.phone = phone.gsub(/[^0-9a-zA-Z]/i, '')
+      self.phone = phone.to_s.gsub(/[^0-9a-zA-Z]/i, '')
     end
 end
