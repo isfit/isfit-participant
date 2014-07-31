@@ -10,13 +10,20 @@
 <% content_for :sidebar_right do  %>
 <div class="well">
     <h4>Quick overview</h4>
+
+    <dl>
+      <dt>Number of users:</dt>
+      <dd><%= @number_of_users %></dd>
+      <dt>Number of profiles:</dt>
+      <dd><%= @number_of_profiles %></dd>
+    </dl>
 </div>
 <% end %>
 
 <!-- Admin view -->
 <div id="important_articles" class="important_articles">
-    <%= render @important_articles %>
+    <p>Noting to see here</p>
 </div>
 <div id="articles" class="articles">
-    <%= render @articles %>
+    <p>Noting to see here</p>
 </div>
