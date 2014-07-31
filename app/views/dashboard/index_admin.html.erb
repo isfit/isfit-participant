@@ -10,6 +10,13 @@
 <% content_for :sidebar_right do  %>
 <div class="well">
     <h4>Quick overview</h4>
+
+    <dl>
+      <dt>Number of users:</dt>
+      <dd><%= @number_of_users %></dd>
+      <dt>Number of profiles:</dt>
+      <dd><%= @number_of_profiles %></dd>
+    </dl>
 </div>
 <% end %>
 
