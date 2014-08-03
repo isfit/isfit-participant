@@ -17,9 +17,6 @@ TransportType.create(:id => 6,:name => "Train")
 TransportType.create(:id => 7,:name => "Bus")
 TransportType.create(:id => 8,:name => "Car")
 
-#Create control panel entry
-ControlPanel.create(:app_grade1 => 0, :app_grade2 => 0, :app_grade3 => 0, :app_grade2_scope => 0)
-
 #Deadlines
 Deadline.create(:name => "1. Accept invitation", :deadline => "2014-11-15 23:59", :participant_type => 1)
 Deadline.create(:name => "2. Apply for visa", :deadline => "2014-11-15 23:59", :participant_type => 1)
