@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "workshop_applications.css.scss";
 
 body { 
   padding-top: 60px; 
@@ -19,4 +20,22 @@ body {
 
 .hosts_button_spacing {
   padding-right: 1em;
+}
+
+.red-text {
+
+	color: #ff0000;
+}
+
+.yellow-text {
+	color: #ffa600;
+}
+
+.green-text {
+	color: #00ff00;
+
+}
+
+.font-size-200 {
+	font-size: 2.5em;
 }

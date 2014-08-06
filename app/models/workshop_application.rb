@@ -5,6 +5,7 @@ class WorkshopApplication < ActiveRecord::Base
     :workshop_essay, :profile_attributes
 
   # Relations
+  belongs_to :profile_reviewer, class_name: 'User'
   belongs_to :user
   belongs_to :workshop_1, class_name: 'Workshop'
   belongs_to :workshop_2, class_name: 'Workshop'
@@ -19,6 +20,7 @@ class WorkshopApplication < ActiveRecord::Base
   validates :workshop_essay, presence: true
   validates :user_id, presence: true
   validates :amount, numericality: { greater_than: 0 }, if: :applying_for_support
+  validates :profile_grade, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
 
   # Callbacks
   before_validation :strip_amount
@@ -30,6 +32,10 @@ class WorkshopApplication < ActiveRecord::Base
     end
 
     !workshop_essay.blank?
+  end
+
+  def self.ungraded_applications
+    joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("workshop_essay != ''").where("profile_grade IS NULL")
   end
 
   private
