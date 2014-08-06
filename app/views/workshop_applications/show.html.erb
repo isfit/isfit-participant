@@ -12,6 +12,8 @@
 	<%end%>
 </div>
 
+
+
 <article id="worksops-applications-<%= @workshop_application.id %>">
 	<h1><%= @workshop_application.user.full_name %></h1>
 
@@ -64,12 +66,30 @@
   </p>
 
   <% if @workshop_application.profile.motivation_essay.blank? %>
-		<p><%= @workshop_application.user.full_name %> have no essay...</p>
+		<p><%= @workshop_application.user.full_name %> have no motivation essay...</p>
 	<% else %>
 		<%= simple_format(@workshop_application.profile.motivation_essay) %>
 	<% end %>
 
+	<p>
+	<strong>Workshop essay</strong>
+	</p>
 
+	<% if @workshop_application.workshop_essay.blank? %>
+		<p><%= @workshop_application.user.full_name %> have no workshop essay...</p>
+	<% else %>
+		<%= simple_format(@workshop_application.workshop_essay) %>
+	<% end %>
+
+	<p>
+	<strong>Financial aid essay</strong>
+	</p>
+
+	<% if @workshop_application.financial_aid_essay.blank? %>
+		<p><%= @workshop_application.user.full_name %> have no financial aid essay...</p>
+	<% else %>
+		<%= simple_format(@workshop_application.financial_aid_essay) %>
+	<% end %>
 
 
 
