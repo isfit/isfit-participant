@@ -20,9 +20,7 @@ class DashboardControllerTest < ActionController::TestCase
   end
 
   test 'should render applicant template when authenticated as applicant' do
-    applicant_role = FactoryGirl.create(:role)
     eric = FactoryGirl.create(:user)
-    eric.roles << applicant_role
     sign_in eric
 
     get :index
@@ -30,9 +28,7 @@ class DashboardControllerTest < ActionController::TestCase
   end
 
   test 'should render admin template when authenticated as admin' do
-    admin_role = FactoryGirl.create(:admin_role)
-    eric = FactoryGirl.create(:user)
-    eric.roles << admin_role
+    eric = FactoryGirl.create(:admin_user)
     sign_in eric
 
     get :index
