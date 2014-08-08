@@ -3,14 +3,14 @@ IsfitParticipant::Application.routes.draw do
 
   get 'landing/index'
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}, :skip => [:sessions]
+  devise_for :users, :skip => [:sessions]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
 
     get 'signup' => 'devise/registrations#new', :as => :new_user_registration
-    post 'signup' => 'registrations#create', :as => :user_registration
+    post 'signup' => 'devise/registrations#create', :as => :user_registration
   end
 
   resources :users do
