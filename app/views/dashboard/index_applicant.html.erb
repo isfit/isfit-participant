@@ -10,15 +10,15 @@
 
 <% if current_user.profile && current_user.profile.motivation_essay != '' %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>Your profile is complete! <em>Edit profile</em>'.html_safe, current_user, class: 'btn btn-success btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>Your profile is complete! <em>Edit profile</em>'.html_safe, settings_edit_profile_path, class: 'btn btn-success btn-dashboard' %>
   </p>
 <% elsif current_user.profile %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, current_user, class: 'btn btn-warning btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, settings_edit_profile_path, class: 'btn btn-warning btn-dashboard' %>
   </p>
 <% else %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You need a profile before yu can apply! <em>Create profile</em>'.html_safe, new_user_profile_path(current_user), class: 'btn btn-danger btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>You need a profile before you can apply! <em>Create profile</em>'.html_safe, settings_new_profile_path, class: 'btn btn-danger btn-dashboard' %>
   </p>
 <% end %>
 

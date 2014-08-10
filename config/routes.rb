@@ -1,7 +1,18 @@
 IsfitParticipant::Application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
-  get 'landing/index'
+  namespace :settings do
+    get 'user', to: 'user#edit', as: :edit_user
+    put 'user', to: 'user#update'
+
+    get 'password', to: 'password#edit', as: :edit_password
+    put 'password', to: 'password#update'
+
+    get 'profile/new', to: 'profile#new', as: :new_profile
+    post 'profile', to: 'profile#create'
+    get 'profile', to: 'profile#edit', as: :edit_profile
+    put 'profile', to: 'profile#update'
+  end
 
   devise_for :users, :skip => [:sessions]
   as :user do
@@ -15,11 +26,6 @@ IsfitParticipant::Application.routes.draw do
 
   resources :users do
     resource :dialogue_application, path: 'applications/dialogue'
-    resource :profile, only: [:new, :create]
-    member do
-      post :add_role
-      post :remove_role
-    end
   end
 
   resources :answers
@@ -52,9 +58,6 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :deadlines
-  
-  match 'change_password' => 'changepasswords#edit_password', :as => :change_password
-  match 'change_password/update_password' => 'changepasswords#update_password', :as => :update_password
 
   resources :roles do
     member do

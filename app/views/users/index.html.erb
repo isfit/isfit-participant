@@ -14,7 +14,7 @@
   <tr>
     <td><%= user.full_name %></td>
     <td><%= user.email %></td>
-    <td><%= roles_to_sentence(user) %></td>
+    <td><%= user.role.titleize %></td>
     <td>
       <%= link_to 'Show', user %>
       <%= link_to 'Edit', edit_user_path(user) %>

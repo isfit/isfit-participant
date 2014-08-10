@@ -1,0 +1,8 @@
+<% content_for :sidebar_left do %>
+<ul class="nav well nav-list">
+  <li class="nav-header">Settings</li>
+  <li><%= link_to 'User', settings_edit_user_path %></li>
+  <li><%= link_to 'Profile', settings_edit_profile_path %></li>
+  <li><%= link_to 'Change password', settings_edit_password_path %></li>
+</ul>
+<% end %>

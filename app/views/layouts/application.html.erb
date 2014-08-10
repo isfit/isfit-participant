@@ -60,7 +60,9 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%=link_to "Change password", change_password_path%></li>
+              <li><%= link_to 'Edit user', settings_edit_user_path %></li>
+              <% if current_user.profile %><li><%= link_to 'Edit profile', settings_edit_user_path %></li><% end %>
+              <li><%= link_to "Change password", settings_edit_password_path %></li>
               <li><%= link_to "Logout", destroy_user_session_url %></li>
             </ul>
           </li>
