@@ -7,10 +7,5 @@ class Ability
     if user.role == 'admin'
       can :manage, :all
     end
-
-    if user.role == 'applicant'
-      can [:show, :edit, :update], User
-      can [:new, :create, :edit, :update], DialogueApplication
-    end
   end
 end

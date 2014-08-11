@@ -41,4 +41,8 @@ class Settings::ProfileController < ApplicationController
     def check_for_missing_profile
       redirect_to settings_new_profile_url unless current_user.profile
     end
+
+    def available_after_summer
+      redirect_to dashboard_url, alert: 'The dialoge application form will be available after summer.'
+    end
 end

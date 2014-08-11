@@ -1,4 +1,4 @@
-<%= form_for(@dialogue_application, url: user_dialogue_application_path) do |f| %>
+<%= form_for(@dialogue_application, url: applications_dialogue_path) do |f| %>
   <% if @dialogue_application.errors.full_messages.any? %>
     <div class="bg-danger info-box">
       <h2><%= pluralize(@dialogue_application.errors.full_messages.count, 'error') %> prevents you from submiting the dialogue group application.</h2>

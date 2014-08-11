@@ -14,6 +14,16 @@ IsfitParticipant::Application.routes.draw do
     put 'profile', to: 'profile#update'
   end
 
+  namespace :applications do
+    get 'motivation', to: 'motivation#edit', as: :edit_motivation
+    put 'motivation', to: 'motivation#update'
+
+    get 'dialogue/new', to: 'dialogue#new', as: :new_dialogue
+    post 'dialogue', to: 'dialogue#create'
+    get 'dialogue', to: 'dialogue#edit', as: :edit_dialogue
+    put 'dialogue', to: 'dialogue#update'
+  end
+
   devise_for :users, :skip => [:sessions]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
@@ -22,10 +32,6 @@ IsfitParticipant::Application.routes.draw do
 
     get 'signup' => 'devise/registrations#new', :as => :new_user_registration
     post 'signup' => 'devise/registrations#create', :as => :user_registration
-  end
-
-  resources :users do
-    resource :dialogue_application, path: 'applications/dialogue'
   end
 
   resources :answers

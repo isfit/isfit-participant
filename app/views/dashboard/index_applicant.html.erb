@@ -14,7 +14,7 @@
   </p>
 <% elsif current_user.profile %>
   <p>
-    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, settings_edit_profile_path, class: 'btn btn-warning btn-dashboard' %>
+    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-warning btn-dashboard' %>
   </p>
 <% else %>
   <p>
