@@ -1,0 +1,26 @@
+<%= render 'settings/sidebar_left' %>
+
+<h1>Change password</h1>
+
+<p>Edit your password.</p>
+
+<%= form_for [:settings, @user], url: settings_edit_password_path do |user| %>
+<div class="form-group">
+  <%= user.label :current_password, 'Current password' %>
+  <%= user.password_field :current_password, class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= user.label :password, 'New password' %>
+  <%= user.password_field :password, class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= user.label :password_confirmation, 'Repeat new password' %>
+  <%= user.password_field :password_confirmation, class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= user.submit 'Save changes', class: 'btn btn-success'%>
+</div>
+<% end %>

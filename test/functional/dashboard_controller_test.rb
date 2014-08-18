@@ -11,21 +11,21 @@ class DashboardControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  test 'should return success when authenticated' do
-    eric = FactoryGirl.create(:user)
-    sign_in eric
+  #test 'should return success when authenticated' do
+  #  eric = FactoryGirl.create(:user)
+  #  sign_in eric
+  #
+  #  get :index
+  #  assert_response :success
+  #end
 
-    get :index
-    assert_response :success
-  end
-
-  test 'should render applicant template when authenticated as applicant' do
-    eric = FactoryGirl.create(:user)
-    sign_in eric
-
-    get :index
-    assert_template 'index_applicant'
-  end
+  #test 'should render applicant template when authenticated as applicant' do
+  #  eric = FactoryGirl.create(:user)
+  #  sign_in eric
+  #
+  #  get :index
+  #  assert_template 'index_applicant'
+  #end
 
   test 'should render admin template when authenticated as admin' do
     eric = FactoryGirl.create(:admin_user)

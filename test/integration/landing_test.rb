@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LandingTest < ActionDispatch::IntegrationTest
-  test 'valid registration form sends you to dashboard' do
+  test 'valid registration form sends you to create profile' do
     visit '/'
 
     within 'h1' do
@@ -20,7 +20,7 @@ class LandingTest < ActionDispatch::IntegrationTest
     end
 
     within 'h1' do
-      assert has_content?('Welcome, Fred Apekatt!')
+      assert has_content?('Create a profile')
     end
   end
 end

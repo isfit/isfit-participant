@@ -1,0 +1,95 @@
+<%= form_for(@dialogue_application, url: applications_dialogue_path) do |f| %>
+  <% if @dialogue_application.errors.full_messages.any? %>
+    <div class="bg-danger info-box">
+      <h2><%= pluralize(@dialogue_application.errors.full_messages.count, 'error') %> prevents you from submiting the dialogue group application.</h2>
+
+      <ul>
+        <% @dialogue_application.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Personal information</h2>
+
+  <p>
+    Before you can send in your application for the dialogue groups, we need to know more about you.
+  </p>
+
+  <div class="checkbox">
+    <strong>Relationship status</strong>
+
+    <p>
+      <label><%= f.radio_button :relationship_status, 0 %> Single</label><br>
+      <label><%= f.radio_button :relationship_status, 1 %> In a relationship</label><br>
+      <label><%= f.radio_button :relationship_status, 2 %> Engaged</label><br>
+      <label><%= f.radio_button :relationship_status, 3 %> Married</label>
+    </p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :english_proficiency %><br>
+    <%= f.select :english_proficiency, [['Please select your proficiency level', nil], ['A1 - Beginner', 1], ['A2 - Elementary', 2], ['B1 - Intermediate', 3], ['B2 - Upper intermediate', 4], ['C1 - Advanced', 5], ['C2 - Proficiency', 6]] %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ethnicity, 'What ethnicity do you identify with?' %> <em>Optional</em><br>
+    <%= f.text_field :ethnicity, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :national %><%= f.label :national, 'Are you a national of the country in which you are applying?' %><br>
+    <%= f.check_box :realtives %><%= f.label :realtives, 'Do you have any friends or family in Norway?' %>
+  </div>
+
+  <h2>Dialogue essay</h2>
+
+  <p>
+    Write an essay (max 300 words) where you reflect on the following terms.
+  </p>
+
+  <ul>
+    <li>What is your view on dialogue?</li>
+    <li>What can you achieve by participating in the dialogue groups?</li>
+    <li>How can you use what you learn in the dialogue groups in your home region?</li>
+  </ul>
+
+  <div class="form-group">
+    <%= f.label :dialogue_essay %><br>
+    <%= f.text_area :dialogue_essay, rows: 8, class: 'form-control' %>
+  </div>
+
+  <h2>Conflict essay</h2>
+
+  <p>
+    Write an essay (max 300 words) about the conflict in your region. How do you experience the conflict? How does it affect your day-to-day life?
+  </p>
+
+  <div class="form-group">
+    <%= f.label :conflict_essay %><br>
+    <%= f.text_area :conflict_essay, rows: 8, class: 'form-control' %>
+  </div>
+
+  <h2>Visions for your country</h2>
+
+  <p>
+    Write an essay (max 300 words) on what visions you have for your region. How can participation in the dialogue groups help you achieve it?
+  </p>
+
+  <div class="form-group">
+    <%= f.label :vision_essay %><br>
+    <%= f.text_area :vision_essay, rows: 8, class: 'form-control' %>
+  </div>
+
+  <h2>Other information</h2>
+
+  <div class="form-group">
+    <%= f.label :other_information, 'Is there any other information you wish to be considered as part of your application?' %><br>
+    <%= f.text_area :other_information, rows: 6, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit nil, class: 'btn btn-success' %>
+  </div>
+<% end %>
