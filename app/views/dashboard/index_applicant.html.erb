@@ -8,20 +8,15 @@
   Deadline for submitting the application is the <strong>30th of September 2014</strong>!
 </p>
 
-<% if current_user.profile && current_user.profile.motivation_essay != '' %>
-  <p>
-    <%= link_to '<strong>Profile</strong><br>Your profile is complete! <em>Edit profile</em>'.html_safe, settings_edit_profile_path, class: 'btn btn-success btn-dashboard' %>
-  </p>
-<% elsif current_user.profile %>
-  <p>
-    <%= link_to '<strong>Profile</strong><br>You have a profile, but motivation essay is missing! <em>Edit profile</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-warning btn-dashboard' %>
-  </p>
+<% if current_user.profile.motivation_essay.empty? %>
+<p>
+  <%= link_to '<strong>Motivation essay</strong><br><em>Create motivation essay</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-warning btn-dashboard' %>
+</p>
 <% else %>
-  <p>
-    <%= link_to '<strong>Profile</strong><br>You need a profile before you can apply! <em>Create profile</em>'.html_safe, settings_new_profile_path, class: 'btn btn-danger btn-dashboard' %>
-  </p>
+<p>
+  <%= link_to '<strong>Motivation essay</strong><br>You have a complte profile with a motiation essay! <em>Edit motivation essay</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-success btn-dashboard' %>
+</p>
 <% end %>
-
 
 <h2>Workshop application</h2>
 

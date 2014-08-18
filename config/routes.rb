@@ -40,14 +40,8 @@ IsfitParticipant::Application.routes.draw do
 
   resources :information_categories
   resources :information_pages
-  resources :workshops do
-    member do
-      get "participants"
-      get "allergies"
-      get "attendance_list"
-    end
-  end
   resources :articles
+  
   post "search/index"
 
   resources :events

@@ -6,6 +6,10 @@ class DashboardController < ApplicationController
 
       render template: 'dashboard/index_admin'
     elsif current_user.role == 'applicant'
+      unless current_user.profile
+        redirect_to settings_new_profile_url and return
+      end
+
       render template: 'dashboard/index_applicant'
     end
   end
