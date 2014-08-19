@@ -1,8 +1,10 @@
 class Applications::DialogueController < ApplicationController
+  before_filter :not_yet_ready
   before_filter :check_for_missing_profile
   before_filter :check_for_existing_dialogue_application, only: [:new, :create]
   before_filter :check_for_missing_dialogue_application, only: [:edit, :update]
   before_filter :set_dialogue_application, only: [:edit, :update]
+  before_filter :check_current_user_country
 
   def new
     @dialogue_application = DialogueApplication.new
@@ -45,5 +47,17 @@ class Applications::DialogueController < ApplicationController
 
     def check_for_missing_profile
       redirect_to settings_new_profile_url unless current_user.profile
+    end
+
+    def check_current_user_country
+      unless current_user.profile.from_conflict_area?
+        redirect_to dashboard_url, 
+          notice: 'The dialogue groups are only open for students from Burundi, Rwanda, and South-Africa.' 
+      end
+    end
+
+    def not_yet_ready
+       redirect_to dashboard_url, 
+          notice: 'The dialogue application form is not yet ready!' 
     end
 end
