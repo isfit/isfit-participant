@@ -1,0 +1,11 @@
+<%= simple_form_for([:admin, @workshop]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :lead %>
+    <%= f.input :description %>
+  </div>
+
+  <%= f.button :submit %>
+<% end %>
