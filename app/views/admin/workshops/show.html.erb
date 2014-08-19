@@ -1,0 +1,14 @@
+<div class="pull-right">
+<%= link_to 'Edit', edit_admin_workshop_path(@workshop), :class => "btn btn-default" %>
+<%= link_to 'Back', admin_workshops_path, :class => "btn btn-default" %>
+</div>
+
+<article id="article-<%= @workshop.id %>">
+  <h1><%= @workshop.title %></h1>
+
+  <p>
+    <strong><%= @workshop.lead %></strong>
+  </p>
+
+  <%= simple_format @workshop.description %>
+</article>

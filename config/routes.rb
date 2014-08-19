@@ -1,5 +1,12 @@
 IsfitParticipant::Application.routes.draw do
+  
+  resources :workshops, only: [:index, :show]
+
   get 'dashboard', to: 'dashboard#index'
+
+  namespace :admin do
+    resources :workshops  
+  end
 
   namespace :settings do
     get 'user', to: 'user#edit', as: :edit_user

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140818165126) do
+ActiveRecord::Schema.define(:version => 20140819150028) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20140818165126) do
     t.datetime "updated_at",                             :null => false
     t.string   "ethnicity",           :default => "",    :null => false
     t.boolean  "national",            :default => false, :null => false
-    t.boolean  "realtives",           :default => false, :null => false
+    t.string   "realtives",                              :null => false
     t.text     "other_information"
   end
 
@@ -197,5 +197,13 @@ ActiveRecord::Schema.define(:version => 20140818165126) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "workshops", :force => true do |t|
+    t.string   "title"
+    t.string   "lead"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
 end

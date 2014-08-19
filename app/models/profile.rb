@@ -14,6 +14,10 @@ class Profile < ActiveRecord::Base
   
   before_validation :strip_phone_formating_characters
 
+  def from_conflict_area?
+    ['BI', 'RW', 'ZA'].any? { |code| code.eql?(country.code) }
+  end
+
   private
     def strip_phone_formating_characters
       self.phone = phone.to_s.gsub(/[^0-9a-zA-Z]/i, '')
