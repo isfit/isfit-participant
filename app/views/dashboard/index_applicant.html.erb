@@ -34,10 +34,7 @@
   </p>
 <% else %>
   <p>
-    <button class="btn btn-success btn-dashboard">
-      <strong>Workshop application</strong><br>
-      Workshop application created!
-    </button>
+    <%= link_to '<strong>Workshop application</strong><br>You have created a workshop application! <em>Edit workshop application</em>'.html_safe, applications_workshop_path, class: "btn btn-success btn-dashboard" %>
   </p>
 <% end %>
 
