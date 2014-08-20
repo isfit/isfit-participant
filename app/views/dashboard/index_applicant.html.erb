@@ -48,9 +48,12 @@
   This year we welcome students from <strong>Rwanda, Burundi, and South Africa</strong> to apply for the Dialogue Groups.
 </p>
 
-<p>
-  <button class="btn btn-disabled btn-dashboard">
-    <strong>Dialogue application</strong><br>
-    Will be available in the middle of August
-  </button>
-</p>
+<% if current_user.dialogue_application.nil? %>
+  <p>
+    <%= link_to '<strong>Dialogue application</strong><br><em>Create workshop application</em>'.html_safe, applications_new_dialogue_path, class: "btn btn-primary btn-dashboard" %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to '<strong>Workshop application</strong><br>You have created a workshop application! <em>Edit workshop application</em>'.html_safe, applications_dialogue_path, class: "btn btn-success btn-dashboard" %>
+  </p>
+<% end %>
