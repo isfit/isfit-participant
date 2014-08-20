@@ -29,6 +29,8 @@ IsfitParticipant::Application.routes.draw do
     post 'dialogue', to: 'dialogue#create'
     get 'dialogue', to: 'dialogue#edit', as: :edit_dialogue
     put 'dialogue', to: 'dialogue#update'
+
+    resource :workshop, only: [:show, :create, :new, :update], controller: :workshop
   end
 
   devise_for :users, :skip => [:sessions]
