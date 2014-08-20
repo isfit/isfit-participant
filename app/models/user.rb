@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :user_roles
   has_one :profile
   has_one :dialogue_application
+  has_one :workshop_application
 
   accepts_nested_attributes_for :profile
 

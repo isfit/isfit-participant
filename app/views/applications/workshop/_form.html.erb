@@ -1,0 +1,86 @@
+<%= form_for @workshop_application, url: applications_workshop_path do |f| %>
+  <% if @workshop_application.errors.full_messages.any? %>
+    <div class="bg-danger info-box">
+      <h2><%= pluralize(@workshop_application.errors.full_messages.count, 'error') %> prevents you from submiting the workshop application.</h2>
+
+      <ul>
+        <% @workshop_application.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Workshops</h2>
+
+  <p>
+    Choose three workshops that you wish to attend, in prioritized order. <a href="http://www.isfit.org/workshops">Read more about the workshops</a>.
+  </p>
+
+  <div class="form-group">
+    <%= f.label :workshop_1_id %><br>
+    <%= f.collection_select(:workshop_1_id, Workshop.all, :id, :title, prompt: 'Please select the first workshop') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :workshop_2_id %><br>
+    <%= f.collection_select(:workshop_2_id, Workshop.all, :id, :title, prompt: 'Please select the second workshop') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :workshop_3_id %><br>
+    <%= f.collection_select(:workshop_3_id, Workshop.all, :id, :title, prompt: 'Please select the third workshop') %>
+  </div>
+
+  <div class="form-group">
+    <h3><%= f.label :workshop_essay %></h3>
+
+    <p>
+      Write an essay (maximum 250 words) about your motivation for your preferred workshops. What would you like to focus on within the presented topics? How will you use your experience from ISFiT 2013?
+    </p>
+
+    <%= f.text_area :workshop_essay, rows: 8, class: 'form-control' %>
+  </div>
+
+  <h2>Financial aid</h2>
+
+  <p>
+    ISFiT will be able to offer financial aid to some of the participants. To apply for financial aid, please fill in the form below.
+  </p>
+
+  <p>
+    Please note that ISFiT has a limited amount of money to offer, therefore we encourage you to search for alternative ways to finance your travel. Please be aware that travel funds are only meant to cover travel expenses to and from Trondheim and your city of residence.
+  </p>
+
+  <div class="form-group">
+    <%= f.check_box :applying_for_support %> 
+    <%= f.label :applying_for_support, 'Yes, I wish to apply for financial aid!' %>
+  </div>
+
+  <div class="form-group">
+    <h3><%= f.label :financial_aid_essay, 'Financial aid essay' %></h3>
+
+    <p>
+      Please write an essay (maximum 200 words) about why you should be granted financial aid. If you are able to obtain financial aid from other sources, please include this in your essay.
+    </p>
+
+    <%= f.text_area :financial_aid_essay, rows: 8, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :amount, 'Amount in USD' %><br>
+    <%= f.text_field :amount, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :other_sources %> 
+    <%= f.label :other_sources, 'Yes, I can obtain financial aid from other sources!' %><br>
+
+    <%= f.check_box :still_attend %> 
+    <%= f.label :still_attend, 'Yes, I can still attend without financial aid!' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit nil, class: 'btn btn-success' %>
+  </div>
+<% end %>
