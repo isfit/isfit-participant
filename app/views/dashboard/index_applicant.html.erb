@@ -28,12 +28,18 @@
   Those who are selected to participate will receive an invitation by e-mail.
 </p>
 
-<p>
-  <button class="btn btn-disabled btn-dashboard">
-    <strong>Workshop application</strong><br>
-    Will be available in the middle of August
-  </button>
-</p>
+<% if current_user.workshop_application.nil? %>
+  <p>
+    <%= link_to '<strong>Workshop application</strong><br><em>Create workshop application</em>'.html_safe, new_applications_workshop_path, class: "btn btn-primary btn-dashboard" %>
+  </p>
+<% else %>
+  <p>
+    <button class="btn btn-success btn-dashboard">
+      <strong>Workshop application</strong><br>
+      Workshop application created!
+    </button>
+  </p>
+<% end %>
 
 <h2>Dialogue application</h2>
 

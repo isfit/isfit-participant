@@ -1,5 +1,4 @@
 class Applications::WorkshopController < ApplicationController
-  before_filter :not_yet_ready
   before_filter :check_for_missing_profile
   before_filter :check_for_missing_workshop_application, only: [:show, :update]
   before_filter :check_for_existing_workshop_application, only: [:new, :create]
@@ -47,10 +46,5 @@ class Applications::WorkshopController < ApplicationController
 
     def check_for_missing_workshop_application
       redirect_to new_applications_workshop_url unless current_user.workshop_application
-    end
-
-    def not_yet_ready
-       redirect_to dashboard_url, 
-          notice: 'The workshop application form is not yet ready!' 
     end
 end
