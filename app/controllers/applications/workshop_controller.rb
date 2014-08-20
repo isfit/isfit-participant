@@ -50,7 +50,7 @@ class Applications::WorkshopController < ApplicationController
     end
 
     def not_yet_ready
-       #redirect_to dashboard_url, 
-          #notice: 'The workshop application form is not yet ready!' 
+       redirect_to dashboard_url, 
+          notice: 'The workshop application form is not yet ready!' 
     end
 end
