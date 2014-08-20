@@ -1,5 +1,4 @@
 class Applications::DialogueController < ApplicationController
-  before_filter :not_yet_ready
   before_filter :check_for_missing_profile
   before_filter :check_for_existing_dialogue_application, only: [:new, :create]
   before_filter :check_for_missing_dialogue_application, only: [:edit, :update]
@@ -54,10 +53,5 @@ class Applications::DialogueController < ApplicationController
         redirect_to dashboard_url, 
           notice: 'The dialogue groups are only open for students from Burundi, Rwanda, and South-Africa.' 
       end
-    end
-
-    def not_yet_ready
-       redirect_to dashboard_url, 
-          notice: 'The dialogue application form is not yet ready!' 
     end
 end
