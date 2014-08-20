@@ -50,10 +50,10 @@
 
 <% if current_user.dialogue_application.nil? %>
   <p>
-    <%= link_to '<strong>Dialogue application</strong><br><em>Create workshop application</em>'.html_safe, applications_new_dialogue_path, class: "btn btn-primary btn-dashboard" %>
+    <%= link_to '<strong>Dialogue application</strong><br><em>Create dialogue application</em>'.html_safe, applications_new_dialogue_path, class: "btn btn-primary btn-dashboard" %>
   </p>
 <% else %>
   <p>
-    <%= link_to '<strong>Workshop application</strong><br>You have created a workshop application! <em>Edit workshop application</em>'.html_safe, applications_dialogue_path, class: "btn btn-success btn-dashboard" %>
+    <%= link_to '<strong>Dialogue application</strong><br>You have created a dialogue application! <em>Edit dialogue application</em>'.html_safe, applications_dialogue_path, class: "btn btn-success btn-dashboard" %>
   </p>
 <% end %>
