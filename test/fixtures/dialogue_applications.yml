@@ -6,6 +6,7 @@ one:
   dialogue_essay: MyText
   conflict_essay: MyText
   vision_essay: MyText
+  realtives: 'Yes'
   user_id: 1
 
 two:
@@ -14,4 +15,5 @@ two:
   dialogue_essay: MyText
   conflict_essay: MyText
   vision_essay: MyText
+  realtives: 'No'
   user_id: 1

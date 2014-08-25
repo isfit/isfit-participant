@@ -68,12 +68,6 @@ IsfitParticipant::Application.routes.draw do
 
   resources :deadlines
 
-  resources :roles do
-    member do
-      get "impersonate"
-    end
-  end
-
   resources :questions do
     collection do 
       post "q_status"

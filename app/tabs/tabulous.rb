@@ -65,7 +65,6 @@ Tabulous.setup do |config|
       [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    (can? :index, Host)       ,    true        ],
       [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
       [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
-      [    :roles_tab                     ,    'Roles'                     ,    roles_path                     ,    false       ,    true        ],
       #------------------------------------------------------------------------------------------------------------------------------------------#
       #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
       #------------------------------------------------------------------------------------------------------------------------------------------#
@@ -98,7 +97,6 @@ Tabulous.setup do |config|
       [    :events                    ,    :all_actions    ,    :events_tab                    ],
       [    :hosts                     ,    :all_actions    ,    :hosts_tab                     ],
       [    :deadlines                 ,    :all_actions    ,    :deadlines_tab                 ],
-      [    :roles                     ,    :all_actions    ,    :roles_tab                     ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
       [    :home                      ,    :all_actions    ,    :home_tab                      ],
