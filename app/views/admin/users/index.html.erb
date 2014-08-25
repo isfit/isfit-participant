@@ -1,0 +1,31 @@
+<div class="pull-right">
+  <%= link_to 'New user', new_admin_user_path, :class => "btn btn-primary"%>
+</div>
+
+<h1>Users</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>E-mail</th>
+      <th>Role</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td><%= link_to 'Show', [:admin, user], :class => "btn btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_admin_user_path(user), :class => "btn"%></td>
+      <td><%= link_to 'Delete', [:admin, user], confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"  %></td>
+    </tr>
+    <% end %>
+  </table>
