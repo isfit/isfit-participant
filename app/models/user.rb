@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :deadlines
-  has_many :user_roles
-  has_many :roles, :through => :user_roles
   has_one :profile
   has_one :dialogue_application
   has_one :workshop_application
@@ -45,9 +43,5 @@ class User < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def has_role?(role)
-    roles.any? { |r| r[:name] == role.to_s }
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140820062854) do
+ActiveRecord::Schema.define(:version => 20140825165525) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -146,28 +146,8 @@ ActiveRecord::Schema.define(:version => 20140820062854) do
     t.string "name"
   end
 
-  create_table "roles", :force => true do |t|
-    t.string   "name",              :limit => 40
-    t.string   "authorizable_type", :limit => 40
-    t.integer  "authorizable_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-  end
-
-  add_index "roles", ["authorizable_id"], :name => "index_roles_on_authorizable_id"
-  add_index "roles", ["authorizable_type"], :name => "index_roles_on_authorizable_type"
-  add_index "roles", ["name", "authorizable_id", "authorizable_type"], :name => "index_roles_on_name_and_authorizable_id_and_authorizable_type", :unique => true
-  add_index "roles", ["name"], :name => "index_roles_on_name"
-
   create_table "transport_types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "user_roles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
