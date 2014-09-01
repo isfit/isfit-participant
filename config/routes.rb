@@ -6,6 +6,7 @@ IsfitParticipant::Application.routes.draw do
 
   namespace :admin do
     resources :workshops  
+    resources :users
   end
 
   namespace :settings do

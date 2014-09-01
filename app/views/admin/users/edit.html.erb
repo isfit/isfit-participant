@@ -1,0 +1,43 @@
+<div class="pull-right">
+  <%= link_to 'Back', admin_users_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn btn-default" %>
+</div>
+
+<h1>Editing user</h1>
+
+<%= form_for([:admin, @user]) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <p><strong><%= pluralize(@user.errors.count, "error") %> prohibited this place from being saved</strong></p>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :role %>
+    <%= f.text_field :role, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-default' %>
+  </div>
+<% end %>
