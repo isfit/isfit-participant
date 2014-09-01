@@ -54,21 +54,22 @@ Tabulous.setup do |config|
 
   config.tabs do
     [
-      #------------------------------------------------------------------------------------------------------------------------------------------#
-      #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
-      #------------------------------------------------------------------------------------------------------------------------------------------#
-      [    :home_tab                      ,    'Home'                      ,    root_path                      ,    false       ,    true        ],
-      [    :answers_tab                   ,    'Answers'                   ,    answers_path                   ,    false       ,    false       ],
-      [    :events_tab                    ,    'Events'                    ,    events_path                    ,    false       ,    false       ],
-      [    :information_pages_tab         ,    'Information'               ,    information_page_path(4)       ,    (can? :show, InformationPage)       ,    true        ],
-      [    :articles_tab                  ,    'Articles'                  ,    articles_path                  ,    (can? :create, Article)       ,    true        ],
-      [    :hosts_tab                     ,    'Hosts'                     ,    hosts_path                     ,    (can? :index, Host)       ,    true        ],
-      [    :deadlines_tab                 ,    'Deadlines'                 ,    deadlines_path                 ,    false       ,    true        ],
-      [    :questions_tab                 ,    'Questions'                 ,    questions_path                 ,    (can? :index, Question)       ,    true        ],
-      [    :roles_tab                     ,    'Roles'                     ,    roles_path                     ,    false       ,    true        ],
-      #------------------------------------------------------------------------------------------------------------------------------------------#
-      #    TAB NAME                       |    DISPLAY TEXT                |    PATH                           |    VISIBLE?    |    ENABLED?    #
-      #------------------------------------------------------------------------------------------------------------------------------------------#
+      #--------------------------------------------------------------------------------------------------#
+      # TAB NAME               | DISPLAY TEXT  | PATH                     | VISIBLE?    |    ENABLED?    #
+      #--------------------------------------------------------------------------------------------------#
+      [ :home_tab              , 'Home'        , root_path                , false                         , true ],
+      [ :answers_tab           , 'Answers'     , answers_path             , false                         , false],
+      [ :events_tab            , 'Events'      , events_path              , false                         , false],
+      [ :users_tab             , 'Users'       , admin_users_path         , (can? :index, User)           , true ],
+      [ :information_pages_tab , 'Information' , information_page_path(4) , (can? :show, InformationPage) , true ],
+      [ :articles_tab          , 'Articles'    , articles_path            , (can? :create, Article)       , true ],
+      [ :hosts_tab             , 'Hosts'       , hosts_path               , (can? :index, Host)           , true ],
+      [ :deadlines_tab         , 'Deadlines'   , deadlines_path           , false                         , true ],
+      [ :questions_tab         , 'Questions'   , questions_path           , (can? :index, Question)       , true ],
+      [ :roles_tab             , 'Roles'       , roles_path               , false                         , true ],
+      #--------------------------------------------------------------------------------------------------#
+      # TAB NAME               | DISPLAY TEXT  | PATH                     | VISIBLE?    |    ENABLED?    #
+      #--------------------------------------------------------------------------------------------------#
     ]
   end
 

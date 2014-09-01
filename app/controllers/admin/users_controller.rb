@@ -4,7 +4,13 @@ class Admin::UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page]).order(:first_name)
+    @users = @users.where(role: params[:role]) if params[:role].present?
+
+    if params[:search].present?
+      keyword = "%#{params[:search]}%"
+      @users = @users.where("first_name LIKE ? OR last_name LIKE ? OR email=?", keyword, keyword, params[:search])
+    end
   end
 
   def new
