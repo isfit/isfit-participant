@@ -22,7 +22,7 @@ gem 'sqlite3'
 gem "tabulous"
 gem 'therubyracer'
 gem "wkhtmltopdf"
-gem 'bootstrap-will_paginate', '0.0.9'
+gem 'will_paginate-bootstrap'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
 

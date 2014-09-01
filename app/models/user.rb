@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
                   :email_confirmation, :profile_attributes
   attr_accessor :email_confirmation
   
+  self.per_page = 15
+
   #relations
   has_one :participant
 
