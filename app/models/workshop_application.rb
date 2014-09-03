@@ -9,10 +9,10 @@ class WorkshopApplication < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :workshop_1_id, :workshop_2_id, :workshop_3_id, :user_id
-  validates_numericality_of :amount, greater_than_or_equal: 0, 
-    unless: :not_applying_for_travel_support?
+  validates :amount, numericality: { greater_than: 0 }, 
+    if: :applying_for_support
 
-  def not_applying_for_travel_support?
-    !applying_for_support
+  before_validation do
+    self.amount = amount.to_s.gsub(/[^0-9]/i, '') if attribute_present?('amount')
   end
 end
