@@ -1,0 +1,13 @@
+<% if current_user_has_complete_workshop_application? %>
+  <%= link_to '<strong>Workshop application</strong><br>Your workshop application is complete. <em>Edit application.</em>'.html_safe, 
+    applications_workshop_path, 
+    class: "btn btn-success btn-dashboard" %>
+<% elsif current_user_has_created_workshop_application? %>
+  <%= link_to '<strong>Workshop application</strong><br>Your workshop application is not complete. <em>Edit application.</em>'.html_safe, 
+    applications_workshop_path, 
+    class: "btn btn-warning btn-dashboard" %>
+<% else %>
+  <%= link_to '<strong>Workshop application</strong><br><em>Create workshop application.</em>'.html_safe, 
+    new_applications_workshop_path, 
+    class: "btn btn-danger btn-dashboard" %>
+<% end %>
