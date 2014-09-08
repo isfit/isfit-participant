@@ -1,4 +1,6 @@
 class Profile < ActiveRecord::Base
+  CONFLICT_AREAS = ['BI', 'RW', 'ZA']
+
   attr_accessible :address, :calling_code, :citizenship_id, :city, :country_id, 
     :date_of_birth, :field_of_study, :gender, :gender_specify, :nationality, 
     :phone, :postal_code, :school, :motivation_essay
@@ -14,8 +16,16 @@ class Profile < ActiveRecord::Base
   
   before_validation :strip_phone_formating_characters
 
-  def from_conflict_area?
-    ['BI', 'RW', 'ZA'].any? { |code| code.eql?(country.code) }
+  def related_to_conflict_area?
+    citizenship_in_conflict_area? || lives_in_conflict_area?
+  end
+
+  def citizenship_in_conflict_area?
+    CONFLICT_AREAS.any? { |code| code.eql?(citizenship.code) }
+  end
+
+  def lives_in_conflict_area?
+    CONFLICT_AREAS.any? { |code| code.eql?(country.code) }
   end
 
   private

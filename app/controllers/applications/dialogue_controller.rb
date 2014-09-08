@@ -49,7 +49,7 @@ class Applications::DialogueController < ApplicationController
     end
 
     def check_current_user_country
-      unless current_user.profile.from_conflict_area?
+      unless current_user.profile.related_to_conflict_area?
         redirect_to dashboard_url, 
           notice: 'The dialogue groups are only open for students from Burundi, Rwanda, and South-Africa.' 
       end

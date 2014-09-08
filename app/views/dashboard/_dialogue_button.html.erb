@@ -1,0 +1,18 @@
+<% if current_user_has_complete_dialoge_application? %>
+  <%= link_to '<strong>Dialogue application</strong><br>Your dialogue application is complete. <em>Edit application.</em>'.html_safe, 
+    applications_edit_dialogue_path, 
+    class: 'btn btn-success btn-dashboard' %>
+<% elsif current_user_has_created_dialogue_application? %>
+  <%= link_to '<strong>Dialogue application</strong><br>Your dialogue application is not complete. <em>Edit application.</em>'.html_safe, 
+    applications_edit_dialogue_path, 
+    class: 'btn btn-warning btn-dashboard' %>
+<% elsif current_user_can_apply_for_dialogue? %>
+  <%= link_to '<strong>Dialogue application</strong><br><em>Create dialogue application.</em>'.html_safe, 
+    applications_new_dialogue_path, 
+    class: "btn btn-danger btn-dashboard" %>
+<% else %>
+  <button class="btn btn-dashboard" disabled="disabled">
+    <strong>Dialogue application</strong><br>
+    You can't apply for the dialogue groups.
+  </button>
+<% end %>
