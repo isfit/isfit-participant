@@ -1,0 +1,9 @@
+<% if current_user.profile.motivation_essay.empty? %>
+  <%= link_to '<strong>Motivation essay</strong><br><em>Create motivation essay.</em>'.html_safe, 
+    applications_edit_motivation_path, 
+    class: 'btn btn-danger btn-dashboard' %>
+<% else %>
+  <%= link_to '<strong>Motivation essay</strong><br>Your profile is complete. <em>Edit motivation essay</em>'.html_safe,
+    applications_edit_motivation_path, 
+    class: 'btn btn-success btn-dashboard' %>
+<% end %>

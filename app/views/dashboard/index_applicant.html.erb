@@ -5,18 +5,12 @@
 </p>
 
 <p>
-  Deadline for submitting the application is the <strong>30th of September 2014</strong>!
+  Deadline for submitting your application is the <strong>30th of September 2014</strong>! An application marked as complete will automatically be sendt to us after the deadline.
 </p>
 
-<% if current_user.profile.motivation_essay.empty? %>
 <p>
-  <%= link_to '<strong>Motivation essay</strong><br><em>Create motivation essay</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-warning btn-dashboard' %>
+  <%= render 'motivation_button' %>
 </p>
-<% else %>
-<p>
-  <%= link_to '<strong>Motivation essay</strong><br>You have a complte profile with a motiation essay! <em>Edit motivation essay</em>'.html_safe, applications_edit_motivation_path, class: 'btn btn-success btn-dashboard' %>
-</p>
-<% end %>
 
 <h2>Workshop application</h2>
 
@@ -28,15 +22,9 @@
   Those who are selected to participate will receive an invitation by e-mail.
 </p>
 
-<% if current_user.workshop_application.nil? %>
-  <p>
-    <%= link_to '<strong>Workshop application</strong><br><em>Create workshop application</em>'.html_safe, new_applications_workshop_path, class: "btn btn-primary btn-dashboard" %>
-  </p>
-<% else %>
-  <p>
-    <%= link_to '<strong>Workshop application</strong><br>You have created a workshop application! <em>Edit workshop application</em>'.html_safe, applications_workshop_path, class: "btn btn-success btn-dashboard" %>
-  </p>
-<% end %>
+<p>
+  <%= render 'workshop_button' %>
+</p>
 
 <h2>Dialogue application</h2>
 

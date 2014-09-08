@@ -57,28 +57,30 @@
     <%= f.label :applying_for_support, 'Yes, I wish to apply for financial aid!' %>
   </div>
 
-  <div class="form-group">
-    <h3><%= f.label :financial_aid_essay, 'Financial aid essay' %></h3>
-
-    <p>
-      Please write an essay (maximum 200 words) about why you should be granted financial aid. If you are able to obtain financial aid from other sources, please include this in your essay.
-    </p>
-
-    <%= f.text_area :financial_aid_essay, rows: 8, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :amount, 'Amount' %><br>
-    <em>Please specify the total sum in USD, you want to apply for.</em>
-    <%= f.text_field :amount, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.check_box :other_sources %> 
-    <%= f.label :other_sources, 'Yes, I can obtain financial aid from other sources!' %><br>
-
-    <%= f.check_box :still_attend %> 
-    <%= f.label :still_attend, 'Yes, I can still attend without financial aid!' %>
+  <%= financial_aid_form_tag %>
+    <div class="form-group">
+      <h3><%= f.label :financial_aid_essay, 'Financial aid essay' %></h3>
+  
+      <p>
+        Please write an essay (maximum 200 words) about why you should be granted financial aid. If you are able to obtain financial aid from other   sources, please include this in your essay.
+      </p>
+  
+      <%= f.text_area :financial_aid_essay, rows: 8, class: 'form-control' %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :amount, 'Amount' %><br>
+      <em>Please specify the total sum in USD, you want to apply for.</em>
+      <%= f.text_field :amount, class: 'form-control' %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.check_box :other_sources %> 
+      <%= f.label :other_sources, 'Yes, I can obtain financial aid from other sources!' %><br>
+  
+      <%= f.check_box :still_attend %> 
+      <%= f.label :still_attend, 'Yes, I can still attend without financial aid!' %>
+    </div>
   </div>
 
   <div class="form-group">

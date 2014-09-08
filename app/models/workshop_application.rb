@@ -15,4 +15,12 @@ class WorkshopApplication < ActiveRecord::Base
   before_validation do
     self.amount = amount.to_s.gsub(/[^0-9]/i, '') if attribute_present?('amount')
   end
+
+  def complete?
+    if applying_for_support
+      return false if financial_aid_essay.blank?
+    end
+
+    !workshop_essay.blank?
+  end
 end
