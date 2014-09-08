@@ -17,6 +17,10 @@ class WorkshopApplication < ActiveRecord::Base
   end
 
   def complete?
+    if applying_for_support
+      return false if financial_aid_essay.blank?
+    end
+
     !workshop_essay.blank?
   end
 end
