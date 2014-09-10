@@ -13,4 +13,190 @@
     <dt>Rolle</dt>
     <dd><%= @user.role.titleize %></dd>
   </dl>
+
+
+  <h2>Profile</h2>
+
+  <% if @user.profile %>
+    <% if @user.profile.motivation_essay %>
+      <div class="alert alert-success" role="alert">
+        <p>Profile is complete.</p>
+      </div>
+    <% else %>
+      <div class="alert alert-warning" role="alert">
+        <p>Profile is not complete.</p>
+      </div>
+    <% end %>
+
+    <dl class="dl-horizontal">
+      <dt>Date of birth</dt>
+      <dd><%= @user.profile.date_of_birth %></dd>
+
+      <dt>Gender</dt>
+      <dd><%= @user.profile.gender %></dd>
+
+      <dt>Nationality</dt>
+      <dd><%= @user.profile.nationality %></dd>
+
+      <dt>Citizenship</dt>
+      <dd><%= @user.profile.citizenship.name %></dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+      <dt>University</dt>
+      <dd><%= @user.profile.school %></dd>
+
+      <dt>Field of study</dt>
+      <dd><%= @user.profile.field_of_study %></dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+      <dt>Phone</dt>
+      <dd>+<%= @user.profile.calling_code %> <%= @user.profile.phone %></dd>
+
+      <dt>Address</dt>
+      <dd>
+        <%= @user.profile.address %><br />
+        <%= @user.profile.postal_code %>
+        <%= @user.profile.city %><br />
+        <%= @user.profile.country.name %>
+      </dd>
+    </dl>
+
+    <% unless @user.profile.motivation_essay.blank? %>
+      <p><strong>Motivation essay</strong></p>
+
+      <%= simple_format(@user.profile.motivation_essay) %>
+    <% end %>
+  <% else %>
+    <div class="alert alert-danger" role="alert">
+      <p>User has no profile.</p>
+    </div>
+  <% end %>
+
+
+  <h2>Workshop essay</h2>
+
+  <% if @user.workshop_application %>
+    <% if @user.workshop_application.complete? %>
+      <div class="alert alert-success" role="alert">
+        <p>Workshop application is complete.</p>
+      </div>
+    <% else %>
+      <div class="alert alert-warning" role="alert">
+        <p>Workshop application is not complete.</p>
+      </div>
+    <% end %>
+
+    <dl class="dl-horizontal">
+      <dt>First choice</dt>
+      <dd><%= @user.workshop_application.workshop_1.title %></dd>
+
+      <dt>Second choice</dt>
+      <dd><%= @user.workshop_application.workshop_2.title %></dd>
+
+      <dt>Third choice</dt>
+      <dd><%= @user.workshop_application.workshop_3.title %></dd>
+    </dl>
+
+    <% unless @user.workshop_application.workshop_essay.blank? %>
+      <p><strong>Workshop essay</strong></p>
+
+      <%= simple_format(@user.workshop_application.workshop_essay) %>
+    <% end %>
+
+    <% if @user.workshop_application.applying_for_support %>
+      <h3>Financial aid application</h3>
+
+      <dl class="dl-horizontal">
+        <dt>Amount</dt>
+        <dd>USD <%= @user.workshop_application.amount %></dd>
+
+        <dt>Other sources?</dt>
+        <dd><%= @user.workshop_application.other_sources %></dd>
+
+        <dt>Can still attend?</dt>
+        <dd><%= @user.workshop_application.still_attend %></dd>
+      </dl>
+
+      <% unless @user.workshop_application.financial_aid_essay.blank? %>
+        <p><strong>Financial aid essay</strong></p>
+
+        <%= simple_format(@user.workshop_application.financial_aid_essay) %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="alert alert-danger" role="alert">
+      <p>User has no workshop application.</p>
+    </div>
+  <% end %>
+
+  <h2>Dialogue essay</h2>
+
+  <% if @user.dialogue_application %>
+    <% if @user.dialogue_application.complete? %>
+      <div class="alert alert-success" role="alert">
+        <p>Dialogue application is complete.</p>
+      </div>
+    <% else %>
+      <div class="alert alert-warning" role="alert">
+        <p>Dialogue application is not complete.</p>
+      </div>
+    <% end %>
+
+    <dl class="dl-horizontal">
+      <dt>Relationship status</dt>
+      <dd><%= @user.dialogue_application.relationship_status %>
+
+      <% unless @user.dialogue_application.ethnicity.blank? %>
+        <dt>Ethnicity</dt>
+        <dd><%= @user.dialogue_application.ethnicity %></dd>
+      <% end %>
+
+      <dt>National of country?</dt>
+      <dd><%= @user.dialogue_application.national %></dd>
+
+      <dt>Relatives in Norway?</dt>
+      <dd><%= @user.dialogue_application.realtives %></dd>
+
+      <dt>English proficiency</dt>
+      <dd><%= @user.dialogue_application.english_proficiency %></dd>
+    </dl>
+
+    <% unless @user.dialogue_application.dialogue_essay.blank? %>
+      <p>
+        <strong>Dialogue essay</strong>
+      </p>
+
+      <%= simple_format(@user.dialogue_application.dialogue_essay) %>
+    <% end %>
+
+    <% unless @user.dialogue_application.conflict_essay.blank? %>
+      <p>
+        <strong>Conflict essay</strong>
+      </p>
+
+      <%= simple_format(@user.dialogue_application.conflict_essay) %>
+    <% end %>
+
+    <% unless @user.dialogue_application.conflict_essay.blank? %>
+      <p>
+        <strong>Vision essay</strong>
+      </p>
+
+      <%= simple_format(@user.dialogue_application.conflict_essay) %>
+    <% end %>
+
+    <% unless @user.dialogue_application.other_information.blank? %>
+      <p>
+        <strong>Other information</strong>
+      </p>
+
+      <%= simple_format(@user.dialogue_application.other_information) %>
+    <% end %>
+  <% else %>
+    <div class="alert alert-danger" role="alert">
+      <p>User has no dialogue application.</p>
+    </div>
+  <% end %>
 </article>
