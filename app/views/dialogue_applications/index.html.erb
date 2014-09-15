@@ -1,0 +1,21 @@
+<h1>Dialogues</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Full name</th>
+    </tr>
+  </thead>
+
+  <% @dialogue_applications.each do |dialogue_application| %>
+    <tr>
+      <td><%= dialogue_application.user.full_name %></td>
+    </tr>
+  <%end%>
+  
+  <% if @dialogue_applications.empty? %>
+    <tr>
+      <td>Dialogue application is empty</td>
+    </tr>
+  <% end %>
+</table>
