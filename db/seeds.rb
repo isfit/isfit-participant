@@ -1,12 +1,3 @@
-#Create roles
-Role.create(:name => "admin")
-Role.create(:name => "theme")
-Role.create(:name => "functionary")
-Role.create(:name => "sec")
-Role.create(:name => "dialogue")
-Role.create(:name => "participant")
-Role.create(:name => "applicant")
-
 #Create arrival places
 ArrivalPlace.create(:name => "Oslo")
 ArrivalPlace.create(:name => "Trondheim")
