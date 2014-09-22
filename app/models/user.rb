@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
   #relations
   has_one :participant
 
+  ROLES = [
+    ['Applicant', 'applicant'],
+    ['Dialogue functionary', 'functionary-dialogue'],
+    ['Participant functionary', 'functionary-participant'],
+    ['Workshop functionary', 'functionary-workshop'],
+    ['Admin', 'admin']
+  ]
+
   #methods
   def full_name
     "#{first_name} #{last_name}"
