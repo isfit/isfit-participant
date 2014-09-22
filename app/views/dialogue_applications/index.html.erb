@@ -9,7 +9,7 @@
 
   <% @dialogue_applications.each do |dialogue_application| %>
     <tr>
-      <td><%= dialogue_application.user.full_name %></td>
+      <td><%= link_to dialogue_application.user.full_name, dialogue_application %></td>
     </tr>
   <%end%>
   
@@ -19,3 +19,5 @@
     </tr>
   <% end %>
 </table>
+
+<p>

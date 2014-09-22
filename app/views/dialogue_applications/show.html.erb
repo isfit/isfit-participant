@@ -1,0 +1,63 @@
+<h1><%= @dialogue_application.user.full_name %></h1>
+<table class="table">
+	<title>Personal info></title>
+	<tr>
+		<th scope="row">Date of Birth:</th>
+		<td><%= @dialogue_application.user.profile.date_of_birth %></td>
+	</tr>
+	<tr>
+		<th scope="row">Gender:</th>
+		<td><%= @dialogue_application.user.profile.gender %></td>
+	</tr>
+	<tr>
+		<th scope="row">Nationality:</th>
+		<td><%= @dialogue_application.user.profile.nationality %></td>
+	</tr>
+	<tr>
+		<th scope="row">Citizenship:</th>
+		<td><%= @dialogue_application.user.profile.citizenship.name %></td>
+	</tr>
+	<tr>
+		<th scope="row">University:</th>
+		<td><%= @dialogue_application.user.profile.school %></td>
+	</tr>
+	<tr>
+		<th scope="row">Field of study:</th>
+		<td><%= @dialogue_application.user.profile.field_of_study %></td>
+	</tr>
+	<tr>
+		<th scope="row">Phone:</th>
+		<td>
+			+<%= @dialogue_application.user.profile.calling_code %> 
+			<%= @dialogue_application.user.profile.phone%>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Email:</th>
+		<td><%= @dialogue_application.user.email %></td>
+	</tr>
+</table>
+
+<table class="table">
+	<tr>
+		<th scope="row">Adress</th>
+		<th scope="row">Postal code</th>
+		<th scope="row">City</th>
+		<th scope="row">Country</th>
+	</tr>
+	<tr>
+	<td><%= @dialogue_application.user.profile.address %></td>
+	<td><%= @dialogue_application.user.profile.postal_code %></td>
+	<td><%= @dialogue_application.user.profile.city %></td>
+	<td><%= @dialogue_application.user.profile.country.name %></td>
+
+
+	</tr>
+
+</table>
+
+
+
+
+
+
