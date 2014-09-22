@@ -24,7 +24,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user= User.new(params[:user])
+    @user = User.new(params[:user])
+    @user.role = params[:user][:role]
 
     if @user.save
       redirect_to admin_users_path, notice: 'User was successfully created.'
@@ -34,11 +35,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-   if @user.update_attributes(params[:user])
-     redirect_to admin_users_path, notice: 'User was successfully updated.'
-   else
+    @user.role = params[:user][:role]
+
+    if @user.update_attributes(params[:user])
+      redirect_to admin_users_path, notice: 'User was successfully updated.'
+    else
      render action: "edit"
-   end
+    end
   end
 
   def destroy
