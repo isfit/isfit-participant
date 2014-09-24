@@ -10,7 +10,7 @@ class Applications::WorkshopController < ApplicationController
 
   def update
     if @workshop_application.update_attributes(params[:workshop_application])
-      redirect_to dashboard_url, notice: 'Your workshop application was successfully changed'
+      redirect_to dashboard_url, notice: 'Changes to your workshop application was successfully saved.'
     else
       render :edit
     end
@@ -18,14 +18,16 @@ class Applications::WorkshopController < ApplicationController
 
   def new
     @workshop_application = WorkshopApplication.new
+    @workshop_application.user = current_user
   end
 
   def create
-    @workshop_application = WorkshopApplication.new(params[:workshop_application])
+    @workshop_application = WorkshopApplication.new
     @workshop_application.user = current_user
+    @workshop_application.attributes = params[:workshop_application]
 
     if @workshop_application.save
-      redirect_to dashboard_url, notice: 'Your workshop application was successfully created!'
+      redirect_to dashboard_url, notice: 'Your workshop application was successfully submitted.'
     else
       render :new
     end
