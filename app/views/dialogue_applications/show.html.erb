@@ -1,60 +1,78 @@
 <h1><%= @dialogue_application.user.full_name %></h1>
-<table class="table">
-	<title>Personal info></title>
-	<tr>
-		<th scope="row">Date of Birth:</th>
-		<td><%= @dialogue_application.user.profile.date_of_birth %></td>
-	</tr>
-	<tr>
-		<th scope="row">Gender:</th>
-		<td><%= @dialogue_application.user.profile.gender %></td>
-	</tr>
-	<tr>
-		<th scope="row">Nationality:</th>
-		<td><%= @dialogue_application.user.profile.nationality %></td>
-	</tr>
-	<tr>
-		<th scope="row">Citizenship:</th>
-		<td><%= @dialogue_application.user.profile.citizenship.name %></td>
-	</tr>
-	<tr>
-		<th scope="row">University:</th>
-		<td><%= @dialogue_application.user.profile.school %></td>
-	</tr>
-	<tr>
-		<th scope="row">Field of study:</th>
-		<td><%= @dialogue_application.user.profile.field_of_study %></td>
-	</tr>
-	<tr>
-		<th scope="row">Phone:</th>
-		<td>
-			+<%= @dialogue_application.user.profile.calling_code %> 
-			<%= @dialogue_application.user.profile.phone%>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row">Email:</th>
-		<td><%= @dialogue_application.user.email %></td>
-	</tr>
-</table>
+<h4>General Information</h4>
 
-<table class="table">
-	<tr>
-		<th scope="row">Adress</th>
-		<th scope="row">Postal code</th>
-		<th scope="row">City</th>
-		<th scope="row">Country</th>
-	</tr>
-	<tr>
-	<td><%= @dialogue_application.user.profile.address %></td>
-	<td><%= @dialogue_application.user.profile.postal_code %></td>
-	<td><%= @dialogue_application.user.profile.city %></td>
-	<td><%= @dialogue_application.user.profile.country.name %></td>
+<dl class="dl-horizontal">
+	<dt>Nationality</dt>
+		<dd><%= @dialogue_application.user.profile.nationality%></dd>
+	<dt>Citizenship</dt>
+		<dd><%= @dialogue_application.user.profile.citizenship.name%></dd>
+	<dt>Gender</dt>
+		<dd><%= @dialogue_application.user.profile.gender%></dd>
+	<dt>Date of birth</dt>
+		<dd><%=@dialogue_application.user.profile.date_of_birth%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>University</dt>
+		<dd><%= @dialogue_application.user.profile.school%></dd>
+	<dt>Field of study</dt>
+		<dd><%= @dialogue_application.user.profile.field_of_study%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>Address</dt>
+		<dd><%=@dialogue_application.user.profile.address%></dd>
+		<dd>
+			<%= @dialogue_application.user.profile.postal_code%>
+			<%= @dialogue_application.user.profile.city%>
+		</dd>
+		<dd><%= @dialogue_application.user.profile.country.name%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>Contact</dt>
+		<dd>
+			<ul class="list-inline">
+				<li><strong>Phone</strong><li>
+				<li>
+					+
+					<%= @dialogue_application.user.profile.calling_code%>
+					<%= @dialogue_application.user.profile.phone%>
+				</li>
+			</ul>
+			<ul class="list-inline">
+				<li><strong>Email</strong></li>
+				<li><%= @dialogue_application.user.email%></li>
+			</ul>
+		</dd>
+</dl>
+<h2>Essay</h2>
+<br>
+	<h4>Motivation</h4>
+		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+		<%= @dialogue_application.user.profile.motivation_essay %>
+	<%end%>
+	<h4>Dialogue</h4>
+		<%if @dialogue_application.dialogue_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+			<%= @dialogue_application.dialogue_essay %>
+		<%end%>
+	<h4>Conflict</h4>
+		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+			<%= @dialogue_application.conflict_essay %>
+	<%end%>
 
 
-	</tr>
 
-</table>
+
+
+
+
 
 
 
