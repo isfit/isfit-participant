@@ -23,14 +23,7 @@ IsfitParticipant::Application.routes.draw do
   end
 
   namespace :applications do
-    get 'motivation', to: 'motivation#edit', as: :edit_motivation
-    put 'motivation', to: 'motivation#update'
-
-    get 'dialogue/new', to: 'dialogue#new', as: :new_dialogue
-    post 'dialogue', to: 'dialogue#create'
-    get 'dialogue', to: 'dialogue#edit', as: :edit_dialogue
-    put 'dialogue', to: 'dialogue#update'
-
+    resource :dialogue, only: [:show, :create, :new, :update], controller: :dialogue
     resource :workshop, only: [:show, :create, :new, :update], controller: :workshop
   end
 

@@ -12,7 +12,8 @@ class Profile < ActiveRecord::Base
   validates :phone, numericality: true, presence: true
   validates_presence_of :date_of_birth, :gender, :nationality, :citizenship_id, 
     :school, :field_of_study, :address, :postal_code, :city, :country_id,
-    :calling_code 
+    :calling_code
+  validates :motivation_essay, presence: true, on: :update
   
   before_validation :strip_phone_formating_characters
 

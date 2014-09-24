@@ -1,31 +1,34 @@
 class Applications::DialogueController < ApplicationController
   before_filter :check_for_missing_profile
   before_filter :check_for_existing_dialogue_application, only: [:new, :create]
-  before_filter :check_for_missing_dialogue_application, only: [:edit, :update]
-  before_filter :set_dialogue_application, only: [:edit, :update]
+  before_filter :check_for_missing_dialogue_application, only: [:show, :update]
+  before_filter :set_dialogue_application, only: [:show, :update]
   before_filter :check_current_user_country
+
+  def show
+    render :edit
+  end
 
   def new
     @dialogue_application = DialogueApplication.new
+    @dialogue_application.user = current_user
   end
 
   def create
-    @dialogue_application = DialogueApplication.new(params[:dialogue_application])
+    @dialogue_application = DialogueApplication.new
     @dialogue_application.user = current_user
+    @dialogue_application.attributes = params[:dialogue_application]
 
     if @dialogue_application.save
-      redirect_to dashboard_url, notice: 'Your dialogue application was successfully created!'
+      redirect_to dashboard_url, notice: 'Changes to your dialogue application was successfully saved.'
     else
       render :new
     end
   end
 
-  def edit
-  end
-
   def update
     if @dialogue_application.update_attributes(params[:dialogue_application])
-      redirect_to dashboard_url, notice: 'Your dialogue application was successfully changed'
+      redirect_to dashboard_url, notice: 'Your dialogue application was successfully submitted.'
     else
       render :edit
     end
