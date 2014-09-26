@@ -4,4 +4,10 @@
 
 <p>This information is on your profile, it will be used when we review your application and under the festival.</p>
 
-<%= render 'form' %>
+<%= form_for @profile, url: settings_profile_path(@user) do |f| %>
+  <%= render 'form' %>
+
+  <div>
+    <%= f.submit class: 'btn btn-success btn-lg' %>
+  </div>
+<% end %>

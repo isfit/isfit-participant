@@ -7,3 +7,7 @@ en:
       dialogue_application:
         create: "Create dialogue application"
         update: "Save changes"
+  devise:
+    apply:
+      user:
+        signed_up: You have successfully created an account. We can't wait for your application!

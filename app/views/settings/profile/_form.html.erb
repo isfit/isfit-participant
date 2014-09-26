@@ -1,9 +1,8 @@
-<%= form_for @profile, url: settings_profile_path(@user) do |f| %>
 <h2>Personal information</h2>
 
 <div class="form-group">
     <%= f.label :date_of_birth %><br>
-    <%= f.date_select :date_of_birth, start_year: 1974, end_year: 1998 %>
+    <%= f.date_select :date_of_birth, start_year: 1955, end_year: 1998 %>
 </div>
 
 <div class="checkbox">
@@ -75,8 +74,3 @@
     <%= f.text_field :phone, placeholder: 'Your phone number', class: 'form-control', style: 'border-bottom-left-radius: 0; border-top-left-radius: 0; border-left-width: 0;' %>
   </div>
 </div>
-
-<div>
-  <%= f.submit class: 'btn btn-success btn-lg' %>
-</div>
-<% end %>
