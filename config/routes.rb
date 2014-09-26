@@ -1,5 +1,4 @@
 IsfitParticipant::Application.routes.draw do
-  
   resources :workshops, only: [:index, :show]
 
   get 'dashboard', to: 'dashboard#index'
@@ -27,14 +26,14 @@ IsfitParticipant::Application.routes.draw do
     resource :workshop, only: [:show, :create, :new, :update], controller: :workshop
   end
 
-  devise_for :users, :skip => [:sessions]
+  devise_for :users, :controllers => { :registrations => :apply }, :skip => [:sessions]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
 
-    get 'signup' => 'devise/registrations#new', :as => :new_user_registration
-    post 'signup' => 'devise/registrations#create', :as => :user_registration
+    get 'apply' => 'apply#new', :as => :new_user_registration
+    post 'apply' => 'apply#create', :as => :user_registration
   end
 
   resources :answers
