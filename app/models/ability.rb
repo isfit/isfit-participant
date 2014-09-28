@@ -9,7 +9,7 @@ class Ability
     end
 
     if user.role == 'functionary-dialogue'
-      can :manage, :dialogue_application
+      can :manage, DialogueApplication
     end
   end
 end
