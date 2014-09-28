@@ -7,5 +7,9 @@ class Ability
     if user.role == 'admin'
       can :manage, :all
     end
+
+    if user.role == 'functionary-dialogue'
+      can :manage, :dialogue_application
+    end
   end
 end

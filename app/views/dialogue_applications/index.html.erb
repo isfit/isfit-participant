@@ -1,0 +1,25 @@
+<h1>Dialogues</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Citizenship</th>
+    </tr>
+  </thead>
+
+  <% @dialogue_applications.each do |dialogue_application| %>
+    <tr>
+      <td><%= link_to dialogue_application.user.full_name, dialogue_application %></td>
+      <td><%= dialogue_application.profile.citizenship.name %></td>
+    </tr>
+  <%end%>
+  
+  <% if @dialogue_applications.empty? %>
+    <tr>
+      <td colspan="2">Dialogue application is empty</td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@dialogue_applications, renderer: BootstrapPagination::Rails) %>
