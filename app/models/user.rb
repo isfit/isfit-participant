@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  ROLES = [
+    ['Applicant', 'applicant'],
+    ['Dialogue functionary', 'functionary-dialogue'],
+    ['Participant functionary', 'functionary-participant'],
+    ['Workshop functionary', 'functionary-workshop'],
+    ['Admin', 'admin']
+  ]
+
   # Attributes
   attr_accessible :email, :password, :password_confirmation,
                   :remember_me, :first_password, :first_name, :last_name,
