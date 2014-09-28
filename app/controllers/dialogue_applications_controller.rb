@@ -1,7 +1,8 @@
 class DialogueApplicationsController < ApplicationController
-
+  load_and_authorize_resource
+  
   def index
-	 @dialogue_applications = DialogueApplication.all
+	 @dialogue_applications = DialogueApplication.paginate(page: params[:page])
   end
 
   def new
@@ -16,7 +17,4 @@ class DialogueApplicationsController < ApplicationController
   	@dialogue_applications.destroy
   	redirect_to dialogue_applications_url
   end
-
-
-  
 end

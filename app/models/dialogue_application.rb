@@ -18,6 +18,9 @@ class DialogueApplication < ActiveRecord::Base
   validates :conflict_essay, presence: true
   validates :vision_essay, presence: true
 
+  # Other crap
+  self.per_page = 15
+
   # Go! Go! Function time!
   def complete?
     !dialogue_essay.blank? && !conflict_essay.blank? && !vision_essay.blank?

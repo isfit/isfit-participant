@@ -1,81 +1,117 @@
-<h1><%= @dialogue_application.user.full_name %></h1>
-<h4>General Information</h4>
+<div class="pull-right">
+	<%= link_to 'Back', dialogue_applications_path, :class => "btn btn-default" %>
+</div>
 
-<dl class="dl-horizontal">
-	<dt>Nationality</dt>
-		<dd><%= @dialogue_application.user.profile.nationality%></dd>
-	<dt>Citizenship</dt>
-		<dd><%= @dialogue_application.user.profile.citizenship.name%></dd>
-	<dt>Gender</dt>
-		<dd><%= @dialogue_application.user.profile.gender%></dd>
-	<dt>Date of birth</dt>
-		<dd><%=@dialogue_application.user.profile.date_of_birth%></dd>
-</dl>
+<article id="dialogue-application-<%= @dialogue_application.id %>">
+	<h1><%= @dialogue_application.user.full_name %></h1>
 
-<dl class="dl-horizontal">
-	<dt>University</dt>
-		<dd><%= @dialogue_application.user.profile.school%></dd>
-	<dt>Field of study</dt>
-		<dd><%= @dialogue_application.user.profile.field_of_study%></dd>
-</dl>
+	<dl class="dl-horizontal">
+		<dt>Date of birth</dt>
+		<dd><%= @dialogue_application.user.profile.date_of_birth %></dd>
 
-<dl class="dl-horizontal">
-	<dt>Address</dt>
-		<dd><%=@dialogue_application.user.profile.address%></dd>
-		<dd>
-			<%= @dialogue_application.user.profile.postal_code%>
-			<%= @dialogue_application.user.profile.city%>
-		</dd>
-		<dd><%= @dialogue_application.user.profile.country.name%></dd>
-</dl>
+		<dt>Gender</dt>
+		<dd><%= @dialogue_application.user.profile.gender %></dd>
 
-<dl class="dl-horizontal">
-	<dt>Contact</dt>
-		<dd>
-			<ul class="list-inline">
-				<li><strong>Phone</strong><li>
-				<li>
-					+
-					<%= @dialogue_application.user.profile.calling_code%>
-					<%= @dialogue_application.user.profile.phone%>
-				</li>
-			</ul>
-			<ul class="list-inline">
-				<li><strong>Email</strong></li>
-				<li><%= @dialogue_application.user.email%></li>
-			</ul>
-		</dd>
-</dl>
-<h2>Essay</h2>
-<br>
-	<h4>Motivation</h4>
-		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
-			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
-		<%else%>
-		<%= @dialogue_application.user.profile.motivation_essay %>
-	<%end%>
-	<h4>Dialogue</h4>
-		<%if @dialogue_application.dialogue_essay.blank?%>
-			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
-		<%else%>
-			<%= @dialogue_application.dialogue_essay %>
-		<%end%>
-	<h4>Conflict</h4>
-		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
-			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
-		<%else%>
-			<%= @dialogue_application.conflict_essay %>
-	<%end%>
+		<dt>Nationality</dt>
+		<dd><%= @dialogue_application.user.profile.nationality %></dd>
 
+		<dt>Citizenship</dt>
+		<dd><%= @dialogue_application.user.profile.citizenship.name %></dd>
+	</dl>
 
+	<dl class="dl-horizontal">
+    <dt>University</dt>
+    <dd><%= @dialogue_application.profile.school %></dd>
 
+    <dt>Field of study</dt>
+    <dd><%= @dialogue_application.profile.field_of_study %></dd>
+  </dl>
 
+	<dl class="dl-horizontal">
+		<dt>E-mail</dt>
+		<dd><%= @dialogue_application.user.email%></dd>
 
+    <dt>Phone</dt>
+    <dd>
+    	+<%= @dialogue_application.profile.calling_code %> 
+    	<%= @dialogue_application.profile.phone %>
+    </dd>
 
+    <dt>Address</dt>
+    <dd>
+      <%= @dialogue_application.profile.address %><br />
+      <%= @dialogue_application.profile.postal_code %>
+      <%= @dialogue_application.profile.city %><br />
+      <%= @dialogue_application.profile.country.name %>
+    </dd>
+  </dl>
 
+  <dl class="dl-horizontal">
+    <dt>Relationship status</dt>
+    <dd><%= @dialogue_application.relationship_status %>
 
+    <% unless @dialogue_application.ethnicity.blank? %>
+      <dt>Ethnicity</dt>
+      <dd><%= @dialogue_application.ethnicity %></dd>
+    <% end %>
 
+    <dt>National of country?</dt>
+    <dd><%= @dialogue_application.national %></dd>
 
+    <dt>Relatives in Norway?</dt>
+    <dd><%= @dialogue_application.realtives %></dd>
 
+    <dt>English proficiency</dt>
+    <dd><%= @dialogue_application.english_proficiency %></dd>
+  </dl>
 
+  <p>
+  	<strong>Motivation essay</strong>
+  </p>
 
+  <% if @dialogue_application.profile.motivation_essay.blank? %>
+		<p><%= @dialogue_application.user.full_name %> have no essay...</p>
+	<% else %>
+		<%= simple_format(@dialogue_application.profile.motivation_essay) %>
+	<% end %>
+
+	<p>
+  	<strong>Dialogue essay</strong>
+  </p>
+
+  <% if @dialogue_application.dialogue_essay.blank? %>
+		<p><%= @dialogue_application.user.full_name%> have no essay...</p>
+	<% else %>
+		<%= simple_format(@dialogue_application.dialogue_essay) %>
+	<% end %>
+
+	<p>
+		<strong>Conflict essay</strong>
+  </p>
+
+  <% if @dialogue_application.conflict_essay.blank? %>
+		<p><%= @dialogue_application.user.full_name%> have no essay...</p>
+	<% else %>
+		<%= simple_format(@dialogue_application.conflict_essay) %>
+	<% end %>	
+
+	<p>
+		<strong>Vision essay</strong>
+  </p>
+
+  <% if @dialogue_application.vision_essay.blank? %>
+		<p><%= @dialogue_application.user.full_name%> have no essay...</p>
+	<% else %>
+		<%= simple_format(@dialogue_application.vision_essay) %>
+	<% end %>
+
+	<p>
+		<strong>Other information</strong>
+  </p>
+
+  <% if @dialogue_application.other_information.blank? %>
+		<p><%= @dialogue_application.user.full_name%> have no other information...</p>
+	<% else %>
+		<%= simple_format(@dialogue_application.other_information) %>
+	<% end %>
+</article>
