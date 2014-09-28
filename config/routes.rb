@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  resources :dialogue_applications
+  
   resources :workshops, only: [:index, :show]
 
   get 'dashboard', to: 'dashboard#index'

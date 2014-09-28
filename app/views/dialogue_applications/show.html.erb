@@ -1,0 +1,81 @@
+<h1><%= @dialogue_application.user.full_name %></h1>
+<h4>General Information</h4>
+
+<dl class="dl-horizontal">
+	<dt>Nationality</dt>
+		<dd><%= @dialogue_application.user.profile.nationality%></dd>
+	<dt>Citizenship</dt>
+		<dd><%= @dialogue_application.user.profile.citizenship.name%></dd>
+	<dt>Gender</dt>
+		<dd><%= @dialogue_application.user.profile.gender%></dd>
+	<dt>Date of birth</dt>
+		<dd><%=@dialogue_application.user.profile.date_of_birth%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>University</dt>
+		<dd><%= @dialogue_application.user.profile.school%></dd>
+	<dt>Field of study</dt>
+		<dd><%= @dialogue_application.user.profile.field_of_study%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>Address</dt>
+		<dd><%=@dialogue_application.user.profile.address%></dd>
+		<dd>
+			<%= @dialogue_application.user.profile.postal_code%>
+			<%= @dialogue_application.user.profile.city%>
+		</dd>
+		<dd><%= @dialogue_application.user.profile.country.name%></dd>
+</dl>
+
+<dl class="dl-horizontal">
+	<dt>Contact</dt>
+		<dd>
+			<ul class="list-inline">
+				<li><strong>Phone</strong><li>
+				<li>
+					+
+					<%= @dialogue_application.user.profile.calling_code%>
+					<%= @dialogue_application.user.profile.phone%>
+				</li>
+			</ul>
+			<ul class="list-inline">
+				<li><strong>Email</strong></li>
+				<li><%= @dialogue_application.user.email%></li>
+			</ul>
+		</dd>
+</dl>
+<h2>Essay</h2>
+<br>
+	<h4>Motivation</h4>
+		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+		<%= @dialogue_application.user.profile.motivation_essay %>
+	<%end%>
+	<h4>Dialogue</h4>
+		<%if @dialogue_application.dialogue_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+			<%= @dialogue_application.dialogue_essay %>
+		<%end%>
+	<h4>Conflict</h4>
+		<%if @dialogue_application.user.profile.motivation_essay.blank?%>
+			<h6><%= @dialogue_application.user.profile.full_name%> have no essay...</h6>
+		<%else%>
+			<%= @dialogue_application.conflict_essay %>
+	<%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
