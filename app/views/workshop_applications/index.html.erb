@@ -1,0 +1,25 @@
+<h1> Workshop Applications </h1>
+<table class ="table">
+	<thead>
+		<tr> 
+			<th>Full name</th>
+			<th>Citizenship</th>
+		</tr>
+	</thead>
+
+	<% @workshop_applications.each do |workshop_application| %>
+	<tr>
+		<td><%= link_to workshop_application.user.full_name %></td>
+		<td><%= workshop_application.profile.citizenship.name%></td>
+	</tr>
+	<%end%>
+
+	<% if @workshop_applications.blank? %>
+		<tr>
+			<td colspan="2">Workshops application is empty</td>
+		</tr>
+	<%end%>
+
+</table>
+
+

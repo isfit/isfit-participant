@@ -1,4 +1,5 @@
 IsfitParticipant::Application.routes.draw do
+  resources :workshop_applications
   resources :dialogue_applications
   
   resources :workshops, only: [:index, :show]
