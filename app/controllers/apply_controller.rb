@@ -1,5 +1,19 @@
 class ApplyController < Devise::RegistrationsController
-  before_filter 
+  def new
+    if DateTime.current > DateTime.new(2014, 10, 1, 0, 0, 0, '+02:00')
+      redirect_to root_url and return
+    end
+
+    super
+  end
+
+  def create
+    if DateTime.current > DateTime.new(2014, 10, 1, 1, 0, 0, '+02:00')
+      redirect_to root_url and return
+    end
+
+    super
+  end
 
   def build_resource(hash=nil)
     super(hash)
