@@ -7,11 +7,11 @@ end
 
 
 def show
-	@workshop_applications = WorkshopApplication.find(params[:id])
+	@workshop_application = WorkshopApplication.find(params[:id])
 end
 
 def new 
-	@workshop_application = WorkshopApplication.new
+	@workshop_applications = WorkshopApplication.new
 end
 
 

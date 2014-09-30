@@ -1,0 +1,70 @@
+<div class="pull-right">
+	<%= link_to 'Back', dialogue_applications_path, :class => "btn btn-default" %>
+</div>
+
+<article id="worksops-applications-<%= @workshop_application.id %>">
+	<h1><%= @workshop_application.user.full_name %></h1>
+
+	<dl class="dl-horizontal">
+		<dt>Date of birth</dt>
+		<dd><%= @workshop_application.user.profile.date_of_birth %></dd>
+
+		<dt>Gender</dt>
+		<dd><%= @workshop_application.user.profile.gender%></dd>
+
+		<dt>Nationality</dt>
+		<dd><%= @workshop_application.user.profile.nationality %></dd>
+
+		<dt>Citizenship</dt>
+		<dd><%= @workshop_application.user.profile.citizenship.name %></dd>
+	</dl>
+
+	<dl class="dl-horizontal">
+		<dt>University</dt>
+		<dd><%= @workshop_application.user.profile.school %></dd>
+
+		<dt>Field of Study</dt>
+		<dd><%= @workshop_application.user.profile.field_of_study %></dd>
+	</dl>
+
+	<dl class="dl-horizontal">
+		<dt>E-mail</dt>
+		<dd><%= @workshop_application.user.email %></dd>
+
+		<dt>Phone</dt>
+		<dd>
+			+<%= @workshop_application.user.profile.calling_code %>
+			<%= @workshop_application.user.profile.phone %>
+		</dd>
+
+		<dt>Address</dt>
+		<dd>
+			<%= @workshop_application.user.profile.address %>
+			<br>
+			<%= @workshop_application.user.profile.postal_code %>
+			<br>
+			<%= @workshop_application.user.profile.city %>
+			<br>
+			<%= @workshop_application.user.profile.country.name %>
+		</dd>
+	</dl>
+
+	<p>
+  	<strong>Motivation essay</strong>
+  </p>
+
+  <% if @workshop_application.profile.motivation_essay.blank? %>
+		<p><%= @workshop_application.user.full_name %> have no essay...</p>
+	<% else %>
+		<%= simple_format(@workshop_application.profile.motivation_essay) %>
+	<% end %>
+
+
+
+
+
+
+
+
+</article>
+
