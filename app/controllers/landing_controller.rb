@@ -5,7 +5,9 @@ class LandingController < ApplicationController
     if user_signed_in?
       redirect_to dashboard_url
     else
-      redirect_to new_user_registration_url
+      if DateTime.current < DateTime.new(2014, 10, 1, 0, 0, 0, '+02:00')
+        #redirect_to new_user_registration_url
+      end
     end
   end
 end
