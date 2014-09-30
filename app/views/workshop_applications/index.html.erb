@@ -24,7 +24,7 @@
 
 	<% @workshop_applications.each do |workshop_application| %>
 	<tr>
-		<td><%= link_to workshop_application.user.full_name %></td>
+		<td><%= link_to workshop_application.user.full_name, workshop_application %></td>
 		<td><%= workshop_application.profile.citizenship.name%></td>
 	</tr>
 	<%end%>
