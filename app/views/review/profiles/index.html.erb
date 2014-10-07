@@ -28,6 +28,16 @@
 </div>
 <% end %>
 
+<% if @ungraded_application %>
+  <div class="alert alert-warning" role="alert">
+    <p>You have fetched an application without grading it</p>
+    
+    <p>
+      <%= link_to 'Grade my applicant now', review_profile_path(@ungraded_application), class: 'btn btn-warning' %>
+    </p>
+  </div>
+<% end %>
+
 <p>
   <%= link_to 'Fetch next applicant', fetch_review_profiles_path, class: 'btn btn-primary' %>
 </p>
