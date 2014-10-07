@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141007073919) do
+ActiveRecord::Schema.define(:version => 20141007124712) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -188,12 +188,14 @@ ActiveRecord::Schema.define(:version => 20141007073919) do
     t.string   "amount"
     t.boolean  "other_sources"
     t.boolean  "still_attend"
+    t.integer  "profile_reviewer_id"
     t.integer  "profile_grade"
     t.integer  "user_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
 
+  add_index "workshop_applications", ["profile_reviewer_id"], :name => "index_workshop_applications_on_profile_reviewer_id"
   add_index "workshop_applications", ["user_id"], :name => "index_workshop_applications_on_user_id"
   add_index "workshop_applications", ["workshop_1_id"], :name => "index_workshop_applications_on_workshop_1_id"
   add_index "workshop_applications", ["workshop_2_id"], :name => "index_workshop_applications_on_workshop_2_id"
