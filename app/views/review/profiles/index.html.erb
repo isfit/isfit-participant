@@ -1,0 +1,47 @@
+<% content_for :sidebar_left do %>
+  <ul class="nav nav-pills nav-stacked">
+    <li><%= link_to 'Review profiles', review_profiles_path %></li>
+  </ul>
+<% end %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Workshop applications', workshop_applications_path %></li>
+  <li class="active">Review profiles</li>
+</ol>
+
+<h1>Review applicant</h1>
+
+<% if current_user.role == 'admin' %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>
+      <strong><%= @number_of_reviewed_applications %></strong> of <strong><%= @number_of_applications %></strong> applications reviewed!
+    </p>
+
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= ((@number_of_reviewed_applications.to_f / @number_of_applications.to_f)*100).to_i %>%;">
+        <span class="sr-only">((@number_of_reviewed_applications.to_f / @number_of_applications.to_f)*100).to_i% Complete</span>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+    </tr>
+  </thead>
+
+  <% @applications.each do |a| %>
+    <tr>
+      <td><%= link_to a.user.first_name, review_profile_path(a) %></td>
+      <td><%= a.user.last_name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@applications, renderer: BootstrapPagination::Rails) %>
