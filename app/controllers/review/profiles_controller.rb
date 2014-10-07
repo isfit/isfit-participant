@@ -1,5 +1,5 @@
 class Review::ProfilesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :workshop_application
   
   def index
     @applications = WorkshopApplication.paginate(page: params[:page]).joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("profile_grade IS NULL").order('users.first_name ASC', 'users.last_name ASC')
