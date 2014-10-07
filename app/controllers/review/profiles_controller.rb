@@ -22,4 +22,17 @@ class Review::ProfilesController < ApplicationController
      render :show
     end
   end
+
+  def fetch
+    @application = WorkshopApplication.joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("profile_grade IS NULL").where("profile_reviewer_id IS NULL").order('users.first_name ASC', 'users.last_name ASC').readonly(false).first
+
+    if @application.nil?
+      redirect_to review_profiles_url, notice: 'No more applications to review.'
+    else
+      @application.profile_reviewer = current_user
+      @application.save(validate: false)
+
+      redirect_to review_profile_url(@application)
+    end
+  end
 end
