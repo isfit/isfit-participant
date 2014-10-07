@@ -20,7 +20,7 @@ class WorkshopApplication < ActiveRecord::Base
   validates :workshop_essay, presence: true
   validates :user_id, presence: true
   validates :amount, numericality: { greater_than: 0 }, if: :applying_for_support
-  validates :profile_grade, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
+  validates :profile_grade, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
 
   # Callbacks
   before_validation :strip_amount

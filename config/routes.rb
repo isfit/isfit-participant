@@ -6,9 +6,15 @@ IsfitParticipant::Application.routes.draw do
 
   get 'dashboard', to: 'dashboard#index'
 
+  resources :workshop_applications, only: :index
+
   namespace :admin do
     resources :workshops  
     resources :users
+  end
+
+  namespace :review do
+    resources :workshop_applications, as: :profiles, controller: :profiles, path: 'profiles', only: [:index, :show, :update]
   end
 
   namespace :settings do
@@ -29,14 +35,14 @@ IsfitParticipant::Application.routes.draw do
     resource :workshop, only: [:show, :create, :new, :update], controller: :workshop
   end
 
-  devise_for :users, :controllers => { :registrations => :apply }, :skip => [:sessions]
+  devise_for :users, :skip => [:sessions, :registration]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
 
-    get 'apply' => 'apply#new', :as => :new_user_registration
-    post 'apply' => 'apply#create', :as => :user_registration
+    #get 'apply' => 'apply#new', :as => :new_user_registration
+    #post 'apply' => 'apply#create', :as => :user_registration
   end
 
   resources :answers

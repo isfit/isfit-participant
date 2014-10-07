@@ -11,5 +11,9 @@ class Ability
     if user.role == 'functionary-dialogue'
       can :manage, DialogueApplication
     end
+
+    if user.role == 'functionary-participant'
+      can :manage, WorkshopApplication
+    end
   end
 end

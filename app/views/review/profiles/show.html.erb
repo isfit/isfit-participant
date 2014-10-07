@@ -1,0 +1,97 @@
+<% content_for :sidebar_left do %>
+  <ul class="nav nav-pills nav-stacked">
+    <li><%= link_to 'Review profiles', review_profiles_path %></li>
+  </ul>
+<% end %>
+
+<div class="pull-right">
+  <%= link_to 'Back', review_profiles_path, :class => "btn btn-default" %>
+</div>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Workshop applications', workshop_applications_path %></li>
+  <li><%= link_to 'Review profiles', review_profiles_path %></li>
+  <li class="active"><%= @application.user.full_name %></li>
+</ol>
+
+<!-- Alerts -->
+<% if @application.errors.any? %>
+  <div class="alert alert-danger">
+    <p><strong><%= pluralize(@application.errors.count, "error") %> grade form being set</strong></p>
+
+    <ul>
+    <% @application.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<article id="application-<%= @application.id %>">
+  <h1><%= @application.user.full_name %></h1>
+
+  <!-- General information -->
+  <dl class="dl-horizontal">
+    <dt>Date of birth</dt>
+    <dd><%= @application.profile.date_of_birth %></dd>
+
+    <dt>Gender</dt>
+    <dd><%= @application.profile.gender %></dd>
+
+    <dt>Nationality</dt>
+    <dd><%= @application.profile.nationality %></dd>
+
+    <dt>Citizenship</dt>
+    <dd><%= @application.profile.citizenship.name %></dd>
+  </dl>
+
+  <!-- Education information -->
+  <dl class="dl-horizontal">
+    <dt>University</dt>
+    <dd><%= @application.profile.school %></dd>
+
+    <dt>Field of study</dt>
+    <dd><%= @application.profile.field_of_study %></dd>
+  </dl>
+
+  <!-- Contact information -->
+  <dl class="dl-horizontal">
+    <dt>E-mail</dt>
+    <dd><%= @application.profile.user.email %></dd>
+
+    <dt>Phone</dt>
+    <dd>+<%= @application.profile.calling_code %> <%= @application.profile.phone %></dd>
+
+    <dt>Address</dt>
+    <dd>
+      <%= @application.profile.address %><br />
+      <%= @application.profile.postal_code %>
+      <%= @application.profile.city %><br />
+      <%= @application.profile.country.name %>
+    </dd>
+  </dl>
+
+  <!-- Motivation essay -->
+  <% unless @application.profile.motivation_essay.blank? %>
+    <p><strong>Motivation essay</strong></p>
+
+    <%= simple_format(@application.profile.motivation_essay) %>
+  <% end %>
+
+  <!-- Review form -->
+  <%= form_for [:review, @application], url: review_profile_path do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="form-group">
+          <%= f.label :profile_grade %>
+          <%= f.text_field :profile_grade, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit 'Set grade', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>
