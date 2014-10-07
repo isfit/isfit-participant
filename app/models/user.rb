@@ -47,4 +47,7 @@ class User < ActiveRecord::Base
       false
     end
   end
+  def self.roles
+    ROLES
+  end
 end
