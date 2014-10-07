@@ -34,6 +34,10 @@ class WorkshopApplication < ActiveRecord::Base
     !workshop_essay.blank?
   end
 
+  def self.ungraded_applications
+    joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("profile_grade IS NULL")
+  end
+
   private
     def strip_amount
       self.amount = amount.to_s.gsub(/[^0-9]/i, '') if attribute_present?('amount')
