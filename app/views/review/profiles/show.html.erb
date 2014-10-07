@@ -79,6 +79,26 @@
     <%= simple_format(@application.profile.motivation_essay) %>
   <% end %>
 
+  <!-- Workshop application -->
+<p><strong>Workshop priority</strong>
+
+  <dl class="dl-horizontal">
+    <dt>First choice</dt>
+    <dd><%= @application.workshop_1.title %></dd>
+
+    <dt>Second choice</dt>
+    <dd><%= @application.workshop_2.title %></dd>
+
+    <dt>Third choice</dt>
+    <dd><%= @application.workshop_3.title %></dd>
+  </dl>
+
+  <% unless @application.workshop_essay.blank? %>
+    <p><strong>Workshop essay</strong></p>
+
+    <%= simple_format(@application.workshop_essay) %>
+  <% end %>
+
   <!-- Review form -->
   <%= form_for [:review, @application], url: review_profile_path do |f| %>
     <div class="panel panel-default">

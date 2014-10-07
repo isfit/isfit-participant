@@ -5,6 +5,7 @@ class WorkshopApplication < ActiveRecord::Base
     :workshop_essay, :profile_attributes
 
   # Relations
+  belongs_to :profile_reviewer, class_name: 'User'
   belongs_to :user
   belongs_to :workshop_1, class_name: 'Workshop'
   belongs_to :workshop_2, class_name: 'Workshop'
