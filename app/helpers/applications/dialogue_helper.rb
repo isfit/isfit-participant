@@ -3,6 +3,5 @@ module Applications::DialogueHelper
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       return params[:country][:country_id]
     end
-  else
   end
 end
