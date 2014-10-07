@@ -30,6 +30,10 @@
 
 <p>
   <%= link_to 'Fetch next applicant', fetch_review_profiles_path, class: 'btn btn-primary' %>
+  <% if @ungraded_application %>
+    <p>You have fetched an application without grading it</p>
+    <%= link_to 'Grade my applicant now', review_profile_path(@ungraded_application), class: 'btn btn-primary' %>
+  <% end %>
 </p>
 
 <table class="table">
