@@ -8,6 +8,9 @@ class LandingController < ApplicationController
       if DateTime.current < DateTime.new(2014, 10, 1, 0, 0, 0, '+02:00')
         redirect_to new_user_registration_url
       end
+      if DateTime.current < DateTime.new(2014, 10, 15, 0, 0, 0, '+02:00')
+        @show_late = true
+      end
     end
   end
 end

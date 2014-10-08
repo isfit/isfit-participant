@@ -11,8 +11,11 @@ class DashboardController < ApplicationController
       unless current_user.profile
         redirect_to settings_new_profile_url and return
       end
-
-      render template: 'dashboard/index_applicant'
+      if current_user.created_at > DateTime.new(2014, 10, 7, 0, 0, 0, '+02:00')
+        render template: 'dashboard/index_applicant_late_recruit'
+      else
+        render template: 'dashboard/index_applicant'
+      end
     end
   end
 end
