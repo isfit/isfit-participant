@@ -47,4 +47,11 @@ class User < ActiveRecord::Base
       false
     end
   end
+  def is_late_recruited?
+    if self.created_at > DateTime.new(2014, 10, 7, 1, 0, 0, '+02:00')
+      true
+    else
+      false
+    end
+  end
 end

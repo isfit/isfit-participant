@@ -22,7 +22,8 @@ class Settings::ProfileController < ApplicationController
   end
 
   def update
-    if @profile.update_attributes(params[:profile])
+    @profile.attributes = params[:profile]
+    if @profile.save
       redirect_to settings_edit_profile_url, notice: 'Your profile was successfully changed'
     else
       render :edit
