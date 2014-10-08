@@ -23,7 +23,6 @@ class Settings::ProfileController < ApplicationController
 
   def update
     @profile.attributes = params[:profile]
-    binding.pry
     if @profile.save
       redirect_to settings_edit_profile_url, notice: 'Your profile was successfully changed'
     else
