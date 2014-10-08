@@ -1,5 +1,8 @@
 <h1>Deadline passed</h1>
 
-<p>The deadline for submiting an application for ISFiT 2015 has passed!</p>
+<p>The deadline for submitting an application for ISFiT 2015 has passed!</p>
 
 <p>We're sorry!</p>
+<% if @show_late %>
+<%= render 'late' %>
+<% end %>

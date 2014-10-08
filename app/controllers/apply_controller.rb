@@ -1,6 +1,6 @@
 class ApplyController < Devise::RegistrationsController
   def new
-    if DateTime.current > DateTime.new(2014, 10, 1, 0, 0, 0, '+02:00')
+    if DateTime.current > DateTime.new(2014, 10, 15, 0, 0, 0, '+02:00')
       redirect_to root_url and return
     end
 
@@ -8,7 +8,7 @@ class ApplyController < Devise::RegistrationsController
   end
 
   def create
-    if DateTime.current > DateTime.new(2014, 10, 1, 1, 0, 0, '+02:00')
+    if DateTime.current > DateTime.new(2014, 10, 15, 1, 0, 0, '+02:00')
       redirect_to root_url and return
     end
 
@@ -21,7 +21,7 @@ class ApplyController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    if self.resource.profile.related_to_conflict_area?
+    if self.resource.profile.related_to_conflict_area? or self.resource.profile.user.is_late_recruited?
       dashboard_url
     else
       new_applications_workshop_url

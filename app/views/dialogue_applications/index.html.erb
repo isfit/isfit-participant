@@ -17,6 +17,7 @@
     <tr>
       <th>Full name</th>
       <th>Citizenship</th>
+      <th>Late recruit</th>
     </tr>
   </thead>
 
@@ -24,6 +25,7 @@
     <tr>
       <td><%= link_to dialogue_application.user.full_name, dialogue_application %></td>
       <td><%= dialogue_application.profile.citizenship.name %></td>
+      <td><%= isLateApplicant(dialogue_application) %></td>
     </tr>
   <%end%>
   

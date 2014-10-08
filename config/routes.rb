@@ -43,8 +43,8 @@ IsfitParticipant::Application.routes.draw do
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
 
-    #get 'apply' => 'apply#new', :as => :new_user_registration
-    #post 'apply' => 'apply#create', :as => :user_registration
+    get 'apply' => 'apply#new', :as => :new_user_registration
+    post 'apply' => 'apply#create', :as => :user_registration
   end
 
   resources :answers
@@ -82,6 +82,5 @@ IsfitParticipant::Application.routes.draw do
     end
     resources :answers
   end
-
   root :to => 'landing#index'
 end
