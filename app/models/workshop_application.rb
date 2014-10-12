@@ -35,7 +35,7 @@ class WorkshopApplication < ActiveRecord::Base
   end
 
   def self.ungraded_applications
-    joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("motivation_essay != ''").where("profile_grade IS NULL")
+    joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("workshop_essay != ''").where("profile_grade IS NULL")
   end
 
   private
