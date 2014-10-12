@@ -2,7 +2,7 @@ class Review::ProfilesController < ApplicationController
   load_and_authorize_resource :workshop_application
 
   def index
-    @applications = WorkshopApplication.paginate(page: params[:page]).joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("profile_grade IS NULL").order('users.first_name ASC', 'users.last_name ASC')
+    @applications = WorkshopApplication.paginate(page: params[:page]).joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("profiles.workshop_essay != ''").where("profile_grade IS NULL").order('users.first_name ASC', 'users.last_name ASC')
     current_user_ungraded_applications = WorkshopApplication.ungraded_applications.where(profile_reviewer_id: current_user.id)
     @ungraded_application = current_user_ungraded_applications.order('users.first_name ASC', 'users.last_name ASC').readonly(false).first
 
