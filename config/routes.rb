@@ -17,6 +17,10 @@ IsfitParticipant::Application.routes.draw do
     resources :workshop_applications, as: :profiles, controller: :profiles, path: 'profiles', only: [:index, :show, :update] do
       get 'fetch', on: :collection
     end
+
+    resources :workshop_applications, only: [:index, :show, :update] do
+      get 'fetch', on: :collection
+    end
   end
 
   namespace :settings do
