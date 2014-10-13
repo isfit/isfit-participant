@@ -1,8 +1,4 @@
-<% content_for :sidebar_left do %>
-  <ul class="nav nav-pills nav-stacked">
-    <li><%= link_to 'Review profiles', review_profiles_path %></li>
-  </ul>
-<% end %>
+<% render 'workshop_applications/sidebar' %>
 
 <div class="pull-right">
   <%= link_to 'Back', review_profiles_path, :class => "btn btn-default" %>
