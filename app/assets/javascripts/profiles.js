@@ -21,7 +21,7 @@ function generateChart(dataArray){
         }],        yAxis: {
             min: 0,
             title: {
-                text: 'Grade',
+                text: 'Grades',
                 align: 'high'
             },
             labels: {
