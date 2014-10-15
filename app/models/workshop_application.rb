@@ -2,7 +2,7 @@ class WorkshopApplication < ActiveRecord::Base
   # Attributes
   attr_accessible :amount, :applying_for_support, :other_sources, :still_attend, 
     :financial_aid_essay, :workshop_1_id, :workshop_2_id, :workshop_3_id,
-    :workshop_essay, :profile_attributes
+    :workshop_essay, :profile_attributes, :profile_grade
 
   # Relations
   belongs_to :profile_reviewer, class_name: 'User'
