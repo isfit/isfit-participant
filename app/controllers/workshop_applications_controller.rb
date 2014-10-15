@@ -1,7 +1,7 @@
 class WorkshopApplicationsController < ApplicationController
 
 def index
-	@workshop_applications = WorkshopApplication.all
+	@workshop_applications = WorkshopApplication.paginate(page: params[:page])
 end
 
 
