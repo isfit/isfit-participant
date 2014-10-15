@@ -1,0 +1,60 @@
+<% render 'workshop_applications/sidebar' %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Workshop applications', workshop_applications_path %></li>
+  <li class="active">Review workshop applications</li>
+</ol>
+
+<h1>Review workshop applications</h1>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <!-- Number of reviewed -->
+    <p>
+      <strong><%= review_stats[:graded] %></strong> of <strong><%= review_stats[:all] %></strong> applications reviewed!
+    </p>
+
+    <!-- Progress bar -->
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: <%= review_percentage %>%;">
+        <span class="sr-only"><%= review_percentage %>% Complete</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert if current user has ungraded applications -->
+<% if @ungraded_application %>
+  <div class="alert alert-warning" role="alert">
+    <p>You have fetched an application without grading it</p>
+    
+    <p>
+      <%= link_to 'Grade my applicant now', [:review, @ungraded_application], class: 'btn btn-warning' %>
+    </p>
+  </div>
+<% end %>
+
+<!-- Next application fetcher -->
+<p>
+  <%= link_to 'Fetch next applicant', fetch_review_workshop_applications_path, class: 'btn btn-primary' %>
+</p>
+
+<!-- Display applications -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+    </tr>
+  </thead>
+
+  <% @applications.each do |a| %>
+    <tr>
+      <td><%= link_to a.user.first_name, [:review, a] %></td>
+      <td><%= a.user.last_name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@applications, renderer: BootstrapPagination::Rails) %>

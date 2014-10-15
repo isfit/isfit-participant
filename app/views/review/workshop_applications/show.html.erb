@@ -7,7 +7,7 @@
 <ol class="breadcrumb">
   <li><%= link_to 'Dashboard', dashboard_path %></li>
   <li><%= link_to 'Workshop applications', workshop_applications_path %></li>
-  <li><%= link_to 'Review profiles', review_profiles_path %></li>
+  <li><%= link_to 'Review workshop applications', review_workshop_applications_path %></li>
   <li class="active"><%= @application.user.full_name %></li>
 </ol>
 
@@ -96,12 +96,21 @@
   <% end %>
 
   <!-- Review form -->
-  <%= form_for [:review, @application], url: review_profile_path do |f| %>
+  <%= form_for [:review, @application] do |f| %>
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="form-group">
-          <%= f.label :profile_grade %>
-          <%= f.text_field :profile_grade, class: 'form-control' %>
+          <%= f.label :workshop_application_grade %>
+          <%= f.text_field :workshop_application_grade, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :workshop_recommendation_id %>
+          <%= %>
+          <%= f.collection_select(:workshop_recommendation_id, Workshop.all, :id, :title, 
+            options = {prompt: 'Recommend workshop for this participant'}, 
+            html_options = {class: 'form-control'}) 
+          %>
         </div>
 
         <div class="form-group">
