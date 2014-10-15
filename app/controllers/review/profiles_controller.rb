@@ -8,6 +8,13 @@ class Review::ProfilesController < ApplicationController
 
     @number_of_applications = WorkshopApplication.joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("workshop_essay != ''").count
     @number_of_reviewed_applications = WorkshopApplication.joins(:user, :profile).where(users: {role: 'applicant'}).where("profiles.motivation_essay != ''").where("workshop_essay != ''").where("profile_grade IS NOT NULL").count
+    @grade_counts = WorkshopApplication.select('profile_grade, COUNT(profile_grade) as freq').group('profile_grade')
+    @grade_counts_array = Array.new(10)
+    @grade_counts.each_with_index do |grade,i|
+      if i > 0
+        @grade_counts_array[i-1] = grade.freq
+      end
+    end
   end
 
   def show
