@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141007124712) do
+ActiveRecord::Schema.define(:version => 20141015164956) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -182,17 +182,20 @@ ActiveRecord::Schema.define(:version => 20141007124712) do
     t.integer  "workshop_1_id"
     t.integer  "workshop_2_id"
     t.integer  "workshop_3_id"
-    t.text     "workshop_essay",       :null => false
+    t.text     "workshop_essay",                   :null => false
     t.boolean  "applying_for_support"
-    t.text     "financial_aid_essay",  :null => false
+    t.text     "financial_aid_essay",              :null => false
     t.string   "amount"
     t.boolean  "other_sources"
     t.boolean  "still_attend"
     t.integer  "profile_reviewer_id"
     t.integer  "profile_grade"
+    t.integer  "workshop_application_grade"
+    t.integer  "workshop_recommendation_id"
+    t.integer  "workshop_application_reviewer_id"
     t.integer  "user_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "workshop_applications", ["profile_reviewer_id"], :name => "index_workshop_applications_on_profile_reviewer_id"
@@ -200,6 +203,8 @@ ActiveRecord::Schema.define(:version => 20141007124712) do
   add_index "workshop_applications", ["workshop_1_id"], :name => "index_workshop_applications_on_workshop_1_id"
   add_index "workshop_applications", ["workshop_2_id"], :name => "index_workshop_applications_on_workshop_2_id"
   add_index "workshop_applications", ["workshop_3_id"], :name => "index_workshop_applications_on_workshop_3_id"
+  add_index "workshop_applications", ["workshop_application_reviewer_id"], :name => "index_workshop_applications_on_workshop_application_reviewer_id"
+  add_index "workshop_applications", ["workshop_recommendation_id"], :name => "index_workshop_applications_on_workshop_recommendation_id"
 
   create_table "workshops", :force => true do |t|
     t.string   "title"
