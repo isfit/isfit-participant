@@ -17,7 +17,7 @@
       <li class="active"><a href="#number" role="tab" data-toggle="tab">Number of applications reviewed</a></li>
       <li><a href="#grades" role="tab" data-toggle="tab">Grading stats</a></li>
       </ul>
-<div class="panel panel-default tab-content">
+<div class="panel panel-default tab-content" style="border-top: 0px">
   <div class="panel-body tab-pane active" id="number">
     <p>
       <strong><%= @number_of_reviewed_applications %></strong> of <strong><%= @number_of_applications %></strong> applications reviewed!
@@ -36,64 +36,12 @@
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
     <div id="container" style="max-width: 100%;height: 300px; margin: 1em"></div>
-
+    <%= javascript_include_tag "profiles" %>
 
 
     <script>
-        var chart = new Highcharts.Chart({
-            chart: {
-                type: 'bar',
-                renderTo: 'container'
-            },
-
-            xAxis: {
-                categories: ['1', '2', '3', '4', '5', '6',
-                    '7', '8', '9', '10']
-            },
-            title: {
-                text: "Grade distribution"
-            },
-            series: [{
-                name: "Grades",
-                data: <%= @grade_counts_array.to_s %>,
-                showInLegend: false
-            }],        yAxis: {
-                min: 0,
-                title: {
-                    text: 'Grade',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            }
-
-        });
-
+      var gradeArray = <%= @grade_counts_array.to_s %>;
+        generateChart(gradeArray);
     </script>
 </div>
 <% end %>
