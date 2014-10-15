@@ -11,6 +11,13 @@ class Review::WorkshopApplicationsController < ApplicationController
       valid.passed_profile_review.not_wa_reviewed.
       where(workshop_application_reviewer_id: current_user.id).
       order('users.first_name ASC', 'users.last_name ASC').first
+    @grade_counts = WorkshopApplication.select('workshop_application_grade, COUNT(workshop_application_grade) as freq').group('workshop_application_grade')
+    @grade_counts_array = [0,0,0,0,0,0,0,0,0,0]
+    @grade_counts.each_with_index do |grade,i|
+      if i > 0
+          @grade_counts_array[(grade.workshop_application_grade - 1)] = grade.freq
+      end
+    end
   end
 
   def show
