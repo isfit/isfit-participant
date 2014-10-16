@@ -46,6 +46,7 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
+      <th>First workshop</th>
     </tr>
   </thead>
 
@@ -53,6 +54,7 @@
     <tr>
       <td><%= link_to a.user.first_name, [:review, a] %></td>
       <td><%= a.user.last_name %></td>
+      <td><%= a.workshop_1.title %></td>
     </tr>
   <% end %>
 </table>

@@ -15,5 +15,9 @@ class Ability
     if user.role == 'functionary-participant'
       can :manage, WorkshopApplication
     end
+
+    if user.role == 'functionary-workshop'
+      can :manage, WorkshopApplication
+    end
   end
 end

@@ -38,6 +38,14 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :workshop_id %>
+    <%= f.collection_select(:workshop_id, Workshop.all, :id, :title, 
+      options = {prompt: 'Select workshop this user shall read'}, 
+      html_options = {class: 'form-control'}) 
+    %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit class: 'btn btn-default' %>
   </div>
 <% end %>
