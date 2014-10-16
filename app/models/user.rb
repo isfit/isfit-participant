@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # Attributes
   attr_accessible :email, :password, :password_confirmation,
                   :remember_me, :first_password, :first_name, :last_name,
-                  :profile_attributes
+                  :profile_attributes, :workshop_id
 
   # Relations
   has_one :participant
@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :deadlines
 
   accepts_nested_attributes_for :profile
+
+  belongs_to :workshop
 
   # Validations
   validates :first_name, :last_name, presence: true
