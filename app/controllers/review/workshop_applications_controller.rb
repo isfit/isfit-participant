@@ -40,7 +40,7 @@ class Review::WorkshopApplicationsController < ApplicationController
     @application = WorkshopApplication.valid.
       passed_profile_review.not_wa_reviewed.has_no_reviewer
 
-    unless current_user.workshop
+    if current_user.workshop
       @application = @application.where(workshop_1_id: current_user.workshop.id)
     end
 
