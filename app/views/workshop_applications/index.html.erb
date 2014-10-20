@@ -5,6 +5,8 @@
 		<tr> 
 			<th>Full name</th>
 			<th>Citizenship</th>
+			<th>Profile grade</th>
+      <th>Workshop grade</th>
 		</tr>
 	</thead>
 
@@ -26,6 +28,18 @@
 	<tr>
 		<td><%= link_to workshop_application.user.full_name, workshop_application %></td>
 		<td><%= workshop_application.profile.citizenship.name%></td>
+    
+    <% if workshop_application.profile_grade.blank? and workshop_application.workshop_application_grade.blank? %>
+      <td>-/10</td>
+      <td>-/10</td>
+
+    <%else%>
+		  <td><span class="<%= whichColor(workshop_application.profile_grade)%>">
+		  <%= workshop_application.profile_grade %></span>/10</td>
+      
+      <td><span class="<%= whichColor(workshop_application.workshop_application_grade)%>">
+      <%= workshop_application.workshop_application_grade %></span>/10</td>
+      <%end%>
 	</tr>
 	<%end%>
 

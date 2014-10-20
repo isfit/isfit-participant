@@ -1,20 +1,10 @@
-<div class="pull-right">
-	<%= link_to 'Back', dialogue_applications_path, :class => "btn btn-default" %><br>
-	<% if @workshop_application.profile_grade.blank? %>
 
-	<%else%>  
-		<div class="font-size-200">
-	
-
-		<span class="<%= whichColor(@workshop_application.profile_grade)%>">
-		<%= @workshop_application.profile_grade %></span>/10
-	</div>
-	<%end%>
-</div>
 
 
 
 <article id="worksops-applications-<%= @workshop_application.id %>">
+	<div class="row">
+	<div class="col-md-9">
 	<h1><%= @workshop_application.user.full_name %></h1>
 
 	<dl class="dl-horizontal">
@@ -60,7 +50,50 @@
 			<%= @workshop_application.user.profile.country.name %>
 		</dd>
 	</dl>
+	
 
+	<dl class="dl-horizontal">
+		<dt>Workshop 1</dt>
+		<dd>
+			<%= @workshop_application.workshop_1.title%></dd>
+		<dt>Workshop 2</dt>
+		<dd>
+			<%= @workshop_application.workshop_2.title%></dd>
+		<dt>Workshop 3</dt>
+		<dd>
+			<%= @workshop_application.workshop_3.title%></dd>
+		</dl>
+	<dl class="dl-horizontal">
+		<dt>Finincial aid</dt>
+			<%if @workshop_application.amount.blank?%>
+				<dd>0$</dd>
+			
+			<%else%>
+				<dd><%=@workshop_application.amount%>$</dd>
+			<%end%>
+		
+	</dl>
+
+	</div>
+	
+	<div class="col-md-3">
+	<%= link_to 'Back', dialogue_applications_path, :class => "btn btn-default" %><br>
+	<% if @workshop_application.profile_grade.blank? %>
+
+	<%else%>  
+		<div class="font-size-200">
+		<h4>Profile Grade</h4>
+		<span class="<%= whichColor(@workshop_application.profile_grade)%>">
+		<%= @workshop_application.profile_grade %></span>/10
+		<h4>Workshop Grade</h4>
+		<span class="<%= whichColor(@workshop_application.workshop_application_grade)%>">
+		<%= @workshop_application.workshop_application_grade %></span>/10
+	</div>
+	<%end%>
+</div>
+</div>
+<div class="row">
+	<div class="col-md-offset-2">
 	<p>
   	<strong>Motivation essay</strong>
   </p>
@@ -82,6 +115,7 @@
 	<% end %>
 
 	<p>
+
 	<strong>Financial aid essay</strong>
 	</p>
 
@@ -93,8 +127,8 @@
 
 
 
-
-
+	</div>
+	</div>
 
 </article>
 
