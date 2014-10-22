@@ -4,3 +4,27 @@
   <li><%= link_to 'Dashboard', dashboard_path %></li>
   <li class="active">Workshop applications</li>
 </ol>
+
+<table id="workshop-applications" class="table">
+  <tr>
+    <th>Full name</th>
+    <th>Country</th>
+    <th>Citizenship</th>
+    <th>Gender</th>
+    <th>Total points</th>
+  </tr>
+
+	<% @applications.each do |a| %>
+    <tr>
+      <td><%= a.user.full_name %></td>
+      <td><%= a.profile.country.name %></td>
+      <td><%= a.profile.citizenship.name %></td>
+      <td><%= get_gender(a.profile.gender) %></td>
+      <td><%= total_grade(a.profile_grade, a.workshop_application_grade) %> / 20</td>
+    </tr> 
+  <% end %>
+</table>
+
+<%= will_paginate(@applications, renderer: BootstrapPagination::Rails) %>
+
+
