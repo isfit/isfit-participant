@@ -13,5 +13,9 @@ class WorkshopApplicationsController < ApplicationController
     @applications = @applications.paginate(page: params[:page]).
       order('users.first_name ASC', 'users.last_name ASC')
   end
+
+  def show
+    @application = WorkshopApplication.find(params[:id])
+  end
 end
 

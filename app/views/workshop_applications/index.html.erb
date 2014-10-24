@@ -28,7 +28,7 @@
 
 	<% @applications.each do |a| %>
     <tr>
-      <td><%= a.user.full_name %></td>
+      <td><%= link_to a.user.full_name, a %></td>
       <td><%= a.profile.country.name %></td>
       <td><%= a.profile.citizenship.name %></td>
       <td><%= get_gender(a.profile.gender) %></td>

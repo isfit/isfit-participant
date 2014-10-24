@@ -1,0 +1,107 @@
+<% render 'sidebar' %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Workshop applications', workshop_applications_path %></li>
+  <li class="active"><%= @application.user.full_name %></li>
+</ol>
+
+<article id="workshop-application-<%= @application.id %>">
+  <!-- Basic information -->
+  <h1><%= @application.user.full_name %></h1>
+
+  <dl class="dl-horizontal">
+    <dt>E-mail</dt>
+    <dd><%= @application.user.email %></dd>
+  </dl>
+
+  <!-- Profile information -->
+  <h2>Profile</h2>
+
+  <dl class="dl-horizontal">
+    <dt>Date of birth</dt>
+    <dd><%= @application.profile.date_of_birth %></dd>
+
+    <dt>Gender</dt>
+    <dd><%= @application.profile.gender %></dd>
+
+    <dt>Nationality</dt>
+    <dd><%= @application.profile.nationality %></dd>
+
+    <dt>Citizenship</dt>
+    <dd><%= @application.profile.citizenship.name %></dd>
+  </dl>
+
+  <dl class="dl-horizontal">
+    <dt>University</dt>
+    <dd><%= @application.profile.school %></dd>
+
+    <dt>Field of study</dt>
+    <dd><%= @application.profile.field_of_study %></dd>
+  </dl>
+
+  <dl class="dl-horizontal">
+    <dt>Phone</dt>
+    <dd>+<%= @application.profile.calling_code %> <%= @application.profile.phone %></dd>
+
+    <dt>Address</dt>
+    <dd>
+      <%= @application.profile.address %><br />
+      <%= @application.profile.postal_code %>
+      <%= @application.profile.city %><br />
+      <%= @application.profile.country.name %>
+    </dd>
+  </dl>
+
+  <% unless @application.profile.motivation_essay.blank? %>
+    <p><strong>Motivation essay</strong></p>
+
+    <%= simple_format(@application.profile.motivation_essay) %>
+  <% end %>
+
+  <h2>Workshop essay</h2>
+
+  <dl class="dl-horizontal">
+    <dt>First choice</dt>
+    <dd><%= @workshop_application.workshop_1.title %></dd>
+
+      <dt>Second choice</dt>
+      <dd><%= @workshop_application.workshop_2.title %></dd>
+
+      <dt>Third choice</dt>
+      <dd><%= @workshop_application.workshop_3.title %></dd>
+
+      <% unless @workshop_application.workshop_recommendation.nil? %>
+        <dt>Recommended</dt>
+        <dd><%= @workshop_application.workshop_recommendation.title %></dd>
+      <% end %>
+    </dl>
+
+    <% unless @workshop_application.workshop_essay.blank? %>
+      <p><strong>Workshop essay</strong></p>
+
+      <%= simple_format(@workshop_application.workshop_essay) %>
+    <% end %>
+
+    <!-- Financial aid application -->
+    <% if @workshop_application.applying_for_support %>
+      <h3>Financial aid application</h3>
+
+      <dl class="dl-horizontal">
+        <dt>Amount</dt>
+        <dd>USD <%= @workshop_application.amount %></dd>
+
+        <dt>Other sources?</dt>
+        <dd><%= @workshop_application.other_sources %></dd>
+
+        <dt>Can still attend?</dt>
+        <dd><%= @workshop_application.still_attend %></dd>
+      </dl>
+
+      <% unless @workshop_application.financial_aid_essay.blank? %>
+        <p><strong>Financial aid essay</strong></p>
+
+        <%= simple_format(@workshop_application.financial_aid_essay) %>
+      <% end %>
+    <% end %>
+</article>
