@@ -5,6 +5,18 @@
   <li class="active">Workshop applications</li>
 </ol>
 
+<aside id="search">
+  <%= form_tag '', method: :get do |f| %>
+    <div class="form-group">
+      <%= text_field_tag :name, params[:name], {placeholder: 'Enter applicant name', class: 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</aside>
+
 <table id="workshop-applications" class="table">
   <tr>
     <th>Full name</th>
@@ -16,7 +28,7 @@
 
 	<% @applications.each do |a| %>
     <tr>
-      <td><%= a.user.full_name %></td>
+      <td><%= link_to a.user.full_name, a %></td>
       <td><%= a.profile.country.name %></td>
       <td><%= a.profile.citizenship.name %></td>
       <td><%= get_gender(a.profile.gender) %></td>
