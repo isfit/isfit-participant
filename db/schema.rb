@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141029135348) do
+ActiveRecord::Schema.define(:version => 20141029135951) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -110,25 +110,36 @@ ActiveRecord::Schema.define(:version => 20141029135348) do
     t.datetime "updated_at",              :null => false
   end
 
+  create_table "participants", :force => true do |t|
+    t.integer  "workshop_id"
+    t.integer  "accepted_invitation", :limit => 1, :default => -1
+    t.integer  "user_id"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "participants", ["user_id"], :name => "index_participants_on_user_id"
+  add_index "participants", ["workshop_id"], :name => "index_participants_on_workshop_id"
+
   create_table "profiles", :force => true do |t|
     t.string   "address"
     t.string   "postal_code"
     t.string   "city"
     t.string   "citizenship"
     t.integer  "calling_code"
-    t.string   "phone"
+    t.string   "phone",            :limit => 30
     t.date     "date_of_birth"
     t.integer  "gender",           :limit => 1
     t.string   "gender_specify"
     t.string   "school"
     t.string   "field_of_study"
     t.integer  "user_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "country_id"
     t.integer  "citizenship_id"
     t.string   "nationality"
-    t.text     "motivation_essay",              :null => false
+    t.text     "motivation_essay",               :null => false
   end
 
   create_table "questions", :force => true do |t|
