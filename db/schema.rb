@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141016141353) do
+ActiveRecord::Schema.define(:version => 20141029135348) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -184,9 +184,9 @@ ActiveRecord::Schema.define(:version => 20141016141353) do
     t.integer  "workshop_1_id"
     t.integer  "workshop_2_id"
     t.integer  "workshop_3_id"
-    t.text     "workshop_essay",                   :null => false
+    t.text     "workshop_essay",                                                :null => false
     t.boolean  "applying_for_support"
-    t.text     "financial_aid_essay",              :null => false
+    t.text     "financial_aid_essay",                                           :null => false
     t.string   "amount"
     t.boolean  "other_sources"
     t.boolean  "still_attend"
@@ -196,8 +196,9 @@ ActiveRecord::Schema.define(:version => 20141016141353) do
     t.integer  "workshop_recommendation_id"
     t.integer  "workshop_application_reviewer_id"
     t.integer  "user_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+    t.integer  "status",                           :limit => 1, :default => -1
   end
 
   add_index "workshop_applications", ["profile_reviewer_id"], :name => "index_workshop_applications_on_profile_reviewer_id"
