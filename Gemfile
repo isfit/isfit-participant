@@ -1,18 +1,20 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+# Core components
+gem 'rails', '~> 3.2'
+gem 'mysql2'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem "bluecloth"
+# Authentication
+gem 'devise', '~> 2.2'
 gem 'cancancan', '~> 1.9'
-gem 'devise'
+
+# Crap
+gem "bluecloth"
 gem 'event-calendar', :require => 'event_calendar'
 gem 'foreigner'
 gem "htmldoc"
 gem 'meta_search'
-gem 'mysql2'
+
 gem "paperclip"
 gem "pdfkit"
 gem "princely"
