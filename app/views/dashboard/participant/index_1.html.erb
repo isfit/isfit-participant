@@ -1,0 +1,45 @@
+<h1>Welcome, <%= current_user.full_name %></h1>
+
+<p>Congratulations, you have been selected to participate at ISFiT 2015! You are now ready for your steps to ISFiT 2015!</p>
+
+<h2>Plan your visa application process</h2>
+
+<p>Generally, when a citizen of a foreign country want to visit Norway a valid visa is required. Citizens of EU/EEC countries or countries with agreements with Norway do not need to apply.</p>
+
+<p>Are you sure if you need a visa? Please check out <a href="http://www.udi.no/en/want-to-apply/visit-and-holiday/">The Norwegian Directorate of Immigration's visa pages</a>.</p>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>Do you need to apply for a visa?</p>
+
+    <%= form_tag(deadlines_prepare_visa_path, method: :put) do %>
+      <div class="btn-group">
+        <%= submit_tag 'Yes', {class: 'btn btn-success'} %>
+        <%= submit_tag 'No', {class: 'btn btn-primary'} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :sidebar_left do %>
+<aside>
+  <h3>Steps to ISFiT</h3>
+
+  <dl>
+    <dt>4. november</dt>
+      <dd>Prepare visa process</dd>
+
+    <dt>14. november</dt>
+      <dd>Accept invitation<dd>
+      <dd>Applied for visa</dd>
+
+    <dt>14. desember</dt>
+      <dd>Confirm visa</dd>
+      <dd>Update profile<dd>
+
+    <dt>14. januar</dt>
+      <dd>Send travel plan</dd>
+      <dd>Confirm participation</dd>
+  </dl>
+</aside>
+<% end %>

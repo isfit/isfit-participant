@@ -9,6 +9,8 @@ class DashboardController < ApplicationController
       render template: 'dashboard/index_functionary_participant'
     elsif current_user.role == 'functionary-workshop'
       render template: 'dashboard/index_functionary_participant'
+    elsif current_user.role == 'participant'
+      participant
     elsif current_user.role == 'applicant'
       unless current_user.profile
         redirect_to settings_new_profile_url and return
@@ -20,4 +22,15 @@ class DashboardController < ApplicationController
       end
     end
   end
+
+  private
+    def participant
+      current_participant = current_user.participant
+
+      if current_participant.not_completed_prepare_visa?
+        redirect_to deadlines_prepare_visa_url
+      elsif current_participant.not_completed_invitation?
+        redirect_to deadlines_invitation_url
+      end
+    end
 end
