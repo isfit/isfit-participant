@@ -12,7 +12,7 @@
       <dd><%= current_user.participant.workshop.title %></dd>
     </dl>
     
-    <button class="btn btn-primary">Read your invitation</button>
+    <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
   </div>
 </div>
 

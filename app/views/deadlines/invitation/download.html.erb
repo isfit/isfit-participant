@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+</head>
+
+<body>
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/logo2015.png" />
+</p>
+
+<p>Dear <%= current_user.full_name %></p>
+
+<p>The International Student Festival in Trondheim 2015, and the ISFiT Foundation are happy to confirm that you hereby are invited to attend ISFiT 2015, in <%= current_user.participant.workshop.title %>. The Festival is arranged from 5th of February to the 15 th of February 2015, in Trondheim, Norway.</p>
+
+<p>ISFiT is an arena for students worldwide to trade ideas, gain knowledge and establish relations. ISFiT 2015 has received about 5300 applications from approximately 160 countries, and through a thorough process, only the most dedicated and motivated students have been selected to attend the Festival. We look forward to meeting you in February, believing your participation will be most valuable for ISFiT and its attendees, as well as contributing to get corruption on the agenda worldwide.</p>
+
+<p>ISFiT 2015 provides food and accommodation, free of charge, for every ISFiT participant. ISFiT is able to provide financial aid for a few of the participants. Those who are granted travel support will receive a separate letter concerning this.</p>
+
+<p>The ISFiT Foundation consist of the Norwegian University of Science and Technology (NTNU); Sør-Trøndelag University College (HiST); the Student Society of Trondheim (Studentersamfundet); “Studentssamskipnaden I Trondheim” (SiT); Trondheim local authority; and Sør-Trøndelag County Authority. Representing the city of Trondheim and its institutions for higher education, the ISFiT Foundation proudly welcomes you to Trondheim and ISFiT 2015.</p>
+
+<p>We consider it most important that all those who are invited will be able to attend ISFiT 2015. We therefore hope that universities, companies and embassies will do their best to help the selected participants.</p>
+
+<p>Yours sincerely,</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_marius.png" height="60px" /><br>
+  Marius Jones<br>
+  President, ISFiT 2015
+</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_amalie.png" height="60px" /><br>
+  Amalie Dalland Senneset<br>
+  Head of Participant, ISFiT 2015
+</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_therese.png" height="60px" /><br>
+  Therese Høstad<br>
+  Chairman, The ISFiT Foundation
+</p>
+</body>
+</html>

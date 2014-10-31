@@ -118,11 +118,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    pdfkit (0.5.3)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.5)
-    princely (1.3.0)
     pry (0.9.12.1)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -308,10 +306,12 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     warden (1.2.3)
       rack (>= 1.0)
+    wicked_pdf (0.11.0)
+      rails
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
-    wkhtmltopdf (0.1.2)
+    wkhtmltopdf-binary (0.9.9.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -335,8 +335,6 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   paperclip
-  pdfkit
-  princely
   pry
   rails (~> 3.2)
   ransack
@@ -347,5 +345,6 @@ DEPENDENCIES
   tabulous
   therubyracer
   uglifier
+  wicked_pdf
   will_paginate-bootstrap
-  wkhtmltopdf
+  wkhtmltopdf-binary

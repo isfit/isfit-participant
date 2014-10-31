@@ -8,6 +8,10 @@ gem 'mysql2'
 gem 'devise', '~> 2.2'
 gem 'cancancan', '~> 1.9'
 
+# Gems for document handling and preparations
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Crap
 gem "bluecloth"
 gem 'event-calendar', :require => 'event_calendar'
@@ -16,14 +20,11 @@ gem "htmldoc"
 gem 'meta_search'
 
 gem "paperclip"
-gem "pdfkit"
-gem "princely"
 gem "ransack"
 gem "simple_form"
 gem 'sqlite3'
 gem "tabulous"
 gem 'therubyracer'
-gem "wkhtmltopdf"
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'jquery-rails'
