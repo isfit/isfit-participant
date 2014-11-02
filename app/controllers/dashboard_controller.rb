@@ -15,6 +15,11 @@ class DashboardController < ApplicationController
       unless current_user.profile
         redirect_to settings_new_profile_url and return
       end
+
+      if [2, 4].any? {|code| code == current_user.workshop_application.status}
+        redirect_to waiting_list_url and return
+      end
+
       if current_user.created_at > DateTime.new(2014, 10, 7, 0, 0, 0, '+02:00')
         render template: 'dashboard/index_applicant_late_recruit'
       else

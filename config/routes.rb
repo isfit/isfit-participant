@@ -14,6 +14,9 @@ IsfitParticipant::Application.routes.draw do
     resources :users
   end
 
+  get 'waiting_list', to: 'waiting_list#show'
+  put 'waiting_list', to: 'waiting_list#update'
+
   namespace :deadlines do
     get 'prepare_visa', to: 'prepare_visa#show'
     put 'prepare_visa', to: 'prepare_visa#update'
