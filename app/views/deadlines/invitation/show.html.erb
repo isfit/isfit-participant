@@ -10,6 +10,11 @@
 
       <dt>Workshop</dt>
       <dd><%= current_user.participant.workshop.title %></dd>
+
+      <% unless current_user.participant.granted_amount.nil? %>
+        <dt>Granted financial aid</dt>
+        <dd>USD <%= current_user.participant.granted_amount %></dd>
+      <% end %>
     </dl>
     
     <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
