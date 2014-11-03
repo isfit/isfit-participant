@@ -57,4 +57,34 @@ namespace :applicants do
       wa.save
     end
   end
+
+  desc 'Send mail to invited applicants'
+  task send_invitation_mails: :environment do |task, args|
+    applications = WorkshopApplication.where(status: 1)
+
+    applications.each do |a|
+      ApplicantMailer.invitation_mail(a.user).deliver
+      puts "Invitation mail sent to #{a.user.email}"
+    end
+  end
+
+  desc 'Send mail to applicants on waiting list'
+  task send_waiting_list_mails: :environment do |task, args|
+    applications = WorkshopApplication.where(status: 2)
+
+    applications.each do |a|
+      ApplicantMailer.waiting_list_mail(a.user).deliver
+      puts "Waiting list mail sent to #{a.user.email}"
+    end
+  end
+
+  desc 'Send mail to rejected applicants'
+  task send_waiting_list_mails: :environment do |task, args|
+    applications = WorkshopApplication.where(status: 0)
+
+    applications.each do |a|
+      ApplicantMailer.rejection_mail(a.user).deliver
+      puts "Rejection mail sent to #{a.user.email}"
+    end
+  end
 end
