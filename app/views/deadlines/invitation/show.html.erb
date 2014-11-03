@@ -1,0 +1,55 @@
+<h1>Invitation to ISFiT</h1>
+
+<p>You can now download and read your invitation for ISFiT 2015. Please read through it carefully.</p>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= current_user.full_name %></dd>
+
+      <dt>Workshop</dt>
+      <dd><%= current_user.participant.workshop.title %></dd>
+    </dl>
+    
+    <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
+  </div>
+</div>
+
+<p>By accepting the invitation, you agree that we can use your contact information for practical purposes. Example of use is contacting embassies regarding your visa application.</p>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>Do you accept your invitation?</p>
+
+    <%= form_tag(deadlines_invitation_path, method: :put) do %>
+      <div class="btn-group">
+        <%= submit_tag 'Yes', {class: 'btn btn-success'} %>
+        <%= submit_tag 'No', {class: 'btn btn-primary'} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :sidebar_left do %>
+<aside>
+  <h3>Steps to ISFiT</h3>
+
+  <dl>
+    <dt>4. november</dt>
+      <dd>Prepare visa process</dd>
+
+    <dt>14. november</dt>
+      <dd>Accept invitation<dd>
+      <dd>Applied for visa</dd>
+
+    <dt>14. desember</dt>
+      <dd>Confirm visa</dd>
+      <dd>Update profile<dd>
+
+    <dt>14. januar</dt>
+      <dd>Send travel plan</dd>
+      <dd>Confirm participation</dd>
+  </dl>
+</aside>
+<% end %>

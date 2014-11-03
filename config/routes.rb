@@ -14,6 +14,21 @@ IsfitParticipant::Application.routes.draw do
     resources :users
   end
 
+  get 'waiting_list', to: 'waiting_list#show'
+  put 'waiting_list', to: 'waiting_list#update'
+
+  namespace :deadlines do
+    get 'prepare_visa', to: 'prepare_visa#show'
+    put 'prepare_visa', to: 'prepare_visa#update'
+
+    get 'invitation', to: 'invitation#show'
+    put 'invitation', to: 'invitation#update'
+    get 'invitation/download', to: 'invitation#download'
+
+    get 'applied_visa', to: 'applied_visa#show'
+    put 'applied_visa', to: 'applied_visa#update'
+  end
+
   namespace :review do
     resources :workshop_applications, as: :profiles, controller: :profiles, path: 'profiles', only: [:index, :show, :update] do
       get 'fetch', on: :collection

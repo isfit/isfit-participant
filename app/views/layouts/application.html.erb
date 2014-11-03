@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <% if user_signed_in? %>
@@ -47,7 +47,7 @@
           <span class="icon-bar"></span>
         </button>
         <% end %>
-        <a class="navbar-brand" href="/">ISFiT Participants</a>
+        <a class="navbar-brand" href="/">ISFiT Participant</a>
       </div>
 
       <% if user_signed_in? %>
@@ -101,11 +101,14 @@
       <% end %>
     </div>
 
-    <div class="row">
-      <footer class="main-footer col-md-12 text-center">
-      <%= link_to image_tag("logo2013.png", :class => "footer-logo"), "http://www.isfit.org/" %>
-      <p>All written material and the ISFiT logo is copyrighted the ISFiT Foundation &copy;  2014.</p>
-      </footer>
+    <footer class="row">
+      <div class="col-md-12">
+        <p>
+          Elgeseter gate 1, 7030 Trondheim, Norway | 
+          <a href="mailto:question@isfit.org">question@isfit.org</a><br>
+          Copyright &copy; 2014 The International Student Festival in Trondheim
+        </p>
+      </div>
     </div>
   </div>
 

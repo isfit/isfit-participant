@@ -1,0 +1,55 @@
+<h1>Welcome, <%= current_user.full_name %></h1>
+
+<p>Congratulations, you have been selected to participate at ISFiT 2015! The process for the festival has started and you need to take several steps before you arrive in Trondheim.</p>
+
+<p>From this webpage, you will go through every step that is required before attendance, reporting visa and travel information. You will also find practical information and you can ask questions about the festival.</p>
+
+<p>There are many deadlines to be held, and it is very important that you complete each step before the deadline. If you log out on one step, you will be taken to the step when you log in again.</p>
+
+<h2>Start visa application process</h2>
+
+<p>Generally, when a citizen of a foreign country want to visit Norway a valid visa is required. You do not need to apply for visa if:</p>
+
+<ul>
+  <li>You are a citizen of EU/EEC</li>
+  <li>You are a citizen of a country which do not require visa upon entering Norway</li>
+  <li>Already have valid Schengen residence permit during the festival</li>
+</ul>
+
+<p>If you are unsure of whether you need to apply for a visa. Please check out <a href="http://www.udi.no/en/want-to-apply/visit-and-holiday/">The Norwegian Directorate of Immigration's visa pages</a>. Also make sure your passport is valid for minimum 90 days beyond your arrival to Norway.</p>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>Do you need to apply for a visa?</p>
+
+    <%= form_tag(deadlines_prepare_visa_path, method: :put) do %>
+      <div class="btn-group">
+        <%= submit_tag 'Yes', {class: 'btn btn-success'} %>
+        <%= submit_tag 'No', {class: 'btn btn-primary'} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :sidebar_left do %>
+<aside>
+  <h3>Steps to ISFiT</h3>
+
+  <dl>
+    <dt>4. november</dt>
+      <dd>Prepare visa process</dd>
+
+    <dt>14. november</dt>
+      <dd>Accept invitation<dd>
+      <dd>Applied for visa</dd>
+
+    <dt>14. desember</dt>
+      <dd>Confirm visa</dd>
+      <dd>Update profile<dd>
+
+    <dt>14. januar</dt>
+      <dd>Send travel plan</dd>
+      <dd>Confirm participation</dd>
+  </dl>
+</aside>
+<% end %>

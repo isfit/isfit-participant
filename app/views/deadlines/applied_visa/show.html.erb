@@ -1,0 +1,51 @@
+<h1>Visa application</h1>
+
+<p>You have to apply for a visa before 14th of November. If you fail to do so, you cannot participate in the festival. If you are not able to do this in time, please notify your contact person in ISFiT, whose name you will find in your invitation.</p>
+
+<p>Getting your visa may take quite a long time (some places up to several months), which is why you need to apply this early. If you apply too late, you may not get the visa in time, and consequently you cannot participate in ISFiT.</p>
+
+<p>For information about how to apply for a visa from your country, please check out <a href="http://www.udi.no/en/want-to-apply/visit-and-holiday/">The Norwegian Directorate of Immigration's visa pages</a>.</p>
+
+<p>You need to bring the following documents from ISFiT to the embassy when applying for visa:</p>
+
+<ul>
+  <li>The invitation letter from ISFiT.</li>
+  <li>The letters of recomandation from the <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/NTNU+Rector+-+Letter+of+reccomendation.pdf">rector of NTNU</a> and <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/NSO+-+Letter+of+recommendation.pdf">NSO</a>.</li>
+  <li>A <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/UDI+-+Power+of+Attorney.pdf">power of attorney/consent</a> form from the head of participants Amalie Dalland Senneset</li>
+  <li>The <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/Ambassadebrev+ISFiT+2015.pdf">information letter</a> to the embassy.</li>
+</ul>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>Have you applied for visa?</p>
+
+    <%= form_tag(deadlines_applied_visa_path, method: :put) do %>
+      <div class="btn-group">
+        <%= submit_tag 'Yes, I have applied for a visa', {class: 'btn btn-success'} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :sidebar_left do %>
+<aside>
+  <h3>Steps to ISFiT</h3>
+
+  <dl>
+    <dt>4. november</dt>
+      <dd>Prepare visa process</dd>
+
+    <dt>14. november</dt>
+      <dd>Accept invitation<dd>
+      <dd>Applied for visa</dd>
+
+    <dt>14. desember</dt>
+      <dd>Confirm visa</dd>
+      <dd>Update profile<dd>
+
+    <dt>14. januar</dt>
+      <dd>Send travel plan</dd>
+      <dd>Confirm participation</dd>
+  </dl>
+</aside>
+<% end %>
