@@ -16,6 +16,10 @@ class Participant < ActiveRecord::Base
     accepted_invitation == -1 ? true : false
   end
 
+  def not_completed_applied_visa?
+    applied_visa == -1 ? true : false
+  end
+
   def needs_visa?
     need_visa == 1 ? true : false
   end

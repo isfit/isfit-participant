@@ -12,6 +12,15 @@ class Deadlines::InvitationController < ApplicationController
     end
 
     @participant.save
+
+    # Remove user if declined invitation
+    unless params[:commit] == 'Yes'
+      current_user.active = false
+      current_user.save
+
+      redirect_to destroy_user_session_url and return
+    end
+
     redirect_to dashboard_url
   end
 

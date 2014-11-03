@@ -32,10 +32,18 @@ class DashboardController < ApplicationController
     def participant
       current_participant = current_user.participant
 
+      if current_participant.accepted_invitation == 0
+        render 'index_not_accepted_invitation' and return
+      end
+
       if current_participant.not_completed_prepare_visa?
         redirect_to deadlines_prepare_visa_url
       elsif current_participant.not_completed_invitation?
         redirect_to deadlines_invitation_url
+      elsif current_participant.need_visa == 1 && current_participant.not_completed_applied_visa?
+        redirect_to deadlines_applied_visa_url
+      else
+        render 'index_wait'
       end
     end
 end
