@@ -9,7 +9,7 @@
 <p>You need to bring the following documents from ISFiT to the embassy when applying for visa:</p>
 
 <ul>
-  <li>The invitation letter from ISFiT.</li>
+  <li>The <%= link_to 'invitation letter', deadlines_invitation_download_path, {download: 'isfit-invitation.pdf'} %> from ISFiT.</li>
   <li>The letters of recomandation from the <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/NTNU+Rector+-+Letter+of+reccomendation.pdf">rector of NTNU</a> and <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/NSO+-+Letter+of+recommendation.pdf">NSO</a>.</li>
   <li>A <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/UDI+-+Power+of+Attorney.pdf">power of attorney/consent</a> form from the head of participants Amalie Dalland Senneset</li>
   <li>The <a href="https://d1808cfbu9pnsj.cloudfront.net/documents/Ambassadebrev+ISFiT+2015.pdf">information letter</a> to the embassy.</li>
@@ -29,6 +29,10 @@
 
 <% content_for :sidebar_left do %>
 <aside>
+  <p>
+    <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
+  </p>
+  
   <h3>Steps to ISFiT</h3>
 
   <dl>
