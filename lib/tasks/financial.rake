@@ -17,4 +17,32 @@ namespace :financial do
       p.save
     end
   end
+
+  task send_granted: :environment do |task, args|
+    participants = Participant.where('granted_amount IS NOT NULL')
+
+    participants.each do |p|
+      begin
+        FinancialMailer.granted(p.user).deliver
+        puts "Granted mail sent to #{p.user.email}"
+      rescue
+        puts "Failed to send mail to #{p.user.email}"
+      end
+    end
+  end
+
+  task send_not_granted: :environment do |task, args|
+    participants = Participant.
+      joins('INNER JOIN workshop_applications ON participants.user_id = workshop_applications.user_id').
+      where('granted_amount IS NULL AND applying_for_support = 1')
+
+    participants.each do |p|
+      begin
+        FinancialMailer.not_granted(p.user).deliver
+        puts "Not granted mail sent to #{p.user.email}"
+      rescue
+        puts "Failed to send mail to #{p.user.email}"
+      end
+    end
+  end
 end
