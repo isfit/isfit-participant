@@ -1,0 +1,25 @@
+<header>
+  <h1>Information</h1>
+
+  <p>Helpful documents for your jouney to Trondheim and everything before</p>
+</header>
+
+<article id="information">
+  <h2>Information brochure</h2>
+
+  <p>Here you can find an information brochure about ISFiT.</p>
+
+  <p><%= link_to 'Read the information brochure', 'http://d1808cfbu9pnsj.cloudfront.net/information-package.pdf', class: 'btn btn-success', download: 'isfit-information-package.pdf' %></p>
+
+  <h2>Visa documents</h2>
+
+  <p>Here are the documents that you will need from ISFiT in your visa application.</p>
+
+  <ul>
+    <li><%= link_to 'Your invitation', deadlines_invitation_download_path, {download: 'isfit-invitation.pdf'} %></li>
+    <li><%= link_to 'Letter to the embassy', 'https://d1808cfbu9pnsj.cloudfront.net/documents/Ambassadebrev+ISFiT+2015.pdf', download: 'isfit-embassy-letter.pdf' %></li>
+    <li><%= link_to 'Letter of support from Rector of NTNU', 'https://d1808cfbu9pnsj.cloudfront.net/documents/NTNU+Rector+-+Letter+of+reccomendation.pdf', download: 'isfit-support-rector.pdf' %></li>
+    <li><%= link_to 'Letter of support from NSO', 'https://d1808cfbu9pnsj.cloudfront.net/documents/NSO+-+Letter+of+recommendation.pdf', download: 'isfit-support-nso.pdf' %></li>
+    <li><%= link_to 'Power of attorney for the visa application', 'https://d1808cfbu9pnsj.cloudfront.net/documents/UDI+-+Power+of+Attorney.pdf', download: 'isfit-power-of-attorney.pdf' %></li>
+  </ul>
+</article>

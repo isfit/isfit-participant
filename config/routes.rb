@@ -1,4 +1,6 @@
 IsfitParticipant::Application.routes.draw do
+  get 'information', to: 'information#index'
+
   get 'flight-booking', to: redirect('http://conventionsplusbookings.staralliance.com/trips/StarHome.aspx?meetingcode=SK17S15'), as: 'flight_booking'
 
   resources :dialogue_applications
