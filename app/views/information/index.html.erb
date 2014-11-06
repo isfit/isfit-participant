@@ -17,6 +17,9 @@
 
   <ul>
     <li><%= link_to 'Your invitation', deadlines_invitation_download_path, {download: 'isfit-invitation.pdf'} %></li>
+    <% if current_user.participant.granted_amount %>
+      <li><%= link_to 'Your financial aid letter', deadlines_invitation_download_financial_path, {download: 'isfit-invitation.pdf'} %></li>
+    <% end %>
     <li><%= link_to 'Letter to the embassy', 'https://d1808cfbu9pnsj.cloudfront.net/documents/Ambassadebrev+ISFiT+2015.pdf', download: 'isfit-embassy-letter.pdf' %></li>
     <li><%= link_to 'Letter of support from Rector of NTNU', 'https://d1808cfbu9pnsj.cloudfront.net/documents/NTNU+Rector+-+Letter+of+reccomendation.pdf', download: 'isfit-support-rector.pdf' %></li>
     <li><%= link_to 'Letter of support from NSO', 'https://d1808cfbu9pnsj.cloudfront.net/documents/NSO+-+Letter+of+recommendation.pdf', download: 'isfit-support-nso.pdf' %></li>

@@ -31,4 +31,12 @@ class Deadlines::InvitationController < ApplicationController
       render nothing: true
     end
   end
+
+  def download_financial
+    if current_user.participant.granted_amount
+      render pdf: 'isfit-funancial-aid'
+    else
+      render nothing: true
+    end
+  end
 end

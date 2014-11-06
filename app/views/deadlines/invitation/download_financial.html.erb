@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+</head>
+
+<body>
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/logo2015.png" />
+</p>
+
+<p>Dear <%= current_user.full_name %>,</p>
+
+<p>You have been granted financial aid in the amount of $ <%= current_user.participant.granted_amount %> USD.</p>
+
+<p>Please note that the travel expenses will be refunded during the festival in February 2015. You will be asked to present your ticket stubs and travel receipts, so please do not throw these away.</p>
+
+<p>From your application and our conducted research, this sum should help you cover what you need for a round trip ticket from your place of study to Trondheim, Norway. Please note that the financial aid does not cover passport or visa expenses.</p>
+
+<p>We would like you to find tickets directly to Værnes airport in Trondheim. More information on travel options is available in the information brochure you received by email and on your personal profile.</p>
+
+<p>Due to our limited funds, the majority of the travel support applications have been rejected. For this reason we kindly ask you to be discrete towards other participants about your advantageous situation.</p>
+
+<p>We wish you good luck planning your trip and look forward to see you in Trondheim in February 2015. If you have further questions, please contact us through your profile at https://participant.isfit.org</p>
+
+<p>Yours sincerely,</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_marius.png" height="60px" /><br>
+  Marius Jones<br>
+  President, ISFiT 2015
+</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_amalie.png" height="60px" /><br>
+  Amalie Dalland Senneset<br>
+  Head of Participant, ISFiT 2015
+</p>
+
+<p>
+  <img src="https://d1808cfbu9pnsj.cloudfront.net/signature_therese.png" height="60px" /><br>
+  Therese Høstad<br>
+  Chairman, The ISFiT Foundation
+</p>
+</body>
+</html>

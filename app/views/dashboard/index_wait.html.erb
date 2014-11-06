@@ -8,6 +8,12 @@
     <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
   </p>
   
+  <% if current_user.participant.granted_amount %>
+  <p>
+    <%= link_to 'Read your financial aid letter', deadlines_invitation_download_financial_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
+  </p>
+  <% end %>
+  
   <h3>Steps to ISFiT</h3>
 
   <dl>
