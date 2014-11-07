@@ -7,7 +7,7 @@ class Faq::Question < ActiveRecord::Base
   attr_accessible :answer, :question, :category_id
 
   # Relations
-  belongs_to :category
+  belongs_to :category, counter_cache: true
 
   # Validations
   validates_presence_of :answer, :question, :category_id

@@ -1,6 +1,8 @@
 class Faq::Category < ActiveRecord::Base
   default_scope order('name ASC')
 
+  scope :with_questions, -> { where('questions_count > 0') }
+
   # Attribute
   attr_accessible :name
 

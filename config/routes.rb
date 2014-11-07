@@ -2,6 +2,8 @@ IsfitParticipant::Application.routes.draw do
   namespace :faq do
     resources :categories, only: [:index, :edit, :create, :update, :destroy]
     resources :questions, only: [:index, :new, :edit, :create, :update, :destroy]
+
+    root to: 'front#index'
   end
 
   get 'information', to: 'information#index'
