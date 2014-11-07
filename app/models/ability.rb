@@ -10,6 +10,8 @@ class Ability
 
     if user.role == 'functionary-dialogue'
       can :manage, DialogueApplication
+      can :manage, Faq::Categories
+      can :manage, Faq::Questions
     end
 
     if user.role == 'functionary-participant'

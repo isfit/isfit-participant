@@ -65,6 +65,7 @@ Tabulous.setup do |config|
       [ :workshop_applications_tab, 'Workshop applications', workshop_applications_path, (can? :index, WorkshopApplication), true],
       [ :information_pages_tab , 'Information' , information_page_path(4) , (can? :show, InformationPage) , true ],
       [ :information_tab , 'Information' , information_path , (current_user.role == 'participant') , true ],
+      [ :faq_tab              , 'FAQ'        , faq_root_path                ,true                         , true ],
       [ :articles_tab          , 'Articles'    , articles_path            , (can? :create, Article)       , true ],
       [ :hosts_tab             , 'Hosts'       , hosts_path               , (can? :index, Host)           , true ],
       [ :deadlines_tab         , 'Deadlines'   , deadlines_path           , false                         , true ],

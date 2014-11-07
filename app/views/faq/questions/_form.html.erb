@@ -1,0 +1,20 @@
+<%= form_for @question do |q| %>
+  <div class="form-group">
+    <%= q.label :question %>
+    <%= q.text_field :question, placeholder: 'Enter question', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= q.label :answer %>
+    <%= q.text_area :answer, class: 'form-control', rows: 8 %>
+  </div>
+
+  <div class="form-group">
+    <%= q.label :category_id %>
+    <%= q.collection_select :category_id, Faq::Category.all, :id, :name, {prompt: true}, {class: 'form-control'} %>
+  </div>
+
+  <div class="form-group">
+    <%= q.submit class: 'btn btn-success' %>
+  </div>
+<% end %>

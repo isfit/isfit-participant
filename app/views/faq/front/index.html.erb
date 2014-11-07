@@ -1,0 +1,24 @@
+<header>
+  <h1>Frequently asked questions</h1>
+</header>
+
+<% if can? :manage, Faq::Question %>
+  <ul class="nav nav-pills" role="tablist">
+    <li><%= link_to 'Manage questions', faq_questions_path %></li>
+    <li><%= link_to 'Manage FAQ categories', faq_categories_path %></li>
+  </ul>
+<% end %>
+
+<% @categories.each do |category| %>
+  <section>
+    <h2><%= category.name %></h2>
+
+    <% category.questions.each do |qa| %>
+      <article>
+        <p><strong><%= qa.question %></strong></p>
+
+        <%= simple_format qa.answer %>
+      </article>
+    <% end %>
+  </section>
+<% end %>

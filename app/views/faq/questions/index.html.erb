@@ -1,0 +1,32 @@
+<header>
+  <h1>Manage questions</h1>
+
+  <p>Manage frequently asked questions and answers.</p>
+</header>
+
+<section>
+  <p>
+    <%= link_to 'Add new Q&A.', new_faq_question_path, class: 'btn btn-success' %>
+  </p>
+  <table class="table table-striped">
+    <tr>
+      <th>Question</th>
+      <th>Category</th>
+      <th></th>
+    </tr>
+
+    <% if @questions.empty? %>
+      <tr>
+        <td colspan="3">No questions with answers has been created. <%= link_to 'Add new Q&A now.', new_faq_question_path %></td>
+      </tr>
+    <% end %>
+
+    <% @questions.each do |qa| %>
+      <tr>
+        <td><%= link_to qa.question, edit_faq_question_path(qa) %></td>
+        <td><%= qa.category.name %></td>
+        <td class="text-right"><%= link_to '<span class="glyphicon glyphicon-remove"></span> Delete'.html_safe, qa, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+    <% end %>
+  </table>
+</section>
