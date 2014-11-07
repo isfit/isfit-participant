@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141103200058) do
+ActiveRecord::Schema.define(:version => 20141107124345) do
 
   create_table "answers", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(:version => 20141103200058) do
     t.datetime "publish_at"
     t.integer  "user_id"
     t.integer  "sticky"
+  end
+
+  create_table "common_questions", :force => true do |t|
+    t.string   "question"
+    t.text     "answer"
+    t.integer  "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "countries", :force => true do |t|
@@ -80,6 +88,22 @@ ActiveRecord::Schema.define(:version => 20141103200058) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "faq_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "faq_questions", :force => true do |t|
+    t.string   "question"
+    t.text     "answer"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "faq_questions", ["category_id"], :name => "index_faq_questions_on_category_id"
 
   create_table "hosts", :force => true do |t|
     t.string   "first_name"

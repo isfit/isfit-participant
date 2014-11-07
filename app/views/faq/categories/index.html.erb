@@ -1,0 +1,42 @@
+<header id="faq-categories-header" class="primary-content-header">
+  <h1>Manage FAQ categories</h1>
+
+  <p>Manage categories for frequently asked questions</p>
+</header>
+
+<section id="faq-categories">
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+    
+    <% if @categories.empty? %>
+      <tr>
+        <td colspan="2">No FAQ categories has been created.</td>
+      </tr>
+    <% end %>
+
+    <% @categories.each do |c| %>
+      <tr>
+        <td><%= link_to c.name, edit_faq_category_path(c) %></td>
+        <td class="text-right"><%= link_to '<span class="glyphicon glyphicon-remove"></span> Delete'.html_safe, c, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+    <% end %>
+  </table>
+</section>
+
+<section id="new-faq-category">
+  <%= form_for @category do |f| %>
+    <h2>Create new category</h2>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: 'Enter category name', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-success' %>
+    </div>
+  <% end %>
+</section>
