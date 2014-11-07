@@ -1,4 +1,8 @@
 class Faq::Question < ActiveRecord::Base
+  default_scope { order('question ASC') }
+
+  scope :with_category, -> { joins(:category) }
+
   # Attributes
   attr_accessible :answer, :question, :category_id
 
