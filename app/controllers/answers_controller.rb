@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   # POST /questions/1/answers.xml
   def create
     @question = Question.find(params[:question_id])
-    if current_user.is_functionary? or @question.status == 3
+    if current_user.role == 'functionary' or @question.status == 3
       @question.status = 2
     end
     

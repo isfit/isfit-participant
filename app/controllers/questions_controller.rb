@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
     status_query = "status = " + @status.to_s
     functionary_query = "fp.functionary_id = "+@functionary.to_s
 
-    if current_user.has_role?(:admin)
+    if current_user.role == 'admin'
       if selected_functionary
         @questions = Question
           .joins(:participant)
@@ -43,13 +43,13 @@ class QuestionsController < ApplicationController
         @question_counts = Question.group(:status).count
       end
 
-      @static = Functionary.find_by_sql('SELECT f.first_name as first_name, f.last_name as last_name'\
-        ', count(CASE WHEN q.status = 1 THEN f.id END) as new, count(CASE WHEN q.status = 2 THEN f.id END)'\
-        ' as opened, count(CASE WHEN q.status = 3 THEN f.id END) as resolved FROM functionaries f'\
-        ' JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id'\
-        '= fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id');
+      #@static = Functionary.find_by_sql('SELECT f.first_name as first_name, f.last_name as last_name'\
+      #  ', count(CASE WHEN q.status = 1 THEN f.id END) as new, count(CASE WHEN q.status = 2 THEN f.id END)'\
+      #  ' as opened, count(CASE WHEN q.status = 3 THEN f.id END) as resolved FROM functionaries f'\
+      #  ' JOIN functionaries_participants fp ON fp.functionary_id = f.id JOIN participants p ON p.id'\
+      #  '= fp.participant_id JOIN questions q ON q.participant_id = p.id GROUP BY f.id');
       render :index_nopart
-    elsif current_user.has_role?(:dialogue)
+    elsif current_user.role == 'dialogue'
       @questions = Question
         .all(:conditions=>"dialogue = 1"+status_query, :order=>"questions.created_at DESC")
         .paginate(:per_page => 10, :page=>params[:page])
@@ -57,7 +57,7 @@ class QuestionsController < ApplicationController
       @question_counts = Question.where(:dialogue => 1).group(:status).count
 
       render :index_nopart
-    elsif current_user.has_role?(:functionary)
+    elsif current_user.role == 'functionary'
       @questions = Question.joins(:participant)
         .joins("JOIN functionaries_participants fp ON fp.participant_id = participants.id")
         .where(status_query+" AND fp.functionary_id = "+current_user.functionary.id.to_s)

@@ -21,5 +21,9 @@ class Ability
     if user.role == 'functionary-workshop'
       can :manage, WorkshopApplication
     end
+
+    if user.role == 'participant'
+      can [:index, :show, :new, :create], Question
+    end
   end
 end

@@ -3,27 +3,25 @@
 <h2><%= @question.subject %></h2>
 <div class="well well-small">
 	<p><%= raw format(@question.content) %></p>
-	<p><em>Asked by <%= @question.participant.user.name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
+	<p><em>Asked by <%= @question.participant.user.full_name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
 </div>
 
-<% if current_user.has_role?(:admin) or current_user.has_role?(:functionary) %>
+<% if current_user.role == 'admin' or current_user.role == 'functionary' %>
   <p>
-  <b><%= "#{@question.participant.first_name} #{@question.participant.last_name}" %> belongs to the following functionaries</b>
+  <b><%= "#{@question.participant.user.first_name} #{@question.participant.user.last_name}" %> belongs to the following functionaries</b>
   <ul>
-    <% @question.participant.functionaries.each do |f| %>
-      <li><%= link_to f.user.name, f %></li>
-    <% end %>
+    <li></li>
   </ul>
   </p>
 <% end %>
 
 <% @answers.each do |answer|%>
 	<div class="well well-small">
-		<% if current_user.is_functionary? && current_user.id == answer.user_id %>
+		<% if current_user.role == 'functionary' && current_user.id == answer.user_id %>
 			<div class="pull-right"><%= link_to 'Edit', edit_answer_path(answer), :class => "btn btn-sm btn-primary" %></div>
 		<% end %>
 		<p><%=raw format(answer.content)%></p>
-		<p><em>Answered by  <%=answer.user.name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>
+		<p><em>Answered by  <%=answer.user.full_name%> <%= time_ago_in_words(answer.created_at) %> ago</em></p>
 	</div>
 <%end%>
 

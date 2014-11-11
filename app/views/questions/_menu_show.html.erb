@@ -7,14 +7,13 @@
         <% if can? :resolve, Question %>
           <li><%= link_to image_tag('icons/tick.png') + ' Resolve question', resolve_question_path(@question) %></li>
         <% end %>
-        <li><%= link_to image_tag('icons/user.png') + ' Participant profile', participant_path(@question.participant) %></li>
       <% end %>
       <li><%= link_to image_tag('icons/comments.png') + ' All questions', questions_path %></li>
     </ul>
 
     <br />
 
-    <% if !current_user.has_role?(:participant) %>
+    <% unless current_user.role == 'participant' %>
       <div class="nav-header">Previous questions by this participant</div>
       <table class="table table-borderless">
         <% @prev_questions.each do |q| %>
