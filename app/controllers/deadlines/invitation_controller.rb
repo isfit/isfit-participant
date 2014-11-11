@@ -1,4 +1,6 @@
 class Deadlines::InvitationController < ApplicationController
+  before_filter :restrict_access
+  
   def show
   end
 
@@ -39,4 +41,11 @@ class Deadlines::InvitationController < ApplicationController
       render nothing: true
     end
   end
+
+  private 
+    def restrict_access
+      unless current_user.role == 'participant'
+        redirect_to dashboard_url, alert: "You don't have the permission to access that page."
+      end
+    end
 end

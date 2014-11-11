@@ -1,4 +1,6 @@
 class Deadlines::AppliedVisaController < ApplicationController
+  before_filter :restrict_access
+  
   def show
   end
 
@@ -10,4 +12,11 @@ class Deadlines::AppliedVisaController < ApplicationController
 
     redirect_to dashboard_url
   end
+
+  private 
+    def restrict_access
+      unless current_user.role == 'participant'
+        redirect_to dashboard_url, alert: "You don't have the permission to access that page."
+      end
+    end
 end
