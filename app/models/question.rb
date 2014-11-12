@@ -1,8 +1,8 @@
 class Question < ActiveRecord::Base
-  belongs_to :participant
-  has_many :questions
+  # Relations
+  belongs_to :user
   has_many :answers
-  has_many :functionaries, :through => :participant
+
   validates_presence_of :content, :subject
 
   def self.status_options

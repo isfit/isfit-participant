@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
 
   belongs_to :workshop
 
+  has_many :questions
+  has_many :answers
+
   # Validations
   validates :first_name, :last_name, presence: true
   validates :email, uniqueness: true
