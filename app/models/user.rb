@@ -56,4 +56,10 @@ class User < ActiveRecord::Base
       false
     end
   end
+  def active_for_authentication?
+    super && self.active
+  end
+  def inactive_message
+    'Your account has been deactivated'
+  end
 end
