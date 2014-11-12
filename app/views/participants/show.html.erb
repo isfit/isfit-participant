@@ -24,7 +24,7 @@
     <dd><%= @participant.user.profile.date_of_birth %></dd>
 
     <dt>Gender</dt>
-    <dd><%= @participant.user.profile.gender %></dd>
+    <dd><%= gender_to_string(@participant.user.profile.gender) %></dd>
 
     <dt>Nationality</dt>
     <dd><%= @participant.user.profile.nationality %></dd>
@@ -59,6 +59,20 @@
     </dd>
   </dl>
 
+  <dl class="dl-horizontal">
+    <dt>Workshop</dt>
+    <dd><%= @participant.workshop_id.to_s + '. ' + @participant.workshop.title %></dd>
+    <dt>Accepted invitation</dt>
+    <dd>
+      <%= intToYesNo(@participant.accepted_invitation) %>
+    </dd>
+    <dt>Needs visa</dt>
+    <dd>
+      <%= intToYesNo(@participant.need_visa) %>
+    </dd>
+    <dt>Granted aid</dt>
+    <dd> <%= @participant.granted_amount %></dd>
+  </dl>
   <!-- Review form -->
   <%= form_for [@participant] do |f| %>
       <div class="panel panel-default">
