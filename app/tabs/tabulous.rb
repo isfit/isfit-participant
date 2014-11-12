@@ -70,6 +70,7 @@ Tabulous.setup do |config|
       [ :hosts_tab             , 'Hosts'       , hosts_path               , (can? :index, Host)           , true ],
       [ :deadlines_tab         , 'Deadlines'   , deadlines_path           , false                         , true ],
       [ :questions_tab         , 'Questions'   , questions_path           , (can? :index, Question)       , true ],
+      [ :participants_tab         , 'Participants'   , participants_path           , (can? :index, Participant)       , true ],
       #--------------------------------------------------------------------------------------------------#
       # TAB NAME               | DISPLAY TEXT  | PATH                     | VISIBLE?    |    ENABLED?    #
       #--------------------------------------------------------------------------------------------------#

@@ -1,0 +1,77 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Participants', participants_path %></li>
+  <li class="active"><%= @participant.user.full_name %></li>
+</ol>
+<% if @participant.errors.any? %>
+    <div class="alert alert-danger">
+      <p><strong><%= pluralize(@participant.errors.count, "error") %> grade form being set</strong></p>
+
+      <ul>
+        <% @participant.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<article id="application-<%= @participant.id %>">
+  <h1><%= @participant.user.full_name %></h1>
+
+  <!-- General information -->
+  <dl class="dl-horizontal">
+    <dt>Date of birth</dt>
+    <dd><%= @participant.user.profile.date_of_birth %></dd>
+
+    <dt>Gender</dt>
+    <dd><%= @participant.user.profile.gender %></dd>
+
+    <dt>Nationality</dt>
+    <dd><%= @participant.user.profile.nationality %></dd>
+
+    <dt>Citizenship</dt>
+    <dd><%= @participant.user.profile.citizenship.name %></dd>
+  </dl>
+
+  <!-- Education information -->
+  <dl class="dl-horizontal">
+    <dt>University</dt>
+    <dd><%= @participant.user.profile.school %></dd>
+
+    <dt>Field of study</dt>
+    <dd><%= @participant.user.profile.field_of_study %></dd>
+  </dl>
+
+  <!-- Contact information -->
+  <dl class="dl-horizontal">
+    <dt>E-mail</dt>
+    <dd><%= @participant.user.email %></dd>
+
+    <dt>Phone</dt>
+    <dd>+<%= @participant.user.profile.calling_code %> <%= @participant.user.profile.phone %></dd>
+
+    <dt>Address</dt>
+    <dd>
+      <%= @participant.user.profile.address %><br />
+      <%= @participant.user.profile.postal_code %>
+      <%= @participant.user.profile.city %><br />
+      <%= @participant.user.profile.country.name %>
+    </dd>
+  </dl>
+
+  <!-- Review form -->
+  <%= form_for [@participant] do |f| %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label :applied_visa %>
+            <%= f.select(:applied_visa, options_for_select([[intToVisaStatus(0),0],[intToVisaStatus(1),1],[intToVisaStatus(2),2]],@participant.applied_visa),{},{:class => 'form-control'})
+            %>
+          </div>
+          <div class="form-group">
+            <%= f.submit 'Set visa status', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</article>
