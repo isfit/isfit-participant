@@ -24,6 +24,7 @@ class Ability
 
     if user.role == 'participant'
       can [:index, :show, :new, :create], Question
+      can :create, Answer
     end
   end
 end

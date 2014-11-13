@@ -3,12 +3,12 @@
 <h2><%= @question.subject %></h2>
 <div class="well well-small">
 	<p><%= raw format(@question.content) %></p>
-	<p><em>Asked by <%= @question.participant.user.full_name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
+	<p><em>Asked by <%= @question.user.full_name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
 </div>
 
 <% if current_user.role == 'admin' or current_user.role == 'functionary' %>
   <p>
-  <b><%= "#{@question.participant.user.first_name} #{@question.participant.user.last_name}" %> belongs to the following functionaries</b>
+  <b><%= "#{@question.user.first_name} #{@question.user.last_name}" %> belongs to the following functionaries</b>
   <ul>
     <li></li>
   </ul>
@@ -25,12 +25,16 @@
 	</div>
 <%end%>
 
-<%= simple_form_for([@question, @question.answers.build]) do |f| %>
-  <fieldset>
-    <legend>Add correspondence to question</legend>
-    <div class="form-inputs">
-      <%= f.input :content, label: "Answer", input_html: { rows: 10, :class => "col-md-6" } %>
-    </div>
-    <%= f.button :submit, "Add message", :class => "btn btn-primary" %>
-  </fieldset>
+<!-- Reply form -->
+<%= form_for [@question, @question.answers.build] do |f| %>
+  <h2>Add correspondence to question</h2>
+
+  <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, rows: 6, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit nil, class: 'btn btn-success' %>
+  </div>
 <% end %>

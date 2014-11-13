@@ -4,7 +4,6 @@
   <div class="form-inputs">
     <h4>Choose status:</h4>
     <%= f.select :status, @statuses, selected: @status %>
-      <!--  .select :functionaries, User.where(role: 'functionary-participant'), selected: @functionary, include_blank: true %> -->
     <%= f.button :submit, "Show", :class => "btn btn-primary" %>
   </div>
 <%end%>
@@ -27,11 +26,11 @@
       <th></th>
     </thead>
     <% @questions.each do |question| %>
-      <% p = question.participant%>
+      <% p = question.user%>
       <tr>
         <td><%= question.subject %></td>
-        <td><%=p.user.first_name %> <%= p.user.last_name %></td>
-        <td><%= p.user.profile.country.name %></td>
+        <td><%=p.first_name %> <%= p.last_name %></td>
+        <td><%= p.profile.country.name %></td>
         <td><%=question.created_at%></td>
         <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
@@ -42,7 +41,7 @@
 </fieldset>
 <%= will_paginate @questions %>
 
-<%if current_user.role == 'admin' %>
+<!--
   <fieldset>
     <legend>Functionaries</legend>
     <table class="table table-bordered table-striped">
@@ -55,4 +54,4 @@
       
     </table>
   </fieldset>
-<%end%>
+-->
