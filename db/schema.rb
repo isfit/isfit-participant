@@ -11,15 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141107182033) do
+ActiveRecord::Schema.define(:version => 20141115154909) do
 
   create_table "answers", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "question_id"
     t.text     "content"
-    t.integer  "user_id"
+    t.integer  "question_id", :null => false
+    t.integer  "user_id",     :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  :null => false
   end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+  add_index "answers", ["user_id"], :name => "index_answers_on_user_id"
 
   create_table "arrival_places", :force => true do |t|
     t.string "name"
@@ -34,14 +37,6 @@ ActiveRecord::Schema.define(:version => 20141107182033) do
     t.datetime "publish_at"
     t.integer  "user_id"
     t.integer  "sticky"
-  end
-
-  create_table "common_questions", :force => true do |t|
-    t.string   "question"
-    t.text     "answer"
-    t.integer  "weight"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "countries", :force => true do |t|
@@ -137,13 +132,14 @@ ActiveRecord::Schema.define(:version => 20141107182033) do
 
   create_table "participants", :force => true do |t|
     t.integer  "workshop_id"
-    t.integer  "accepted_invitation", :limit => 1, :default => -1
+    t.integer  "accepted_invitation",     :limit => 1, :default => -1
     t.integer  "user_id"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
-    t.integer  "need_visa",           :limit => 1, :default => -1
-    t.integer  "applied_visa",        :limit => 1, :default => -1
-    t.integer  "granted_amount",      :limit => 2
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.integer  "need_visa",               :limit => 1, :default => -1
+    t.integer  "applied_visa",            :limit => 1, :default => -1
+    t.integer  "granted_amount",          :limit => 2
+    t.boolean  "approved_first_deadline",              :default => false, :null => false
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"
@@ -173,13 +169,13 @@ ActiveRecord::Schema.define(:version => 20141107182033) do
   create_table "questions", :force => true do |t|
     t.string   "subject"
     t.text     "content"
-    t.integer  "dialogue"
-    t.integer  "participant_id"
     t.integer  "status"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "question_id"
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  add_index "questions", ["user_id"], :name => "index_questions_on_user_id"
 
   create_table "regions", :force => true do |t|
     t.string "name"

@@ -4,6 +4,7 @@ class ParticipantsController < ApplicationController
   def index
     @participants = Participant.paginate(page: params[:page]).joins(:user)
       .order('users.first_name ASC', 'users.last_name ASC')
+      .where(approved_first_deadline: [1, 2])
 
     if params[:search].present?
       k = "%#{params[:search]}%"

@@ -1,4 +1,7 @@
 class Participant < ActiveRecord::Base
+  # Attributes
+  attr_accessible :approved_first_deadline
+
   # Relations
   belongs_to :user
   belongs_to :workshop
