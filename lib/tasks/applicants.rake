@@ -93,8 +93,12 @@ namespace :applicants do
     applications = DialogueApplication.joins(:user).where("users.role = 'applicant'")
 
     applications.each do |a|
-      ApplicantMailer.rejection_mail(a.user).deliver
-      puts "Rejection mail sent to #{a.user.email}"
+      begin
+        ApplicantMailer.rejection_mail(a.user).deliver
+        puts "Rejection mail sent to #{a.user.email}"
+      rescue
+        puts "Failed mail to #{p.user.email}"
+      end
     end
   end
 end
