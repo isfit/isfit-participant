@@ -87,4 +87,14 @@ namespace :applicants do
       puts "Rejection mail sent to #{a.user.email}"
     end
   end
+
+  desc 'Sends rejection mail to applicants'
+  task send_last_rejection_mails: :environment do |task, args|
+    applications = DialogueApplication.joins(:user).where("users.role = 'applicant'")
+
+    applications.each do |a|
+      ApplicantMailer.rejection_mail(a.user).deliver
+      puts "Rejection mail sent to #{a.user.email}"
+    end
+  end
 end

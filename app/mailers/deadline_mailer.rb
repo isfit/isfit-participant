@@ -20,4 +20,8 @@ class DeadlineMailer < ActionMailer::Base
   def november_reminder_no_visa(user)
     mail(to: user.email, subject: '[ISFiT] Reminder from ISFiT')
   end
+
+  def failed_first_deadline(user)
+    mail(to: user.email, subject: '[ISFiT] Deadline not met')
+  end
 end

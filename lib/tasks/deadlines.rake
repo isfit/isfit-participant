@@ -47,4 +47,17 @@ namespace :deadlines do
     puts "Mail to group 2: #{count_y}"
     puts "Mail to group 3: #{count_z}"
   end
+
+  task send_failed_first_deadline: :environment do |task, args|
+    participants = Participant.joins(:user).where(approved_first_deadline: 0)
+
+    participants.each do |p|
+      begin
+        DeadlineMailer.failed_first_deadline(p.user).deliver
+        puts "First deadline fail mail sent to #{p.user.email}"
+      rescue
+        puts "Failed mailing to #{p.user.email}"
+      end
+    end
+  end
 end
