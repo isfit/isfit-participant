@@ -58,17 +58,11 @@ Tabulous.setup do |config|
       # TAB NAME               | DISPLAY TEXT  | PATH                     | VISIBLE?    |    ENABLED?    #
       #--------------------------------------------------------------------------------------------------#
       [ :home_tab              , 'Home'        , root_path                , false                         , true ],
-      [ :answers_tab           , 'Answers'     , answers_path             , false                         , false],
-      [ :events_tab            , 'Events'      , events_path              , false                         , false],
       [ :users_tab             , 'Users'       , admin_users_path         , (can? :index, User)           , true ],
       [ :dialogue_applications_tab, 'Dialogue applications', dialogue_applications_path, (can? :index, DialogueApplication), true],
       [ :workshop_applications_tab, 'Workshop applications', workshop_applications_path, (can? :index, WorkshopApplication), true],
-      [ :information_pages_tab , 'Information' , information_page_path(4) , (can? :show, InformationPage) , true ],
       [ :information_tab , 'Information' , information_path , (current_user.role == 'participant') , true ],
       [ :faq_tab              , 'FAQ'        , faq_root_path                ,true                         , true ],
-      [ :articles_tab          , 'Articles'    , articles_path            , (can? :create, Article)       , true ],
-      [ :hosts_tab             , 'Hosts'       , hosts_path               , (can? :index, Host)           , true ],
-      [ :deadlines_tab         , 'Deadlines'   , deadlines_path           , false                         , true ],
       [ :questions_tab         , 'Questions'   , questions_path           , (can? :index, Question)       , true ],
       [ :participants_tab         , 'Participants'   , participants_path           , (can? :index, Participant)       , true ],
       #--------------------------------------------------------------------------------------------------#
