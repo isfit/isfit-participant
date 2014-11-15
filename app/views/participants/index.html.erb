@@ -1,0 +1,51 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li class="active">Participants</li>
+</ol>
+
+<%= form_tag '', method: :get do |f| %>
+  <div class="form-group">
+      <%= text_field_tag :search, params[:search], {placeholder: 'Who are you looking for?', class: 'form-control'} %>
+    </div>
+  
+    <div class="form-group">
+      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+    </div>
+<% end %>
+
+<table id="participants" class="table">
+  <tr>
+    <th>Full name</th>
+    <th>Country</th>
+    <th>Workshop</th>
+    <th>Visa status</th>
+  </tr>
+
+  <% @participants.each do |a| %>
+      <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
+      <tr>
+        <td><%= link_to a.user.full_name, a %></td>
+        <td><%= a.user.profile.country.name %></td>
+        <td><%= a.workshop.title %></td>
+        <td>
+          <% if a.need_visa == -1 %>
+            <span class="text-danger">Has not answered need for visa</span>
+          <% elsif a.need_visa == 0 %>
+            <span class="text-primary">Does not need visa</span>
+          <% elsif a.need_visa == 1 && a.applied_visa == -1 %>
+            <%= form_for a, html: {class: 'form-inline'} do |f| %>
+              <span class="text-danger">Has not applied for visa</span>
+              <%= f.hidden_field :applied_visa, {value: 2} %>
+              <%= f.submit 'Extend', class: 'btn btn-warning btn-xs' %>
+            <% end %>
+          <% elsif a.need_visa == 1 && a.applied_visa == 1 %>
+            <span class="text-success">Has applied for visa</span>
+          <% elsif a.need_visa == 1 && a.applied_visa == 2 %>
+            <span class="text-warning">Visa deadline extended</span>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@participants, renderer: BootstrapPagination::Rails) %>

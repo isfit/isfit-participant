@@ -17,6 +17,7 @@ IsfitParticipant::Application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
   resources :workshop_applications, only: [:index, :show]
+  resources :participants
 
   namespace :admin do
     resources :workshops  
