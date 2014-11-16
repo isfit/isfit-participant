@@ -1,0 +1,11 @@
+<h1>Countries</h1>
+
+<table class="table">
+  <% @countries.each do |country| %>
+    <tr>
+      <td><%= link_to country.name, edit_admin_country_path(country) %></td>
+      <td><%= country.code %></td>
+      <td><%= country.user ? country.user.full_name : 'No functionary assigned' %>
+    </tr>
+  <% end %>
+</table>

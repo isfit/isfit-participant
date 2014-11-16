@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141115154909) do
+ActiveRecord::Schema.define(:version => 20141116123005) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -41,9 +41,11 @@ ActiveRecord::Schema.define(:version => 20141115154909) do
 
   create_table "countries", :force => true do |t|
     t.string  "name"
-    t.integer "region_id"
-    t.string  "code",      :limit => 4
+    t.string  "code",    :limit => 4
+    t.integer "user_id"
   end
+
+  add_index "countries", ["user_id"], :name => "index_countries_on_user_id"
 
   create_table "deadlines", :force => true do |t|
     t.datetime "deadline"
@@ -176,10 +178,6 @@ ActiveRecord::Schema.define(:version => 20141115154909) do
   end
 
   add_index "questions", ["user_id"], :name => "index_questions_on_user_id"
-
-  create_table "regions", :force => true do |t|
-    t.string "name"
-  end
 
   create_table "transport_types", :force => true do |t|
     t.string   "name"

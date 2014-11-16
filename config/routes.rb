@@ -22,6 +22,7 @@ IsfitParticipant::Application.routes.draw do
   namespace :admin do
     resources :workshops  
     resources :users
+    resources :countries, only: [:index, :edit, :update]
   end
 
   get 'waiting_list', to: 'waiting_list#show'

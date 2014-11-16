@@ -4,9 +4,6 @@
   <div class="form-inputs">
     <h4>Choose status:</h4>
     <%= f.select :status, @statuses, selected: @status %>
-    <% if can? :manage, Question %>
-      <%= f.select :functionaries, Functionary.all_with_role_functionary, selected: @functionary, include_blank: true %>
-    <% end %>
     <%= f.button :submit, "Show", :class => "btn btn-primary" %>
   </div>
 <%end%>
@@ -29,11 +26,11 @@
       <th></th>
     </thead>
     <% @questions.each do |question| %>
-      <% p = question.participant%>
+      <% p = question.user%>
       <tr>
         <td><%= question.subject %></td>
         <td><%=p.first_name %> <%= p.last_name %></td>
-        <td><%= p.country.name %></td>
+        <td><%= p.profile.country.name %></td>
         <td><%=question.created_at%></td>
         <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>
@@ -44,7 +41,7 @@
 </fieldset>
 <%= will_paginate @questions %>
 
-<%if current_user.has_role?(:admin)%>
+<!--
   <fieldset>
     <legend>Functionaries</legend>
     <table class="table table-bordered table-striped">
@@ -54,14 +51,7 @@
         <th>Open</th>
         <th>Resolved</th>
       </thead>
-      <% @static.each do |s| %>
-        <tr>
-          <td><%=s.first_name%> <%=s.last_name%></td>
-          <td><%=s.new%></td>
-          <td><%=s.opened%></td>
-          <td><%=s.resolved%></td>
-        </tr>
-      <%end%> 
+      
     </table>
   </fieldset>
-<%end%>
+-->
