@@ -23,8 +23,8 @@ class Ability
     end
 
     if user.role == 'participant'
-      can [:index, :show, :new, :create], Question
-      can :create, Answer
+      #can [:index, :show, :new, :create], Question
+      #can :create, Answer
     end
   end
 end

@@ -1,4 +1,7 @@
 class Country < ActiveRecord::Base
-  belongs_to :region
-  has_many :participants
+  # Attributes
+  attr_accessible :user_id
+
+  # Relations
+  belongs_to :user
 end

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
+  has_many :countries
+  
   # Validations
   validates :first_name, :last_name, presence: true
   validates :email, uniqueness: true
