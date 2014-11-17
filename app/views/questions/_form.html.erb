@@ -1,22 +1,15 @@
-<%= simple_form_for(@question) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-  <fieldset>
-    <% unless current_user.role == 'participant' %>
-      <%= f.input :status, as: :select, collection: Question.status_options, default: Question.status_new %>
-    <%end%>
-
-    <%= f.input :subject, input_html: { :class => "col-md-5" } %>
-    <%= f.input :content, input_html: { rows: 10, :class => "col-md-5"} %>
-
-    <% if current_user.role == 'functionary' %>
-      <div class="type-text">
-        <%= f.label :dialogue %><br />
-        <%= f.check_box :dialogue %>
-      </div>
-    <%end%>
-  </fieldset>
+<%= form_for @question do |q| %>
+  <div class="form-group">
+    <%= q.label :subject %>
+    <%= q.text_field :subject, class: 'form-control' %>
   </div>
-    <%= f.button :submit, :class => "btn btn-primary" %>
+
+  <div class="form-group">
+    <%= q.label :content %>
+    <%= q.text_area :content, rows: 8, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= q.submit nil, class: 'btn btn-success' %>
+  </div>
 <% end %>

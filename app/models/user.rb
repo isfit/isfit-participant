@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   belongs_to :workshop
 
   has_many :questions
+  has_many :owned_questions, class_name: 'Question', foreign_key: 'owner_id'
+
   has_many :answers
 
   has_many :countries
