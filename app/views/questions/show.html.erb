@@ -1,6 +1,15 @@
-<%= render 'menu_show' %>
+<% if current_user.role == 'admin' or current_user.role == 'functionary' %>
+  <%= render 'menu_show' %>
+<% end %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Questions', questions_path %></li>
+  <li class="active"><%= @question.subject %></li>
+</ol>
 
 <h2><%= @question.subject %></h2>
+
 <div class="well well-small">
 	<p><%= raw format(@question.content) %></p>
 	<p><em>Asked by <%= @question.user.full_name %> <%= time_ago_in_words(@question.created_at) %> ago.</em>
@@ -8,9 +17,9 @@
 
 <% if current_user.role == 'admin' or current_user.role == 'functionary' %>
   <p>
-  <b><%= "#{@question.user.first_name} #{@question.user.last_name}" %> belongs to the following functionaries</b>
+  <b>This question belongs to the following functionary</b>
   <ul>
-    <li></li>
+    <li><%= @question.owner.full_name %></li>
   </ul>
   </p>
 <% end %>

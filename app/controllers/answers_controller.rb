@@ -4,7 +4,9 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
 
-    if current_user.role == 'functionary' or @question.status == 3
+    if current_user.role == 'functionary' or current_user.role == 'admin'
+      @question.status = 4
+    elsif @question.status == 3 || current_user == @question.user
       @question.status = 2
     end
     

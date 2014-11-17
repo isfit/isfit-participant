@@ -1,7 +1,9 @@
 <h1>New question</h1>
 
-<div class="pull-right">
-	<%= link_to 'Back', questions_path, :class => "btn btn-default" %>
-</div>
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Questions', questions_path %></li>
+  <li class="active">New question</li>
+</ol>
 
 <%= render 'form' %>

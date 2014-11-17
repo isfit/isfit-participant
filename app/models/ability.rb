@@ -16,6 +16,8 @@ class Ability
 
     if user.role == 'functionary-participant'
       can :manage, WorkshopApplication
+      can :manage, Question
+      can :manage, Answer
     end
 
     if user.role == 'functionary-workshop'
@@ -23,8 +25,8 @@ class Ability
     end
 
     if user.role == 'participant'
-      #can [:index, :show, :new, :create], Question
-      #can :create, Answer
+      can [:index, :show, :new, :create], Question
+      can :create, Answer
     end
   end
 end

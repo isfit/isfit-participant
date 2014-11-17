@@ -1,6 +1,8 @@
 class Question < ActiveRecord::Base
   # Relations
   belongs_to :user
+  belongs_to :owner, class_name: 'User'
+  
   has_many :answers
 
   validates_presence_of :content, :subject
@@ -9,7 +11,8 @@ class Question < ActiveRecord::Base
   	[
   		["New", 1],
   		["Open", 2],
-  		["Resolved", 3]
+  		["Resolved", 3],
+      ["Open Answered", 4]
   	]
   end
 
@@ -26,5 +29,9 @@ class Question < ActiveRecord::Base
 
   def self.status_resolved
   	status_options[2][1]
+  end
+
+  def self.status_open_answered
+    status_options[3][1]
   end
 end
