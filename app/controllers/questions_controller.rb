@@ -34,10 +34,10 @@ class QuestionsController < ApplicationController
 
       render :index_nopart
     elsif current_user.role == 'functionary-participant'
-      @questions = Question.where(status: @status).where(owner: current_user)
+      @questions = Question.where(status: @status, owner_id: current_user.id)
         .order("questions.updated_at DESC").paginate(:per_page => 10, :page => params[:page])
 
-      @question_counts = Question.where(status_query).where(owner: current_user)
+      @question_counts = Question.where(status: @status, owner_id: current_user.id)
         .group(:status).count
 
       render :index_nopart
