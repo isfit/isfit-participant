@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
     ['Dialogue functionary', 'functionary-dialogue'],
     ['Participant functionary', 'functionary-participant'],
     ['Workshop functionary', 'functionary-workshop'],
-    ['Admin', 'admin']
+    ['Admin', 'admin'],
+    ['Participant', 'participant']
   ]
 
   # Attributes
