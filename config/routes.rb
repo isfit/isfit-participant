@@ -36,6 +36,7 @@ IsfitParticipant::Application.routes.draw do
     put 'invitation', to: 'invitation#update'
     get 'invitation/download', to: 'invitation#download'
     get 'invitation/download_financial', to: 'invitation#download_financial'
+    get 'invitation/download_lor_travel_support', to: 'invitation#download_lor_travel_support'
 
     get 'applied_visa', to: 'applied_visa#show'
     put 'applied_visa', to: 'applied_visa#update'

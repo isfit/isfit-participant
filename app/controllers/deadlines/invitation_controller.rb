@@ -42,6 +42,14 @@ class Deadlines::InvitationController < ApplicationController
     end
   end
 
+  def download_lor_travel_support
+    if current_user.participant
+      render pdf: 'letter-of-recommendation-travel-support'
+    else
+      render nothing: true
+    end
+  end
+
   private 
     def restrict_access
       unless current_user.role == 'participant'
