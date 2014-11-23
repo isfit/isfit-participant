@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tag %>
 
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag "application" %>
 
   <%= yield :head %>
 
@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <% if user_signed_in? %>
@@ -86,31 +86,33 @@
 
     <div role="main" class="row">
       <% if content_for?(:sidebar_left) || content_for?(:sidebar_right) %>
-      <div class="col-md-3">
-        <%= yield :sidebar_left %>
-        <%= yield :sidebar_right %>
-      </div>
+        <div id="content" class="col-md-9">
+          <div class="box box-top box-bottom">
+            <%= yield %>
+          </div>
+        </div>
 
-      <div id="content" class="col-md-9">
-        <%= yield %>
-      </div>
+        <div class="col-md-3">
+          <%= yield :sidebar_left %>
+          <%= yield :sidebar_right %>
+        </div>
       <% else %>
-      <div id="content" class="col-md-8 col-md-offset-2">
-        <%= yield %>
-      </div>
+        <div id="content" class="col-md-12">
+          <div class="box box-top box-bottom">
+            <%= yield %>
+          </div>
+        </div>
       <% end %>
     </div>
-
-    <footer class="row">
-      <div class="col-md-12">
-        <p>
-          Elgeseter gate 1, 7030 Trondheim, Norway | 
-          <a href="mailto:question@isfit.org">question@isfit.org</a><br>
-          Copyright &copy; 2014 The International Student Festival in Trondheim
-        </p>
-      </div>
-    </div>
   </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Your contact person will not respond to any questions at the 24th, 25th, 26th and 31th of December and the 1st of January, due to the Christmas holiday.</p>
+
+      <p>Copyright &copy; 2014 The International Student Festival in Trondheim</p>
+    </div>
+  </footer>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>

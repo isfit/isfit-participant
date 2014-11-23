@@ -3,34 +3,5 @@
 <p>You have completed all released steps and will be notified when more steps are available.</p>
 
 <% content_for :sidebar_left do %>
-<aside>
-  <p>
-    <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
-  </p>
-  
-  <% if current_user.participant.granted_amount %>
-  <p>
-    <%= link_to 'Read your financial aid letter', deadlines_invitation_download_financial_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
-  </p>
-  <% end %>
-  
-  <h3>Steps to ISFiT</h3>
-
-  <dl>
-    <dt>4. november</dt>
-      <dd>Prepare visa process</dd>
-
-    <dt>14. november</dt>
-      <dd>Accept invitation<dd>
-      <dd>Applied for visa</dd>
-
-    <dt>14. desember</dt>
-      <dd>Confirm visa</dd>
-      <dd>Update profile<dd>
-
-    <dt>14. januar</dt>
-      <dd>Send travel plan</dd>
-      <dd>Confirm participation</dd>
-  </dl>
-</aside>
+  <%= render 'dashboard/sidebar/participant' %>
 <% end %>

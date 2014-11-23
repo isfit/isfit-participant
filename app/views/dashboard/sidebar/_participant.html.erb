@@ -1,0 +1,46 @@
+<div class="box box-top box-bottom">
+  <p style="margin-top: 9px;">You have been selected to participate at ISFiT 2015.</p>
+
+  <p>
+    <%= link_to 'Read your invitation', deadlines_invitation_download_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
+  </p>
+
+  <% if current_user.participant.granted_amount %>
+  <p>
+    <%= link_to 'Read your financial aid letter', deadlines_invitation_download_financial_path, {class: 'btn btn-primary', download: 'isfit-invitation.pdf'} %>
+  </p>
+  <% end %>
+</div>
+
+<div class="box box-top box-header">
+  <h3>Steps to ISFiT</h3>
+</div>
+
+<div class="box">
+  <h4>14th of November</h4>
+  
+  <p>
+    Accept invitation<br>
+    Applied for visa
+  </p>
+
+  <h4>14th of December</h4>
+
+  <p>
+    Confirm visa<br>
+    Update profile
+  </p>
+
+  <h4>14th of January</h4>
+
+  <p>
+    Send travel plan<br>
+    Confirm participation
+  </p>
+</div>
+
+<div class="box box-bottom box-information">
+  <p>If you don´t complete the steps before the deadlines, you will loose your place in ISFiT.</p> 
+
+  <p>Please send a question to your contact person <strong>before</strong> the deadline if you have any questions.</p>
+</div>
