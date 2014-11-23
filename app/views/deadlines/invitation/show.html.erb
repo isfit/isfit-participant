@@ -45,24 +45,5 @@
 </div>
 
 <% content_for :sidebar_left do %>
-<aside>
-  <h3>Steps to ISFiT</h3>
-
-  <dl>
-    <dt>4. november</dt>
-      <dd>Prepare visa process</dd>
-
-    <dt>14. november</dt>
-      <dd>Accept invitation<dd>
-      <dd>Applied for visa</dd>
-
-    <dt>14. desember</dt>
-      <dd>Confirm visa</dd>
-      <dd>Update profile<dd>
-
-    <dt>14. januar</dt>
-      <dd>Send travel plan</dd>
-      <dd>Confirm participation</dd>
-  </dl>
-</aside>
+  <%= render 'dashboard/sidebar/participant' %>
 <% end %>
