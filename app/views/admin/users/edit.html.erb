@@ -1,3 +1,9 @@
+<% content_for :breadcrumbs do %>
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Users', admin_users_path %></li>
+  <li><%= link_to @user.full_name, [:admin, @user] %></li>
+  <li class="active">Edit user</li>
+<% end %>
 <div class="pull-right">
   <%= link_to 'Back', admin_users_path, confirm: 'This will cancel all changes. Are you sure?', method: :get , :class => "btn btn-default" %>
 </div>
