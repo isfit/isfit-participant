@@ -1,3 +1,8 @@
+<% content_for :breadcrumbs do %>
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li class="active">Users</li>
+<% end %>
+
 <% content_for :sidebar_left do %>
   <div class="well">
     <%= form_tag '', method: :get do |f| %>

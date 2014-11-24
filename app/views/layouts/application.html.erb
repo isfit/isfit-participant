@@ -87,6 +87,10 @@
     <div role="main" class="row">
       <% if content_for?(:sidebar_left) || content_for?(:sidebar_right) %>
         <div id="content" class="col-md-9">
+          <% if content_for? :breadcrumbs %>
+            <ol class="breadcrumb"><%= yield :breadcrumbs %></ol>
+          <% end %>
+
           <div class="box box-top box-bottom">
             <%= yield %>
           </div>
@@ -98,6 +102,10 @@
         </div>
       <% else %>
         <div id="content" class="col-md-12">
+          <% if content_for? :breadcrumbs %>
+            <ol class="breadcrumb"><%= yield :breadcrumbs %></ol>
+          <% end %>
+          
           <div class="box box-top box-bottom">
             <%= yield %>
           </div>
