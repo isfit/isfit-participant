@@ -22,7 +22,7 @@ class Participant < ActiveRecord::Base
   end
 
   def not_completed_applied_visa?
-    applied_visa == -1 ? true : false
+    [-1, 2].any? { |code| code == applied_visa } ? true : false
   end
 
   def needs_visa?
