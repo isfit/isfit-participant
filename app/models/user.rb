@@ -1,11 +1,16 @@
 class User < ActiveRecord::Base
   ROLES = [
-    ['Applicant', 'applicant'],
+    ['Admin', 'admin'],
     ['Dialogue functionary', 'functionary-dialogue'],
     ['Participant functionary', 'functionary-participant'],
     ['Workshop functionary', 'functionary-workshop'],
-    ['Admin', 'admin'],
-    ['Participant', 'participant']
+    ['Participant', 'participant'],
+    ['Applicant', 'applicant']
+  ]
+
+  ROLES_RESTRICTED = [
+    ['Participant', 'participant'],
+    ['Applicant', 'applicant']
   ]
 
   # Attributes
