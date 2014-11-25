@@ -7,11 +7,15 @@
     <%= f.button :submit, "Show", :class => "btn btn-primary" %>
   </div>
 <%end%>
-<ul>
-  <li>New: <%= (@question_counts && @question_counts[1]) ? @question_counts[1] : 0 %></li>
-  <li>Open: <%= (@question_counts && @question_counts[2]) ? @question_counts[2] : 0 %></li>
-  <li>Resolved: <%= (@question_counts && @question_counts[3]) ? @question_counts[3] : 0 %></li>
-</ul>
+
+<dl class="dl-horizontal">
+  <dt>Index</dt>
+  <dd><%= @question_counts[1].to_i + @question_counts[4].to_i %></dd>
+  <dt>Answered</dt>
+  <dd><%= @question_counts[2].to_i %></dd>
+  <dt>Resolved</dt>
+  <dd><%= @question_counts[3].to_i %></dd>
+</dl>
 
 <fieldset>
   <legend>Questions</legend>

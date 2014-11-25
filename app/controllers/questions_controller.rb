@@ -8,19 +8,23 @@ class QuestionsController < ApplicationController
   end
 
   def index
+    @statuses = [
+      ['Inbox', 'inbox'],
+      ['Answered', 'answered'],
+      ['Resolved', 'resolved'],
+    ]
+
     selected_status = params[:question][:status] if params[:question]
     selected_functionary = params[:question][:functionaries] if params[:question]
     selected_functionary = nil if selected_functionary ==  ""
     status_query = ""
 
     @status = case selected_status
-    when 'resolved'
-      3
-    else
-      [1, 2]
+      when 'answered' then 4
+      when 'resolved' then 3
+      else [1, 2]
     end
 
-    @statuses = Question.status_options
     @functionary = selected_functionary || current_user.id
 
     status_query = "status = " + @status.to_s
