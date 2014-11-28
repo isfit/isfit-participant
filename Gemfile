@@ -14,7 +14,6 @@ gem 'wkhtmltopdf-binary'
 
 # Crap
 gem "bluecloth"
-gem 'event-calendar', :require => 'event_calendar'
 gem 'foreigner'
 gem "htmldoc"
 gem 'meta_search'

@@ -82,15 +82,10 @@ IsfitParticipant::Application.routes.draw do
 
   resources :answers
 
-  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
-
   resources :information_categories
   resources :information_pages
-  resources :articles
   
   post "search/index"
-
-  resources :events
   
   resources :hosts do
     collection do
