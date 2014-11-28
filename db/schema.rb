@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141128124642) do
+ActiveRecord::Schema.define(:version => 20141128130242) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -65,14 +65,6 @@ ActiveRecord::Schema.define(:version => 20141128124642) do
     t.boolean  "national",            :default => false, :null => false
     t.string   "realtives",                              :null => false
     t.text     "other_information"
-  end
-
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "faq_categories", :force => true do |t|
