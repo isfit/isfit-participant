@@ -68,7 +68,6 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
-    event-calendar (2.3.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.4.0)
@@ -209,7 +208,6 @@ DEPENDENCIES
   capybara
   coffee-rails
   devise (~> 2.2)
-  event-calendar
   factory_girl_rails
   foreigner
   htmldoc
