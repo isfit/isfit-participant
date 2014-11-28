@@ -86,7 +86,6 @@ IsfitParticipant::Application.routes.draw do
 
   resources :information_categories
   resources :information_pages
-  resources :articles
   
   post "search/index"
 
