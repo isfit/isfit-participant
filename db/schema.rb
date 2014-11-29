@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141128130242) do
+ActiveRecord::Schema.define(:version => 20141129134833) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -35,22 +35,6 @@ ActiveRecord::Schema.define(:version => 20141128130242) do
   end
 
   add_index "countries", ["user_id"], :name => "index_countries_on_user_id"
-
-  create_table "deadlines", :force => true do |t|
-    t.datetime "deadline"
-    t.string   "name"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.integer  "participant_type", :default => 0
-  end
-
-  create_table "deadlines_users", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "deadline_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "approved",    :default => false
-  end
 
   create_table "dialogue_applications", :force => true do |t|
     t.integer  "relationship_status",                    :null => false

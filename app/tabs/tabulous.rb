@@ -94,7 +94,6 @@ Tabulous.setup do |config|
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
       [    :search                    ,    :all_actions    ,    :search_tab                    ],
       [    :hosts                     ,    :all_actions    ,    :hosts_tab                     ],
-      [    :deadlines                 ,    :all_actions    ,    :deadlines_tab                 ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
       [    :home                      ,    :all_actions    ,    :home_tab                      ],

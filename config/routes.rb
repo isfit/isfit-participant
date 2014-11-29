@@ -98,8 +98,6 @@ IsfitParticipant::Application.routes.draw do
     end
   end
 
-  resources :deadlines
-
   resources :questions do
     collection do 
       post "q_status"

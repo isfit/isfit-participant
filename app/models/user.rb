@@ -25,8 +25,6 @@ class User < ActiveRecord::Base
   has_one :dialogue_application
   has_one :workshop_application
 
-  has_and_belongs_to_many :deadlines
-
   accepts_nested_attributes_for :profile
 
   belongs_to :workshop
