@@ -1,6 +1,6 @@
 class Participant < ActiveRecord::Base
   # Attributes
-  attr_accessible :approved_first_deadline
+  attr_accessible :approved_first_deadline, :visa_number, :approved_second_deadline
 
   # Relations
   belongs_to :user
