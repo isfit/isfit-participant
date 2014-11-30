@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   end
   
   def is_participant?
-    if self.participant
+    if role == 'participant'
       true
     else
       false

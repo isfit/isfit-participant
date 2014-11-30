@@ -1,19 +1,49 @@
 class Profile < ActiveRecord::Base
   CONFLICT_AREAS = ['BI', 'RW', 'ZA']
 
+  DIETARY_LAW_OPTIONS = [
+    ['No preference', 0],
+    ['Halal', 1],
+    ['Kosher', 2],
+    ['Vegetarian', 3]
+  ]
+
   attr_accessible :address, :calling_code, :citizenship_id, :city, :country_id, 
     :date_of_birth, :field_of_study, :gender, :gender_specify, :nationality, 
-    :phone, :postal_code, :school, :motivation_essay
+    :phone, :postal_code, :school, :motivation_essay, :next_of_kin_name,
+    :next_of_kin_phone, :next_of_kin_address, :dietary_law, :other_diet_preferences,
+    :allergy_animals, :allergy_gluten, :allergy_lactose, :allergy_nuts, 
+    :other_allergies, :host_gender_preference, :smoke, :handicap, 
+    :other_host_preferences
 
   belongs_to :citizenship, class_name: 'Country'
   belongs_to :country
   belongs_to :user
 
-  validates :phone, numericality: true, presence: true
-  validates_presence_of :date_of_birth, :gender, :nationality, :citizenship_id, 
-    :school, :field_of_study, :address, :postal_code, :city, :country_id,
-    :calling_code
+  # Validation for core profile fields
+  validates :date_of_birth,   presence: true
+  validates :gender,          presence: true
+  validates :nationality,     presence: true
+  validates :citizenship_id,  presence: true
+
+  validates :school,          presence: true
+  validates :field_of_study,  presence: true
+
+  validates :address,       presence: true
+  validates :postal_code,   presence: true
+  validates :city,          presence: true
+  validates :country_id,    presence: true
+  validates :calling_code,  presence: true
+  validates :phone,         presence: true, numericality: true
+
   validates :motivation_essay, presence: true, on: :update
+
+  # Validations for next of kin information
+  with_options if: "user.is_participant?" do |p|
+    p.validates :next_of_kin_name,    presence: true
+    p.validates :next_of_kin_phone,   presence: true
+    p.validates :next_of_kin_address, presence: true
+  end
   
   before_validation :strip_phone_formating_characters
 
