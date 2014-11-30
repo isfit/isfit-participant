@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141128130242) do
+ActiveRecord::Schema.define(:version => 20141129155904) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -35,22 +35,6 @@ ActiveRecord::Schema.define(:version => 20141128130242) do
   end
 
   add_index "countries", ["user_id"], :name => "index_countries_on_user_id"
-
-  create_table "deadlines", :force => true do |t|
-    t.datetime "deadline"
-    t.string   "name"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.integer  "participant_type", :default => 0
-  end
-
-  create_table "deadlines_users", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "deadline_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "approved",    :default => false
-  end
 
   create_table "dialogue_applications", :force => true do |t|
     t.integer  "relationship_status",                    :null => false
@@ -134,19 +118,33 @@ ActiveRecord::Schema.define(:version => 20141128130242) do
     t.string   "city"
     t.string   "citizenship"
     t.integer  "calling_code"
-    t.string   "phone",            :limit => 30
+    t.string   "phone",                  :limit => 30
     t.date     "date_of_birth"
-    t.integer  "gender",           :limit => 1
+    t.integer  "gender",                 :limit => 1
     t.string   "gender_specify"
     t.string   "school"
     t.string   "field_of_study"
     t.integer  "user_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "country_id"
     t.integer  "citizenship_id"
     t.string   "nationality"
-    t.text     "motivation_essay",               :null => false
+    t.text     "motivation_essay",                                        :null => false
+    t.string   "next_of_kin_name"
+    t.string   "next_of_kin_phone"
+    t.text     "next_of_kin_address"
+    t.integer  "dietary_law",                          :default => 0
+    t.string   "other_diet_preferences"
+    t.boolean  "allergy_animals",                      :default => false
+    t.boolean  "allergy_gluten",                       :default => false
+    t.boolean  "allergy_lactose",                      :default => false
+    t.boolean  "allergy_nuts",                         :default => false
+    t.string   "other_allergies"
+    t.integer  "host_gender_preference",               :default => 0
+    t.boolean  "smoke",                                :default => false
+    t.boolean  "handicap",                             :default => false
+    t.string   "other_host_preferences"
   end
 
   create_table "questions", :force => true do |t|
