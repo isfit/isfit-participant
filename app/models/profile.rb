@@ -11,9 +11,9 @@ class Profile < ActiveRecord::Base
   attr_accessible :address, :calling_code, :citizenship_id, :city, :country_id, 
     :date_of_birth, :field_of_study, :gender, :gender_specify, :nationality, 
     :phone, :postal_code, :school, :motivation_essay, :next_of_kin_name,
-    :next_of_kin_phone, :next_of_kin_address, :dietary_law, :other_diet_preferences,
-    :allergy_animals, :allergy_gluten, :allergy_lactose, :allergy_nuts, 
-    :other_allergies, :host_gender_preference, :smoke, :handicap, 
+    :next_of_kin_phone, :next_of_kin_address, :next_of_kin_relation, :dietary_law, 
+    :other_diet_preferences, :allergy_animals, :allergy_gluten, :allergy_lactose, 
+    :allergy_nuts, :other_allergies, :host_gender_preference, :smoke, :handicap, 
     :other_host_preferences
 
   belongs_to :citizenship, class_name: 'Country'
@@ -40,9 +40,10 @@ class Profile < ActiveRecord::Base
 
   # Validations for next of kin information
   with_options if: "user.is_participant?" do |p|
-    p.validates :next_of_kin_name,    presence: true
-    p.validates :next_of_kin_phone,   presence: true
-    p.validates :next_of_kin_address, presence: true
+    p.validates :next_of_kin_name,      presence: true
+    p.validates :next_of_kin_phone,     presence: true
+    p.validates :next_of_kin_address,   presence: true
+    p.validates :next_of_kin_relation,  presence: true
   end
   
   before_validation :strip_phone_formating_characters
