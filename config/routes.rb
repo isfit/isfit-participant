@@ -16,6 +16,9 @@ IsfitParticipant::Application.routes.draw do
 
   get 'dashboard', to: 'dashboard#index'
 
+  put 'deadlines/update_profile', to: 'deadlines#update_profile'
+  put 'deadlines/confirm_visa', to: 'deadlines#confirm_visa'
+
   resources :workshop_applications, only: [:index, :show]
   resources :participants
 

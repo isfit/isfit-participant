@@ -1,0 +1,113 @@
+<% content_for :sidebar_left do %>
+  <%= render 'dashboard/sidebar/participant' %>
+<% end %>
+
+<h1>Update profile</h1>
+
+<p>We need this information in order to satisfy your needs and preferences while staying in Trondheim, and in order to complete the whole process before arriving in​ Trondheim.</p>
+
+<% if @profile.errors.full_messages.any? %>
+<div class="bg-danger info-box">
+  <h2><%= pluralize(@profile.errors.full_messages.count, 'error') %> prevents you from creating a profile</h2>
+
+  <ul>
+    <% @profile.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= form_for @profile, url: deadlines_update_profile_path do |f| %>
+  <h2>Next of kin information</h2>
+
+  <div class="form-group">
+    <%= f.label :next_of_kin_name %> <em>Required</em>
+    <%= f.text_field :next_of_kin_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :next_of_kin_phone %> <em>Required</em>
+    <%= f.text_field :next_of_kin_phone, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :next_of_kin_address %> <em>Required</em>
+    <%= f.text_area :next_of_kin_address, html_options = {class: 'form-control', rows: 4} %>
+  </div>
+
+
+  <h2>Diet and allergies</h2>
+  
+  <p><strong>Dietary law or preference</strong></p>
+
+  <div class="radio">
+    <label><%= f.radio_button(:dietary_law, 0) %> No preference</label>
+  </div>
+  <div class="radio">
+    <label><%= f.radio_button(:dietary_law, 1) %> Halal *</label>
+  </div>
+  <div class="radio">
+    <label><%= f.radio_button(:dietary_law, 2) %> Kosher *</label>
+  </div>
+  <div class="radio">
+    <label><%= f.radio_button(:dietary_law, 3) %> Vegetarian</label>
+  </div>
+
+  <p class="text-muted">* Due to limited availability of kosher and halal food in Norway, you will be served a pescetarian diet (combination of fish and vegetarian dishes).</p>
+
+  <div class="form-group">
+    <%= f.label :other_diet_preferences %>
+    <%= f.text_field :other_diet_preferences, class: 'form-control' %>
+  </div>
+
+  <p><strong>Allergies</strong></p>
+  
+  <div class="checkbox">
+    <label><%= f.check_box :allergy_animals %> Animals</label>
+  </div>
+  <div class="checkbox">
+    <label><%= f.check_box :allergy_gluten %> Gluten</label>
+  </div>
+  <div class="checkbox">
+    <label><%= f.check_box :allergy_lactose %> Lactose</label>
+  </div>
+  <div class="checkbox">
+    <label><%= f.check_box :allergy_nuts %> Nuts</label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :other_allergies %>
+    <%= f.text_field :other_allergies, class: 'form-control' %>
+  </div>
+
+
+  <h2>Accommodation preferences</h2>
+
+  <p><strong>Gender preference of host</strong></p>
+
+  <div class="radio">
+    <label><%= f.radio_button :host_gender_preference, 0 %> No preference</label>
+  </div>
+  <div class="radio">
+    <label><%= f.radio_button :host_gender_preference, 1 %> Preferably not men</label>
+  </div>
+  <div class="radio">
+    <label><%= f.radio_button :host_gender_preference, 2 %> Preferably not women</label>
+  </div>
+
+  <div class="checkbox">
+    <label><%= f.check_box :smoke %> I'm a smoker</label>
+  </div>
+  <div class="checkbox">
+    <label><%= f.check_box :handicap %> I have a handicap</label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :other_host_preferences %>
+    <%= f.text_field :other_host_preferences, class: 'form-control' %>
+  </div>
+
+
+  <%= f.submit class: 'btn btn-success' %>
+<% end %>
