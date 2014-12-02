@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141129155904) do
+ActiveRecord::Schema.define(:version => 20141130212113) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -99,14 +99,16 @@ ActiveRecord::Schema.define(:version => 20141129155904) do
 
   create_table "participants", :force => true do |t|
     t.integer  "workshop_id"
-    t.integer  "accepted_invitation",     :limit => 1, :default => -1
+    t.integer  "accepted_invitation",      :limit => 1, :default => -1
     t.integer  "user_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-    t.integer  "need_visa",               :limit => 1, :default => -1
-    t.integer  "applied_visa",            :limit => 1, :default => -1
-    t.integer  "granted_amount",          :limit => 2
-    t.boolean  "approved_first_deadline",              :default => false, :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.integer  "need_visa",                :limit => 1, :default => -1
+    t.integer  "applied_visa",             :limit => 1, :default => -1
+    t.integer  "granted_amount",           :limit => 2
+    t.boolean  "approved_first_deadline",               :default => false, :null => false
+    t.string   "visa_number"
+    t.integer  "approved_second_deadline",              :default => 0,     :null => false
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"

@@ -3,47 +3,36 @@ class DashboardController < ApplicationController
     if current_user.role == 'admin'
       @number_of_users = User.count
       @number_of_profiles = Profile.count
+    end
 
-      render template: 'dashboard/index_admin'
-    elsif current_user.role == 'functionary-participant'
-      render template: 'dashboard/index_functionary_participant'
-    elsif current_user.role == 'functionary-workshop'
-      render template: 'dashboard/index_functionary_participant'
-    elsif current_user.role == 'participant'
-      participant
-    elsif current_user.role == 'applicant'
-      unless current_user.profile
-        redirect_to settings_new_profile_url and return
-      end
-
-      if [2, 4].any? {|code| code == current_user.workshop_application.status}
-        redirect_to waiting_list_url and return
-      end
-
-      if current_user.created_at > DateTime.new(2014, 10, 7, 0, 0, 0, '+02:00')
-        render template: 'dashboard/index_applicant_late_recruit'
-      else
-        render template: 'dashboard/index_applicant'
-      end
+    if current_user.role == 'participant'
+      get_participant_step
+    else
+      render template: role_index_template
     end
   end
 
   private
-    def participant
-      current_participant = current_user.participant
+    def role_index_template
+      'dashboard/index_' + current_user.role.gsub(/-/, '_')
+    end
 
-      if current_participant.accepted_invitation == 0
-        render 'index_not_accepted_invitation' and return
-      end
+    def get_participant_step
+      # Load data
+      participant = current_user.participant
+      profile = current_user.profile
 
-      if current_participant.not_completed_prepare_visa?
-        redirect_to deadlines_prepare_visa_url
-      elsif current_participant.not_completed_invitation?
-        redirect_to deadlines_invitation_url
-      elsif current_participant.need_visa == 1 && current_participant.not_completed_applied_visa?
-        redirect_to deadlines_applied_visa_url
-      else
-        render 'index_wait'
+      # Check if profile is updated
+      if profile.next_of_kin_not_completed?
+        @profile = current_user.profile
+        template = 'dashboard/deadlines/update_profile'
+      elsif participant.need_visa == 1 && participant.not_completed_applied_visa?
+        redirect_to deadlines_applied_visa_url and return
+      elsif participant.need_visa == 1 && participant.visa_number.blank?
+        @participant = current_user.participant
+        template = 'dashboard/deadlines/confirm_visa'
       end
+      
+      render template || 'index_wait'
     end
 end

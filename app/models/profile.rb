@@ -59,6 +59,10 @@ class Profile < ActiveRecord::Base
     CONFLICT_AREAS.any? { |code| code.eql?(country.code) }
   end
 
+  def next_of_kin_not_completed?
+    next_of_kin_name.blank? || next_of_kin_phone.blank? || next_of_kin_address.blank?
+  end
+
   private
     def strip_phone_formating_characters
       self.phone = phone.to_s.gsub(/[^0-9a-zA-Z]/i, '')

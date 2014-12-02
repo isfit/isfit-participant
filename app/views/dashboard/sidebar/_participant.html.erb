@@ -20,15 +20,15 @@
   <h4>14th of November</h4>
   
   <p>
-    Accept invitation<br>
-    Applied for visa
+    Accept invitation
+    <% if current_user.participant.need_visa == 1 %><br>Applied for visa<% end %>
   </p>
 
   <h4>14th of December</h4>
 
   <p>
-    Confirm visa<br>
     Update profile
+    <% if current_user.participant.need_visa == 1 %><br>Confirm visa<% end %>
   </p>
 
   <h4>14th of January</h4>

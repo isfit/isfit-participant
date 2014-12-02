@@ -8,7 +8,7 @@ class Deadlines::AppliedVisaController < ApplicationController
     @participant = current_user.participant
 
     @participant.applied_visa = 1
-    @participant.save
+    @participant.save(validate: false)
 
     redirect_to dashboard_url
   end
