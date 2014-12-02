@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141130212113) do
+ActiveRecord::Schema.define(:version => 20141202191838) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20141130212113) do
     t.string   "next_of_kin_name"
     t.string   "next_of_kin_phone"
     t.text     "next_of_kin_address"
+    t.string   "next_of_kin_relation"
     t.integer  "dietary_law",                          :default => 0
     t.string   "other_diet_preferences"
     t.boolean  "allergy_animals",                      :default => false
