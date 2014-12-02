@@ -88,8 +88,6 @@ IsfitParticipant::Application.routes.draw do
   resources :information_categories
   resources :information_pages
   
-  post "search/index"
-  
   resources :hosts do
     collection do
       match 'index' => 'hosts#index', :via => [:get, :post]

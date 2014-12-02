@@ -92,7 +92,6 @@ Tabulous.setup do |config|
       #----------------------------------------------------------------------------------------#
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
       [    :information_pages         ,    :all_actions    ,    :information_pages_tab         ],
-      [    :search                    ,    :all_actions    ,    :search_tab                    ],
       [    :hosts                     ,    :all_actions    ,    :hosts_tab                     ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
