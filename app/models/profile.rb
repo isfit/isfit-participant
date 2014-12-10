@@ -36,8 +36,6 @@ class Profile < ActiveRecord::Base
   validates :calling_code,  presence: true
   validates :phone,         presence: true, numericality: true
 
-  validates :motivation_essay, presence: true, on: :update
-
   # Validations for next of kin information
   with_options if: "user.is_participant?" do |p|
     p.validates :next_of_kin_name,      presence: true
