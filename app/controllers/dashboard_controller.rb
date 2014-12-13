@@ -6,6 +6,10 @@ class DashboardController < ApplicationController
     end
 
     if current_user.role == 'participant'
+      unless current_user.profile
+        redirect_to settings_new_profile_url and return
+      end
+
       get_participant_step
     else
       render template: role_index_template
