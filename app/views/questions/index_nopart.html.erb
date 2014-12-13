@@ -34,7 +34,7 @@
       <tr>
         <td><%= question.subject %></td>
         <td><%=p.first_name %> <%= p.last_name %></td>
-        <td><%= p.profile.country.name %></td>
+        <td><%= p.profile ? p.profile.country.name : 'N/A' %></td>
         <td><%=question.created_at%></td>
         <td><%=pluralize(question.answers.size, "answer")%></td>
         <td><%= link_to image_tag('icons/comment.png') + ' Comment', question %></td>

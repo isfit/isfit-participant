@@ -26,7 +26,7 @@
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
         <td><%= link_to a.user.full_name, a %></td>
-        <td><%= a.user.profile.country.name %></td>
+        <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= a.workshop.title %></td>
         <td>
           <% if a.need_visa == -1 %>
