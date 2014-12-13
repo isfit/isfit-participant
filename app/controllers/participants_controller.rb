@@ -19,10 +19,10 @@ class ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
-    @participant.applied_visa = params[:participant][:applied_visa]
+    @participant.approved_second_deadline = params[:participant][:approved_second_deadline]
 
-    if @participant.save
-      redirect_to participants_path, notice: 'Workshop application grade was successfully set.'
+    if @participant.save(validate: false)
+      redirect_to participants_path, notice: 'Second deadline extended.'
     else
       render :show
     end
