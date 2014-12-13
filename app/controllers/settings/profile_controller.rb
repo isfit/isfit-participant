@@ -12,9 +12,9 @@ class Settings::ProfileController < ApplicationController
     @profile.user = current_user
 
     if @profile.save
-      if @profile.user.role == 'participant' and participant.need_visa == 0
-        participant.approved_second_deadline = 1
-        participant.save
+      if @profile.user.role == 'participant' and @profile.user.participant.need_visa == 0
+        @profile.user.participant.approved_second_deadline = 1
+        @profile.user.participant.save
       end
 
       redirect_to dashboard_url, notice: 'Your profile was successfully created. We can\'t wait for your application!'
