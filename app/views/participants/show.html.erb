@@ -73,19 +73,4 @@
     <dt>Granted aid</dt>
     <dd> <%= @participant.granted_amount %></dd>
   </dl>
-  <!-- Review form -->
-  <%= form_for [@participant] do |f| %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="form-group">
-            <%= f.label :applied_visa %>
-            <%= f.select(:applied_visa, options_for_select([[intToVisaStatus(0),0],[intToVisaStatus(1),1],[intToVisaStatus(2),2]],@participant.applied_visa),{},{:class => 'form-control'})
-            %>
-          </div>
-          <div class="form-group">
-            <%= f.submit 'Set visa status', class: 'btn btn-primary' %>
-          </div>
-        </div>
-      </div>
-  <% end %>
 </article>
