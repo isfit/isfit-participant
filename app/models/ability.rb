@@ -18,6 +18,7 @@ class Ability
       can :manage, WorkshopApplication
       can :manage, Question
       can :manage, Answer
+      can :manage, Participant
       can [:index, :show], User
     end
 
