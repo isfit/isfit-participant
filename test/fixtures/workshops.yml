@@ -1,0 +1,9 @@
+development:
+  title: Development
+  lead: Aliquam egestas est mattis mauris pulvinar tincidunt. 
+  description: Vivamus rutrum sem nulla.
+
+education:
+  title: Education
+  lead: Nulla ullamcorper urna nec quam ullamcorper.
+  description: Id consequat nunc bibendum.
