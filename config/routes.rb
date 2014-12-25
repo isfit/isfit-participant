@@ -84,9 +84,6 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :answers
-
-  resources :information_categories
-  resources :information_pages
   
   resources :hosts do
     collection do
