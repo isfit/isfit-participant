@@ -43,8 +43,6 @@ class User < ActiveRecord::Base
   # Other crap
   devise :database_authenticatable, 
          :recoverable, :registerable, :rememberable, :trackable, :validatable
-
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   
   self.per_page = 15
 
