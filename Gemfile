@@ -40,8 +40,6 @@ end
 gem 'capistrano'
 gem 'rvm-capistrano'
 
-gem 'newrelic_rpm'
-
 group :test do
   gem 'capybara'
 end
