@@ -2,13 +2,11 @@ class WaitingListController < ApplicationController
   before_filter :set_application
 
   def show
-    unless [2, 4].any? {|code| code == @application.status}
+    unless [2, 4].any? { |code| code == @application.status }
       redirect_to dashboard_url
     end
 
-    if @application.status == 4
-      render 'show_accepted' and return
-    end
+    render 'show_accepted' and return if @application.status == 4
   end
 
   def update
@@ -32,6 +30,7 @@ class WaitingListController < ApplicationController
   end
 
   private
+  
     def set_application
       @application = current_user.workshop_application
     end
