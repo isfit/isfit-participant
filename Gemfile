@@ -20,7 +20,6 @@ gem 'meta_search'
 
 gem "paperclip"
 gem "ransack"
-gem "simple_form"
 gem 'sqlite3'
 gem "tabulous"
 gem 'therubyracer'
