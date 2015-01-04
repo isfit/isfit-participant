@@ -44,5 +44,7 @@ module IsfitParticipant
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }
+
+    config.i18n.enforce_available_locales = true
   end
 end
