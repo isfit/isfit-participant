@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
       elsif participant.need_visa == 1 && participant.visa_number.blank?
         @participant = current_user.participant
         template = 'dashboard/deadlines/confirm_visa'
-      elsif participant.arrival_in_norway == -1
+      elsif participant.arrival_in_norway == -1 || participant.departure_trd == -1 || participant.departure_norway == -1
         @participant = participant
         template = 'dashboard/deadlines/travel_information'
       end

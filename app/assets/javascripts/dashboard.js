@@ -22,3 +22,17 @@ $(document).ready(function() {
     $("#transfer-"+$(this).val()).show('fast');
   });
 });
+
+$(document).ready(function() {
+  $("[name=participant\\[departure_trd\\]]").click(function(){
+    $('.toHideDepTrd').hide();
+    $("#deptrd-"+$(this).val()).show('fast');
+  });
+});
+
+$(document).ready(function() {
+  $("[name=participant\\[departure_norway\\]]").click(function(){
+    $('.toHideDepNor').hide();
+    $("#depnor-"+$(this).val()).show('fast');
+  });
+});

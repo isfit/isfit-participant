@@ -31,6 +31,7 @@
     <div class="form-group">
       <%= p.label :trd_arrival_date, 'Arrival date at TRD Værnes' %>
       <%= p.text_field :trd_arrival_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>0502</em>.</p>
     </div>
 
     <div class="form-group">
@@ -45,6 +46,7 @@
     <div class="form-group">
       <%= p.label :osl_arrival_date, 'Arrival date at OSL Gardermoen' %>
       <%= p.text_field :osl_arrival_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>0502</em>.</p>
     </div>
 
     <div class="form-group">
@@ -66,6 +68,7 @@
       <div class="form-group">
         <%= p.label :trd_arrival_date, 'Arrival date at TRD Værnes' %>
         <%= p.text_field :trd_arrival_date, class: 'form-control' %>
+        <p class="help-block">Format: <em>DDMM</em>. Example: <em>0502</em>.</p>
       </div>
 
       <div class="form-group">
@@ -77,7 +80,6 @@
 
     <div id="transfer-2" class="toHideTransfer" style="display:none">
       <div class="form-group">
-        <%= p.label :other_transfer_information %>
         <%= p.text_area :other_transfer_information, rows: 4, class: 'form-control' %>
         <p class="help-block">Please specify how you will travel to Trondheim and when you arrive.</p>
       </div>
@@ -87,9 +89,82 @@
   <!-- Other arrival infromation -->
   <div id="arrival-3" class="toHide" style="display:none">
     <div class="form-group">
-      <%= p.label :other_arrival_information %>
       <%= p.text_area :other_arrival_information, rows: 4, class: 'form-control' %>
       <p class="help-block">Please specify how you will travel to Trondheim and when you arrive.</p>
     </div>
+  </div>
+
+  <h2>Departure</h2>
+
+  <p>
+    <strong>How will you depart from Trondheim?</strong>
+  </p>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 1) %> Flight from TRD Værnes
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 2) %> Other (Please specify)
+  </label><br>&nbsp;
+
+  <div id="deptrd-1" class="toHideDepTrd" style="display:none">
+    <div class="form-group">
+      <%= p.label :trd_departure_date, 'Departure date from TRD Værnes' %>
+      <%= p.text_field :trd_departure_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>1502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :trd_departure_flight_number, 'Flight number from TRD Værnes' %>
+      <%= p.text_field :trd_departure_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+  </div>
+
+  <div id="deptrd-2" class="toHideDepTrd" style="display:none">
+    <div class="form-group">
+      <%= p.text_area :other_trondheim_departure_information, rows: 4, class: 'form-control' %>
+      <p class="help-block">Please specify how you will travel from Trondheim and when.</p>
+    </div>
+  </div>
+
+  <p>
+    <strong>How will you depart from Norway?</strong>
+  </p> 
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 1) %> Directly from Trondheim
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 2) %> Flight from OSL Gardermoen
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 3) %> Other (Please specify)
+  </label><br>&nbsp;
+
+  <div id="depnor-2" class="toHideDepNor" style="display:none">
+    <div class="form-group">
+      <%= p.label :osl_departure_date, 'Departure date from OSL Gardermoen' %>
+      <%= p.text_field :osl_departure_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>1502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :osl_departure_flight_number, 'Flight number from OSL Gardermoen' %>
+      <%= p.text_field :osl_departure_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+  </div>
+
+  <div id="depnor-3" class="toHideDepNor" style="display:none">
+    <%= p.text_area :other_norway_departure_information, rows: 4, class: 'form-control' %>
+    <p class="help-block">Please specify how you will travel from Norway and when.</p>
+  </div>
+
+  <div class="form-group">
+    <%= p.submit 'Submit Travel Information', class: 'btn btn-success' %>
   </div>
 <% end %>
