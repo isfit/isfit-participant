@@ -8,3 +8,17 @@ $(document).ready(function() {
     }
   });               
 });
+
+$(document).ready(function() {
+  $("[name=participant\\[arrival_in_norway\\]]").click(function(){
+    $('.toHide').hide();
+    $("#arrival-"+$(this).val()).show('fast');
+  });
+});
+
+$(document).ready(function() {
+  $("[name=participant\\[transfer_to_trd\\]]").click(function(){
+    $('.toHideTransfer').hide();
+    $("#transfer-"+$(this).val()).show('fast');
+  });
+});
