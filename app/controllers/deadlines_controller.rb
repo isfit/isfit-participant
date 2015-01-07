@@ -32,4 +32,15 @@ class DeadlinesController < ApplicationController
       render 'dashboard/deadlines/confirm_visa'
     end
   end
+
+  def update_travel_information
+    @participant = current_user.participant
+    @participant.attributes = params[:participant]
+
+    if @participant.save
+      redirect_to dashboard_url, notice: 'Travel information successfully submitted'
+    else
+      render 'dashboard/deadlines/travel_information'
+    end
+  end
 end

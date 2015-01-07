@@ -11,3 +11,20 @@ en:
     apply:
       user:
         signed_up: You have successfully created an account. We can't wait for your application!
+  activerecord:
+    attributes:
+      participant:
+        arrival_in_norway: 'Arrival method in Norway'
+        departure_trd: Departure method from Trondheim
+        departure_norway: Departure method from Norway
+        trd_arrival_date: Arrival date at TRD Værnes
+        trd_arrival_flight_number: Flight number to TRD Værnes
+        osl_arrival_date: Arrival date at OSL Gardermoen
+        osl_arrival_flight_number: Flight number to OSL Gardermoen
+        transfer_to_trd: Transfer method to Trondheim
+        trd_departure_date: Departure date from TRD Værnes
+        trd_departure_flight_number: Flight number from TRD Værnes
+        other_trondheim_departure_information: Departure information from Trondheim
+        osl_departure_date: Departure date from OSL Gardermoen
+        osl_departure_flight_number: Flight number from OSL Gardermoen
+        other_norway_departure_information: Departure information from Norway

@@ -18,6 +18,7 @@ IsfitParticipant::Application.routes.draw do
 
   put 'deadlines/update_profile', to: 'deadlines#update_profile'
   put 'deadlines/confirm_visa', to: 'deadlines#confirm_visa'
+  put 'deadlines/update_travel_information', to: 'deadlines#update_travel_information'
 
   resources :workshop_applications, only: [:index, :show]
   resources :participants
