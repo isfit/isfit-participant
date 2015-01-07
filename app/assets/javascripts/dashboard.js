@@ -29,6 +29,9 @@ $(document).ready(function() {
     if ($(this).val() == 2) {
       $("#arrival-3").show('fast');
     }
+    if ($(this).val() == 3) {
+      $("#transfer-train").show('fast');
+    }
     $("#transfer-"+$(this).val()).show('fast');
   });
 });

@@ -6,7 +6,8 @@ class Participant < ActiveRecord::Base
     :transfer_to_trd, :other_arrival_information, :trd_departure_date, 
     :trd_departure_flight_number, :other_trondheim_departure_information,
     :osl_departure_date, :osl_departure_flight_number, :other_norway_departure_information,
-    :confirmed_participation, :approved_third_deadline
+    :confirmed_participation, :approved_third_deadline, :train_arrival_datetime,
+    :train_departure_datetime
 
   # Relations
   belongs_to :user
@@ -32,6 +33,8 @@ class Participant < ActiveRecord::Base
     c.validates :trd_arrival_flight_number, flight_designator: true
   end
 
+  validates :train_arrival_datetime, presence: true, if: :transfers_with_train?
+
   with_options if: :needs_other? do |e|
     e.validates :other_arrival_information, presence: true
   end
@@ -43,6 +46,7 @@ class Participant < ActiveRecord::Base
     f.validates :trd_departure_flight_number, flight_designator: true
   end
 
+  validates :train_departure_datetime, presence: true, if: :departs_with_train?
   validates :other_trondheim_departure_information, presence: true, if: :departs_trondheim_by_other?
 
   validates :departure_norway, numericality: {greater_than: 0, message: 'must be selected'}, if: :approved_second_deadline?
@@ -118,4 +122,12 @@ class Participant < ActiveRecord::Base
   def confirmed_participation?
     confirmed_participation == 1 ? true : false
   end
+
+  def transfers_with_train?
+    transfer_to_trd == 3 ? true : false
+  end 
+
+  def departs_with_train?
+    departure_trd == 3 ? true : false
+  end 
 end

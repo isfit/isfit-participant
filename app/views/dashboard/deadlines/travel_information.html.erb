@@ -52,8 +52,16 @@
       <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
     </div>
 
+    <p>
+      <strong>How will you arrive in Trondheim?</strong>
+    </p>
+
     <label class="radio-inline">
       <%= p.radio_button(:transfer_to_trd, 1) %> Flight to TRD Værnes
+    </label>
+
+    <label class="radio-inline">
+      <%= p.radio_button(:transfer_to_trd, 3) %> Train to Trondheim Sentralstasjon
     </label>
   
     <label class="radio-inline">
@@ -77,6 +85,14 @@
     </div>
   </div>
 
+  <div id="transfer-train" class="toHide toHideTransfer" <% unless @participant.transfer_to_trd == 3 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :train_arrival_datetime %>
+      <%= p.text_field :train_arrival_datetime, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM HH:MM</em>. Example: <em>0502 12:00</em></p>
+    </div>
+  </div>
+
   <!-- Other arrival infromation -->
   <div id="arrival-3" class="toHide toHideTransfer" <% unless @participant.arrival_in_norway == 3 || @participant.transfer_to_trd == 2 %>style="display:none"<% end %>>
     <div class="form-group">
@@ -93,6 +109,10 @@
 
   <label class="radio-inline">
     <%= p.radio_button(:departure_trd, 1) %> Flight from TRD Værnes
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 3) %> Train from Trondheim Sentralstasjon
   </label>
 
   <label class="radio-inline">
@@ -117,6 +137,14 @@
     <div class="form-group">
       <%= p.text_area :other_trondheim_departure_information, rows: 4, class: 'form-control' %>
       <p class="help-block">Please specify how you will travel from Trondheim and when.</p>
+    </div>
+  </div>
+
+  <div id="deptrd-3" class="toHideDepTrd" <% unless @participant.departure_trd == 3 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :train_departure_datetime %>
+      <%= p.text_field :train_departure_datetime, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM HH:MM</em>. Example: <em>1502 12:00</em></p>
     </div>
   </div>
 
