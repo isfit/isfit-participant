@@ -1,0 +1,189 @@
+<% content_for :sidebar_left do %>
+  <%= render 'dashboard/sidebar/participant' %>
+<% end %>
+
+<h1>Travel Information</h1>
+
+<p>It is important for us to have this information, so that we can ensure your arrival in Trondheim.</p>
+
+<% if @participant.errors.full_messages.any? %>
+<div class="bg-danger info-box">
+  <h2><%= pluralize(@participant.errors.full_messages.count, 'error') %> prevents you from adding travel information</h2>
+
+  <ul>
+    <% @participant.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= form_for @participant, url: deadlines_update_travel_information_path do |p| %>
+  <h2>Arrival</h2>
+
+  <p>
+    <strong>How will you first arrive in Norway?</strong>
+  </p>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:arrival_in_norway, 1) %> Flight to TRD Værnes
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:arrival_in_norway, 2) %> Flight to OSL Gardermoen
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:arrival_in_norway, 3) %> Other (Please specify)
+  </label>
+  <br>&nbsp;
+
+  <!-- Arrival information OSL -->
+  <div id="arrival-2" class="toHide" <% unless @participant.arrival_in_norway == 2 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :osl_arrival_date, 'Arrival date at OSL Gardermoen' %>
+      <%= p.text_field :osl_arrival_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>0502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :osl_arrival_flight_number, 'Flight number to OSL Gardermoen' %>
+      <%= p.text_field :osl_arrival_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+
+    <p>
+      <strong>How will you arrive in Trondheim?</strong>
+    </p>
+
+    <label class="radio-inline">
+      <%= p.radio_button(:transfer_to_trd, 1) %> Flight to TRD Værnes
+    </label>
+
+    <label class="radio-inline">
+      <%= p.radio_button(:transfer_to_trd, 3) %> Train to Trondheim Sentralstasjon
+    </label>
+  
+    <label class="radio-inline">
+      <%= p.radio_button(:transfer_to_trd, 2) %> Other (Please specify)
+    </label>
+    <br>&nbsp;
+  </div>
+
+  <!-- Arrival information TRD -->
+  <div id="arrival-trd" class="toHide toHideTransfer" <% unless @participant.arrival_in_norway == 1 || @participant.transfer_to_trd == 1  %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :trd_arrival_date, 'Arrival date at TRD Værnes' %>
+      <%= p.text_field :trd_arrival_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>0502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :trd_arrival_flight_number, 'Flight number to TRD Værnes' %>
+      <%= p.text_field :trd_arrival_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+  </div>
+
+  <div id="transfer-train" class="toHide toHideTransfer" <% unless @participant.transfer_to_trd == 3 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :train_arrival_datetime %>
+      <%= p.text_field :train_arrival_datetime, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM HH:MM</em>. Example: <em>0502 12:00</em></p>
+    </div>
+  </div>
+
+  <!-- Other arrival infromation -->
+  <div id="arrival-3" class="toHide toHideTransfer" <% unless @participant.arrival_in_norway == 3 || @participant.transfer_to_trd == 2 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.text_area :other_arrival_information, rows: 4, class: 'form-control' %>
+      <p class="help-block">Please specify how you will travel to Trondheim and when you arrive.</p>
+    </div>
+  </div>
+
+  <h2>Departure</h2>
+
+  <p>
+    <strong>How will you depart from Trondheim?</strong>
+  </p>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 1) %> Flight from TRD Værnes
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 3) %> Train from Trondheim Sentralstasjon
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_trd, 2) %> Other (Please specify)
+  </label><br>&nbsp;
+
+  <div id="deptrd-1" class="toHideDepTrd" <% unless @participant.departure_trd == 1 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :trd_departure_date, 'Departure date from TRD Værnes' %>
+      <%= p.text_field :trd_departure_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>1502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :trd_departure_flight_number, 'Flight number from TRD Værnes' %>
+      <%= p.text_field :trd_departure_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+  </div>
+
+  <div id="deptrd-2" class="toHideDepTrd" <% unless @participant.departure_trd == 2 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.text_area :other_trondheim_departure_information, rows: 4, class: 'form-control' %>
+      <p class="help-block">Please specify how you will travel from Trondheim and when.</p>
+    </div>
+  </div>
+
+  <div id="deptrd-3" class="toHideDepTrd" <% unless @participant.departure_trd == 3 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :train_departure_datetime %>
+      <%= p.text_field :train_departure_datetime, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM HH:MM</em>. Example: <em>1502 12:00</em></p>
+    </div>
+  </div>
+
+  <p>
+    <strong>How will you depart from Norway?</strong>
+  </p> 
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 1) %> Directly from Trondheim
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 2) %> Flight from OSL Gardermoen
+  </label>
+
+  <label class="radio-inline">
+    <%= p.radio_button(:departure_norway, 3) %> Other (Please specify)
+  </label><br>&nbsp;
+
+  <div id="depnor-2" class="toHideDepNor" <% unless @participant.departure_norway == 2 %>style="display:none"<% end %>>
+    <div class="form-group">
+      <%= p.label :osl_departure_date, 'Departure date from OSL Gardermoen' %>
+      <%= p.text_field :osl_departure_date, class: 'form-control' %>
+      <p class="help-block">Format: <em>DDMM</em>. Example: <em>1502</em>.</p>
+    </div>
+
+    <div class="form-group">
+      <%= p.label :osl_departure_flight_number, 'Flight number from OSL Gardermoen' %>
+      <%= p.text_field :osl_departure_flight_number, class: 'form-control' %>
+      <p class="help-block">Writen on your ticket, example SK4143 or WF751.</p>
+    </div>
+  </div>
+
+  <div id="depnor-3" class="toHideDepNor" <% unless @participant.departure_norway == 3 %>style="display:none"<% end %>>
+    <%= p.text_area :other_norway_departure_information, rows: 4, class: 'form-control' %>
+    <p class="help-block">Please specify how you will travel from Norway and when.</p>
+  </div>
+
+  <div class="form-group">
+    <%= p.submit 'Submit Travel Information', class: 'btn btn-success' %>
+  </div>
+<% end %>
