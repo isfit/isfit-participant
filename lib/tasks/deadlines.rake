@@ -47,4 +47,21 @@ namespace :deadlines do
       end
     end
   end
+
+  task send_january_deadline_reminder: :environment do |task, args|
+    participants = Participant.where(approved_first_deadline: [1, 2], approved_second_deadline: [1, 2], approved_third_deadline: -1)
+    counter = 0
+
+    participants.each do |p|
+      begin
+        DeadlineMailer.january_reminder(p.user).deliver
+        counter += 1
+        puts "Reminder mail sent to #{p.user.email}"
+      rescue
+        puts "Delivery to #{p.user.email} failed"
+      end
+    end
+
+    puts "Reminder mails sent: #{counter}"
+  end
 end
