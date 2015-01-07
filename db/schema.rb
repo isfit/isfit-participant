@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150106201251) do
+ActiveRecord::Schema.define(:version => 20150107140436) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20150106201251) do
     t.string   "trd_departure_flight_number"
     t.text     "other_trondheim_departure_information"
     t.text     "other_norway_departure_information"
+    t.integer  "confirmed_participation",                            :default => -1
+    t.integer  "approved_third_deadline",                            :default => -1
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"

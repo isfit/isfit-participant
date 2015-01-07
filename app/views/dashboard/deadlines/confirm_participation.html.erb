@@ -1,0 +1,9 @@
+<% content_for :sidebar_left do %>
+  <%= render 'dashboard/sidebar/participant' %>
+<% end %>
+
+<h1>Confirm participation</h1>
+
+<p>You have now gone through almost all necessary steps, now we need your final confirmation that you will participate in the festival.</p>
+
+<%= link_to 'I confirm that I will participate in ISFiT 2015', deadlines_confirm_participation_path, method: :put, class: 'btn btn-success' %>

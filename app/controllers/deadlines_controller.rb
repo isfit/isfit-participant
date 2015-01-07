@@ -43,4 +43,19 @@ class DeadlinesController < ApplicationController
       render 'dashboard/deadlines/travel_information'
     end
   end
+
+  def confirm_participation
+    @participant = current_user.participant
+
+    if @participant.arrival_in_norway == -1 || @participant.departure_trd == -1 || @participant.departure_norway == -1
+      redirect_to dashboard_url, notice: 'You are not allowed to do that' and return
+    end
+
+    @participant.confirmed_participation = 1
+    @participant.approved_third_deadline = 1
+
+    @participant.save
+
+    redirect_to dashboard_url, notice: 'See you in Trondheim'
+  end
 end

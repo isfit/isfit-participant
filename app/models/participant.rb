@@ -5,7 +5,8 @@ class Participant < ActiveRecord::Base
     :trd_arrival_flight_number, :osl_arrival_date, :osl_arrival_flight_number,
     :transfer_to_trd, :other_arrival_information, :trd_departure_date, 
     :trd_departure_flight_number, :other_trondheim_departure_information,
-    :osl_departure_date, :osl_departure_flight_number, :other_norway_departure_information
+    :osl_departure_date, :osl_departure_flight_number, :other_norway_departure_information,
+    :confirmed_participation, :approved_third_deadline
 
   # Relations
   belongs_to :user
@@ -112,5 +113,9 @@ class Participant < ActiveRecord::Base
 
   def departs_norway_by_other?
     departure_norway == 3 ? true : false
+  end
+
+  def confirmed_participation?
+    confirmed_participation == 1 ? true : false
   end
 end
