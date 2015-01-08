@@ -27,4 +27,8 @@ class ParticipantsController < ApplicationController
       render :show
     end
   end
+  def match
+    @participants = Participant.where('host_id IS NULL').paginate(page: params[:page])
+    render 'hosts/match/index'
+  end
 end

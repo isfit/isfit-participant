@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150107155502) do
+ActiveRecord::Schema.define(:version => 20150108210501) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -68,20 +68,26 @@ ActiveRecord::Schema.define(:version => 20150107155502) do
 
   add_index "faq_questions", ["category_id"], :name => "index_faq_questions_on_category_id"
 
-  create_table "hosts", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "phone"
+  create_table "hosts", :id => false, :force => true do |t|
+    t.integer  "id",         :default => 0, :null => false
+    t.string   "firstname"
+    t.string   "lastname"
     t.string   "address"
     t.integer  "zipcode"
-    t.string   "place"
-    t.integer  "number"
-    t.text     "other"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "student"
-    t.boolean  "deleted",    :default => false
+    t.string   "city"
+    t.string   "phone"
+    t.integer  "capacity"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email"
+    t.boolean  "beenhost"
+    t.integer  "sex"
+    t.boolean  "isstudent"
+    t.boolean  "animales"
+    t.integer  "sleeping"
+    t.boolean  "extraday"
+    t.boolean  "deleted"
   end
 
   create_table "participants", :force => true do |t|
@@ -116,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20150107155502) do
     t.integer  "approved_third_deadline",                            :default => -1
     t.string   "train_arrival_datetime"
     t.string   "train_departure_datetime"
+    t.integer  "host_id"
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"

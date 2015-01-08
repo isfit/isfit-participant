@@ -97,6 +97,7 @@ IsfitParticipant::Application.routes.draw do
       get "remove_bed"
     end
   end
+  get 'host_matching' => 'participants#match'
 
   resources :questions do
     collection do 

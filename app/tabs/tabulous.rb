@@ -65,6 +65,7 @@ Tabulous.setup do |config|
       [ :faq_tab              , 'FAQ'        , faq_root_path                ,true                         , true ],
       [ :questions_tab         , 'Questions'   , questions_path           , (can? :index, Question)       , true ],
       [ :participants_tab         , 'Participants'   , participants_path           , (can? :index, Participant)       , true ],
+      [ :hosts_tab         , 'Hosts'   , hosts_path           , (can? :index, Participant)       , true ],
       #--------------------------------------------------------------------------------------------------#
       # TAB NAME               | DISPLAY TEXT  | PATH                     | VISIBLE?    |    ENABLED?    #
       #--------------------------------------------------------------------------------------------------#
@@ -91,7 +92,6 @@ Tabulous.setup do |config|
       #    CONTROLLER                 |    ACTION          |    TAB                            #
       #----------------------------------------------------------------------------------------#
       [    :calendar                  ,    :all_actions    ,    :calendar_tab                  ],
-      [    :hosts                     ,    :all_actions    ,    :hosts_tab                     ],
       [    :answers                   ,    :all_actions    ,    :answers_tab                   ],
       [    :questions                 ,    :all_actions    ,    :questions_tab                 ],
       [    :home                      ,    :all_actions    ,    :home_tab                      ],

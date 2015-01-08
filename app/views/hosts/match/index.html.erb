@@ -1,0 +1,29 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li class="active">Host matching</li>
+</ol>
+
+<table id="participants" class="table">
+  <tr>
+    <th>Full name</th>
+    <th>Country</th>
+    <th>Gender preference</th>
+    <th>Smoker</th>
+    <th>Handicap</th>
+    <th>Other preferences</th>
+  </tr>
+
+  <% @participants.each do |a| %>
+      <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
+      <tr>
+        <td><%= link_to a.user.full_name, a %></td>
+        <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
+        <td><%= a.user.profile.host_gender_preference %></td>
+        <td><%= a.user.profile.smoke %></td>
+        <td><%= a.user.profile.handicap %></td>
+        <td><%= a.user.profile.other_host_preferences %></td>
+          </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@participants, renderer: BootstrapPagination::Rails) %>
