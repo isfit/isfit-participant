@@ -18,8 +18,10 @@
     <th>Full name</th>
     <th>Country</th>
     <th>Workshop</th>
-    <th>Applied for visa</th>
+    <th>Applied visa</th>
     <th>Received visa</th>
+    <th>Submitted travel</th>
+    <th>Confirmed</th>
   </tr>
 
   <% @participants.each do |a| %>
@@ -30,34 +32,50 @@
         <td><%= a.workshop.title %></td>
         <td>
           <% if a.need_visa == -1 %>
-            <span class="text-danger">Has not answered need for visa</span>
+            <span class="text-danger">N/A</span>
           <% elsif a.need_visa == 0 %>
-            <span class="text-primary">Does not need visa</span>
+            <span class="text-primary">No need</span>
           <% elsif a.need_visa == 1 && a.applied_visa == -1 %>
-            <span class="text-danger">Has not applied for visa</span>
+            <span class="text-danger">Not applied</span>
           <% elsif a.need_visa == 1 && a.applied_visa == 1 %>
-            <span class="text-success">Has applied for visa</span>
+            <span class="text-success">Applied</span>
           <% elsif a.need_visa == 1 && a.applied_visa == 2 %>
-            <span class="text-warning">Visa deadline extended</span>
+            <span class="text-warning">Extended</span>
           <% end %>
         </td>
         <td>
           <% if a.need_visa == -1 %>
-            <span class="text-danger">Has not answered need for visa</span>
+            <span class="text-danger">N/A</span>
           <% elsif a.need_visa == 0 %>
-            <span class="text-primary">Does not need visa</span>
+            <span class="text-primary">No need</span>
           <% elsif a.need_visa == 1 && a.visa_number.blank? && a.approved_second_deadline == 2 %>
-            <span class="text-warning">Confirm visa deadline extended</span>
+            <span class="text-warning">Extended</span>
           <% elsif a.need_visa == 1 && a.visa_number.blank? %>
+            <span class="text-danger">Not confirmed</span>
+          <% else %>
+            <span class="text-success">Confirmed</span>
+          <% end %>
+        </td>
+        <td>
+          <% if a.arrival_in_norway == -1 || a.departure_trd == -1 || a.departure_norway == -1 %>
+            <span class="text-danger">Not Submitted</span>
+          <% else %>
+            <span class="text-success">Submitted</span>
+          <% end %>
+        </td>
+        <td>
+          <% if a.approved_third_deadline == 1 %>
+            <span class="text-success">Yes</span>
+          <% elsif a.approved_third_deadline == 2 %>
+            <span class="text-warning">Extended</span>
+          <% else %>
             <%= form_for a, html: {class: 'form-inline'} do |f| %>
-              <span class="text-danger">Has not confirmed visa</span>
-              <%= f.hidden_field :approved_second_deadline, {value: 2} %>
+              <span class="text-danger">No</span>
+              <%= f.hidden_field :approved_third_deadline, {value: 2} %>
               <%= f.submit 'Extend', class: 'btn btn-warning btn-xs' %>
             <% end %>
-          <% else %>
-            <span class="text-success">Has confirmed visa</span>
           <% end %>
-        </th>
+        </td>
       </tr>
   <% end %>
 </table>

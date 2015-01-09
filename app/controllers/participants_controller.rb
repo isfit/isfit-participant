@@ -4,7 +4,7 @@ class ParticipantsController < ApplicationController
   def index
     @participants = Participant.paginate(page: params[:page]).joins(:user)
       .order('users.first_name ASC', 'users.last_name ASC')
-      .where(approved_first_deadline: [1, 2])
+      .where(approved_first_deadline: [1, 2], approved_second_deadline: [1, 2])
 
     if params[:search].present?
       k = "%#{params[:search]}%"
@@ -19,10 +19,10 @@ class ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
-    @participant.approved_second_deadline = params[:participant][:approved_second_deadline]
+    @participant.approved_third_deadline = params[:participant][:approved_third_deadline]
 
     if @participant.save(validate: false)
-      redirect_to participants_path, notice: 'Second deadline extended.'
+      redirect_to participants_path, notice: 'Third deadline extended.'
     else
       render :show
     end
