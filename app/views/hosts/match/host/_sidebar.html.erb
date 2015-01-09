@@ -1,0 +1,24 @@
+<% content_for :sidebar_left do %>
+    <div class="box box-top box-bottom">
+    <div class="nav nav-pills nav-stacked">
+      <h3>Current participant</h3>
+        <h4>First name</h4>
+        <%= @participant.user.first_name %>
+        <h4>Last name</h4>
+        <%= @participant.user.last_name %>
+      <h4>Country</h4>
+      <%= @participant.user.profile.country.name %>
+      <h4>Preferred host gender</h4>
+      <%= @participant.user.profile.host_gender_preference %>
+      <h4>Smoker</h4>
+      <%= @participant.user.profile.smoke %>
+      <h4>Handicap</h4>
+      <%= @participant.user.profile.handicap %>
+      <h4>Allergy to animals</h4>
+      <%= @participant.user.profile.allergy_animals %>
+      <h4>Other preferences</h4>
+      <%= @participant.user.profile.other_host_preferences %>
+
+    </div>
+    </div>
+<% end %>

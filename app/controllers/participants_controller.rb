@@ -27,8 +27,27 @@ class ParticipantsController < ApplicationController
       render :show
     end
   end
-  def match
+  def match_list
     @participants = Participant.where('host_id IS NULL').paginate(page: params[:page])
     render 'hosts/match/index'
+  end
+  def match
+    @participant = Participant.find(params[:id])
+    #Fix this later
+    temphosts = Host.all
+    @hosts = Array.new
+    temphosts.each do |h|
+      if h.has_free_beds?
+        @hosts.push h
+      end
+    end
+    @hosts = @hosts.paginate(page: params[:page])
+    render 'hosts/match/host/index'
+  end
+  def apply_match
+    participant = Participant.find(params[:participant_id])
+    participant.host_id = params[:host_id]
+    participant.save
+    match_list()
   end
 end

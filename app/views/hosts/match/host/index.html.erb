@@ -1,0 +1,33 @@
+<% render 'hosts/match/host/sidebar' %>
+<% content_for :breadcrumbs do %>
+    <li><%= link_to 'Dashboard', dashboard_path %></li>
+    <li class="active">Hosts</li>
+<% end %>
+<table id="hosts" class="table">
+  <tr>
+    <th>Full name</th>
+    <th>Gender</th>
+    <th>Student</th>
+    <th>Has animals</th>
+    <th>Sleeping arrangements</th>
+    <th>Can host extra day</th>
+    <th>Available beds</th>
+    <th>Has been host before</th>
+    <th></th>
+  </tr>
+
+  <% @hosts.each do |a| %>
+      <tr>
+        <td><%= link_to a.firstname + ' ' + a.lastname, {:controller => 'participants',:action => 'apply_match', :host_id => a.id, :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to match the current participant with this host?"} %></td>
+        <td><%= a.sex %></td>
+        <td><%= a.isstudent %></td>
+        <td><%= a.animales %></td>
+        <td><%= a.sleeping %></td>
+        <td><%= a.extraday %></td>
+        <td><%= a.get_free_beds %></td>
+        <td><%= a.beenhost %></td>
+      </tr>
+  <% end %>
+</table>
+
+<%= will_paginate(@hosts, renderer: BootstrapPagination::Rails) %>
