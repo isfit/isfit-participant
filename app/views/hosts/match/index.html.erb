@@ -1,6 +1,7 @@
 
 <% content_for :breadcrumbs do %>
     <li><%= link_to 'Dashboard', dashboard_path %></li>
+    <li><%= link_to 'Hosts',hosts_path %></li>
     <li class="active">Host matching</li>
 <% end %>
 <h2>Select participant</h2>
@@ -17,7 +18,7 @@
   <% @participants.each do |a| %>
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
-        <td><%= link_to a.user.full_name, a %></td>
+        <td><%= link_to a.user.full_name, 'host_matching/'+a.id.to_s %></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= a.user.profile.host_gender_preference %></td>
         <td><%= a.user.profile.smoke %></td>
