@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150107155502) do
+ActiveRecord::Schema.define(:version => 20150109095539) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -23,10 +23,6 @@ ActiveRecord::Schema.define(:version => 20150107155502) do
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
   add_index "answers", ["user_id"], :name => "index_answers_on_user_id"
-
-  create_table "arrival_places", :force => true do |t|
-    t.string "name"
-  end
 
   create_table "countries", :force => true do |t|
     t.string  "name"
