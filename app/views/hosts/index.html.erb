@@ -6,15 +6,25 @@
 <table id="hosts" class="table">
   <tr>
     <th>Full name</th>
-    <th>Country</th>
-    <th>Workshop</th>
+    <th>Gender preference</th>
+    <th>Student</th>
+    <th>Has animals</th>
+    <th>Sleeping arrangements</th>
+    <th>Can host extra day</th>
+    <th>Available beds</th>
+    <th>Has been host before</th>
   </tr>
 
   <% @hosts.each do |a| %>
       <tr>
-        <td><%= link_to a.firstname, a %></td>
-        <td><%= a.firstname %></td>
-        <td><%= a.firstname %></td>
+        <td><%= link_to "#{a.firstname} #{a.lastname}", a %></td>
+        <td><%= gender_pref_to_friendly(a.sex) %></td>
+        <td><%= bool_to_friendly(a.isstudent) %></td>
+        <td><%= bool_to_friendly(a.animales) %></td>
+        <td><%= sleeping_to_friendly(a.sleeping) %></td>
+        <td><%= bool_to_friendly(a.extraday) %></td>
+        <td><%= a.get_free_beds %></td>
+        <td><%= bool_to_friendly(a.beenhost) %></td>
       </tr>
   <% end %>
 </table>

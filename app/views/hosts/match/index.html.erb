@@ -8,10 +8,10 @@
 <table id="participants" class="table">
   <tr>
     <th>Full name</th>
+    <th>Gender</th>
     <th>Country</th>
     <th>Gender preference</th>
     <th>Smoker</th>
-    <th>Handicap</th>
     <th>Other preferences</th>
   </tr>
 
@@ -19,10 +19,10 @@
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
         <td><%= link_to a.user.full_name, 'host_matching/'+a.id.to_s %></td>
+        <td><%= int_to_gender(a.user.profile.gender)%></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
-        <td><%= a.user.profile.host_gender_preference %></td>
-        <td><%= a.user.profile.smoke %></td>
-        <td><%= a.user.profile.handicap %></td>
+        <td><%= gender_pref_to_friendly(a.user.profile.host_gender_preference) %></td>
+        <td><%= bool_to_friendly(a.user.profile.smoke) %></td>
         <td><%= a.user.profile.other_host_preferences %></td>
           </tr>
   <% end %>

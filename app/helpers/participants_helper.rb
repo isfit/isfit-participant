@@ -17,4 +17,13 @@ module ParticipantsHelper
       return 'Unknown'
     end
   end
+  def int_to_gender(input)
+    if input == 0
+      'Male'
+    elsif input == 1
+      'Female'
+    else
+      'Others'
+    end
+  end
 end

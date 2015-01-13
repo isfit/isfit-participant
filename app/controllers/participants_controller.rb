@@ -46,8 +46,16 @@ class ParticipantsController < ApplicationController
   end
   def apply_match
     participant = Participant.find(params[:participant_id])
-    participant.host_id = params[:host_id]
-    participant.save
+    if participant.host_id.nil?
+      participant.host_id = params[:host_id]
+      if participant.save
+        flash.now[:notice] = 'Host and participant matched successfully'
+      else
+        flash.now[:alert] = 'An error occurred, please try again'
+      end
+    else
+      flash.now[:alert] = 'This participant has already been matched with a host'
+    end
     match_list()
   end
 end

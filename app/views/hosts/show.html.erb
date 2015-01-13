@@ -1,122 +1,64 @@
-<% content_for :sidebar_left do %>
-  <ul class="nav nav-list well">
-    <li class="nav-header"><%= image_tag('icons/wrench.png') %> Tools</li>
-    <li><%= link_to image_tag('icons/house.png') + ' Show all', hosts_path %></li>
-
-    <li class="nav-header">Information</li>
-    <li><b><%= @free_beds.to_i %></b> free beds.</li>
-    <li><b><%= Participant.where(:host_id => nil).where("checked_in IS NOT NULL").count %></b> unmatched participants.</li>
-
-    <li class="nav-header">Problems?</li>
-    <li>Call Dag-Inge: 92491526</li>
-  </ul>
+<% content_for :breadcrumbs do %>
+  <li><%= link_to 'Dashboard', dashboard_path %></li>
+  <li><%= link_to 'Hosts', hosts_path %></li>
+  <li class="active"><%= @host.firstname + ' ' + @host.lastname %></li>
 <% end %>
 
 
-<h1><%=@host.first_name + " " + @host.last_name%></h1>
+  <h1><%= @host.firstname + ' ' + @host.lastname %></h1>
 
-<legend>Info</legend>
-<table class="table table-borderless table-hover table-striped table-condensed">
-	<tr>
-		<th>Number of participants:</th>
-    <td><b class="hosts_button_spacing"><%=@host.participants.count%>/<%=@host.number%></b>
-      <% if can? :add_bed, Host %><b class="hosts_button_spacing"><%= link_to image_tag('icons/add.png'), add_bed_host_path(@host) %></b><b class="hosts_button_spacing"><%= link_to image_tag('icons/delete.png'), remove_bed_host_path(@host) %></b></td>
-      <% else %>
-        Fjernet frem til festival :)
-      <% end %>
-	</tr>	
-	<tr>
-		<th>E-mail</th>
-		<td><%=@host.email%></td>
-	</tr>	
-	<tr>
-		<th>Phone number</th>
-		<td><%=@host.phone%></td>
-	</tr>	
-	<tr>
-		<th>Address</th>
-		<td><%=@host.address%></td>
-	</tr>	
-	<tr>
-		<th>Zip Code</th>
-		<td><%=@host.zipcode%></td>
-	</tr>	
-	<tr>
-		<th>Place</th>
-		<td><%=@host.place%></td>
-	</tr>
-  <tr>
-    <th>Student?</th>
-    <td><%= @host.student %></td>
-  </tr>
-</table>
+<p><b>Name: </b><%= @host.firstname %> <%= @host.lastname %> </p>
+<p><b>E-mail: </b><%= @host.email %> </p>
+<p><b>Phone: </b><%= @host.phone %> </p>
+<p><b>Address: </b><%= @host.address %>, <%= @host.zipcode %>, <%= @host.city %></p>
+<p><b>Has been host previously: </b>
+  <% if @host.beenhost %>
+      Yes
+  <% else %>
+      No
+  <% end %></p>
 
+<p><b>Is student: </b>
+  <% if @host.isstudent %>
+      Yes
+  <% else %>
+      No
+  <% end %></p>
 
-<legend>Selected participants</legend>
-Selected <%= pluralize @host.participants.size, "participant"%> 
-<table class="table table-borderless table-condensed table-striped">
-  <thead>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Sex</th>
-    <th>Country</th>
-    <th>Workshop</th>
-    <th></th>
-    <th></th>
-  </thead>
+<p><b>Can host an extra day: </b>
+  <% if @host.extraday %>
+      Yes
+  <% else %>
+      No
+  <% end %></p>
 
+<p><b>Has animals: </b>
+  <% if @host.animales %>
+      Yes
+  <% else %>
+      No
+  <% end %></p>
+<p><b>Sleeping arrangements:</b>
+  <% if @host.sleeping.eql? 0 %>
+      Couch
+  <% elsif @host.sleeping.eql? 1 %>
+      Bed
+  <% else %>
+      Needs to borrow mattress
+  <% end %></p>
+
+<p><b>Capacity: </b><%= @host.capacity %> </p>
+<p><b>Gender preference:</b>
+  <% if @host.sex.eql? 0 %>
+        No preference
+  <% elsif @host.sex.eql? 1 %>
+      Female
+  <% else %>
+      Male
+  <% end %></p>
+<p><b>Comment: </b><%= @host.comments %> </p>
+
+<h2>Participant(s)</h2>
 <% @host.participants.each do |p| %>
-  <tr>
-    <td><%= p.first_name %></td>
-    <td><%= p.last_name %></td>
-    <td><%= (p.sex == 1) ? "M" : "F" %></td>
-    <td><%= p.country.name %></td>
-    <td><%= p.workshop_id %></td>
-    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), match_participant_path(p) %></td>
-    <td><%= link_to image_tag('icons/cart_remove.png',:title=>"Remove participant from host"), remove_host_participant_path(id: p.id, host_id: @host.id), method: :post %></td>
-  </tr>
+    <h3><%= p.user.first_name + ' ' + p.user.last_name %></h3>
 <% end %>
-</table>
-
-
-<%= search_form_for @q, :builder => SimpleForm::FormBuilder, url: host_path(@host), method: :post, :html => { :class => "form-horizontal" } do |f| %>
-  <fieldset>
-    <legend>Search participants</legend>
-    <%= f.input :first_name_cont, :label => "First name", :input_html => { :class => "col-md-4" }, required: false %>
-    <%= f.input :last_name_cont, :label => "Last name", :input_html => { :class => "col-md-4" }, required: false %>
-    <%= f.input :country_id_eq, :label => "Country", as: :select, collection: Country.all.collect { |c| [c.name, c.id] }, required: false, :input_html => { :class => "col-md-4" } %>
-    <%= f.input :workshop_id_eq, :label => "Workshop", as: :select, collection: Workshop.all.collect { |w| ["#{w.id} - #{w.name}", w.id] }, required: false, :input_html => { :class => "col-md-4" } %>
-    <%= f.input :sex_eq, label: "Sex", as: :select, collection: [["Male", 1], ["Female", 0]], required: false %>
-    <%= f.input :smoke_eq, label: "Prefers non-smoking", as: :select, required: false %>
-    <%= f.input :allergy_pets_eq, label: "Pets allergy", as: :select, required: false %>
-
-    <%= f.submit 'search', :class => "btn btn-primary" %>
-  </fieldset>
-<% end %>
-
-<legend>Possible participants</legend>
-
-Found <%= pluralize @participants_count, "participant" %>
-<table class="table table-condensed table-striped table-borderless table-hover">
-  <thead>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Sex</th>
-    <th>Country</th>
-    <th>Workshop</th>
-    <th>Show</th>
-    <th>Choose</th>
-  </thead>
-
-<% @participants.each do |p| %>
-  <tr>
-    <td><%= p.first_name %></td>
-    <td><%= p.last_name %></td>
-    <td><%= (p.sex == 1) ? "M" : "F" %></td>
-    <td><%= p.country.name %></td>
-    <td><%= p.workshop_id %></td>
-    <td><%= link_to image_tag('icons/user_go.png',:title=>"Show profile"), match_participant_path(p) %></td>
-    <td><%= link_to image_tag('icons/cart_add.png', :title=>"Add participant to host"), add_host_path(id: p.id, host_id: @host.id), method: :post %></td>
-  </tr>
-<% end %>
-</table>

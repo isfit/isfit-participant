@@ -6,16 +6,16 @@
         <%= @participant.user.first_name %>
         <h4>Last name</h4>
         <%= @participant.user.last_name %>
+      <h4>Gender</h4>
+      <%= int_to_gender(@participant.user.profile.gender) %>
       <h4>Country</h4>
       <%= @participant.user.profile.country.name %>
       <h4>Preferred host gender</h4>
-      <%= @participant.user.profile.host_gender_preference %>
+      <%= gender_pref_to_friendly(@participant.user.profile.host_gender_preference) %>
       <h4>Smoker</h4>
-      <%= @participant.user.profile.smoke %>
-      <h4>Handicap</h4>
-      <%= @participant.user.profile.handicap %>
+      <%= bool_to_friendly(@participant.user.profile.smoke) %>
       <h4>Allergy to animals</h4>
-      <%= @participant.user.profile.allergy_animals %>
+      <%= bool_to_friendly(@participant.user.profile.allergy_animals) %>
       <h4>Other preferences</h4>
       <%= @participant.user.profile.other_host_preferences %>
 

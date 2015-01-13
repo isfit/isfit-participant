@@ -13,6 +13,9 @@ class Host < ActiveRecord::Base
      end
    end
   def get_free_beds
+    if self.capacity.nil?
+      return 0
+    end
     self.capacity - self.participants.count
   end
 end
