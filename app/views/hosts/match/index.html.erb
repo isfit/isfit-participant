@@ -18,7 +18,11 @@
   <% @participants.each do |a| %>
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
-        <td><%= link_to a.user.full_name, '/host_matching/'+a.id.to_s %></td>
+        <% if @match_now %>
+            <td><%= link_to a.user.full_name, {:controller => 'participants',:action => 'apply_match', :host_id => @host.id, :participant_id => a.id} , {:method => :put, :confirm => "Do you want to match the current host with this ?"} %></td>
+        <% else %>
+            <td><%= link_to a.user.full_name, '/host_matching/'+a.id.to_s %></td>
+        <% end %>
         <td><%= int_to_gender(a.user.profile.gender)%></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= gender_pref_to_friendly(a.user.profile.host_gender_preference) %></td>

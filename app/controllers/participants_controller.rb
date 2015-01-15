@@ -29,18 +29,30 @@ class ParticipantsController < ApplicationController
   end
   def match_list
     @participants = Participant.where('host_id IS NULL').paginate(page: params[:page])
+    if params[:match_now].blank?
+      @match_now = false
+    else
+      @match_now = true
+      @host = Host.find(params[:host_id])
+    end
     render 'hosts/match/index'
   end
   def match
     @participant = Participant.find(params[:id])
     #Fix this later
-    temphosts = Host.all
-    @hosts = Array.new
-    temphosts.each do |h|
-      if h.has_free_beds?
-        @hosts.push h
-      end
+    temphosts = Host.scoped
+    if params[:search].present?
+      k = "%#{params[:search]}%"
+      temphosts = temphosts
+      .where("firstname LIKE ? OR lastname LIKE ?", k, k)
     end
+    @hosts = Array.new
+    #temphosts.each do |h|
+      #if h.has_free_beds?
+        #@hosts.push h
+      #end
+    #end
+    @hosts = temphosts #Remove if uncommenting above
     @hosts = @hosts.paginate(page: params[:page])
     render 'hosts/match/host/index'
   end
