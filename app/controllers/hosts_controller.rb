@@ -4,7 +4,13 @@ class HostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @hosts = Host.all.paginate(page: params[:page])
+    @hosts = Host.scoped
+    if params[:search].present?
+      k = "%#{params[:search]}%"
+      @hosts = @hosts
+      .where("firstname LIKE ? OR lastname LIKE ?", k, k)
+    end
+    @hosts = @hosts.paginate(page: params[:page])
   end
 
   def show

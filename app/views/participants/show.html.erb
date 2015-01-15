@@ -1,8 +1,8 @@
-<ol class="breadcrumb">
+<% content_for :breadcrumbs do %>
   <li><%= link_to 'Dashboard', dashboard_path %></li>
   <li><%= link_to 'Participants', participants_path %></li>
   <li class="active"><%= @participant.user.full_name %></li>
-</ol>
+<% end %>
 <% if @participant.errors.any? %>
     <div class="alert alert-danger">
       <p><strong><%= pluralize(@participant.errors.count, "error") %> grade form being set</strong></p>

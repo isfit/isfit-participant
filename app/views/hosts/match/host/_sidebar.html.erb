@@ -21,7 +21,11 @@
       <h4>Allergy to animals</h4>
       <%= bool_to_friendly(@participant.user.profile.allergy_animals) %>
       <h4>Other preferences</h4>
-      <%= @participant.user.profile.other_host_preferences %>
+      <% if @participant.user.profile.other_host_preferences.blank? %>
+          None
+      <% else %>
+        <%= @participant.user.profile.other_host_preferences %>
+      <% end %>
 
     </div>
     </div>

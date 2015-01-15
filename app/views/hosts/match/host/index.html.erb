@@ -8,14 +8,15 @@
 <h2>Select host</h2>
 <table id="hosts" class="table">
   <tr>
-    <th>Full name</th>
+    <th>Name</th>
     <th>Gender preference</th>
     <th>Student</th>
     <th>Has animals</th>
     <th>Sleeping arrangements</th>
-    <th>Can host extra day</th>
+    <th>Extra day</th>
     <th>Available spaces</th>
-    <th>Has been host before</th>
+    <th>Hosted before</th>
+    <th>Comment</th>
     <th>Show details</th>
   </tr>
 
@@ -29,6 +30,7 @@
         <td><%= bool_to_friendly(a.extraday) %></td>
         <td><%= a.get_free_beds %></td>
         <td><%= bool_to_friendly(a.beenhost) %></td>
+        <td><%= a.comments %></td>
         <td><%= link_to 'Details', a %></td>
       </tr>
   <% end %>
