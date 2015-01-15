@@ -18,7 +18,7 @@
   <% @participants.each do |a| %>
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
-        <td><%= link_to a.user.full_name, 'host_matching/'+a.id.to_s %></td>
+        <td><%= link_to a.user.full_name, '/host_matching/'+a.id.to_s %></td>
         <td><%= int_to_gender(a.user.profile.gender)%></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= gender_pref_to_friendly(a.user.profile.host_gender_preference) %></td>

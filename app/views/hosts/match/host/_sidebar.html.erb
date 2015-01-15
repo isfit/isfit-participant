@@ -10,6 +10,10 @@
       <%= int_to_gender(@participant.user.profile.gender) %>
       <h4>Country</h4>
       <%= @participant.user.profile.country.name %>
+      <% if !@participant.user.profile.citizenship.nil? %>
+        <h4>Citizenship</h4>
+        <%= @participant.user.profile.citizenship.name %>
+      <% end %>
       <h4>Preferred host gender</h4>
       <%= gender_pref_to_friendly(@participant.user.profile.host_gender_preference) %>
       <h4>Smoker</h4>
