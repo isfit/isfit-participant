@@ -35,13 +35,13 @@ namespace :deadlines do
     puts "Mail participants with visa: #{counter_participants_visa}"
   end
 
-  task send_failed_december_deadline: :environment do |task, args|
-    participants = Participant.where(approved_first_deadline: [1, 2], approved_second_deadline: 0)
+  task send_failed_january_deadline: :environment do |task, args|
+    participants = Participant.where(approved_first_deadline: [1, 2], approved_second_deadline: [1, 2], approved_third_deadline: -1)
 
     participants.each do |p|
       begin
-        DeadlineMailer.failed_december_deadline(p.user).deliver
-        puts "Failed december deadline delivered to #{p.user.full_name} [#{p.user.email}]"
+        DeadlineMailer.failed_janaury_deadline(p.user).deliver
+        puts "Failed january deadline delivered to #{p.user.full_name} [#{p.user.email}]"
       rescue
         puts "Delivery to #{p.user.full_name} [#{p.user.email}] failed"
       end
