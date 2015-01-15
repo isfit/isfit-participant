@@ -58,4 +58,15 @@ class ParticipantsController < ApplicationController
     end
     match_list()
   end
+  def unmatch
+    session[:return_to] = request.referer
+    participant = Participant.find(params[:participant_id])
+    participant.host_id = nil
+    if participant.save
+      flash[:notice] = 'Host and participant unmatched successfully'
+    else
+      flash[:alert] = 'An error occurred, please try again'
+    end
+    redirect_to session.delete(:return_to)
+  end
 end

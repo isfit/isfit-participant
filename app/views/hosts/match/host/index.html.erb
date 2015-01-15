@@ -29,6 +29,7 @@
         <td><%= bool_to_friendly(a.extraday) %></td>
         <td><%= a.get_free_beds %></td>
         <td><%= bool_to_friendly(a.beenhost) %></td>
+        <td><%= link_to 'Details', a %></td>
       </tr>
   <% end %>
 </table>

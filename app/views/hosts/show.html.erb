@@ -61,4 +61,6 @@
 <h2>Participant(s)</h2>
 <% @host.participants.each do |p| %>
     <h3><%= p.user.first_name + ' ' + p.user.last_name %></h3>
+    <%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => p.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?"} %>
 <% end %>
+<br />&nbsp;<br />

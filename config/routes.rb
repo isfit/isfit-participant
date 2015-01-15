@@ -91,7 +91,7 @@ IsfitParticipant::Application.routes.draw do
   get 'host_matching' => 'participants#match_list'
   get 'host_matching/:id' => 'participants#match'
   put 'host_matching/apply_match' => 'participants#apply_match'
-
+  put 'host_matching/unmatch' => 'participants#unmatch'
 
   resources :questions do
     collection do 

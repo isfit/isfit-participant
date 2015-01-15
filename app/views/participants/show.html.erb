@@ -73,4 +73,13 @@
     <dt>Granted aid</dt>
     <dd> <%= @participant.granted_amount %></dd>
   </dl>
+
+  <dl class="dl-horizontal">
+    <dt>Host</dt>
+    <% if @participant.host.nil? %>
+        <dd>None</dd>
+    <% else %>
+        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %></dd><dd><small></small><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?"} %></dd>
+    <% end %>
+  </dl>
 </article>
