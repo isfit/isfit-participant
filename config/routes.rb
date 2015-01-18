@@ -93,6 +93,7 @@ IsfitParticipant::Application.routes.draw do
   get 'host_matching/:id' => 'participants#match', :as => 'participant_match_host'
   put 'host_matching/apply_match' => 'participants#apply_match'
   put 'host_matching/unmatch' => 'participants#unmatch'
+  put 'host_matching/lock_match' => 'participants#lock_host', :as => 'participant_lock_host'
 
   resources :questions do
     collection do 
