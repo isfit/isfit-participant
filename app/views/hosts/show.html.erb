@@ -60,7 +60,9 @@
 <%= link_to 'Match with participant',host_matching_single_path(@host, :match_now => true), class:"btn btn-success" %>
 <h2>Participant(s)</h2>
 <% @host.participants.each do |p| %>
-    <h3><%= p.user.first_name + ' ' + p.user.last_name %></h3>
-    <%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => p.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?"} %>
+    <h3><%= link_to "#{p.user.first_name} #{p.user.last_name}",p %> <%=p.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></h3>
+    <% if !p.host_locked %>
+        <%= link_to 'Lock match', participant_lock_host_path(:participant_id => p.id) , {:method => :put, :confirm => "Do you want to lock this pairing?", :class => "btn btn-success"}%> <%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => p.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?", :class => "btn btn-danger"} %>
+    <% end %>
 <% end %>
 <br />&nbsp;<br />

@@ -90,4 +90,19 @@ class ParticipantsController < ApplicationController
     end
     redirect_to session.delete(:return_to)
   end
+  def lock_host
+    session[:return_to] = request.referer
+    participant = Participant.find(params[:participant_id])
+    if participant.host_id.nil?
+      flash[:alert] = "Unable to lock because no host is set"
+    else
+      participant.host_locked = true
+      if participant.save
+        flash[:notice] = 'Matching successfully locked'
+      else
+        flash[:alert] = 'An error occured, please try again'
+      end
+    end
+    redirect_to session.delete(:return_to)
+  end
 end

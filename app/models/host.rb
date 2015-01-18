@@ -6,7 +6,7 @@ class Host < ActiveRecord::Base
      if self.capacity.nil?
       return false
      end
-     if self.participants.count < self.capacity
+     if self.get_free_beds > 0
        return true
      else
        return false
@@ -16,6 +16,12 @@ class Host < ActiveRecord::Base
     if self.capacity.nil?
       return 0
     end
-    self.capacity - self.participants.count
+    num_locked = 0
+    self.participants.each do |p|
+      if p.host_locked
+        num_locked += 1
+      end
+    end
+    self.capacity - num_locked
   end
 end
