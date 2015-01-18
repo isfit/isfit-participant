@@ -57,7 +57,7 @@
       Male
   <% end %></p>
 <p><b>Comment: </b><%= @host.comments %> </p>
-<%= link_to 'Match with participant',host_matching_single_path(@host, :match_now => true) %>
+<%= link_to 'Match with participant',host_matching_single_path(@host, :match_now => true), class:"btn btn-success" %>
 <h2>Participant(s)</h2>
 <% @host.participants.each do |p| %>
     <h3><%= p.user.first_name + ' ' + p.user.last_name %></h3>

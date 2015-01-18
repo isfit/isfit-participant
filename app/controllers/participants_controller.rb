@@ -28,7 +28,16 @@ class ParticipantsController < ApplicationController
     end
   end
   def match_list
-    @participants = Participant.where('host_id IS NULL').paginate(page: params[:page])
+    @participants = Participant.paginate(page: params[:page]).joins(:user)
+    .order('users.first_name ASC', 'users.last_name ASC')
+    .where(approved_first_deadline: [1, 2])
+    @participants = @participants.where('host_id IS NULL')
+    if params[:search].present?
+      k = "%#{params[:search]}%"
+      @participants = @participants
+      .where("users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?", k, k, k)
+    end
+    #@participants = @participants.paginate(page: params[:page])
     if params[:match_now].blank?
       @match_now = false
     else

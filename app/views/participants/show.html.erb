@@ -77,9 +77,9 @@
   <dl class="dl-horizontal">
     <dt>Host</dt>
     <% if @participant.host.nil? %>
-        <dd>None</dd>
+        <dd>None</dd><dd><%= link_to 'Match with host', participant_match_host_path(@participant.id),:class => "btn btn-success" %></dd>
     <% else %>
-        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %></dd><dd><small></small><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?"} %></dd>
+        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %></dd><dd><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?",:class => "btn btn-danger"} %></dd>
     <% end %>
   </dl>
 </article>

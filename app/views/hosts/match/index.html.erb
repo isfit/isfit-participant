@@ -5,6 +5,17 @@
     <li class="active">Host matching</li>
 <% end %>
 <h2>Select participant</h2>
+<%= form_tag '', method: :get do |f| %>
+    <div class="form-group">
+      <%= text_field_tag :search, params[:search], {placeholder: 'Who are you looking for?', class: 'form-control'} %>
+    </div>
+    <% if @match_now %>
+        <input type="hidden" name="match_now" value="true" />
+    <% end %>
+    <div class="form-group">
+      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+    </div>
+<% end %>
 <table id="participants" class="table">
   <tr>
     <th>Full name</th>
@@ -19,9 +30,9 @@
       <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
         <% if @match_now %>
-            <td><%= link_to a.user.full_name, {:controller => 'participants',:action => 'apply_match', :host_id => @host.id, :participant_id => a.id} , {:method => :put, :confirm => "Do you want to match the current host with this ?"} %></td>
+            <td><%= link_to a.user.full_name, {:controller => 'participants',:action => 'apply_match', :host_id => @host.id, :participant_id => a.id} , {:method => :put, :confirm => "Do you want to match the current host with this participant?"} %></td>
         <% else %>
-            <td><%= link_to a.user.full_name, '/host_matching/'+a.id.to_s %></td>
+            <td><%= link_to a.user.full_name, participant_match_host_path(a.id) %></td>
         <% end %>
         <td><%= int_to_gender(a.user.profile.gender)%></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
