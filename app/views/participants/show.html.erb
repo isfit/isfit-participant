@@ -79,7 +79,10 @@
     <% if @participant.host.nil? %>
         <dd>None</dd><dd><%= link_to 'Match with host', participant_match_host_path(@participant.id),:class => "btn btn-success" %></dd>
     <% else %>
-        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %></dd><dd><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?",:class => "btn btn-danger"} %></dd>
+        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %> <%=@participant.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></dd>
+        <% if !@participant.host_locked %>
+            <dd><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?",:class => "btn btn-danger"} %></dd>
+        <% end %>
     <% end %>
   </dl>
 </article>
