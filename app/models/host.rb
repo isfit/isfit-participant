@@ -24,4 +24,11 @@ class Host < ActiveRecord::Base
     end
     self.capacity - num_locked
   end
+  def self.get_all_free_beds
+    total = 0
+    Host.all.each do |h|
+      total += h.capacity
+    end
+    total
+  end
 end
