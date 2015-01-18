@@ -1,0 +1,32 @@
+<% content_for :sidebar_left do %>
+    <div class="box box-top box-bottom">
+    <div class="nav nav-pills nav-stacked">
+      <h3>Current participant</h3>
+        <h4>First name</h4>
+        <%= @participant.user.first_name %>
+        <h4>Last name</h4>
+        <%= @participant.user.last_name %>
+      <h4>Gender</h4>
+      <%= int_to_gender(@participant.user.profile.gender) %>
+      <h4>Country</h4>
+      <%= @participant.user.profile.country.name %>
+      <% if !@participant.user.profile.citizenship.nil? %>
+        <h4>Citizenship</h4>
+        <%= @participant.user.profile.citizenship.name %>
+      <% end %>
+      <h4>Preferred host gender</h4>
+      <%= gender_pref_to_friendly(@participant.user.profile.host_gender_preference) %>
+      <h4>Smoker</h4>
+      <%= bool_to_friendly(@participant.user.profile.smoke) %>
+      <h4>Allergy to animals</h4>
+      <%= bool_to_friendly(@participant.user.profile.allergy_animals) %>
+      <h4>Other preferences</h4>
+      <% if @participant.user.profile.other_host_preferences.blank? %>
+          None
+      <% else %>
+        <%= @participant.user.profile.other_host_preferences %>
+      <% end %>
+
+    </div>
+    </div>
+<% end %>

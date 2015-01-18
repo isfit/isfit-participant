@@ -14,6 +14,7 @@ class Participant < ActiveRecord::Base
   belongs_to :workshop
 
   has_many :questions
+  belongs_to :host
 
   # Validations
   validates :user_id, presence: true, uniqueness: true

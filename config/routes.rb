@@ -86,17 +86,13 @@ IsfitParticipant::Application.routes.draw do
   end
 
   resources :answers
-  
-  resources :hosts do
-    collection do
-      match 'index' => 'hosts#index', :via => [:get, :post]
-      match '/:id' => 'hosts#show', :via => [:get, :post]
-    end
-    member do
-      get "add_bed"
-      get "remove_bed"
-    end
-  end
+
+  resources :hosts
+  get 'host_matching' => 'participants#match_list'
+  get 'host_matching_single/:host_id' => 'participants#match_list', :as => 'host_matching_single'
+  get 'host_matching/:id' => 'participants#match', :as => 'participant_match_host'
+  put 'host_matching/apply_match' => 'participants#apply_match'
+  put 'host_matching/unmatch' => 'participants#unmatch'
 
   resources :questions do
     collection do 
