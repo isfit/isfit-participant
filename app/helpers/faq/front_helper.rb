@@ -1,2 +1,0 @@
-module Faq::FrontHelper
-end

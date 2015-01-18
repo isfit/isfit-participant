@@ -40,6 +40,9 @@ class DashboardController < ApplicationController
         template = 'dashboard/deadlines/travel_information'
       elsif participant.confirmed_participation == -1
         template = 'dashboard/deadlines/confirm_participation'
+      else
+        @questions = Question.where(user_id: current_user.id)
+        render 'index_finished', layout: 'application_dashboard' and return
       end
       
       render template || 'index_finished'

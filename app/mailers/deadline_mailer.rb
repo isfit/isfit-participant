@@ -1,7 +1,7 @@
 class DeadlineMailer < ActionMailer::Base
   default from: "no-reply@isfit.org"
 
-  def failed_december_deadline(user)
+  def failed_janaury_deadline(user)
     mail(to: user.email, subject: '[ISFiT] Deadline not met')
   end
 

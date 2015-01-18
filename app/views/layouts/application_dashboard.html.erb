@@ -78,7 +78,7 @@
     </div> <!-- ./container-fluid -->
   </nav> <!-- ./navbar -->
 
-  <div class ="container">
+  <div class="container">
     <% if notice or alert %>
       <div class="alert alert-<%= notice ? "success":"danger" %>">
         <a href="#" class="close" data-dismiss="alert">x</a>
@@ -86,34 +86,7 @@
       </div>
     <% end %>
 
-    <div role="main" class="row">
-      <% if content_for?(:sidebar_left) || content_for?(:sidebar_right) %>
-        <div id="content" class="col-md-9">
-          <% if content_for? :breadcrumbs %>
-            <ol class="breadcrumb"><%= yield :breadcrumbs %></ol>
-          <% end %>
-
-          <div class="box box-top box-bottom">
-            <%= yield %>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <%= yield :sidebar_left %>
-          <%= yield :sidebar_right %>
-        </div>
-      <% else %>
-        <div id="content" class="col-md-12">
-          <% if content_for? :breadcrumbs %>
-            <ol class="breadcrumb"><%= yield :breadcrumbs %></ol>
-          <% end %>
-          
-          <div class="box box-top box-bottom">
-            <%= yield %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= yield %>
   </div>
 
   <footer class="footer">

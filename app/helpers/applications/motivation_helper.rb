@@ -1,2 +1,0 @@
-module Applications::MotivationHelper
-end

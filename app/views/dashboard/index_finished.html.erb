@@ -1,7 +1,69 @@
-<h1>Steps to ISFiT</h1>
+<div class="col-md-8">
+  <section id="mini-profile">
+    <h1><%= current_user.full_name %></h1>
 
-<p>Congratulations! You have completed all steps for ISFiT 2015, we can't wait to see you in Trondheim.</p>
+    <p class="information">
+      <%= current_user.profile.school %>, <%= current_user.profile.country.name %><br>
+      <%= current_user.participant.workshop.title %>
+    </p>
+  </section>
 
-<% content_for :sidebar_left do %>
-  <%= render 'dashboard/sidebar/participant' %>
-<% end %>
+  <section id="questions">
+    <header>
+      <h3>Questions</h3>
+
+      <%= link_to 'Ask new question', new_question_path, class: 'btn btn-primary btn-xs' %>
+    </header>
+
+    <div class="questions-table">
+      <table class="table table-striped">
+        <tr>
+          <th>Subject</th>
+          <th>Answers</th>
+        </tr>
+        
+        <% if @questions.count == 0 %>
+          <tr>
+            <td colspan="2">You have not asked any questions</td>
+          </tr>
+        <% end %>
+
+        <% @questions.each do |q| %>
+          <tr>
+            <td><%= link_to q.subject, q %></td>
+            <td><%= pluralize(q.answers.size, "answer") %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </section>
+</div>
+
+<div class="col-md-4">
+  <section id="steps">
+    <header>
+      <h3>Steps to ISFiT</h3>
+    </header>
+
+    <h4>14th of November</h4>
+    
+    <ul>
+      <li>Accept invitation</li>
+      <% if current_user.participant.need_visa == 1 %><li>Applied for visa</li><% end %>
+    </ul>
+  
+    <h4>14th of December</h4>
+  
+    <ul>
+      <li>Update profile</li>
+      <% if current_user.participant.need_visa == 1 %><li>Confirm visa</li><% end %>
+    </ul>
+  
+    <h4>14th of January</h4>
+  
+    <ul>
+      <li>Send travel plan</li>
+      <li>Confirm participation</li>
+    </ul>
+  </section>
+</div>
