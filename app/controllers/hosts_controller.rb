@@ -4,7 +4,7 @@ class HostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @hosts = Host.scoped
+    @hosts = Host.get_all_non_deleted
     if params[:search].present?
       k = "%#{params[:search]}%"
       @hosts = @hosts
