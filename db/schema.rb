@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150118210946) do
+ActiveRecord::Schema.define(:version => 20150120191948) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20150118210946) do
     t.string   "train_departure_datetime"
     t.integer  "host_id"
     t.boolean  "host_locked"
+    t.boolean  "checked_in"
+    t.datetime "check_in_time"
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"

@@ -105,4 +105,16 @@ class ParticipantsController < ApplicationController
     end
     redirect_to session.delete(:return_to)
   end
+  def check_in
+    session[:return_to] = request.referer
+    participant = Participant.find(params[:participant_id])
+    participant.checked_in = true
+    participant.check_in_time = DateTime.now
+    if participant.save
+      flash[:notice] = 'Participant successfully checked in'
+    else
+      flash[:alert] = 'An error occured, please try again'
+    end
+    redirect_to session.delete(:return_to)
+  end
 end

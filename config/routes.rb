@@ -23,6 +23,7 @@ IsfitParticipant::Application.routes.draw do
 
   resources :workshop_applications, only: [:index, :show]
   resources :participants
+  put 'participants/checkin/:id' => 'participants#check_in', :as => 'participant_check_in'
 
   namespace :admin do
     resources :workshops  
