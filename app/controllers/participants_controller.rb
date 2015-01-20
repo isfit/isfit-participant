@@ -49,7 +49,7 @@ class ParticipantsController < ApplicationController
   def match
     @participant = Participant.find(params[:id])
     #Fix this later
-    temphosts = Host.scoped
+    temphosts = Host.get_all_non_deleted
     if params[:search].present?
       k = "%#{params[:search]}%"
       temphosts = temphosts

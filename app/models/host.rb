@@ -26,9 +26,12 @@ class Host < ActiveRecord::Base
   end
   def self.get_all_free_beds
     total = 0
-    Host.all.each do |h|
+    Host.get_all_non_deleted.each do |h|
       total += h.capacity
     end
     total
+  end
+  def self.get_all_non_deleted
+    Host.where('deleted != 1 OR deleted IS NULL')
   end
 end
