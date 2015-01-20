@@ -85,4 +85,12 @@
         <% end %>
     <% end %>
   </dl>
+
+  <dl class="dl-horizontal">
+    <dt>Checked in</dt>
+    <dd><%= bool_to_friendly(@participant.checked_in) %></dd>
+    <% if !@participant.checked_in %>
+      <dd><%= link_to 'Check in', participant_check_in_path(:participant_id => @participant.id) , {:method => :put, :confirm => "Do you want to check in this participant?", :class => "btn btn-success"}%></dd>
+    <% end %>
+  </dl>
 </article>
