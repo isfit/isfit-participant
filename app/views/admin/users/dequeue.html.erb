@@ -1,0 +1,19 @@
+<div class="col-md-12">
+  <section id="dequeue">
+    <h1>Dequeue a user from waiting list</h1>
+
+    <%= form_tag dequeue_admin_users_path, method: :put do %>
+      <div class="form-group">
+        <%= label_tag :deque_user_id, 'User ID' %>
+        <%= text_field_tag :dequeue_user_id, params[:dequeue_user_id] || nil, {class: 'form-control'} %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag(:dequeue_workshop_id, 'Workshop') %>
+        <%= select_tag :dequeue_workshop_id, options_from_collection_for_select(@workshops, 'id', 'title', selected: params[:dequeue_workshop_id] || nil), {prompt: '-- Please select workshop --', class: 'form-control'} %>
+      </div>
+
+      <%= submit_tag 'Dequeue user from waiting list', {class: 'btn btn-primary'} %>
+    <% end %>
+  </section>
+</div>

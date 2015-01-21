@@ -7,7 +7,9 @@ class Participant < ActiveRecord::Base
     :trd_departure_flight_number, :other_trondheim_departure_information,
     :osl_departure_date, :osl_departure_flight_number, :other_norway_departure_information,
     :confirmed_participation, :approved_third_deadline, :train_arrival_datetime,
-    :train_departure_datetime
+    :train_departure_datetime, :workshop_id, :accepted_invitation, :user_id,
+    :need_visa
+
 
   # Relations
   belongs_to :user

@@ -27,7 +27,10 @@ IsfitParticipant::Application.routes.draw do
 
   namespace :admin do
     resources :workshops  
-    resources :users
+    resources :users do
+      get 'dequeue', to: 'users#dequeue', on: :collection
+      put 'dequeue', to: 'users#dequeue_update', on: :collection
+    end
     resources :countries, only: [:index, :edit, :update]
   end
 
