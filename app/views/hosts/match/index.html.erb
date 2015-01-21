@@ -4,7 +4,7 @@
     <li><%= link_to 'Hosts',hosts_path %></li>
     <li class="active">Host matching</li>
 <% end %>
-<h2>Select participant</h2>
+<h2 class="col-md-12">Select participant</h2>
 <%= form_tag '', method: :get do |f| %>
     <div class="form-group col-md-12">
       <%= text_field_tag :search, params[:search], {placeholder: 'Who are you looking for?', class: 'form-control'} %>
@@ -19,7 +19,7 @@
         <input type="hidden" name="match_now" value="true" />
     <% end %>
     <div class="form-group col-md-12">
-      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      <%= submit_tag 'Filter', class: 'btn btn-primary' %>
     </div>
 <% end %>
 <table id="participants" class="table">

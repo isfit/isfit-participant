@@ -40,6 +40,9 @@ class ParticipantsController < ApplicationController
     if params[:only_checked_in].present? && params[:only_checked_in] == "1"
       @participants = @participants.where("checked_in = 1")
     end
+    if params[:country].nil? == false && params[:country][:country_id].present? == true
+      @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
+    end
     #@participants = @participants.paginate(page: params[:page])
     if params[:match_now].blank?
       @match_now = false
