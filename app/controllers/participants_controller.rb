@@ -37,6 +37,9 @@ class ParticipantsController < ApplicationController
       @participants = @participants
       .where("users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?", k, k, k)
     end
+    if params[:only_checked_in].present? && params[:only_checked_in] == "1"
+      @participants = @participants.where("checked_in = 1")
+    end
     #@participants = @participants.paginate(page: params[:page])
     if params[:match_now].blank?
       @match_now = false
