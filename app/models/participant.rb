@@ -16,6 +16,7 @@ class Participant < ActiveRecord::Base
   belongs_to :workshop
 
   has_many :questions
+  has_one :profile, through: :user
   belongs_to :host
 
   # Validations
