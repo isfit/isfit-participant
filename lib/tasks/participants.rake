@@ -5,7 +5,7 @@ namespace :participants do
 
     participants.each do |p|
       begin
-        ParticipantMailer.general_information(a.user).deliver
+        ParticipantMailer.general_information(p.user).deliver
         counter += 1
         puts "General information mail sent to #{p.user.email}"
       rescue
