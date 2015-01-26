@@ -56,6 +56,12 @@ class DeadlinesController < ApplicationController
 
     @participant.save
 
+    begin
+      ParticipantMailer.general_information(@participant.user).deliver
+    rescue
+      puts "Failed sending mail"
+    end
+
     redirect_to dashboard_url, notice: 'See you in Trondheim'
   end
 end
