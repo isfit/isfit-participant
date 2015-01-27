@@ -15,7 +15,7 @@
       <%= submit_tag 'Search', class: 'btn btn-primary' %>
     </div>
 <% end %>
-<table id="hosts" class="table" style="table-layout: fixed;">
+<table id="hosts" class="table">
   <tr>
     <th>Name</th>
     <th>Gender preference</th>
@@ -25,13 +25,12 @@
     <th>Extra day</th>
     <th>Available spaces</th>
     <th>Hosted before</th>
-    <th>Comment</th>
-    <th>Show details</th>
   </tr>
 
   <% @hosts.each do |a| %>
       <tr>
-        <td><%= link_to a.firstname + ' ' + a.lastname, {:controller => 'participants',:action => 'apply_match', :host_id => a.id, :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to match the current participant with this host?"} %></td>
+        <td><%= link_to a.firstname + ' ' + a.lastname, a %></td>
+
         <td><%= gender_pref_to_friendly(a.sex) %></td>
         <td><%= bool_to_friendly(a.isstudent) %></td>
         <td><%= bool_to_friendly(a.animales) %></td>
@@ -39,8 +38,11 @@
         <td><%= bool_to_friendly(a.extraday) %></td>
         <td><%= a.get_free_beds %></td>
         <td><%= bool_to_friendly(a.beenhost) %></td>
-        <td style="word-wrap: break-word;"><%= a.comments %></td>
-        <td><%= link_to 'Details', a %></td>
+      </tr>
+      <tr>
+        <td style="border-top: 0px"><%= link_to 'Match with participant', {:controller => 'participants',:action => 'apply_match', :host_id => a.id, :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to match the current participant with this host?", :class => 'btn btn-success'} %></td>
+        <th style="border-top: 0px">Comments:</th>
+        <td colspan="6" style="border-top: 0px"><%= a.comments %></td>
       </tr>
   <% end %>
 </table>
