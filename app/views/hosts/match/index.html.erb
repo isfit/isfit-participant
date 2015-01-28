@@ -52,12 +52,12 @@
             <td style="border-top: 0px"><%= link_to 'Select', participant_match_host_path(a.id), :class => 'btn btn-success' %></td>
         <% end %>
         <th style="border-top: 0px">Other preferences:</th>
-        <td style="border-top: 0px"><%= a.user.profile.other_host_preferences %></td>
+        <td colspan="4" style="border-top: 0px"><%= a.user.profile.other_host_preferences %></td>
       </tr>
       <tr>
         <td style="border-top: 0px"></td>
         <th style="border-top: 0px">Other allergies:</th>
-        <td style="border-top: 0px"><%= a.user.profile.other_allergies %></td>
+        <td colspan="4" style="border-top: 0px"><%= a.user.profile.other_allergies %></td>
       </tr>
   <% end %>
 </table>

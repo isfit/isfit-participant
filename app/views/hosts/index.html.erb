@@ -20,7 +20,8 @@
     <th>Student</th>
     <th>Has animals</th>
     <th>Sleeping arrangements</th>
-    <th>Can host extra day</th>
+    <th>Extra day (early)</th>
+    <th>Extra day (late)</th>
     <th>Available spaces</th>
     <th>Has been host before</th>
   </tr>
@@ -32,6 +33,7 @@
         <td><%= bool_to_friendly(a.isstudent) %></td>
         <td><%= bool_to_friendly(a.animales) %></td>
         <td><%= sleeping_to_friendly(a.sleeping) %></td>
+        <td><%= bool_to_friendly(a.Onedayearly) %></td>
         <td><%= bool_to_friendly(a.extraday) %></td>
         <td><%= a.get_free_beds %></td>
         <td><%= bool_to_friendly(a.beenhost) %></td>
