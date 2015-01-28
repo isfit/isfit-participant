@@ -6,6 +6,8 @@
         <%= @host.firstname %>
         <h4>Last name</h4>
         <%= @host.lastname %>
+        <h4>Available spaces</h4>
+        <%= @host.get_free_beds %>
         <h4>Preferred gender</h4>
         <%= gender_pref_to_friendly(@host.sex) %>
         <h4>Has been host before</h4>

@@ -18,7 +18,7 @@ class Host < ActiveRecord::Base
     end
     num_locked = 0
     self.participants.each do |p|
-      if p.host_locked
+      if !p.host_id.nil?
         num_locked += 1
       end
     end
