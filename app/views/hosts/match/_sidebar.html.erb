@@ -1,0 +1,29 @@
+<% content_for :sidebar_left do %>
+    <div class="box box-top box-bottom">
+      <div class="nav nav-pills nav-stacked">
+        <h3>Current host</h3>
+        <h4>First name</h4>
+        <%= @host.firstname %>
+        <h4>Last name</h4>
+        <%= @host.lastname %>
+        <h4>Available spaces</h4>
+        <%= @host.get_free_beds %>
+        <h4>Preferred gender</h4>
+        <%= gender_pref_to_friendly(@host.sex) %>
+        <h4>Has been host before</h4>
+        <%= bool_to_friendly(@host.beenhost) %>
+        <h4>Is student</h4>
+        <%= bool_to_friendly(@host.isstudent) %>
+        <h4>Has animals</h4>
+        <%= bool_to_friendly(@host.animales) %>
+        <h4>Sleeping arrangements</h4>
+        <%= sleeping_to_friendly(@host.sleeping) %>
+        <h4>Can host one day early</h4>
+        <%= bool_to_friendly(@host.Onedayearly) %>
+        <h4>Can host one day extra</h4>
+        <%= bool_to_friendly(@host.extraday) %>
+        <h4>Comments</h4>
+        <%= @host.comments %>
+      </div>
+    </div>
+<% end %>
