@@ -82,14 +82,15 @@ class ParticipantsController < ApplicationController
     if participant.host_id.nil?
       participant.host_id = params[:host_id]
       if participant.save
-        flash.now[:notice] = 'Host and participant matched successfully'
+        flash[:notice] = 'Host and participant matched successfully'
       else
-        flash.now[:alert] = 'An error occurred, please try again'
+        flash[:alert] = 'An error occurred, please try again'
       end
     else
-      flash.now[:alert] = 'This participant has already been matched with a host'
+      flash[:alert] = 'This participant has already been matched with a host'
     end
-    match_list()
+    #match_list()
+    redirect_to host_path(params[:host_id])
   end
   def unmatch
     session[:return_to] = request.referer

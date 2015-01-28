@@ -1,7 +1,9 @@
 <% content_for :sidebar_left do %>
+    <!--
   <ul class="nav nav-pills nav-stacked">
-    <li class="box box-top box-bottom"><%= link_to 'Match participants to hosts', 'host_matching' %></li>
+    <li class="box box-top box-bottom"><%#= link_to 'Match participants to hosts', 'host_matching' %></li>
   </ul>
+  -->
     <div class="nav nav-pills nav-stacked box box-top box-bottom">
       <h3>Stats</h3>
       <p>Total hosts: <%= Host.get_all_non_deleted.count%></p>
