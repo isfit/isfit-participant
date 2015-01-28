@@ -63,9 +63,9 @@
       <div class="col-md-6 col-md-offset-3 well">
       <dl>
         <dt>Checked in</dt>
-        <dd><%= bool_to_friendly(@participant.checked_in) %></dd>
+        <dd class="<%= @participant.checked_in ? 'text-success' : 'text-danger' %>"><strong><%= bool_to_friendly(@participant.checked_in) %></strong></dd>
         <% if !@participant.checked_in %>
-            <dd><%= link_to 'Check in', participant_check_in_path(:participant_id => @participant.id) , {:method => :put, :confirm => "Do you want to check in this participant?", :class => "btn btn-success"}%></dd>
+            <dd><%= link_to '<span class="glyphicon glyphicon-check" aria-hidden="true"></span> Check in'.html_safe, participant_check_in_path(:participant_id => @participant.id) , {:method => :put, :confirm => "Do you want to check in this participant?", :class => "btn btn-success"}%></dd>
         <% end %>
       </dl>
       <dl>

@@ -67,6 +67,18 @@ class ParticipantsController < ApplicationController
       temphosts = temphosts
       .where("firstname LIKE ? OR lastname LIKE ?", k, k)
     end
+    if !params[:gender_pref].blank?
+      temphosts = temphosts.where("sex = ?",params[:gender_pref])
+    end
+    if !params[:animals].blank?
+      temphosts = temphosts.where("animales = ?",params[:animals])
+    end
+    if !params[:day_early].blank?
+      temphosts = temphosts.where("Onedayearly = ?",params[:day_early])
+    end
+    if !params[:day_late].blank?
+      temphosts = temphosts.where("extraday = ?",params[:day_late])
+    end
     @hosts = Array.new
     #temphosts.each do |h|
       #if h.has_free_beds?
