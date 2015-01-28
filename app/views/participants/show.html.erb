@@ -19,45 +19,70 @@
   <h1><%= @participant.user.full_name %></h1>
 
   <!-- General information -->
-  <dl class="dl-horizontal">
-    <dt>Date of birth</dt>
-    <dd><%= @participant.user.profile.date_of_birth %></dd>
+  <div class="row">
+    <div class="col-md-6">
+      <dl class="dl-horizontal">
+        <dt>Date of birth</dt>
+        <dd><%= @participant.user.profile.date_of_birth %></dd>
 
-    <dt>Gender</dt>
-    <dd><%= gender_to_string(@participant.user.profile.gender) %></dd>
+        <dt>Gender</dt>
+        <dd><%= gender_to_string(@participant.user.profile.gender) %></dd>
 
-    <dt>Nationality</dt>
-    <dd><%= @participant.user.profile.nationality %></dd>
+        <dt>Nationality</dt>
+        <dd><%= @participant.user.profile.nationality %></dd>
 
-    <dt>Citizenship</dt>
-    <dd><%= @participant.user.profile.citizenship.name %></dd>
-  </dl>
+        <dt>Citizenship</dt>
+        <dd><%= @participant.user.profile.citizenship.name %></dd>
+      </dl>
+      <!-- Education information -->
+      <dl class="dl-horizontal">
+        <dt>University</dt>
+        <dd><%= @participant.user.profile.school %></dd>
 
-  <!-- Education information -->
-  <dl class="dl-horizontal">
-    <dt>University</dt>
-    <dd><%= @participant.user.profile.school %></dd>
+        <dt>Field of study</dt>
+        <dd><%= @participant.user.profile.field_of_study %></dd>
+      </dl>
+      <!-- Contact information -->
+      <dl class="dl-horizontal">
+        <dt>E-mail</dt>
+        <dd><%= @participant.user.email %></dd>
 
-    <dt>Field of study</dt>
-    <dd><%= @participant.user.profile.field_of_study %></dd>
-  </dl>
+        <dt>Phone</dt>
+        <dd>+<%= @participant.user.profile.calling_code %> <%= @participant.user.profile.phone %></dd>
 
-  <!-- Contact information -->
-  <dl class="dl-horizontal">
-    <dt>E-mail</dt>
-    <dd><%= @participant.user.email %></dd>
+        <dt>Address</dt>
+        <dd>
+          <%= @participant.user.profile.address %><br />
+          <%= @participant.user.profile.postal_code %>
+          <%= @participant.user.profile.city %><br />
+          <%= @participant.user.profile.country.name %>
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-6 col-md-offset-3 well">
+      <dl>
+        <dt>Checked in</dt>
+        <dd><%= bool_to_friendly(@participant.checked_in) %></dd>
+        <% if !@participant.checked_in %>
+            <dd><%= link_to 'Check in', participant_check_in_path(:participant_id => @participant.id) , {:method => :put, :confirm => "Do you want to check in this participant?", :class => "btn btn-success"}%></dd>
+        <% end %>
+      </dl>
+      <dl>
+        <dt>Host</dt>
+        <% if @participant.host.nil? %>
+            <dd>None</dd><dd><%= link_to 'Match with host', participant_match_host_path(@participant.id),:class => "btn btn-success" %></dd>
+        <% else %>
+            <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %> <%=@participant.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></dd>
+            <% if !@participant.host_locked %>
+                <dd><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?",:class => "btn btn-danger"} %></dd>
+            <% end %>
+        <% end %>
+      </dl>
+      </div>
+    </div>
 
-    <dt>Phone</dt>
-    <dd>+<%= @participant.user.profile.calling_code %> <%= @participant.user.profile.phone %></dd>
-
-    <dt>Address</dt>
-    <dd>
-      <%= @participant.user.profile.address %><br />
-      <%= @participant.user.profile.postal_code %>
-      <%= @participant.user.profile.city %><br />
-      <%= @participant.user.profile.country.name %>
-    </dd>
-  </dl>
+  </div>
 
   <dl class="dl-horizontal">
     <dt>Workshop</dt>
@@ -74,23 +99,18 @@
     <dd> <%= @participant.granted_amount %></dd>
   </dl>
 
+  <!-- Logistics -->
   <dl class="dl-horizontal">
-    <dt>Host</dt>
-    <% if @participant.host.nil? %>
-        <dd>None</dd><dd><%= link_to 'Match with host', participant_match_host_path(@participant.id),:class => "btn btn-success" %></dd>
-    <% else %>
-        <dd><%= link_to "#{@participant.host.firstname} #{@participant.host.lastname}",@participant.host %> <%=@participant.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></dd>
-        <% if !@participant.host_locked %>
-            <dd><%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?",:class => "btn btn-danger"} %></dd>
-        <% end %>
-    <% end %>
+
+    <dl class="dl-horizontal">
+      <dt>Arrival date</dt>
+      <dd><%=@participant.trd_arrival_date || @participant.train_arrival_datetime%></dd>
+      <dt>Departure date</dt>
+      <dd><%=@participant.trd_departure_date || @participant.train_departure_datetime%></dd>
+    </dl>
   </dl>
 
-  <dl class="dl-horizontal">
-    <dt>Checked in</dt>
-    <dd><%= bool_to_friendly(@participant.checked_in) %></dd>
-    <% if !@participant.checked_in %>
-      <dd><%= link_to 'Check in', participant_check_in_path(:participant_id => @participant.id) , {:method => :put, :confirm => "Do you want to check in this participant?", :class => "btn btn-success"}%></dd>
-    <% end %>
-  </dl>
+
+
+
 </article>

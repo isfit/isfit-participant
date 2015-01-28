@@ -1,3 +1,6 @@
+<% if @match_now %>
+    <% render 'hosts/match/sidebar' %>
+<% end %>
 
 <% content_for :breadcrumbs do %>
     <li><%= link_to 'Dashboard', dashboard_path %></li>
@@ -29,7 +32,7 @@
     <th>Country</th>
     <th>Gender preference</th>
     <th>Smoker</th>
-    <th>Other preferences</th>
+    <th>Allergy animals</th>
   </tr>
 
   <% @participants.each do |a| %>
@@ -40,7 +43,7 @@
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= gender_pref_to_friendly(a.user.profile.host_gender_preference) %></td>
         <td><%= bool_to_friendly(a.user.profile.smoke) %></td>
-        <td><%= a.user.profile.other_host_preferences %></td>
+        <td><%= bool_to_friendly(a.user.profile.allergy_animals) %></td>
           </tr>
       <tr>
           <% if @match_now %>
@@ -48,6 +51,13 @@
         <% else %>
             <td style="border-top: 0px"><%= link_to 'Select', participant_match_host_path(a.id), :class => 'btn btn-success' %></td>
         <% end %>
+        <th style="border-top: 0px">Other preferences:</th>
+        <td style="border-top: 0px"><%= a.user.profile.other_host_preferences %></td>
+      </tr>
+      <tr>
+        <td style="border-top: 0px"></td>
+        <th style="border-top: 0px">Other allergies:</th>
+        <td style="border-top: 0px"><%= a.user.profile.other_allergies %></td>
       </tr>
   <% end %>
 </table>
