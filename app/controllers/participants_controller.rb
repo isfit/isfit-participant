@@ -23,16 +23,6 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
   end
 
-  def update
-    @participant = Participant.find(params[:id])
-    @participant.approved_third_deadline = params[:participant][:approved_third_deadline]
-
-    if @participant.save(validate: false)
-      redirect_to participants_path, notice: 'Third deadline extended.'
-    else
-      render :show
-    end
-  end
   def match_list
     @participants = Participant.paginate(page: params[:page]).joins(:user)
     .order('users.first_name ASC', 'users.last_name ASC')
