@@ -64,6 +64,28 @@ ActiveRecord::Schema.define(:version => 20150120191948) do
 
   add_index "faq_questions", ["category_id"], :name => "index_faq_questions_on_category_id"
 
+  create_table "hosts", :id => false, :force => true do |t|
+    t.integer  "id",         :default => 0, :null => false
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "address"
+    t.integer  "zipcode"
+    t.string   "city"
+    t.string   "phone"
+    t.integer  "capacity"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email"
+    t.boolean  "beenhost"
+    t.integer  "sex"
+    t.boolean  "isstudent"
+    t.boolean  "animales"
+    t.integer  "sleeping"
+    t.boolean  "extraday"
+    t.boolean  "deleted"
+  end
+
   create_table "participants", :force => true do |t|
     t.integer  "workshop_id"
     t.integer  "accepted_invitation",                   :limit => 1, :default => -1
