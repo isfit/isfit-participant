@@ -79,6 +79,12 @@ class ParticipantsController < ApplicationController
     if !params[:day_late].blank?
       temphosts = temphosts.where("extraday = ?",params[:day_late])
     end
+    if !params[:student].blank?
+      temphosts = temphosts.where("isstudent = ?",params[:student])
+    end
+    if !params[:hosted_before].blank?
+      temphosts = temphosts.where("beenhost = ?",params[:hosted_before])
+    end
     @hosts = Array.new
     #temphosts.each do |h|
       #if h.has_free_beds?
