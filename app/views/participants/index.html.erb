@@ -74,11 +74,7 @@
           <% elsif a.approved_third_deadline == 2 %>
             <span class="text-warning">Extended</span>
           <% else %>
-            <%= form_for a, html: {class: 'form-inline'} do |f| %>
-              <span class="text-danger">No</span>
-              <%= f.hidden_field :approved_third_deadline, {value: 2} %>
-              <%= f.submit 'Extend', class: 'btn btn-warning btn-xs' %>
-            <% end %>
+            <span class="text-danger">No</span>
           <% end %>
         </td>
       </tr>
