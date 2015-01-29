@@ -58,6 +58,31 @@
           <%= @participant.user.profile.country.name %>
         </dd>
       </dl>
+      <dl class="dl-horizontal">
+        <dt>Workshop</dt>
+        <dd><%= @participant.workshop_id.to_s + '. ' + @participant.workshop.title %></dd>
+        <dt>Accepted invitation</dt>
+        <dd>
+          <%= intToYesNo(@participant.accepted_invitation) %>
+        </dd>
+        <dt>Needs visa</dt>
+        <dd>
+          <%= intToYesNo(@participant.need_visa) %>
+        </dd>
+        <dt>Granted aid</dt>
+        <dd> <%= @participant.granted_amount %></dd>
+      </dl>
+
+      <!-- Logistics -->
+      <dl class="dl-horizontal">
+
+        <dl class="dl-horizontal">
+          <dt>Arrival date</dt>
+          <dd><%=@participant.trd_arrival_date || @participant.train_arrival_datetime%></dd>
+          <dt>Departure date</dt>
+          <dd><%=@participant.trd_departure_date || @participant.train_departure_datetime%></dd>
+        </dl>
+      </dl>
     </div>
     <div class="col-md-6">
       <div class="col-md-6 col-md-offset-3 well">
@@ -80,40 +105,25 @@
         <% end %>
       </dl>
         <dl>
-          
+          <%= form_for [:internal_comments, @participant], url: participant_path do |f| %>
+              <dt>Internal comments</dt>
+              <dd id="int_com_disp"><%= @participant.internal_comments %></dd><a href="#" id="int_com_edit_button">Edit</a>
+              <%= f.text_area :internal_comments, :class => 'form-control hidden',:id => 'int_com_edit', :rows => '3', :value => @participant.internal_comments %>
+              <%= f.submit 'Save comment', :class => 'btn btn-info hidden', :id => 'int_com_save' %>
+              <% end %>
         </dl>
+        <script>
+            $('#int_com_edit_button').click( function() {
+                $('#int_com_disp').addClass('hidden');
+                $('#int_com_edit').removeClass('hidden');
+                $('#int_com_save').removeClass('hidden');
+                $('#int_com_edit_button').addClass('hidden');
+                return false;
+            } );
+        </script>
       </div>
     </div>
 
   </div>
-
-  <dl class="dl-horizontal">
-    <dt>Workshop</dt>
-    <dd><%= @participant.workshop_id.to_s + '. ' + @participant.workshop.title %></dd>
-    <dt>Accepted invitation</dt>
-    <dd>
-      <%= intToYesNo(@participant.accepted_invitation) %>
-    </dd>
-    <dt>Needs visa</dt>
-    <dd>
-      <%= intToYesNo(@participant.need_visa) %>
-    </dd>
-    <dt>Granted aid</dt>
-    <dd> <%= @participant.granted_amount %></dd>
-  </dl>
-
-  <!-- Logistics -->
-  <dl class="dl-horizontal">
-
-    <dl class="dl-horizontal">
-      <dt>Arrival date</dt>
-      <dd><%=@participant.trd_arrival_date || @participant.train_arrival_datetime%></dd>
-      <dt>Departure date</dt>
-      <dd><%=@participant.trd_departure_date || @participant.train_departure_datetime%></dd>
-    </dl>
-  </dl>
-
-
-
 
 </article>
