@@ -22,7 +22,7 @@ IsfitParticipant::Application.routes.draw do
   put 'deadlines/confirm_participation', to: 'deadlines#confirm_participation'
 
   resources :workshop_applications, only: [:index, :show]
-  resources :participants, only: [:index, :show]
+  resources :participants, only: [:index, :show, :update]
   put 'participants/checkin/:id' => 'participants#check_in', :as => 'participant_check_in'
 
   namespace :admin do

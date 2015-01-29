@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150120191948) do
+ActiveRecord::Schema.define(:version => 20150128230733) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20150120191948) do
   add_index "faq_questions", ["category_id"], :name => "index_faq_questions_on_category_id"
 
   create_table "hosts", :id => false, :force => true do |t|
-    t.integer  "id",         :default => 0, :null => false
+    t.integer  "id",          :default => 0, :null => false
     t.string   "firstname"
     t.string   "lastname"
     t.string   "address"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20150120191948) do
     t.integer  "sleeping"
     t.boolean  "extraday"
     t.boolean  "deleted"
+    t.boolean  "Onedayearly"
   end
 
   create_table "participants", :force => true do |t|
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20150120191948) do
     t.boolean  "host_locked"
     t.boolean  "checked_in"
     t.datetime "check_in_time"
+    t.text     "internal_comments"
   end
 
   add_index "participants", ["user_id"], :name => "index_participants_on_user_id"

@@ -19,6 +19,18 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def update #Only used for updating internal comments
+    @participant = Participant.find(params[:id])
+    @participant.internal_comments = params[:participant][:internal_comments]
+
+    if @participant.save
+      flash[:notice] = 'Successfully updated participant'
+    else
+      flash[:alert] = 'An error occurred, please try again'
+    end
+    redirect_to participant_path(@participant)
+  end
+
   def show
     @participant = Participant.find(params[:id])
   end
