@@ -74,14 +74,59 @@
       </dl>
 
       <!-- Logistics -->
-      <dl class="dl-horizontal">
 
         <dl class="dl-horizontal">
-          <dt>Arrival date</dt>
-          <dd><%=@participant.trd_arrival_date || @participant.train_arrival_datetime%></dd>
-          <dt>Departure date</dt>
-          <dd><%=@participant.trd_departure_date || @participant.train_departure_datetime%></dd>
+          <dt>Oslo arrival</dt>
+          <dd><%= @participant.osl_arrival_date %></dd>
+          <dt>Oslo flight#</dt>
+          <dd><%= @participant.osl_arrival_flight_number %></dd>
+          <dt>Trondheim arrival</dt>
+          <dd><%= @participant.trd_arrival_date %></dd>
+          <dt>Trondheim flight#</dt>
+          <dd><%= @participant.trd_arrival_flight_number %></dd>
+          <dt>Train arrival</dt>
+          <dd><%= @participant.train_arrival_datetime %></dd>
+          <dt>Other arrival info</dt>
+          <dd><%= @participant.other_arrival_information %></dd>
         </dl>
+        <dl class="dl-horizontal">
+          <dt>Train departure</dt>
+          <dd><%= @participant.train_departure_datetime %></dd>
+          <dt>Oslo departure</dt>
+          <dd><%= @participant.osl_departure_date %></dd>
+          <dt>Oslo flight#</dt>
+          <dd><%= @participant.osl_departure_flight_number %></dd>
+          <dt>Trondheim departure</dt>
+          <dd><%= @participant.trd_departure_date %></dd>
+          <dt>Trondheim flight#</dt>
+          <dd><%= @participant.trd_departure_flight_number %></dd>
+          <dt>Other departure info</dt>
+          <dd><%= @participant.other_trondheim_departure_information %></dd>
+          <dd><%= @participant.other_norway_departure_information %></dd>
+        </dl>
+      <dl class="dl-horizontal">
+        <dt>Dietary law</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.dietary_law) %></dd>
+        <dt>Dietary preferences</dt>
+        <dd><%= @participant.user.profile.other_diet_preferences %></dd>
+        <dt>Animal allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_animals) %></dd>
+        <dt>Gluten allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_gluten) %></dd>
+        <dt>Lactose allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_lactose) %></dd>
+        <dt>Nut allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_nuts) %></dd>
+        <dt>Other allergies</dt>
+        <dd><%= @participant.user.profile.other_allergies %></dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Smoker</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.smoke) %></dd>
+        <dt>Host gender pref</dt>
+        <dd><%= gender_pref_to_friendly(@participant.user.profile.host_gender_preference) %></dd>
+        <dt>Other host prefs</dt>
+        <dd><%= @participant.user.profile.other_host_preferences %></dd>
       </dl>
     </div>
     <div class="col-md-6">
