@@ -104,6 +104,22 @@
           <dd><%= @participant.other_trondheim_departure_information %></dd>
           <dd><%= @participant.other_norway_departure_information %></dd>
         </dl>
+      <dl class="dl-horizontal">
+        <dt>Dietary law</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.dietary_law) %></dd>
+        <dt>Dietary preferences</dt>
+        <dd><%= @participant.user.profile.other_diet_preferences %></dd>
+        <dt>Animal allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_animals) %></dd>
+        <dt>Gluten allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_gluten) %></dd>
+        <dt>Lactose allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_lactose) %></dd>
+        <dt>Nut allergy</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.allergy_nuts) %></dd>
+        <dt>Other allergies</dt>
+        <dd><%= @participant.user.profile.other_allergies %></dd>
+      </dl>
     </div>
     <div class="col-md-6">
       <div class="col-md-6 col-md-offset-3 well">
