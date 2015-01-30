@@ -120,6 +120,14 @@
         <dt>Other allergies</dt>
         <dd><%= @participant.user.profile.other_allergies %></dd>
       </dl>
+      <dl class="dl-horizontal">
+        <dt>Smoker</dt>
+        <dd><%= bool_to_friendly(@participant.user.profile.smoke) %></dd>
+        <dt>Host gender pref</dt>
+        <dd><%= gender_pref_to_friendly(@participant.user.profile.host_gender_preference) %></dd>
+        <dt>Other host prefs</dt>
+        <dd><%= @participant.user.profile.other_host_preferences %></dd>
+      </dl>
     </div>
     <div class="col-md-6">
       <div class="col-md-6 col-md-offset-3 well">
