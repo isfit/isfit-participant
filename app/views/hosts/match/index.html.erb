@@ -9,14 +9,29 @@
 <% end %>
 <h2 class="col-md-12">Select participant</h2>
 <%= form_tag '', method: :get do |f| %>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-9">
+      Name
       <%= text_field_tag :search, params[:search], {placeholder: 'Who are you looking for?', class: 'form-control'} %>
       </div>
-    <div class="form-group col-md-6">
-      <%= select_tag :only_checked_in, options_for_select([['Show all','0'],['Show only checked in','1']],params[:only_checked_in] || 0), :class => 'form-control' %>
+    <div class="form-group col-md-3">
+      Checked in status
+      <%= select_tag :only_checked_in, options_for_select([['Yes','1']],params[:only_checked_in] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
-    <div class="form-group col-md-6">
-      <%= collection_select(:country, :country_id, Country.order('name'), :id, :name, {:prompt => 'Please select country (Optional)', :selected => selected_country},{  :class => 'form-control'}) %>
+    <div class="form-group col-md-3">
+      Gender
+      <%= select_tag :gender, options_for_select([['Male','0'],['Female','1']],params[:gender] || -1), :class => 'form-control', :prompt => '(Optional)' %>
+    </div>
+    <div class="form-group col-md-3">
+      Country/Citizenship
+      <%= collection_select(:country, :country_id, Country.order('name'), :id, :name, {:prompt => '(Optional)', :selected => selected_country},{  :class => 'form-control'}) %>
+    </div>
+    <div class="form-group col-md-3">
+      Preferred host gender
+      <%= select_tag :pref_gender, options_for_select([['Male','2'],['Female','1']],params[:pref_gender] || -1), :class => 'form-control', :prompt => '(Optional)' %>
+    </div>
+    <div class="form-group col-md-3">
+      Allergy to animals
+      <%= select_tag :allergy_animals, options_for_select([['Yes','1'],['No','0']],params[:allergy_animals] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <% if @match_now %>
         <input type="hidden" name="match_now" value="true" />
@@ -36,9 +51,8 @@
   </tr>
 
   <% @participants.each do |a| %>
-      <% puts a.user_id.to_s + " " + a.user.full_name + '\n'  %>
       <tr>
-        <td><%= link_to a.user.full_name, a %></td>
+        <td><%= link_to a.user.full_name, a %><%= (a.checked_in ? ' <small><span class="glyphicon glyphicon-check" aria-hidden="true"></span></small>'.html_safe : '') %></td>
         <td><%= int_to_gender(a.user.profile.gender)%></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
         <td><%= gender_pref_to_friendly(a.user.profile.host_gender_preference) %></td>

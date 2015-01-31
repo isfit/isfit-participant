@@ -11,11 +11,19 @@ class ParticipantsController < ApplicationController
       @participants = @participants
         .where("users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?", k, k, k)
     end
-    if params[:only_checked_in].present? && params[:only_checked_in] == "1"
-      @participants = @participants.where("checked_in = 1")
+    if params[:only_checked_in].present?
+      if params[:only_checked_in] == "1"
+        @participants = @participants.where("checked_in = 1")
+      elsif params[:only_checked_in] == "0"
+        @participants = @participants.where("checked_in = 0 OR checked_in IS NULL")
+      end
+
     end
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
+    end
+    if !params[:workshop].nil? && params[:workshop][:workshop_id].present?
+      @participants = @participants.where('participants.workshop_id = ?',params[:workshop][:workshop_id])
     end
   end
 
@@ -51,6 +59,15 @@ class ParticipantsController < ApplicationController
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
     end
+    if !params[:gender].blank?
+      @participants = @participants.joins(:profile).where('gender = ?',params[:gender])
+    end
+    if !params[:pref_gender].blank?
+      @participants = @participants.joins(:profile).where('host_gender_preference = ?',params[:pref_gender])
+    end
+    if !params[:allergy_animals].blank?
+      @participants = @participants.joins(:profile).where('allergy_animals = ?', params[:allergy_animals])
+    end
     #@participants = @participants.paginate(page: params[:page])
     if params[:match_now].blank?
       @match_now = false
@@ -62,7 +79,6 @@ class ParticipantsController < ApplicationController
   end
   def match
     @participant = Participant.find(params[:id])
-    #Fix this later
     temphosts = Host.get_all_non_deleted
     if params[:search].present?
       k = "%#{params[:search]}%"
@@ -87,13 +103,21 @@ class ParticipantsController < ApplicationController
     if !params[:hosted_before].blank?
       temphosts = temphosts.where("beenhost = ?",params[:hosted_before])
     end
-    @hosts = Array.new
-    #temphosts.each do |h|
-      #if h.has_free_beds?
-        #@hosts.push h
-      #end
-    #end
-    @hosts = temphosts #Remove if uncommenting above
+    if !params[:sleeping].blank?
+      temphosts = temphosts.where("sleeping = ?",params[:sleeping])
+    end
+    if !params[:free_spaces].blank? && params[:free_spaces] == '1'
+        #Fix this later
+        @hosts = Array.new
+        temphosts.each do |h|
+        if h.has_free_beds?
+          @hosts.push h
+        end
+      end
+    else
+      @hosts = temphosts
+    end
+
     @hosts = @hosts.paginate(page: params[:page])
     render 'hosts/match/host/index'
   end

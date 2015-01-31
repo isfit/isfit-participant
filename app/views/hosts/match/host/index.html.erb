@@ -7,26 +7,41 @@
 <% end %>
 <h2>Select host</h2>
 <%= form_tag '', method: :get do |f| %>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
+      Name
       <%= text_field_tag :search, params[:search], {placeholder: 'Who are you looking for?', class: 'form-control'} %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :student, options_for_select([['Yes','1']],params[:student] || -1), :class => 'form-control', :prompt => 'Is student?' %>
+      Gender preference
+      <%= select_tag :gender_pref, options_for_select([['Prefers women','1'],['Prefers men','2']],params[:gender_pref] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :hosted_before, options_for_select([['Yes','1']],params[:hosted_before] || -1), :class => 'form-control', :prompt => 'Has hosted before?' %>
+      Student
+      <%= select_tag :student, options_for_select([['Yes','1']],params[:student] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :gender_pref, options_for_select([['Prefers women','1'],['Prefers men','2']],params[:gender_pref] || -1), :class => 'form-control', :prompt => 'Gender preference' %>
+      Animals
+      <%= select_tag :animals, options_for_select([['Yes','1'],['No','0']],params[:animals] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :animals, options_for_select([['With animals','1'],['Without animals','0']],params[:animals] || -1), :class => 'form-control', :prompt => 'Animal preference' %>
+      Sleeping arrangements
+      <%= select_tag :sleeping, options_for_select([['Couch','0'],['Bed','1'],['Mattress']],params[:sleeping] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :day_early, options_for_select([['Yes','1']],params[:day_early] || -1), :class => 'form-control', :prompt => 'One day early?' %>
+      Extra day (early)
+      <%= select_tag :day_early, options_for_select([['Yes','1']],params[:day_early] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
     <div class="form-group col-md-3">
-      <%= select_tag :day_late, options_for_select([['Yes','1']],params[:day_late] || -1), :class => 'form-control', :prompt => 'One day late?' %>
+      Extra day (late)
+      <%= select_tag :day_late, options_for_select([['Yes','1']],params[:day_late] || -1), :class => 'form-control', :prompt => '(Optional)' %>
+    </div>
+    <div class="form-group col-md-3">
+      Hosted before
+      <%= select_tag :hosted_before, options_for_select([['Yes','1']],params[:hosted_before] || -1), :class => 'form-control', :prompt => '(Optional)' %>
+    </div>
+    <div class="form-group col-md-3">
+      Has free spaces
+      <%= select_tag :free_spaces, options_for_select([['Yes','1']],params[:free_spaces] || -1), :class => 'form-control', :prompt => '(Optional)' %>
     </div>
 
     <div class="form-group col-md-12">
@@ -42,8 +57,8 @@
     <th>Sleeping arrangements</th>
     <th>Extra day (early)</th>
     <th>Extra day (late)</th>
-    <th>Available spaces</th>
     <th>Hosted before</th>
+    <th>Available spaces</th>
   </tr>
 
   <% @hosts.each do |a| %>
@@ -56,8 +71,8 @@
         <td><%= sleeping_to_friendly(a.sleeping) %></td>
         <td><%= bool_to_friendly(a.Onedayearly) %></td>
         <td><%= bool_to_friendly(a.extraday) %></td>
-        <td><%= a.get_free_beds %></td>
         <td><%= bool_to_friendly(a.beenhost) %></td>
+        <td><%= a.get_free_beds %></td>
       </tr>
       <tr>
         <td style="border-top: 0px"><%= link_to 'Match with participant', {:controller => 'participants',:action => 'apply_match', :host_id => a.id, :participant_id => @participant.id} , {:method => :put, :confirm => "Do you want to match the current participant with this host?", :class => 'btn btn-success'} %></td>
