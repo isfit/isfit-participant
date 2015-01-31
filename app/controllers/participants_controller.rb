@@ -11,8 +11,13 @@ class ParticipantsController < ApplicationController
       @participants = @participants
         .where("users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?", k, k, k)
     end
-    if params[:only_checked_in].present? && params[:only_checked_in] == "1"
-      @participants = @participants.where("checked_in = 1")
+    if params[:only_checked_in].present?
+      if params[:only_checked_in] == "1"
+        @participants = @participants.where("checked_in = 1")
+      elsif params[:only_checked_in] == "0"
+        @participants = @participants.where("checked_in = 0 OR checked_in IS NULL")
+      end
+
     end
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
