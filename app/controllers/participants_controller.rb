@@ -79,7 +79,6 @@ class ParticipantsController < ApplicationController
   end
   def match
     @participant = Participant.find(params[:id])
-    #Fix this later
     temphosts = Host.get_all_non_deleted
     if params[:search].present?
       k = "%#{params[:search]}%"
@@ -104,13 +103,18 @@ class ParticipantsController < ApplicationController
     if !params[:hosted_before].blank?
       temphosts = temphosts.where("beenhost = ?",params[:hosted_before])
     end
-    @hosts = Array.new
-    #temphosts.each do |h|
-      #if h.has_free_beds?
-        #@hosts.push h
-      #end
-    #end
-    @hosts = temphosts #Remove if uncommenting above
+    if !params[:free_spaces].blank? && params[:free_spaces] == '1'
+        #Fix this later
+        @hosts = Array.new
+        temphosts.each do |h|
+        if h.has_free_beds?
+          @hosts.push h
+        end
+      end
+    else
+      @hosts = temphosts
+    end
+
     @hosts = @hosts.paginate(page: params[:page])
     render 'hosts/match/host/index'
   end
