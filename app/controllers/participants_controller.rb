@@ -103,6 +103,9 @@ class ParticipantsController < ApplicationController
     if !params[:hosted_before].blank?
       temphosts = temphosts.where("beenhost = ?",params[:hosted_before])
     end
+    if !params[:sleeping].blank?
+      temphosts = temphosts.where("sleeping = ?",params[:sleeping])
+    end
     if !params[:free_spaces].blank? && params[:free_spaces] == '1'
         #Fix this later
         @hosts = Array.new
