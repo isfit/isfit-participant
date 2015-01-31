@@ -22,6 +22,9 @@ class ParticipantsController < ApplicationController
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
     end
+    if !params[:workshop].nil? && params[:workshop][:workshop_id].present?
+      @participants = @participants.where('participants.workshop_id = ?',params[:workshop][:workshop_id])
+    end
   end
 
   def update #Only used for updating internal comments
