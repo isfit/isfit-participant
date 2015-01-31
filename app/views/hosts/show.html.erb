@@ -6,63 +6,71 @@
 
 
   <h1><%= @host.firstname + ' ' + @host.lastname %></h1>
+<div class="row">
+  <div class="col-md-6">
+    <p><b>Name: </b><%= @host.firstname %> <%= @host.lastname %> </p>
+    <p><b>E-mail: </b><%= @host.email %> </p>
+    <p><b>Phone: </b><%= @host.phone %> </p>
+    <p><b>Address: </b><%= @host.address %>, <%= @host.zipcode %>, <%= @host.city %></p>
+    <p><b>Has been host previously: </b>
+      <% if @host.beenhost %>
+          Yes
+      <% else %>
+          No
+      <% end %></p>
 
-<p><b>Name: </b><%= @host.firstname %> <%= @host.lastname %> </p>
-<p><b>E-mail: </b><%= @host.email %> </p>
-<p><b>Phone: </b><%= @host.phone %> </p>
-<p><b>Address: </b><%= @host.address %>, <%= @host.zipcode %>, <%= @host.city %></p>
-<p><b>Has been host previously: </b>
-  <% if @host.beenhost %>
-      Yes
-  <% else %>
-      No
-  <% end %></p>
+    <p><b>Is student: </b>
+      <% if @host.isstudent %>
+          Yes
+      <% else %>
+          No
+      <% end %></p>
 
-<p><b>Is student: </b>
-  <% if @host.isstudent %>
-      Yes
-  <% else %>
-      No
-  <% end %></p>
+    <p><b>Can host an extra day: </b>
+      <% if @host.extraday %>
+          Yes
+      <% else %>
+          No
+      <% end %></p>
 
-<p><b>Can host an extra day: </b>
-  <% if @host.extraday %>
-      Yes
-  <% else %>
-      No
-  <% end %></p>
+    <p><b>Has animals: </b>
+      <% if @host.animales %>
+          Yes
+      <% else %>
+          No
+      <% end %></p>
+    <p><b>Sleeping arrangements:</b>
+      <% if @host.sleeping.eql? 0 %>
+          Couch
+      <% elsif @host.sleeping.eql? 1 %>
+          Bed
+      <% else %>
+          Needs to borrow mattress
+      <% end %></p>
 
-<p><b>Has animals: </b>
-  <% if @host.animales %>
-      Yes
-  <% else %>
-      No
-  <% end %></p>
-<p><b>Sleeping arrangements:</b>
-  <% if @host.sleeping.eql? 0 %>
-      Couch
-  <% elsif @host.sleeping.eql? 1 %>
-      Bed
-  <% else %>
-      Needs to borrow mattress
-  <% end %></p>
-
-<p><b>Capacity: </b><%= @host.capacity %> </p>
-<p><b>Gender preference:</b>
-  <% if @host.sex.eql? 0 %>
-        No preference
-  <% elsif @host.sex.eql? 1 %>
-      Female
-  <% else %>
-      Male
-  <% end %></p>
-<p><b>Comment: </b><%= @host.comments %> </p>
-<%= link_to 'Match with participant',host_matching_single_path(@host, :match_now => true), class:"btn btn-success" %>
-<h2>Participant(s)</h2>
-<% @host.participants.each do |p| %>
-    <h3><%= link_to "#{p.user.first_name} #{p.user.last_name}",p %> <%=p.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></h3>
-    <% if !p.host_locked %>
-        <%= link_to 'Lock match', participant_lock_host_path(:participant_id => p.id) , {:method => :put, :confirm => "Do you want to lock this pairing?", :class => "btn btn-success"}%> <%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => p.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?", :class => "btn btn-danger"} %>
+    <p><b>Capacity: </b><%= @host.capacity %> </p>
+    <p><b>Gender preference:</b>
+      <% if @host.sex.eql? 0 %>
+          No preference
+      <% elsif @host.sex.eql? 1 %>
+          Female
+      <% else %>
+          Male
+      <% end %></p>
+    <p><b>Comment: </b><%= @host.comments %> </p>
+    <br />&nbsp;<br />
+  </div>
+  <div class="col-md-6">
+    <div class="col-md-6 col-md-offset-3 well">
+    <%= link_to 'Match with participant',host_matching_single_path(@host, :match_now => true), class:"btn btn-success" %>
+    <h3>Participant(s)</h3>
+    <% @host.participants.each do |p| %>
+        <h4><%= link_to "#{p.user.first_name} #{p.user.last_name}",p %> <%=p.host_locked ?  '<small><span class="glyphicon glyphicon-lock" aria-hidden="true">Locked</span></small>'.html_safe : '' %></h4>
+        <% if !p.host_locked %>
+            <%= link_to 'Lock match', participant_lock_host_path(:participant_id => p.id) , {:method => :put, :confirm => "Do you want to lock this pairing?", :class => "btn btn-success"}%> <%= link_to 'Unmatch', {:controller => 'participants',:action => 'unmatch', :participant_id => p.id} , {:method => :put, :confirm => "Do you want to unmatch this participant from the host?", :class => "btn btn-danger"} %>
+        <% end %>
     <% end %>
-<% end %>
-<br />&nbsp;<br />
+      </div>
+  </div>
+</div>
+
