@@ -59,6 +59,15 @@ class ParticipantsController < ApplicationController
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
     end
+    if !params[:gender].blank?
+      @participants = @participants.joins(:profile).where('gender = ?',params[:gender])
+    end
+    if !params[:pref_gender].blank?
+      @participants = @participants.joins(:profile).where('host_gender_preference = ?',params[:pref_gender])
+    end
+    if !params[:allergy_animals].blank?
+      @participants = @participants.joins(:profile).where('allergy_animals = ?', params[:allergy_animals])
+    end
     #@participants = @participants.paginate(page: params[:page])
     if params[:match_now].blank?
       @match_now = false
