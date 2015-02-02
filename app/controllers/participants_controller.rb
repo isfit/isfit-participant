@@ -17,7 +17,13 @@ class ParticipantsController < ApplicationController
       elsif params[:only_checked_in] == "0"
         @participants = @participants.where("checked_in = 0 OR checked_in IS NULL")
       end
-
+    end
+    if params[:host_status].present?
+      if params[:host_status] == "1"
+        @participants = @participants.where("host_id IS NOT NULL")
+      elsif params[:host_status] == "0"
+        @participants = @participants.where("host_id IS NULL")
+      end
     end
     if params[:country].nil? == false && params[:country][:country_id].present? == true
       @participants = @participants.joins(:profile).where('country_id = ? OR citizenship_id = ?',params[:country][:country_id], params[:country][:country_id])
