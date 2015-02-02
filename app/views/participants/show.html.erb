@@ -79,11 +79,11 @@
           <dt>Oslo arrival</dt>
           <dd><%= @participant.osl_arrival_date %></dd>
           <dt>Oslo flight#</dt>
-          <dd><%= @participant.osl_arrival_flight_number %></dd>
+          <dd><%= @participant.osl_arrival_flight_number %> <%= @participant.osl_arrival_flight_number.blank? ? '' : (link_to 'Track flight', "https://flightaware.com/live/flight/#{@participant.osl_arrival_flight_number}", :target => '_blank') %></dd>
           <dt>Trondheim arrival</dt>
           <dd><%= @participant.trd_arrival_date %></dd>
           <dt>Trondheim flight#</dt>
-          <dd><%= @participant.trd_arrival_flight_number %></dd>
+          <dd><%= @participant.trd_arrival_flight_number %> <%= @participant.trd_arrival_flight_number.blank? ? '' : (link_to 'Track flight', "https://flightaware.com/live/flight/#{@participant.trd_arrival_flight_number}", :target => '_blank') %></dd>
           <dt>Train arrival</dt>
           <dd><%= @participant.train_arrival_datetime %></dd>
           <dt>Other arrival info</dt>
@@ -95,11 +95,11 @@
           <dt>Oslo departure</dt>
           <dd><%= @participant.osl_departure_date %></dd>
           <dt>Oslo flight#</dt>
-          <dd><%= @participant.osl_departure_flight_number %></dd>
+          <dd><%= @participant.osl_departure_flight_number %> <%= @participant.osl_departure_flight_number.blank? ? '' : (link_to 'Track flight', "https://flightaware.com/live/flight/#{@participant.osl_departure_flight_number}", :target => '_blank') %></dd>
           <dt>Trondheim departure</dt>
           <dd><%= @participant.trd_departure_date %></dd>
           <dt>Trondheim flight#</dt>
-          <dd><%= @participant.trd_departure_flight_number %></dd>
+          <dd><%= @participant.trd_departure_flight_number %> <%= @participant.trd_departure_flight_number.blank? ? '' : (link_to 'Track flight', "https://flightaware.com/live/flight/#{@participant.trd_departure_flight_number}", :target => '_blank') %></dd>
           <dt>Other departure info</dt>
           <dd><%= @participant.other_trondheim_departure_information %></dd>
           <dd><%= @participant.other_norway_departure_information %></dd>
