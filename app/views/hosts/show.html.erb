@@ -26,7 +26,14 @@
           No
       <% end %></p>
 
-    <p><b>Can host an extra day: </b>
+    <p><b>Can host an extra day (Early): </b>
+      <% if @host.Onedayearly %>
+          Yes
+      <% else %>
+          No
+      <% end %></p>
+
+    <p><b>Can host an extra day (Late): </b>
       <% if @host.extraday %>
           Yes
       <% else %>
