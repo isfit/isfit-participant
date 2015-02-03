@@ -22,6 +22,7 @@ class Participant < ActiveRecord::Base
   # Validations
   validates :user_id, presence: true, uniqueness: true
   validates :workshop_id, presence: true
+=begin
   validates :visa_number, presence: true, if: :applied_for_visa
 
   validates :arrival_in_norway, numericality: {greater_than: 0, message: 'must be selected'}, if: :approved_second_deadline?
@@ -61,7 +62,7 @@ class Participant < ActiveRecord::Base
   end
 
   validates :other_norway_departure_information, presence: true, if: :departs_norway_by_other?
-
+=end
   # Methods
   def not_completed_prepare_visa?
     need_visa == -1 ? true : false
