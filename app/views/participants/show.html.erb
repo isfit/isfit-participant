@@ -60,7 +60,7 @@
       </dl>
       <dl class="dl-horizontal">
         <dt>Workshop</dt>
-        <dd><%= @participant.workshop_id.to_s + '. ' + @participant.workshop.title %></dd>
+        <dd><%= @participant.workshop.number.to_s + '. ' + @participant.workshop.title %></dd>
         <dt>Accepted invitation</dt>
         <dd>
           <%= intToYesNo(@participant.accepted_invitation) %>
