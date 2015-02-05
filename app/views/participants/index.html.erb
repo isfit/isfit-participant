@@ -17,7 +17,7 @@
     </div>
     <div class="form-group col-md-3">
       Workshop
-      <%= collection_select(:workshop, :workshop_id, Workshop.all, :id, :title, {:prompt => '(Optional)', :selected => selected_workshop},{  :class => 'form-control'}) %>
+      <%= collection_select(:workshop, :workshop_id, Workshop.order('number'), :id, :title, {:prompt => '(Optional)', :selected => selected_workshop},{  :class => 'form-control'}) %>
     </div>
     <div class="form-group col-md-3">
       Has host
@@ -44,7 +44,7 @@
       <tr>
         <td><%= link_to a.user.full_name, a %></td>
         <td><%= a.user.profile ? a.user.profile.country.name : 'N/A' %></td>
-        <td><%= a.workshop.title %></td>
+        <td><%= "#{a.workshop.number}. #{a.workshop.title}" %></td>
         <td>
           <% if a.need_visa == -1 %>
             <span class="text-danger">N/A</span>
