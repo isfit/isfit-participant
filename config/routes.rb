@@ -16,21 +16,13 @@ IsfitParticipant::Application.routes.draw do
 
   get 'dashboard', to: 'dashboard#index'
 
-  put 'deadlines/update_profile', to: 'deadlines#update_profile'
-  put 'deadlines/confirm_visa', to: 'deadlines#confirm_visa'
-  put 'deadlines/update_travel_information', to: 'deadlines#update_travel_information'
-  put 'deadlines/confirm_participation', to: 'deadlines#confirm_participation'
-
   resources :workshop_applications, only: [:index, :show]
   resources :participants, only: [:index, :show, :update]
   put 'participants/checkin/:id' => 'participants#check_in', :as => 'participant_check_in'
 
   namespace :admin do
     resources :workshops  
-    resources :users do
-      get 'dequeue', to: 'users#dequeue', on: :collection
-      put 'dequeue', to: 'users#dequeue_update', on: :collection
-    end
+    resources :users
     resources :countries, only: [:index, :edit, :update]
   end
 
@@ -38,17 +30,9 @@ IsfitParticipant::Application.routes.draw do
   put 'waiting_list', to: 'waiting_list#update'
 
   namespace :deadlines do
-    get 'prepare_visa', to: 'prepare_visa#show'
-    put 'prepare_visa', to: 'prepare_visa#update'
-
-    get 'invitation', to: 'invitation#show'
-    put 'invitation', to: 'invitation#update'
     get 'invitation/download', to: 'invitation#download'
     get 'invitation/download_financial', to: 'invitation#download_financial'
     get 'invitation/download_lor_travel_support', to: 'invitation#download_lor_travel_support'
-
-    get 'applied_visa', to: 'applied_visa#show'
-    put 'applied_visa', to: 'applied_visa#update'
   end
 
   namespace :review do
@@ -84,9 +68,6 @@ IsfitParticipant::Application.routes.draw do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
-
-    get 'apply' => 'apply#new', :as => :new_user_registration
-    post 'apply' => 'apply#create', :as => :user_registration
   end
 
   resources :answers
