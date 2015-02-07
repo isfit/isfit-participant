@@ -49,51 +49,6 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_url
   end
 
-  def dequeue
-    @workshops = Workshop.all
-    render layout: 'application_dashboard'
-  end
-
-  def dequeue_update 
-    @workshops = Workshop.all
-
-    begin
-      @user = User.find(params[:dequeue_user_id])
-      @workshop = Workshop.find(params[:dequeue_workshop_id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = 'Selected user or workshop is not valid'
-      render :dequeue, layout: 'application_dashboard' and return
-    end
-
-    unless @user.workshop_application.status == 4
-      flash[:alert] = 'Selected user is not on waiting list'
-      render :dequeue, layout: 'application_dashboard' and return
-    end
-
-    # Update user attributes
-    @user.role = 'participant'
-    @user.active = 1
-    @user.save
-
-    # Make a participant
-    participant = Participant.create(
-      workshop_id: params[:dequeue_workshop_id], 
-      accepted_invitation: 1,
-      user_id: @user.id,
-      need_visa: 0,
-      approved_first_deadline: 1,
-      approved_second_deadline: 2,
-      approved_third_deadline: 2)
-
-    # Workshop application update
-    @user.workshop_application.status = 1
-    @user.workshop_application.save
-
-    # Redirect
-    flash[:notice] = "#{@user.full_name} is now a participant"
-    redirect_to dequeue_admin_users_url
-  end
-
   private
     def set_user
       @user = User.find(params[:id])
