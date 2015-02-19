@@ -5,6 +5,7 @@ class AddressLabelPdf < Prawn::Document
     #@placements = [[20,800],[320,800],[20,700],[20,600],[20,500]]
     generate_placements
     generate_labels
+    #print_envelope
   end
   def generate_placements
     @placements = []
@@ -32,5 +33,16 @@ class AddressLabelPdf < Prawn::Document
              :height => 200,
              :width => 200,
              :style => :italic
+  end
+  def print_envelope
+    @participants.each do |p|
+      text_box "#{p.user.first_name} #{p.user.last_name}\n#{p.user.profile.address}\n#{p.user.profile.postal_code} #{p.user.profile.city}\n#{p.user.profile.country.name}",
+      :at => [520,780],
+               :height => 200,
+               :width => 200,
+               :style => :italic,
+               :rotate => 270
+      start_new_page
+    end
   end
 end
