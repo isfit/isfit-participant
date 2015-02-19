@@ -33,3 +33,5 @@ gem 'therubyracer'
 
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-sass', '~> 3.1.1'
+
+gem 'prawn'
