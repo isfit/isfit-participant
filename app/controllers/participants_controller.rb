@@ -180,4 +180,10 @@ class ParticipantsController < ApplicationController
     end
     redirect_to session.delete(:return_to)
   end
+  def print_labels
+    @participants = Participant.where('checked_in = 1')
+    pdf = AddressLabelPdf.new(@participants,params[:type] || '0')
+    send_data pdf.render, filename:"labels.pdf",type: "application/pdf",
+              disposition: "inline"
+  end
 end
