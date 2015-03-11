@@ -1,10 +1,4 @@
-== ISFiT's Participant-web
+== ISFiT Participant
 
 An application for communicating with participants wanting to partake in the
 ISFiT festival
-
-== Build status
-
-{<img src="https://travis-ci.org/isfit/isfit-participant.png?branch=master"
-alt="Build Status" />}[https://travis-ci.org/isfit/isfit-participant]
-
