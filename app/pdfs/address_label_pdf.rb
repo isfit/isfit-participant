@@ -56,7 +56,7 @@ class AddressLabelPdf < Prawn::Document
     end
   end
   def print_return_labels
-    for i in 0..13
+    for i in 1..(@cols*@rows)
       insert_label("Avs.: ISFiT 2015\nPostterminalen NTNU\n7491 Trondheim\nNorway",i)
     end
   end
