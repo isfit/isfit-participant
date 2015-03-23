@@ -1,7 +1,9 @@
 class AddressLabelPdf < Prawn::Document
-  def initialize(participants,type)
+  def initialize(participants,type,cols,rows)
     super(left_margin: 0, right_margin: 0, top_margin:0, bottom_margin:0, page_size: "A4")
     @participants = participants
+    @cols = cols.to_i
+    @rows = rows.to_i
     generate_placements
     if type == '1'
       print_envelope
@@ -14,10 +16,13 @@ class AddressLabelPdf < Prawn::Document
   def generate_placements
     @placements = []
     y = 820
-    for i in 0..6
-      @placements.push([20,y])
-      @placements.push([320,y])
-      y -=120
+    for i in 1..@rows
+      x = 20
+      for j in 1..@cols
+        @placements.push([x,y])
+        x += (600/@cols)
+      end
+      y -= (840/@rows)
     end
   end
   def print_labels
@@ -25,7 +30,7 @@ class AddressLabelPdf < Prawn::Document
     @participants.each do |p|
       insert_label("#{p.user.first_name} #{p.user.last_name}\n#{p.user.profile.address}\n#{p.user.profile.postal_code} #{p.user.profile.city}\n#{p.user.profile.country.name}",i)
       i += 1
-      if i >= 14 # labels per page
+      if i >= (@cols*@rows) # labels per page
         start_new_page
         i = 0
       end
@@ -34,12 +39,12 @@ class AddressLabelPdf < Prawn::Document
   def insert_label(text,placement)
     text_box text,
              :at => @placements[placement],
-             :height => 100,
-             :width => 250,
+             :height => 800/(@rows+1),
+             :width => (600/@cols)-50,
              :style => :italic,
              :overflow => :shrink_to_fit
   end
-  def print_envelope
+  def print_envelope #Do not attempt adding duplex printing to this. Horrible things will happen
     @participants.each do |p|
       text_box "#{p.user.first_name} #{p.user.last_name}\n#{p.user.profile.address}\n#{p.user.profile.postal_code} #{p.user.profile.city}\n#{p.user.profile.country.name}",
       :at => [520,780],

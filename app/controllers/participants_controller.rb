@@ -182,7 +182,7 @@ class ParticipantsController < ApplicationController
   end
   def print_labels
     @participants = Participant.where('checked_in = 1')
-    pdf = AddressLabelPdf.new(@participants,params[:type] || '0')
+    pdf = AddressLabelPdf.new(@participants,params[:type] || '0',params[:cols] || 2,params[:rows] || 7)
     send_data pdf.render, filename:"labels.pdf",type: "application/pdf",
               disposition: "inline"
   end
